@@ -6,6 +6,10 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
+    client: {
+      clearContext: false // leave Jasmine spec runner output visible in the browser
+    },
+
     files: [
       {
         pattern: './test-config/karma-test-shim.js',
