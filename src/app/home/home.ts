@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the HomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import * as PAGES from '../pages.constants';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+  /**
+   * Open the login modal page
+   */
+  openLoginModal() {
+    this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
 
 }

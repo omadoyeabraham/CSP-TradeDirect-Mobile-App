@@ -1,0 +1,132 @@
+/**
+* This stylesheet defines custom styles required for the app.
+*
+* @author Omadoye Abraham <omadoyeabraham@gmail.com>
+*/
+
+
+/**
+* Backgrounds
+**/
+.bg-black {
+  background: #333333;
+  color: #FFFFFF;
+}
+
+.bg-red {
+  background: red;
+}
+
+.bg-blue {
+  background: #1A2155;
+}
+
+.bg-light-blue {
+  background: #7e9bb0;
+  color: #FFF;
+}
+.bg-light-blue-2{
+  background: #d9edf7;
+  border-color: #bce8f1
+}
+
+/**
+* CSS Utilities
+**/
+.no-border {
+  border: none !important;
+}
+
+
+/**
+** Font sizes
+**/
+@for $i from 1 through 50 {
+  .font-size-#{$i} {
+    font-size: 0px + $i !important
+  }
+}
+
+@for $i from 0 through 100 {
+  .w#{$i}p {
+    width: #{$i}% !important
+  }
+  .m#{$i} {
+    margin: 0px + $i !important
+  }
+  .mt#{$i} {
+    margin-top: 0px + $i !important
+  }
+  .mb#{$i} {
+    margin-bottom: 0px + $i !important
+  }
+  .ml#{$i} {
+    margin-left: 0px + $i !important
+  }
+  .mr#{$i} {
+    margin-right: 0px + $i !important
+  }
+}
+
+@for $i from 0 through 50{
+  .p#{$i}{
+    padding: 0px + $i !important
+  }
+  .pt#{$i}{
+    padding-top: 0px + $i !important
+  }
+  .pb#{$i}{
+    padding-bottom: 0px + $i !important
+  }
+  .pl#{$i}{
+    padding-left: 0px + $i !important
+  }
+  .pr#{$i}{
+    padding-right: 0px + $i !important
+  }
+}
+
+/**
+** Font Color
+**/
+.text-red {
+  color: red !important;
+}
+.text-green {
+  color: green !important;
+}
+.text-blue {
+  color: #1A2155 !important;
+}
+.text-light-blue {
+  color: #31708f !important;
+}
+.text-bold{
+  font-weight: bold
+}
+
+/**
+* Alignment
+**/
+.align-left {
+  text-align: left !important;
+}
+.align-right {
+  text-align: right !important;
+}
+
+/**
+* styles used to style toasts
+*/
+.toastError {
+  > div {
+     background:  #cc0033 !important;
+     color: #FFFFFF !important
+  }
+}
+.toastSuccess {
+  > div {
+     background:   #006600 !important;
+     color: #FFFFFF !important
+  }
+}

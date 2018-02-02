@@ -1,0 +1,25 @@
+import { Action } from "@ngrx/store";
+
+/**
+ * Action type constants for all user specific actions
+ */
+export const LOGIN_USER = "[User] Log the user into the application";
+export const LOGIN_USER_FAILED = "[User] Login attempt failed";
+export const LOGIN_USER_SUCCESS = "[User] Login successful";
+
+// Action Creator for the LOGIN_USER action
+export class LoginUser implements Action {
+  readonly type = LOGIN_USER;
+  constructor(public payload: any) {}
+}
+
+// Action Creator for the LOGIN_USER_FAILED action
+export class LoginUserFailed implements Action {
+  readonly type = LOGIN_USER_FAILED;
+}
+
+// Action Creator for the LOGIN_USER_SUCCESS action
+export class LoginUserSuccess implements Action {
+  readonly type = LOGIN_USER_SUCCESS;
+  constructor(public payload: any) {}
+}
