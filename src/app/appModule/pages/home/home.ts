@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
-import * as PAGES from '../pages.constants';
+import * as PAGES from "../../../sharedModule/pages.constants";
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
-
-  constructor(public navCtrl: NavController) {
-  }
+  constructor(public navCtrl: NavController) {}
 
   /**
    * Open the login modal page
@@ -19,5 +17,4 @@ export class HomePage {
   openLoginModal() {
     this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
-
 }

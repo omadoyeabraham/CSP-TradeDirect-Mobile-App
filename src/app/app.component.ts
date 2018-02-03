@@ -3,7 +3,7 @@ import { Nav, Platform } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
-import * as PAGES from "./pages.constants";
+import * as PAGES from "./sharedModule/pages.constants";
 
 @Component({
   templateUrl: "app.html"
