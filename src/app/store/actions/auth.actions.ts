@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { IAppState } from "../models/index";
 
 /**
- * Action type constants for all user specific actions
+ * Action type constants for all auth specific actions
  */
 export const LOGIN_USER = "[User] Log the user into the application";
 export const LOGIN_USER_FAILED = "[User] Login attempt failed";
@@ -28,14 +28,14 @@ export class LoginUserSuccess implements Action {
 }
 
 /**
- * Action Dispatchers for user related actions.
+ * Action Dispatchers for auth related actions.
  * The actions dispatched are constructed from the action creators defined above
  *
  * @export
  * @class UserAction
  */
 @Injectable()
-export class UserActionDispatcher {
+export class AuthActionDispatcher {
   constructor(private store: Store<IAppState>) {}
 
   /**

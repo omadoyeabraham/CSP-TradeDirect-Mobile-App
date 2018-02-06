@@ -4,7 +4,7 @@ import {} from "@angular/forms";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import * as fromStore from "../../../store";
-import { UserActionDispatcher } from "../../../store";
+import { AuthActionDispatcher } from "../../../store";
 
 /**
  * Login page for the mobile application
@@ -27,7 +27,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public userActionDispatcher: UserActionDispatcher
+    public authActionDispatcher: AuthActionDispatcher
   ) {
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     this.username = new FormControl("", Validators.required);
@@ -58,7 +58,7 @@ export class LoginPage {
         password: this.password.value
       };
 
-      this.userActionDispatcher.loginUser(credentials);
+      this.authActionDispatcher.loginUser(credentials);
     }
   }
 

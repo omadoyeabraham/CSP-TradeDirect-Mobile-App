@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
 
-import * as userActions from "../actions/user.actions";
+import * as userActions from "../actions/auth.actions";
 import * as fromStoreModels from "../models/index";
 import initialState from "../models/initialState";
 

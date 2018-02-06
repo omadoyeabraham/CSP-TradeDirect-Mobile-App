@@ -9,7 +9,7 @@ import { Observable } from "rxjs/Observable";
 import { Action } from "@ngrx/store";
 
 /**
- * Side effects for user related actions. The side effects listen for @ngrx/store options and then carry-out various external (outside angular) actions
+ * Side effects for auth related actions. The side effects listen for @ngrx/store options and then carry-out various external (outside angular) actions
  */
 
 @Injectable()
