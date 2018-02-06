@@ -10,6 +10,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { MyApp } from "./app.component";
 
 import { UserProvider } from "./sharedModule/services/user/user";
+import { DashboardProvider } from '../providers/dashboard/dashboard';
 
 @NgModule({
   declarations: [MyApp],
@@ -21,7 +22,8 @@ import { UserProvider } from "./sharedModule/services/user/user";
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpClientModule,
-    UserProvider
+    UserProvider,
+    DashboardProvider
   ]
 })
 export class AppModule {}
