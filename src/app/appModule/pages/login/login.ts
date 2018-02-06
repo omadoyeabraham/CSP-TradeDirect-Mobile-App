@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import {} from "@angular/forms";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
+import * as fromStore from "../../../store";
+import { UserActionDispatcher } from "../../../store";
+
 /**
  * Login page for the mobile application
  *
@@ -21,7 +24,11 @@ export class LoginPage {
   private password: FormControl;
   private loginInvalidated: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public userActionDispatcher: UserActionDispatcher
+  ) {
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     this.username = new FormControl("", Validators.required);
     this.password = new FormControl("", Validators.required);
@@ -44,9 +51,15 @@ export class LoginPage {
     // Ensure that the username and password are provided before attempting to login
     if (!this.loginForm.valid) {
       return;
-    }
+    } else {
+      // The form is valid, so dispatch the login action
+      const credentials = {
+        username: this.username.value,
+        password: this.password.value
+      };
 
-    alert("attempting login");
+      this.userActionDispatcher.loginUser(credentials);
+    }
   }
 
   /**

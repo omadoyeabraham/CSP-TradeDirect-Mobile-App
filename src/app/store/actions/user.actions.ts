@@ -1,4 +1,7 @@
-import { Action } from "@ngrx/store";
+import { Action, Store } from "@ngrx/store";
+import { Injectable } from "@angular/core";
+
+import { IAppState } from "../models/index";
 
 /**
  * Action type constants for all user specific actions
@@ -22,4 +25,34 @@ export class LoginUserFailed implements Action {
 export class LoginUserSuccess implements Action {
   readonly type = LOGIN_USER_SUCCESS;
   constructor(public payload: any) {}
+}
+
+/**
+ * Action Dispatchers for user related actions.
+ * The actions dispatched are constructed from the action creators defined above
+ *
+ * @export
+ * @class UserAction
+ */
+@Injectable()
+export class UserActionDispatcher {
+  constructor(private store: Store<IAppState>) {}
+
+  /**
+   * Dispatch the actions for login
+   *
+   * @param {*} credentials
+   * @memberof UserAction
+   */
+  loginUser(credentials: any) {
+    this.store.dispatch(new LoginUser(credentials));
+  }
+
+  loginUserFailed() {
+    this.store.dispatch(new LoginUserFailed());
+  }
+
+  loginUserSuccess(payload: any) {
+    this.store.dispatch(new LoginUserSuccess(payload));
+  }
 }

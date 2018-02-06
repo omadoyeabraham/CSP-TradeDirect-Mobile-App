@@ -17,9 +17,9 @@ import "rxjs/add/operator/catch";
   and Angular DI.
 */
 @Injectable()
-export class UserProvider {
+export class AuthProvider {
   constructor(private http: HttpClient) {
-    console.log("Hello UserProvider Provider");
+    console.log("Hello AuthProvider Provider");
   }
 
   public login(username: string, password: string) {

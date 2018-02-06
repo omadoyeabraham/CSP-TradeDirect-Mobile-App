@@ -9,13 +9,13 @@ import {
   HttpRequest,
   HttpParams
 } from "@angular/common/http";
-import { UserProvider } from "./user";
+import { AuthProvider } from "./auth";
 
-describe("UserProvider", () => {
+describe("AuthProvider", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
-      providers: [UserProvider]
+      providers: [AuthProvider]
     });
   });
 
@@ -29,8 +29,8 @@ describe("UserProvider", () => {
     "should send an expected login request",
     async(
       inject(
-        [UserProvider, HttpTestingController],
-        (userProvider: UserProvider, backend: HttpTestingController) => {
+        [AuthProvider, HttpTestingController],
+        (userProvider: AuthProvider, backend: HttpTestingController) => {
           userProvider.login("demo", "csp_1234").subscribe();
 
           backend.expectOne((req: HttpRequest<any>) => {
@@ -52,8 +52,8 @@ describe("UserProvider", () => {
     'should emit "false" for 401 unauthorized',
     async(
       inject(
-        [UserProvider, HttpTestingController],
-        (userProvider: UserProvider, backend: HttpTestingController) => {
+        [AuthProvider, HttpTestingController],
+        (userProvider: AuthProvider, backend: HttpTestingController) => {
           userProvider.login("foo", "bar").subscribe(response => {
             expect(response).toBeFalsy();
           });
@@ -70,8 +70,8 @@ describe("UserProvider", () => {
     'should emit "true" for 200 Ok ',
     async(
       inject(
-        [UserProvider, HttpTestingController],
-        (userProvider: UserProvider, backend: HttpTestingController) => {
+        [AuthProvider, HttpTestingController],
+        (userProvider: AuthProvider, backend: HttpTestingController) => {
           userProvider.login("foo", "bar").subscribe(response => {
             expect(response).toBeTruthy();
           });

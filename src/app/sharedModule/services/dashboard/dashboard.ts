@@ -1,17 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
 
-/*
-  Generated class for the DashboardProvider provider.
+import { IAppState } from "../../../store/models/index";
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+/**
+ * Service encompassing all dashboard related activities
+ *
+ * @export
+ * @class DashboardProvider
+ */
 @Injectable()
 export class DashboardProvider {
-
-  constructor(public http: HttpClient) {
-    console.log('Hello DashboardProvider Provider');
+  constructor(public http: HttpClient, private store: Store<IAppState>) {
+    console.log("Hello DashboardProvider Provider");
   }
 
+  getData(): Observable<IAppState> {
+    return this.store.select(appState => appState);
+  }
 }
