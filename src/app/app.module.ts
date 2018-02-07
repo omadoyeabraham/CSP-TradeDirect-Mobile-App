@@ -10,22 +10,23 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { MyApp } from "./app.component";
-import { DashboardProvider } from "./sharedModule/services/dashboard/dashboard";
 import { SharedModule } from "./sharedModule/shared.module";
+import { CspStoreModule } from "./store/store.module";
 
 import { rootReducer } from "./store/reducers";
-import { effects } from "./store/effects";
+import { allEffects } from "./store/effects";
 
 @NgModule({
   declarations: [MyApp],
   imports: [
     SharedModule.forRoot(),
+    CspStoreModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     StoreModule.forRoot(rootReducer),
-    EffectsModule.forRoot(effects)
+    EffectsModule.forRoot(allEffects)
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
@@ -33,8 +34,7 @@ import { effects } from "./store/effects";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HttpClientModule,
-    DashboardProvider
+    HttpClientModule
   ]
 })
 export class AppModule {}

@@ -1,6 +1,8 @@
 /**
- * Index file used to have a central location from which all store related modules, functions, variables e.t.c are exposed(exported) to be imported wherever they are needed
+ * Barrel file used to export functions and constants from the store folder.
+ * Barrel files are used to reduce "import noise" in other files
  */
+
 export * from "./actions";
-//export * from './reducers'
+export * from "./reducers";
 export * from "./effects";
