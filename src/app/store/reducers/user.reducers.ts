@@ -14,6 +14,10 @@ export default function userReducer(
         ...state,
         isAuthenticating: true
       };
+    case userActions.LOGIN_USER_SUCCESS:
+      console.log("from user reducer login success");
+      console.log(action);
+      return state;
     default:
       return state;
   }

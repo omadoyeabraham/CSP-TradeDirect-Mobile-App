@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -12,7 +13,8 @@ import { MyApp } from "./app.component";
 
 import { AuthProvider } from "./sharedModule/services/auth/auth";
 import { DashboardProvider } from "./sharedModule/services/dashboard/dashboard";
-import { rootReducer } from "./store/reducers/root.reducer";
+import { rootReducer } from "./store/reducers";
+import { effects } from "./store/effects";
 
 @NgModule({
   declarations: [MyApp],
@@ -20,7 +22,8 @@ import { rootReducer } from "./store/reducers/root.reducer";
     ReactiveFormsModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot(rootReducer)
+    StoreModule.forRoot(rootReducer),
+    EffectsModule.forRoot(effects)
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],

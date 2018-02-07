@@ -11,6 +11,8 @@ import {
 } from "@angular/common/http";
 import { AuthProvider } from "./auth";
 
+import { loginURL } from "../../apiUrls.constants";
+
 describe("AuthProvider", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,13 +33,15 @@ describe("AuthProvider", () => {
       inject(
         [AuthProvider, HttpTestingController],
         (userProvider: AuthProvider, backend: HttpTestingController) => {
-          userProvider.login("demo", "csp_1234").subscribe();
+          userProvider
+            .login({ username: "demo", password: "csp_1234" })
+            .subscribe();
 
           backend.expectOne((req: HttpRequest<any>) => {
             const body = new HttpParams({ fromString: req.body });
 
             return (
-              req.url === "auth/login" &&
+              req.url === loginURL &&
               req.method === "POST" &&
               body.get("username") === "demo" &&
               body.get("password") === "csp_1234"
@@ -54,12 +58,14 @@ describe("AuthProvider", () => {
       inject(
         [AuthProvider, HttpTestingController],
         (userProvider: AuthProvider, backend: HttpTestingController) => {
-          userProvider.login("foo", "bar").subscribe(response => {
-            expect(response).toBeFalsy();
-          });
+          userProvider
+            .login({ username: "demo", password: "csp_1234" })
+            .subscribe(response => {
+              expect(response).toBeFalsy();
+            });
 
           backend
-            .expectOne("auth/login")
+            .expectOne(loginURL)
             .flush(null, { status: 401, statusText: "Unauthorized" });
         }
       )
@@ -72,12 +78,14 @@ describe("AuthProvider", () => {
       inject(
         [AuthProvider, HttpTestingController],
         (userProvider: AuthProvider, backend: HttpTestingController) => {
-          userProvider.login("foo", "bar").subscribe(response => {
-            expect(response).toBeTruthy();
-          });
+          userProvider
+            .login({ username: "demo", password: "csp_1234" })
+            .subscribe(response => {
+              expect(response).toBeTruthy();
+            });
 
           backend
-            .expectOne("auth/login")
+            .expectOne(loginURL)
             .flush(null, { status: 200, statusText: "Ok" });
         }
       )

@@ -27,6 +27,9 @@ export class LoginUserSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+// Action types
+export type AuthAction = LoginUser | LoginUserFailed | LoginUserSuccess;
+
 /**
  * Action Dispatchers for auth related actions.
  * The actions dispatched are constructed from the action creators defined above

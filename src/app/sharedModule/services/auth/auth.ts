@@ -10,6 +10,8 @@ import "rxjs/add/operator/map";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/catch";
 
+import { loginURL } from "../../apiUrls.constants";
+
 /*
   Generated class for the UserProvider provider.
 
@@ -22,19 +24,20 @@ export class AuthProvider {
     console.log("Hello AuthProvider Provider");
   }
 
-  public login(username: string, password: string) {
+  public login(credentials: {
+    username: string;
+    password: string;
+  }): Observable<any> {
     const body = new HttpParams()
-      .set(`username`, username)
-      .set(`password`, password);
+      .set(`username`, credentials.username)
+      .set(`password`, credentials.password);
     const headers = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded"
     });
 
     return this.http
-      .post(`auth/login`, body.toString(), { headers, observe: "response" })
-      .map((res: HttpResponse<Object>) => {
-        return res.ok;
-      })
+      .post(loginURL, body.toString(), { headers, observe: "response" })
+      .map((res: HttpResponse<Object>) => res)
       .catch((err: any) => {
         return Observable.of(false);
       });
