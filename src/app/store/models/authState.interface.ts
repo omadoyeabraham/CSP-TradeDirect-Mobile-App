@@ -6,4 +6,5 @@
  */
 export interface IAuthState {
   isAuthenticating: boolean;
+  authenticated: boolean;
 }

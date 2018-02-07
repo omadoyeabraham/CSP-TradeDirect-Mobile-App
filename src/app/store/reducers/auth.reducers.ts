@@ -4,7 +4,7 @@ import * as authActions from "../actions/auth.actions";
 import * as fromStoreModels from "../models";
 import initialState from "../models/initialState";
 
-export default function userReducer(
+export default function authReducer(
   state: fromStoreModels.IAuthState = initialState.initialAuthState,
   action: Action
 ): fromStoreModels.IAuthState {
@@ -15,12 +15,26 @@ export default function userReducer(
         isAuthenticating: true
       };
     case authActions.LOGIN_USER_SUCCESS:
-      console.log(action);
-      return state;
+      return {
+        ...state,
+        isAuthenticating: false,
+        authenticated: true
+      };
     case authActions.LOGIN_USER_FAILED:
-      console.log(action);
-      return state;
+      return {
+        ...state,
+        isAuthenticating: false
+      };
     default:
       return state;
   }
 }
+
+/**
+ * Selectors for the auth slice of state
+ */
+
+export const getAuthenticatedStatus = (state: fromStoreModels.IAuthState) =>
+  state.authenticated;
+export const getAuthIsAuthenticating = (state: fromStoreModels.IAuthState) =>
+  state.isAuthenticating;
