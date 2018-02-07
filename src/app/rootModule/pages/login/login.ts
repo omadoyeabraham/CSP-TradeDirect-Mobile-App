@@ -1,9 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import {} from "@angular/forms";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
-import * as fromStore from "../../../store";
 import { AuthActionDispatcher } from "../../../store";
 
 /**
@@ -18,11 +16,9 @@ import { AuthActionDispatcher } from "../../../store";
   templateUrl: "login.html"
 })
 export class LoginPage {
-  // Class variables
   private loginForm: FormGroup;
   private username: FormControl;
   private password: FormControl;
-  private loginInvalidated: string;
 
   constructor(
     public navCtrl: NavController,

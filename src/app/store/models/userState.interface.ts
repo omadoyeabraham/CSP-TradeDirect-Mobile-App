@@ -4,6 +4,4 @@
  * @export
  * @interface IUserState
  */
-export interface IUserState {
-  isAuthenticating: boolean;
-}
+export interface IUserState {}

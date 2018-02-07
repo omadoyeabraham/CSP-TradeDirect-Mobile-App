@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -26,7 +27,8 @@ import { allEffects } from "./store/effects";
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     StoreModule.forRoot(rootReducer),
-    EffectsModule.forRoot(allEffects)
+    EffectsModule.forRoot(allEffects),
+    StoreDevtoolsModule.instrument({})
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],

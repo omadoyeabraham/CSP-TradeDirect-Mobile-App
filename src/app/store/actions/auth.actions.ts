@@ -1,7 +1,7 @@
 import { Action, Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
 
-import { IAppState } from "../models/index";
+import { IAppState } from "../models";
 
 /**
  * Action type constants for all auth specific actions
@@ -28,7 +28,7 @@ export class LoginUserSuccess implements Action {
 }
 
 // Action types
-export type AuthAction = LoginUser | LoginUserFailed | LoginUserSuccess;
+export type AuthActionType = LoginUser | LoginUserFailed | LoginUserSuccess;
 
 /**
  * Action Dispatchers for auth related actions.
@@ -42,7 +42,7 @@ export class AuthActionDispatcher {
   constructor(private store: Store<IAppState>) {}
 
   /**
-   * Dispatch the actions for login
+   * Dispatch the action for login
    *
    * @param {*} credentials
    * @memberof UserAction
@@ -51,10 +51,21 @@ export class AuthActionDispatcher {
     this.store.dispatch(new LoginUser(credentials));
   }
 
+  /**
+   * Dispatch the action for when a login fails
+   *
+   * @memberof AuthActionDispatcher
+   */
   loginUserFailed() {
     this.store.dispatch(new LoginUserFailed());
   }
 
+  /**
+   * Dispatch the action for when a login is successfull
+   *
+   * @param {*} payload
+   * @memberof AuthActionDispatcher
+   */
   loginUserSuccess(payload: any) {
     this.store.dispatch(new LoginUserSuccess(payload));
   }

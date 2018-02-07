@@ -16,22 +16,10 @@ export class AuthEffects {
   constructor(private actions$: Actions, private authService: AuthProvider) {}
 
   /**
-   *
+   * Side effect to occur when a user attempts to log in. This effect calls the authService and dispatches actions based on the response from the authService
    *
    * @memberof AuthEffects
    */
-  // @Effect()
-  // loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
-  //   switchMap(action => {
-  //     return this.authService
-  //       .login(action.payload.username, action.payload.password)
-  //       .pipe(
-  //         map(userData => new AuthActions.LoginUserSuccess(userData)),
-  //         catchError(error => of(new AuthActions.LoginUserFailed()))
-  //       );
-  //   })
-  // );
-
   @Effect()
   loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
     map((action: AuthActions.LoginUser) => action.payload),

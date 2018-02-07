@@ -6,24 +6,30 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/catch";
+import { catchError, map } from "rxjs/operators";
+import "rxjs/add/observable/throw";
+// import "rxjs/add/observable/of";
+// import "rxjs/add/operator/catch";
 
 import { loginURL } from "../../apiUrls.constants";
 
-/*
-  Generated class for the UserProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+/**
+ * Injectable angular service which handles authentication related functionality
+ *
+ * @export
+ * @class AuthProvider
+ */
 @Injectable()
 export class AuthProvider {
-  constructor(private http: HttpClient) {
-    console.log("Hello AuthProvider Provider");
-  }
+  constructor(private http: HttpClient) {}
 
+  /**
+   * Make an api call to log the user into the application
+   *
+   * @param credentials: {username: string, password: string}
+   * @returns {Observable<any>}
+   * @memberof AuthProvider
+   */
   public login(credentials: {
     username: string;
     password: string;
@@ -37,9 +43,17 @@ export class AuthProvider {
 
     return this.http
       .post(loginURL, body.toString(), { headers, observe: "response" })
-      .map((res: HttpResponse<Object>) => res)
-      .catch((err: any) => {
-        return Observable.of(false);
-      });
+      .pipe(
+        map((response: HttpResponse<Object>) => {
+          return response.body;
+        }),
+        catchError((error: any) => Observable.throw(error))
+      );
+    // .map((response: HttpResponse<Object>) => {
+    //   return response.body;
+    // })
+    // .catch((err: any) => {
+    //   return Observable.of(false);
+    // });
   }
 }
