@@ -10,17 +10,19 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { MyApp } from "./app.component";
-
-import { AuthProvider } from "./sharedModule/services/auth/auth";
 import { DashboardProvider } from "./sharedModule/services/dashboard/dashboard";
+import { SharedModule } from "./sharedModule/shared.module";
+
 import { rootReducer } from "./store/reducers";
 import { effects } from "./store/effects";
 
 @NgModule({
   declarations: [MyApp],
   imports: [
+    SharedModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     StoreModule.forRoot(rootReducer),
     EffectsModule.forRoot(effects)
@@ -32,7 +34,6 @@ import { effects } from "./store/effects";
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpClientModule,
-    AuthProvider,
     DashboardProvider
   ]
 })

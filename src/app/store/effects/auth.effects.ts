@@ -1,11 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from "@ngrx/effects";
-import { mergeMap, map, catchError, switchMap } from "rxjs/operators";
+import { map, catchError, switchMap } from "rxjs/operators";
 
 import * as AuthActions from "../actions/auth.actions";
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
-import { AuthActionDispatcher } from "../index";
-import { Observable } from "rxjs/Observable";
 import { Action } from "@ngrx/store";
 import { of } from "rxjs/observable/of";
 
@@ -15,11 +13,7 @@ import { of } from "rxjs/observable/of";
 
 @Injectable()
 export class AuthEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthProvider,
-    private authActionDispatcher: AuthActionDispatcher
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthProvider) {}
 
   /**
    *
