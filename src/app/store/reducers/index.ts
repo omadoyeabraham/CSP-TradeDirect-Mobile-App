@@ -4,4 +4,4 @@
  */
 
 export * from "./root.reducer";
-export * from "./auth.reducers";
+export * from "./auth/auth.reducers";

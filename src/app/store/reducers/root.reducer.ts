@@ -1,11 +1,13 @@
 import { ActionReducerMap } from "@ngrx/store";
 
-import authReducer from "./auth.reducers";
-import { IAppState, IAuthState } from "../models/index";
+import authReducer from "./auth/auth.reducers";
+import userReducer from "./user/user.reducer";
+import { IAuthState, IUserState } from "../models/index";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
   auth: IAuthState;
+  user: IUserState;
 }
 
 /**
@@ -13,5 +15,6 @@ export interface IRootReducer {
  *
  */
 export const rootReducer: ActionReducerMap<IRootReducer> = {
-  auth: authReducer
+  auth: authReducer,
+  user: userReducer
 };

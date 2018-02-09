@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from "@ngrx/effects";
 import { map, catchError, switchMap } from "rxjs/operators";
-
-import * as AuthActions from "../actions/auth.actions";
-import { AuthProvider } from "../../sharedModule/services/auth/auth";
-import { Action } from "@ngrx/store";
 import { of } from "rxjs/observable/of";
+
+import * as AuthActions from "../actions/auth/auth.actions";
+import * as UserActions from "../actions/user/user.actions";
+import { AuthProvider } from "../../sharedModule/services/auth/auth";
 
 /**
  * Side effects for auth related actions. The side effects listen for @ngrx/store options and then carry-out various external (outside angular) actions
@@ -27,7 +27,11 @@ export class AuthEffects {
       return this.authService
         .login(credentials)
         .pipe(
-          map(userData => new AuthActions.LoginUserSuccess(userData)),
+          map(userData => userData),
+          switchMap(userData => [
+            new AuthActions.LoginUserSuccess(userData),
+            new UserActions.AddUserDataToStore(userData.customer)
+          ]),
           catchError(error => of(new AuthActions.LoginUserFailed()))
         );
     })

@@ -1,14 +1,14 @@
 import { Action, Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
 
-import { IAppState } from "../models";
+import { IAppState } from "../../models";
 
 /**
  * Action type constants for all auth specific actions
  */
-export const LOGIN_USER = "[User] Log the user into the application";
-export const LOGIN_USER_FAILED = "[User] Login attempt failed";
-export const LOGIN_USER_SUCCESS = "[User] Login successful";
+export const LOGIN_USER = "[Auth] Log the user into the application";
+export const LOGIN_USER_FAILED = "[Auth] Login attempt failed";
+export const LOGIN_USER_SUCCESS = "[Auth] Login successful";
 
 // Action Creator for the LOGIN_USER action
 export class LoginUser implements Action {

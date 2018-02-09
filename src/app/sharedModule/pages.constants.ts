@@ -5,6 +5,7 @@
 export const HOME_PAGE = "HomePage";
 export const DASHBOARD_PAGE = "DashboardPage";
 export const LOGIN_PAGE = "LoginPage";
+export const WELCOME_PAGE = "WelcomePage";
 
 // STOCKBROKING
 export const STB_CONTAINER_PAGE = "StbContainerPage";

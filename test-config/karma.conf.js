@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 var webpackConfig = require("./webpack.test.js");
 
 module.exports = function(config) {
@@ -53,9 +54,19 @@ module.exports = function(config) {
       fixWebpackSourcePaths: true
     },
 
+    remapIstanbulReporter: {
+      reports: {
+        html: 'coverage',
+        lcovonly: './coverage/coverage.lcov'
+      }
+    },
+
     reporters: config.coverage
-      ? ["kjhtml", "dots", "coverage-istanbul"]
-      : ["kjhtml", "dots"],
+      ? ["kjhtml", "dots", 'mocha', "coverage-istanbul"]
+      : ["kjhtml", "dots", 'mocha'],
+    //  reporters: config.angularCli && config.angularCli.codeCoverage
+    //           ? ['mocha', 'karma-remap-istanbul']
+    //           : ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

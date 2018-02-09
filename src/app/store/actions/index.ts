@@ -3,4 +3,5 @@
  * Barrel files are used to reduce "import noise" in other files
  */
 
-export * from "./auth.actions";
+export * from "./auth/auth.actions";
+export * from "./user/user.actions";
