@@ -49,6 +49,7 @@ export class WelcomePage {
    */
   backToLoginPage() {
     this.authActionDispatcher.loginUserFailed();
+    //this.viewController.dismiss();
     this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
 }

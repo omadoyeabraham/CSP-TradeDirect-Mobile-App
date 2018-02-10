@@ -16,6 +16,7 @@ import { CspStoreModule } from "./store/store.module";
 
 import { rootReducer } from "./store/reducers";
 import { allEffects } from "./store/effects";
+import { UtilityProvider } from '../providers/utility/utility';
 
 @NgModule({
   declarations: [MyApp],
@@ -36,7 +37,8 @@ import { allEffects } from "./store/effects";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HttpClientModule
+    HttpClientModule,
+    UtilityProvider
   ]
 })
 export class AppModule {}

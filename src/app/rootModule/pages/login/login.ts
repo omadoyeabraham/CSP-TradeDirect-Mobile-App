@@ -3,7 +3,8 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  LoadingController
+  LoadingController,
+  ToastController
 } from "ionic-angular";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
@@ -40,6 +41,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
     public authActionDispatcher: AuthActionDispatcher,
     private store: Store<IAppState>
   ) {
@@ -68,9 +70,9 @@ export class LoginPage {
         this.loginLoader.present();
       } else {
         // Only attempt to dismiss the loader if it is already visible
-        this.loginLoader.present().then(() => {
+        if (this.loginLoader) {
           this.loginLoader.dismiss();
-        });
+        }
       }
     });
 
@@ -88,9 +90,11 @@ export class LoginPage {
    * @memberof LoginPage
    */
   createLoginLoader(): void {
-    this.loginLoader = this.loadingCtrl.create({
-      content: "Logging in..."
-    });
+    if (!this.loginLoader) {
+      this.loginLoader = this.loadingCtrl.create({
+        content: "Logging in..."
+      });
+    }
   }
 
   /**
@@ -121,12 +125,28 @@ export class LoginPage {
   }
 
   /**
-   *
+   * Navigate to the welcome page
    *
    * @returns {*}
    * @memberof LoginPage
    */
   goToWelcomePage(): any {
     this.navCtrl.push(PAGES.WELCOME_PAGE);
+  }
+
+  /**
+   * Display the error toast when authentication fails
+   *
+   * @param {string} [errorMessage="Authentication failed"]
+   * @memberof LoginPage
+   */
+  showAuthErrorToast(errorMessage: string = "Authentication failed") {
+    let toast = this.toastCtrl.create({
+      message: errorMessage,
+      duration: 3000,
+      position: "top"
+    });
+
+    toast.present();
   }
 }

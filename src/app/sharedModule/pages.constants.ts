@@ -8,4 +8,4 @@ export const LOGIN_PAGE = "LoginPage";
 export const WELCOME_PAGE = "WelcomePage";
 
 // STOCKBROKING
-export const STB_CONTAINER_PAGE = "StbContainerPage";
+export const STB_PAGE = "StbContainerPage";

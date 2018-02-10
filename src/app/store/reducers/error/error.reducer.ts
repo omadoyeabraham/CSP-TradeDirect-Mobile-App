@@ -1,5 +1,3 @@
-import { Action } from "@ngrx/store";
-
 import * as errorActions from "../../actions/errors/error.actions";
 import { IErrorState } from "../../models";
 import { initialErrorState } from "../../models/initialState";
