@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { AuthProvider } from "./services/auth/auth";
+import { UtilityProvider } from "./services/utility/utility";
 
 /**
  * The SharedModule contains all services, components and directives that could be required by various other modules in the application
@@ -25,7 +26,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [AuthProvider]
+      providers: [AuthProvider, UtilityProvider]
     };
   }
 }

@@ -21,10 +21,13 @@ export default function authReducer(
         authenticated: true
       };
     case authActions.LOGIN_USER_FAILED:
+      const noOfFailedAuthAttempts = state.failedAuthAttempts;
+
       return {
         ...state,
         isAuthenticating: false,
-        authenticated: false
+        authenticated: false,
+        failedAuthAttempts: noOfFailedAuthAttempts + 1
       };
     default:
       return state;

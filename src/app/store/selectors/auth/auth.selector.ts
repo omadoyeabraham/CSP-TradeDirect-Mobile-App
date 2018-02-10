@@ -12,6 +12,8 @@ export const getAuthState = createFeatureSelector<IAuthState>("auth");
 
 const _userIsAuthenticated = (state: IAuthState) => state.authenticated;
 const _userIsAuthenticating = (state: IAuthState) => state.isAuthenticating;
+const _getNoOfFailedAuthAttempts = (state: IAuthState) =>
+  state.failedAuthAttempts;
 
 /**
  * Determine if the user is authenticated or not
@@ -35,4 +37,16 @@ export const userIsAuthenticated = createSelector(
 export const userIsAuthenticating = createSelector(
   getAuthState,
   _userIsAuthenticating
+);
+
+/**
+ * Get the number of failed auth attempts
+ *
+ * @param {selectorFn} getAuthState
+ * @param {fn} Callback function which selects the failedAuthAttempts property from the auth state tree
+ * @returns number
+ */
+export const numberOfFailedAuthAttempts = createSelector(
+  getAuthState,
+  _getNoOfFailedAuthAttempts
 );

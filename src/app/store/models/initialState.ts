@@ -6,7 +6,8 @@ import { IAuthState, IErrorState, IUserState } from "./index";
 
 export const initialAuthState: IAuthState = {
   isAuthenticating: false,
-  authenticated: false
+  authenticated: false,
+  failedAuthAttempts: 0
 };
 
 export const initialUserState: IUserState = {

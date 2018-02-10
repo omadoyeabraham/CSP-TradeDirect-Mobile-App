@@ -22,6 +22,7 @@ import * as PAGES from "../../../sharedModule/pages.constants";
 import * as fromActions from "../../../store/actions";
 import * as fromReducers from "../../../store/reducers";
 import { IAuthState, IAppState } from "../../../store/models";
+import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
 
 let page: LoginPage;
 let store: Store<IAppState>;
@@ -50,6 +51,12 @@ describe("PAGE: Login Page", () => {
             provide: AuthActionDispatcher,
             useClass: class {
               AuthActionDispatcher = jasmine.createSpy("AuthActionDispatcher");
+            }
+          },
+          {
+            provide: UtilityProvider,
+            useClass: class {
+              UtilityProvider = jasmine.createSpy("UtilityProvider");
             }
           }
         ],

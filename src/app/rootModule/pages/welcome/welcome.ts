@@ -29,7 +29,6 @@ export class WelcomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public viewController: ViewController,
     public authActionDispatcher: AuthActionDispatcher,
     public store: Store<IAppState>
   ) {}
@@ -38,6 +37,11 @@ export class WelcomePage {
     this.user$ = this.store.select(getUserState);
   }
 
+  /**
+   * Navigate to the dashboard upon successful authentication
+   *
+   * @memberof WelcomePage
+   */
   continueToDashboard() {
     this.navCtrl.setRoot(PAGES.DASHBOARD_PAGE);
   }
@@ -49,7 +53,6 @@ export class WelcomePage {
    */
   backToLoginPage() {
     this.authActionDispatcher.loginUserFailed();
-    //this.viewController.dismiss();
     this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
 }

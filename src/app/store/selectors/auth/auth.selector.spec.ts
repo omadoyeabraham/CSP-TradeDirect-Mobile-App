@@ -65,4 +65,17 @@ describe("Auth Selectors", () => {
     );
     expect(result).toEqual(true);
   });
+
+  it("should return the number of failed auth attempts", () => {
+    let result;
+
+    store.dispatch(new fromActions.LoginUserFailed());
+    store.dispatch(new fromActions.LoginUserFailed());
+
+    store.select(fromSelectors.numberOfFailedAuthAttempts).subscribe(value => {
+      result = value;
+    });
+
+    expect(result).toEqual(2);
+  });
 });

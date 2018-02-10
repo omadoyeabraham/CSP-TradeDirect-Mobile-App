@@ -42,4 +42,14 @@ describe("auth reducer", () => {
     expect(state.isAuthenticating).toBe(false);
     expect(state.authenticated).toBe(true);
   });
+
+  it("should increase the number of failed auth attempts on LOGIN_USER_FAILED", () => {
+    const action = new AuthActions.LoginUserFailed();
+    const state = authReducer(
+      { ...initialAuthState, failedAuthAttempts: 11 },
+      action
+    );
+
+    expect(state.failedAuthAttempts).toEqual(12);
+  });
 });

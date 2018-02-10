@@ -7,4 +7,5 @@
 export interface IAuthState {
   isAuthenticating: boolean;
   authenticated: boolean;
+  failedAuthAttempts: number;
 }
