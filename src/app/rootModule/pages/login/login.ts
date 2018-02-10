@@ -67,7 +67,10 @@ export class LoginPage {
       if (status) {
         this.loginLoader.present();
       } else {
-        this.loginLoader.dismiss();
+        // Only attempt to dismiss the loader if it is already visible
+        this.loginLoader.present().then(() => {
+          this.loginLoader.dismiss();
+        });
       }
     });
 

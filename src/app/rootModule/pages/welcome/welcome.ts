@@ -8,8 +8,8 @@ import {
 import { Store } from "@ngrx/store";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
-import { Observable } from "rxjs/Observable";
-import { IUserState } from "../../../store/models";
+import { IAppState, IUserState } from "../../../store/models";
+import { getUserState, AuthActionDispatcher } from "../../../store";
 
 /**
  * Generated class for the WelcomePage page.
@@ -24,24 +24,31 @@ import { IUserState } from "../../../store/models";
   templateUrl: "welcome.html"
 })
 export class WelcomePage {
-  public customerLabel$: Observable<string>;
+  public user$: Store<IUserState>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewController: ViewController,
-    public store: Store<IUserState>
+    public authActionDispatcher: AuthActionDispatcher,
+    public store: Store<IAppState>
   ) {}
 
   ionViewDidLoad() {
-    // this.customerLabel$ = this.store.select()
+    this.user$ = this.store.select(getUserState);
   }
 
   continueToDashboard() {
     this.navCtrl.setRoot(PAGES.DASHBOARD_PAGE);
   }
 
+  /**
+   * Reset the authenticated state of the app, and go back to the login page
+   *
+   * @memberof WelcomePage
+   */
   backToLoginPage() {
-    this.viewController.dismiss();
+    this.authActionDispatcher.loginUserFailed();
+    this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
 }

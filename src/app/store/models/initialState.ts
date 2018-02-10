@@ -1,4 +1,4 @@
-import { IAuthState } from "./index";
+import { IAuthState, IErrorState, IUserState } from "./index";
 
 /**
  * The initial state to be used by various reducers in constructing the entire application state tree
@@ -9,7 +9,7 @@ export const initialAuthState: IAuthState = {
   authenticated: false
 };
 
-export const initialUserState = {
+export const initialUserState: IUserState = {
   active: false,
   allowDebitBalance: false,
   birthDate: "",
@@ -59,4 +59,8 @@ export const initialUserState = {
   title: ""
 };
 
-export default { initialUserState, initialAuthState };
+export const initialErrorState: IErrorState = {
+  authenticationErrorMessage: null
+};
+
+export default { initialUserState, initialAuthState, initialErrorState };

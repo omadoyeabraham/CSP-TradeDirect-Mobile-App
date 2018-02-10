@@ -5,6 +5,7 @@ import { of } from "rxjs/observable/of";
 
 import * as AuthActions from "../actions/auth/auth.actions";
 import * as UserActions from "../actions/user/user.actions";
+import * as ErrorActions from "../actions/errors/error.actions";
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
 
 /**
@@ -32,7 +33,12 @@ export class AuthEffects {
             new AuthActions.LoginUserSuccess(userData),
             new UserActions.AddUserDataToStore(userData.customer)
           ]),
-          catchError(error => of(new AuthActions.LoginUserFailed()))
+          catchError(error => [
+            new AuthActions.LoginUserFailed(),
+            new ErrorActions.AuthenticationFailed(
+              "Incorrect username or password"
+            )
+          ])
         );
     })
   );

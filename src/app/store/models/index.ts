@@ -10,3 +10,4 @@ export * from "./fixedincomeState.interface";
 export * from "./stockbrokingState.interface";
 export * from "./userState.interface";
 export * from "./authState.interface";
+export * from "./errorState.interface";

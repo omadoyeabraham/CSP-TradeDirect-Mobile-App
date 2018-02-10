@@ -19,6 +19,6 @@ describe("User Reducer", () => {
     const action = new UserActions.AddUserDataToStore(userData);
     const state = userReducer(initialUserState, action);
 
-    expect(state).toBe(userData);
+    expect(state).toEqual(userData);
   });
 });

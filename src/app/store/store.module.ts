@@ -1,7 +1,11 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { AuthActionDispatcher } from "./index";
+import {
+  AuthActionDispatcher,
+  UserActionDispatcher,
+  ErrorActionDispatcher
+} from "./index";
 
 /**
  * Angular module created for the purposing of injecting the services created in the ngrx store into angular's dependency injection framework
@@ -23,7 +27,11 @@ export class CspStoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CspStoreModule,
-      providers: [AuthActionDispatcher]
+      providers: [
+        AuthActionDispatcher,
+        UserActionDispatcher,
+        ErrorActionDispatcher
+      ]
     };
   }
 }

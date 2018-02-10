@@ -11,7 +11,7 @@
       <ion-card-title class="card-title">
         Welcome
       </ion-card-title>
-      <p class="customer-label">{{customerLabel$ | async}}</p>
+      <p class="customer-label">{{(user$ | async)?.label}}</p>
     </ion-card-content>
     <img src="../assets/imgs/logo.png" width="100" />
     <button ion-button full color="primary" (click)="continueToDashboard()">Continue</button>

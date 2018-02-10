@@ -1,12 +1,12 @@
 import { TestBed } from "@angular/core/testing";
 import { StoreModule, Store, combineReducers } from "@ngrx/store";
 
-import * as fromActions from "../actions";
-import * as fromReducers from "../reducers";
+import * as fromActions from "../../actions";
+import * as fromReducers from "../../reducers";
 import * as fromSelectors from "./auth.selector";
 
-import { IAuthState, IAppState } from "../models";
-import initialState from "../models/initialState";
+import { IAuthState, IAppState } from "../../models";
+import initialState from "../../models/initialState";
 
 describe("Auth Selectors", () => {
   let store: Store<IAppState>;
