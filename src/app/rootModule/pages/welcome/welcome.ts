@@ -1,10 +1,5 @@
 import { Component } from "@angular/core";
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  ViewController
-} from "ionic-angular";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Store } from "@ngrx/store";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
@@ -12,12 +7,11 @@ import { IAppState, IUserState } from "../../../store/models";
 import { getUserState, AuthActionDispatcher } from "../../../store";
 
 /**
- * Generated class for the WelcomePage page.
+ * Welcome page
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * @export
+ * @class WelcomePage
  */
-
 @IonicPage()
 @Component({
   selector: "page-welcome",
