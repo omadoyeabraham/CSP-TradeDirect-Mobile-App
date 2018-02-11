@@ -17,13 +17,21 @@ import * as PAGES from "../../../sharedModule/pages.constants";
   templateUrl: "stb-container.html"
 })
 export class StbContainerPage {
-  public static StbSummaryContainerPage = PAGES.STB_SUMMARY_CONTAINER_PAGE;
-  public static StbPortfolioHoldingsContainerPage = PAGES.STB_PORTFOLIO_HOLDINGS_CONTAINER_PAGE;
-  public static StbTradeContainerPage = PAGES.STB_TRADE_CONTAINER_PAGE;
-  public static StbTradeHistoryContainerPage = PAGES.STB_TRADE_HISTORY_CONTAINER_PAGE;
-  public static StbWatchlistContainerPage = PAGES.STB_WATCHLIST_CONTAINER_PAGE;
+  StbSummaryContainerPage: any;
+  StbPortfolioHoldingsContainerPage: any;
+  StbTradeContainerPage: any;
+  StbTradeHistoryContainerPage: any;
+  StbWatchlistContainerPage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // The various components are lazy-loaded by ionic using strings. This improves the app's intial load performance.
+    this.StbSummaryContainerPage = PAGES.STB_SUMMARY_CONTAINER_PAGE;
+    this.StbPortfolioHoldingsContainerPage =
+      PAGES.STB_PORTFOLIO_HOLDINGS_CONTAINER_PAGE;
+    this.StbTradeContainerPage = PAGES.STB_TRADE_CONTAINER_PAGE;
+    this.StbTradeHistoryContainerPage = PAGES.STB_TRADE_HISTORY_CONTAINER_PAGE;
+    this.StbWatchlistContainerPage = PAGES.STB_WATCHLIST_CONTAINER_PAGE;
+  }
 
   ionViewDidLoad() {}
 }
