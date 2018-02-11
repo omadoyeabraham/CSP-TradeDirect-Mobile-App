@@ -3,15 +3,16 @@ import { CommonModule } from "@angular/common";
 import { IonicModule } from "ionic-angular";
 
 import { StbSummaryComponent } from "./pages/summary/stb-summary/stb-summary";
+import { SharedModule } from "../sharedModule/shared.module";
 
 /**
- * The StockbrokingModule contains all services, components and directives that could be required by various other modules in the application
+ * The StockbrokingModule contains all STB services, components and directives that could be required by various other modules(including ionic page modules) in the application
  *
  * @export
- * @class SharedModule
+ * @class StockbrokingModule
  */
 @NgModule({
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, SharedModule],
   declarations: [StbSummaryComponent],
   exports: [StbSummaryComponent]
 })
@@ -21,7 +22,7 @@ export class StockbrokingModule {
    *
    * @static
    * @returns {ModuleWithProviders}
-   * @memberof SharedModule
+   * @memberof StockbrokingModule
    */
   //   static forRoot(): ModuleWithProviders {
   //     return {

@@ -5,30 +5,30 @@
     <ion-item-divider color="light" class="font-size-18 bg-light-blue">Summary</ion-item-divider>
     <ion-item class="ml0">
       <span class="ml0">CHN</span>
-      <span item-end>{{ currentPortfolio.clearingHouseNo }}</span>
+      <span item-end>0</span>
     </ion-item>
     <ion-item>
       CSCS Number
-      <span item-end>{{ currentPortfolio.accountNo }}</span>
+      <span item-end>0</span>
     </ion-item>
     <ion-item>
       Current Value
-      <span item-end>&#8358;{{ currentPortfolio.currentValuation.amount | number:'1.2-2' }}</span>
+      <span item-end>&#8358;0</span>
     </ion-item>
     <ion-item>
       Acquisition Cost
-      <span item-end>&#8358;{{ currentPortfolio.costBasis.amount | number:'1.2-2' }}</span>
+      <span item-end>&#8358;0</span>
     </ion-item>
     <ion-item>
       Gain/Loss
       <span item-end class="font-green">
-        <color-format [data]="currentPortfolio.gainOrLoss" [showCurrency]="true"></color-format>
+        <csmobile-format-number-with-color [data]="" [showCurrency]="true"></csmobile-format-number-with-color>
       </span>
     </ion-item>
     <ion-item>
       Gain/Loss (%)
       <span item-end class="font-green">
-        <color-format [data]="currentPortfolio.percGain" [showCurrency]="false"></color-format>
+        <csmobile-format-number-with-color [data]="" [showCurrency]="false"></csmobile-format-number-with-color>
       </span>
     </ion-item>
     <ion-item></ion-item>

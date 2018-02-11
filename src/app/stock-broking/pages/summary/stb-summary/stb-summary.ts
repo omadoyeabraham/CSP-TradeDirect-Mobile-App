@@ -13,5 +13,8 @@ import { Component } from "@angular/core";
   templateUrl: "stb-summary.html"
 })
 export class StbSummaryComponent {
-  constructor() {}
+  currentPortfolio: any;
+  constructor() {
+    this.currentPortfolio = {};
+  }
 }
