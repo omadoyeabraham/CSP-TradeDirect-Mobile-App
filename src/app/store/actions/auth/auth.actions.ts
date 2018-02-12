@@ -35,7 +35,7 @@ export type AuthActionType = LoginUser | LoginUserFailed | LoginUserSuccess;
  * The actions dispatched are constructed from the action creators defined above
  *
  * @export
- * @class UserAction
+ * @class AuthActionDispatcher
  */
 @Injectable()
 export class AuthActionDispatcher {

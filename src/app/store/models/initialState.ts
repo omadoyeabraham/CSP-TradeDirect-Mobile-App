@@ -1,4 +1,9 @@
-import { IAuthState, IErrorState, IUserState } from "./index";
+import {
+  IAuthState,
+  IErrorState,
+  IUserState,
+  IStockBrokingState
+} from "./index";
 
 /**
  * The initial state to be used by various reducers in constructing the entire application state tree
@@ -64,4 +69,13 @@ export const initialErrorState: IErrorState = {
   authenticationErrorMessage: null
 };
 
-export default { initialUserState, initialAuthState, initialErrorState };
+export const initialStockbrokingState: IStockBrokingState = {
+  portfolios: []
+};
+
+export default {
+  initialUserState,
+  initialAuthState,
+  initialErrorState,
+  initialStockbrokingState
+};
