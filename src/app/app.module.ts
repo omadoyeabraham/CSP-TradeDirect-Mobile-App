@@ -15,7 +15,7 @@ import { MyApp } from "./app.component";
 import { SharedModule } from "./sharedModule/shared.module";
 import { CspStoreModule } from "./store/store.module";
 
-import { rootReducer } from "./store/reducers";
+import { rootReducer, metaReducers } from "./store/reducers";
 import { allEffects } from "./store/effects";
 
 @NgModule({
@@ -27,7 +27,7 @@ import { allEffects } from "./store/effects";
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot(rootReducer),
+    StoreModule.forRoot(rootReducer, { metaReducers }),
     EffectsModule.forRoot(allEffects),
     StoreDevtoolsModule.instrument({})
   ],

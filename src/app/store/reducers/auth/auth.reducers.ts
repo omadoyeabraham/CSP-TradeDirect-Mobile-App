@@ -17,6 +17,7 @@ export default function authReducer(
     case authActions.LOGIN_USER_SUCCESS:
       return {
         ...state,
+        failedAuthAttempts: 0,
         isAuthenticating: false,
         authenticated: true
       };
