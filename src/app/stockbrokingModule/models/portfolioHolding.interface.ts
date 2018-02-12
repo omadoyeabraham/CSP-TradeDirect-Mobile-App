@@ -39,4 +39,5 @@ export interface IPortfolioHolding {
   accruedCoupon?: number;
   nextCouponDate?: any;
   lastCouponDate?: any;
+  priceValueMultiple?: any;
 }

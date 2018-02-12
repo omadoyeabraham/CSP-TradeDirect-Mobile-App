@@ -9,12 +9,18 @@ import {
  * The initial state to be used by various reducers in constructing the entire application state tree
  */
 
+/**
+ * INITIAL AUTHENTICATION STATES
+ */
 export const initialAuthState: IAuthState = {
   isAuthenticating: false,
   authenticated: false,
   failedAuthAttempts: 0
 };
 
+/**
+ * INITIAL USER STATES
+ */
 export const initialUserState: IUserState = {
   active: false,
   allowDebitBalance: false,
@@ -65,17 +71,25 @@ export const initialUserState: IUserState = {
   title: ""
 };
 
+/**
+ * INITIAL ERROR STATES
+ */
 export const initialErrorState: IErrorState = {
   authenticationErrorMessage: null
 };
 
+/**
+ * STOCKBROKING INITIAL STATES
+ */
+export const initialStockbrokingPortfolioState = [];
 export const initialStockbrokingState: IStockBrokingState = {
-  portfolios: []
+  portfolios: initialStockbrokingPortfolioState
 };
 
 export default {
   initialUserState,
   initialAuthState,
   initialErrorState,
-  initialStockbrokingState
+  initialStockbrokingState,
+  initialStockbrokingPortfolioState
 };
