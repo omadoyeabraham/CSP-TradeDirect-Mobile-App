@@ -1,3 +1,5 @@
+import { StorageSyncEffects } from "ngrx-store-ionic-storage";
+
 import { AuthEffects } from "./auth.effects";
 
 /**
@@ -10,6 +12,6 @@ import { AuthEffects } from "./auth.effects";
  * This aids the addition of the side effects to our root module without unnecessarily bloating up the module code.
  *
  */
-export const allEffects: any[] = [AuthEffects];
+export const allEffects: any[] = [StorageSyncEffects, AuthEffects];
 
 export * from "./auth.effects";
