@@ -1,7 +1,15 @@
-import { initialStockbrokingPortfolioState } from "../../models/initialState";
+import {
+  initialStockbrokingPortfolioState,
+  initialStockbrokingActivePortfolioState
+} from "../../models/initialState";
 import { IPortfolio } from "../../../stockbrokingModule/models/portfolio.interface";
-import stbPortfolioReducer from "./portfolios.reducer";
-import { SaveStbPortfoliosToStore } from "../../actions/stockbroking/portfolios.actions";
+import stbPortfolioReducer, {
+  stbActivePortfolioReducer
+} from "./portfolios.reducer";
+import {
+  SaveStbPortfoliosToStore,
+  SetActivePortfolioInStore
+} from "../../actions/stockbroking/portfolios.actions";
 import { IStockBrokingPortfolioState } from "../../models/index";
 
 describe("Portfolio Reducer", () => {
@@ -245,11 +253,39 @@ describe("Portfolio Reducer", () => {
       testPortfolio_one,
       testPortfolio_two
     ]);
-    const state = stbPortfolioReducer(initialStbPortfoliosState, action);
+
+    //TODO: fix typescript issue which warranted the as any
+    const state = stbPortfolioReducer(initialStbPortfoliosState as any, action);
 
     expect(state).toEqual({
       3791: testPortfolio_one,
       3792: testPortfolio_two
     });
+  });
+});
+
+describe("Stb Active Portfolio", () => {
+  let initialActivePortfolio: IPortfolio;
+
+  beforeEach(() => {
+    initialActivePortfolio = initialStockbrokingActivePortfolioState;
+  });
+
+  it("returns the initial state", () => {
+    const action = {} as any;
+    const state = stbActivePortfolioReducer(undefined, action);
+
+    expect(state).toEqual(initialActivePortfolio);
+  });
+
+  it("should set the active portfolio correctly", () => {
+    const changedPortfolio = {
+      ...initialActivePortfolio,
+      name: "Changed portfolio"
+    };
+    const action = new SetActivePortfolioInStore(changedPortfolio);
+
+    const state = stbActivePortfolioReducer(initialActivePortfolio, action);
+    expect(state).toEqual(changedPortfolio);
   });
 });
