@@ -6,12 +6,10 @@ import {
 } from "@ngrx/store";
 import { storageSync } from "ngrx-store-ionic-storage";
 
-import {
-  authReducer,
-  userReducer,
-  errorReducer,
-  stbPortfolioReducer
-} from "../reducers";
+import authReducer from "./auth/auth.reducers";
+import userReducer from "./user/user.reducer";
+import errorReducer from "./error/error.reducer";
+import stockbrokingPortfolioReducer from "./stockbroking/portfolios.reducer";
 import { IAuthState, IUserState, IErrorState } from "../models/index";
 import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 
@@ -20,9 +18,7 @@ export interface IRootReducer {
   auth: IAuthState;
   user: IUserState;
   error: IErrorState;
-  // stockbroking: {
-  //   portfolios: IPortfolio[];
-  // };
+  stbPortfolios: Array<IPortfolio>;
 }
 
 /**
@@ -32,10 +28,8 @@ export interface IRootReducer {
 export const rootReducer: ActionReducerMap<IRootReducer> = {
   auth: authReducer,
   user: userReducer,
-  error: errorReducer
-  // stockbroking: combineReducers({
-  //   portfolios: stbPortfolioReducer
-  // })
+  error: errorReducer,
+  stbPortfolios: stockbrokingPortfolioReducer
 };
 
 /**
