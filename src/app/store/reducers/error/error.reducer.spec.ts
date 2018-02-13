@@ -1,4 +1,4 @@
-import { errorReducer } from "./error.reducer";
+import errorReducer from "./error.reducer";
 import * as errorActions from "../../actions/errors/error.actions";
 import { initialErrorState } from "../../models/initialState";
 

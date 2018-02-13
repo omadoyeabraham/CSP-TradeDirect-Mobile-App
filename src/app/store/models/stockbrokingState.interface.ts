@@ -1,5 +1,9 @@
 import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 
+export interface IStockBrokingPortfolioState {
+  [id: number]: IPortfolio;
+}
+
 /**
  * Interface which defines the shape of the stockbroking 'slice' of the redux store.
  *
@@ -7,5 +11,5 @@ import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface"
  * @interface IStockBrokingState
  */
 export interface IStockBrokingState {
-  portfolios: IPortfolio[];
+  portfolios: { [id: number]: IPortfolio };
 }

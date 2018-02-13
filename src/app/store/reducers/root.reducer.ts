@@ -5,15 +5,19 @@ import authReducer from "./auth/auth.reducers";
 import userReducer from "./user/user.reducer";
 import errorReducer from "./error/error.reducer";
 import stockbrokingPortfolioReducer from "./stockbroking/portfolios.reducer";
-import { IAuthState, IUserState, IErrorState } from "../models/index";
-import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
+import {
+  IAuthState,
+  IUserState,
+  IErrorState,
+  IStockBrokingPortfolioState
+} from "../models";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
   auth: IAuthState;
   user: IUserState;
   error: IErrorState;
-  stbPortfolios: Array<IPortfolio>;
+  stbPortfolios: IStockBrokingPortfolioState;
 }
 
 /**

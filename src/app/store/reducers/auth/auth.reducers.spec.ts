@@ -1,4 +1,4 @@
-import { authReducer } from "./auth.reducers";
+import authReducer from "./auth.reducers";
 import { IAuthState } from "../../models/index";
 import initialState from "../../models/initialState";
 import * as AuthActions from "../../actions/auth/auth.actions";

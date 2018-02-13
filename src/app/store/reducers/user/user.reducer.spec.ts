@@ -1,4 +1,4 @@
-import { userReducer } from "./user.reducer";
+import userReducer from "./user.reducer";
 import { IUserState } from "../../models";
 import { initialUserState } from "../../models/initialState";
 import * as UserActions from "../../actions/user/user.actions";
