@@ -5,6 +5,10 @@ export interface IStockBrokingPortfolioState {
   [id: number]: IPortfolio;
 }
 
+export interface IStbActivePortfolioMetaData {
+  totalValue: number;
+}
+
 /**
  * Interface which defines the shape of the stockbroking 'slice' of the redux store.
  *

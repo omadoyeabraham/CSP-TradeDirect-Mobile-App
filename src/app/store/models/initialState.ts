@@ -2,7 +2,8 @@ import {
   IAuthState,
   IErrorState,
   IUserState,
-  IStockBrokingState
+  IStockBrokingState,
+  IStbActivePortfolioMetaData
 } from "./index";
 
 //TODO: Ensure that all initial states are properly cleaned to contain only empty strings
@@ -305,6 +306,9 @@ export const initialStockbrokingPortfolioState = {
     portfolioType: "EXCHANGE PT",
     securityExchange: "NSE"
   }
+};
+export const intialStbActivePortflioMetaData: IStbActivePortfolioMetaData {
+  totalValue: 0
 };
 export const initialStockbrokingActivePortfolioState = {
   accountNo: "0067483269",
