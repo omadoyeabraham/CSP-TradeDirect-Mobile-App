@@ -4,7 +4,7 @@ import * as authActions from "../../actions/auth/auth.actions";
 import * as fromStoreModels from "../../models";
 import initialState from "../../models/initialState";
 
-export function authReducer(
+export default function authReducer(
   state: fromStoreModels.IAuthState = initialState.initialAuthState,
   action: Action
 ): fromStoreModels.IAuthState {

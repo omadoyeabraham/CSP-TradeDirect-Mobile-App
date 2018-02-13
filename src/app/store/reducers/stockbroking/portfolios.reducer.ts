@@ -8,7 +8,9 @@ export default function stbPortfolioReducer(
 ): Array<IPortfolio> {
   switch (action.type) {
     case StbPortfolioActions.SAVE_STB_PORTFOLIOS_IN_STORE:
-      return [...state, ...action.payload];
+      console.log("Called -");
+      console.log(action);
+      return [...action.payload];
     default:
       return state;
   }

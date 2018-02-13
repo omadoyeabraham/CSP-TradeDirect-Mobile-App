@@ -1,9 +1,4 @@
-import {
-  ActionReducerMap,
-  ActionReducer,
-  MetaReducer,
-  combineReducers
-} from "@ngrx/store";
+import { ActionReducerMap, ActionReducer, MetaReducer } from "@ngrx/store";
 import { storageSync } from "ngrx-store-ionic-storage";
 
 import authReducer from "./auth/auth.reducers";
