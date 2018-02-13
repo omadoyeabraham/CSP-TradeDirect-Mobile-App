@@ -1,6 +1,7 @@
 import { createFeatureSelector } from "@ngrx/store";
 import { IStockBrokingPortfolioState } from "../../models";
 import { createSelector } from "@ngrx/store";
+import { IPortfolio } from "../../../stockbrokingModule/models/portfolio.interface";
 
 /**
  * Selectors are pure functions (fns that do not mutate any variable, data or state outside their lexical scope) which take a slice of state as input and return some state data (possibly formatted) that we can return to components
@@ -27,4 +28,9 @@ export const getNumberOfStbPortfolios = createSelector(
   (state: IStockBrokingPortfolioState) => {
     return Object.keys(state).length;
   }
+);
+
+// Get the stbActivePortfolio feature state slice
+export const getActivePortfolio = createFeatureSelector<IPortfolio>(
+  "stbActivePortfolio"
 );

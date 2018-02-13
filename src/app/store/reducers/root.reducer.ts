@@ -4,13 +4,16 @@ import { storageSync } from "ngrx-store-ionic-storage";
 import authReducer from "./auth/auth.reducers";
 import userReducer from "./user/user.reducer";
 import errorReducer from "./error/error.reducer";
-import stockbrokingPortfolioReducer from "./stockbroking/portfolios.reducer";
+import stockbrokingPortfolioReducer, {
+  stbActivePortfolioReducer
+} from "./stockbroking/portfolios.reducer";
 import {
   IAuthState,
   IUserState,
   IErrorState,
   IStockBrokingPortfolioState
 } from "../models";
+import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -18,6 +21,7 @@ export interface IRootReducer {
   user: IUserState;
   error: IErrorState;
   stbPortfolios: IStockBrokingPortfolioState;
+  stbActivePortfolio: IPortfolio;
 }
 
 /**
@@ -28,7 +32,8 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   auth: authReducer,
   user: userReducer,
   error: errorReducer,
-  stbPortfolios: stockbrokingPortfolioReducer
+  stbPortfolios: stockbrokingPortfolioReducer,
+  stbActivePortfolio: stbActivePortfolioReducer
 };
 
 /**
@@ -44,7 +49,7 @@ export const onSyncError = err => {
 };
 
 // Configuration for ngrx-store-ionic-storage
-// TODO remove auth from the keys
+//TODO: remove auth from the keys
 export const storageSyncReducer = storageSync({
   // keys: ["auth", "user", "error"],
   hydratedStateKey: "hydrated", // Add this key to the state

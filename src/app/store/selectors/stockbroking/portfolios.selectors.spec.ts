@@ -53,4 +53,15 @@ describe("stbPortfolios Selector", () => {
 
     expect(result).toEqual(initialNumberOfPortfolios);
   });
+
+  it("should return the stbActivePortfolio feature state", () => {
+    let result;
+    store
+      .select(selectors.getActivePortfolio)
+      .subscribe(portfolio => (result = portfolio));
+
+    expect(result).toEqual(
+      initialState.initialStockbrokingActivePortfolioState
+    );
+  });
 });
