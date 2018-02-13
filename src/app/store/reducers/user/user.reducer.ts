@@ -2,7 +2,7 @@ import * as userActions from "../../actions/user/user.actions";
 import * as fromStoreModels from "../../models";
 import initialState from "../../models/initialState";
 
-export default function userReducer(
+export function userReducer(
   state: fromStoreModels.IUserState = initialState.initialUserState,
   action: userActions.UserActionType
 ): fromStoreModels.IUserState {

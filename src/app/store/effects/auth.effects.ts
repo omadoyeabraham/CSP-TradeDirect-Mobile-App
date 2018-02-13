@@ -5,6 +5,7 @@ import { map, catchError, switchMap } from "rxjs/operators";
 import * as AuthActions from "../actions/auth/auth.actions";
 import * as UserActions from "../actions/user/user.actions";
 import * as ErrorActions from "../actions/errors/error.actions";
+import * as StockbrokingPortfolioActions from "../actions/stockbroking/portfolios.actions";
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
 
 /**
@@ -30,7 +31,10 @@ export class AuthEffects {
           map(userData => userData),
           switchMap(userData => [
             new AuthActions.LoginUserSuccess(userData),
-            new UserActions.AddUserDataToStore(userData.customer)
+            new UserActions.AddUserDataToStore(userData.customer),
+            new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
+              userData.STB.EXCHANGE
+            )
           ]),
           catchError(error => [
             new AuthActions.LoginUserFailed(),
