@@ -4,7 +4,8 @@ import { CommonModule } from "@angular/common";
 import {
   AuthActionDispatcher,
   UserActionDispatcher,
-  ErrorActionDispatcher
+  ErrorActionDispatcher,
+  StbPortfolioActionDispatcher
 } from "./index";
 import { SharedModule } from "../sharedModule/shared.module";
 
@@ -31,7 +32,8 @@ export class CspStoreModule {
       providers: [
         AuthActionDispatcher,
         UserActionDispatcher,
-        ErrorActionDispatcher
+        ErrorActionDispatcher,
+        StbPortfolioActionDispatcher
       ]
     };
   }

@@ -21,6 +21,7 @@ export class AuthEffects {
    *
    * @memberof AuthEffects
    */
+  //TODO: Perform checks and return defaults before dispatching actions
   @Effect()
   loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
     map((action: AuthActions.LoginUser) => action.payload),
@@ -34,6 +35,9 @@ export class AuthEffects {
             new UserActions.AddUserDataToStore(userData.customer),
             new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
               userData.STB.EXCHANGE
+            ),
+            new StockbrokingPortfolioActions.SetActivePortfolioInStore(
+              userData.STB.EXCHANGE[0]
             )
           ]),
           catchError(error => [

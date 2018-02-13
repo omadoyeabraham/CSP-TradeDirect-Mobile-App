@@ -13,11 +13,17 @@ export default function stbPortfolioReducer(
 ): IStockBrokingPortfolioState {
   switch (action.type) {
     case StbPortfolioActions.SAVE_STB_PORTFOLIOS_IN_STORE:
-      const portfolioEntities = convertArrayToEntities(
-        action.payload,
-        "id",
-        {}
-      );
+      let portfolios: Array<IPortfolio> = action.payload;
+
+      // Map over the portfolios to ensure that portfolioHoldings always has a value set
+      portfolios = portfolios.map(portfolio => {
+        if (!portfolio.portfolioHoldings) {
+          portfolio.portfolioHoldings = [];
+        }
+        return portfolio;
+      });
+
+      const portfolioEntities = convertArrayToEntities(portfolios, "id", {});
       return {
         ...portfolioEntities
       };

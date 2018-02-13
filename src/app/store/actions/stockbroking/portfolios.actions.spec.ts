@@ -133,4 +133,15 @@ describe("STB Portfolios ACTIONS", () => {
       payload: testPortfolio
     });
   });
+
+  it("should create the SetActivePortfolioMetaData action", () => {
+    const action = new StbPortfolioActions.SetActivePortfolioMetaData(
+      testPortfolio
+    );
+
+    expect({ ...action }).toEqual({
+      type: StbPortfolioActions.SET_ACTIVE_PORTFOLIO_META_DATA,
+      payload: testPortfolio
+    });
+  });
 });

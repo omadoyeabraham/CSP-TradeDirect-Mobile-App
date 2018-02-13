@@ -5,10 +5,9 @@
 
     <ion-slide *ngFor="let portfolio of portfolios$ | async">
       <ion-grid>
-        {{portfolio.id}}
         <ion-row>
           <ion-col>
-            {{currentPortfolio}}
+            {{(activePortfolio$ | async)?.label}}
           </ion-col>
           <ion-col style="text-align: right">
             {{currentPortfolioIndex}} of {{numberOfPortfolios$ | async}}

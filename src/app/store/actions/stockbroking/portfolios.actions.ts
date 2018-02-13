@@ -8,6 +8,8 @@ export const SAVE_STB_PORTFOLIOS_IN_STORE =
   "[STB] [PORTFOLIOS] Save the user's stb portfolio(s) in the store";
 export const SET_ACTIVE_PORTFOLIO_IN_STORE =
   "[STB] [Active Portfolio] Set the currently active portfolio in the store";
+export const SET_ACTIVE_PORTFOLIO_META_DATA =
+  "[STB] [Active Portfolio Meta Data] Calculate various metadata for the currently selected portfolio";
 
 // Action creator class for saving stb portfolios to the store
 export class SaveStbPortfoliosToStore implements Action {
@@ -21,10 +23,17 @@ export class SetActivePortfolioInStore implements Action {
   constructor(public payload: IPortfolio) {}
 }
 
+// Action creator class for setting the active portfolio metadata
+export class SetActivePortfolioMetaData implements Action {
+  readonly type = SET_ACTIVE_PORTFOLIO_META_DATA;
+  constructor(public payload: IPortfolio) {}
+}
+
 // Action Types
 export type StbPortfolioActionType =
   | SaveStbPortfoliosToStore
-  | SetActivePortfolioInStore;
+  | SetActivePortfolioInStore
+  | SetActivePortfolioMetaData;
 
 /**
  * Action Dispatchers for stb portfolio related actions.
@@ -55,5 +64,15 @@ export class StbPortfolioActionDispatcher {
    */
   setActivePortfolioInStore(payload: IPortfolio) {
     this.store.dispatch(new SetActivePortfolioInStore(payload));
+  }
+
+  /**
+   * Set various metadata (total value, index in all portfolios e.t.c) for the active portfolio
+   *
+   * @param {IPortfolio} payload
+   * @memberof StbPortfolioActionDispatcher
+   */
+  setActivePortfolioMetaData(payload: IPortfolio) {
+    this.store.dispatch(new SetActivePortfolioMetaData(payload));
   }
 }
