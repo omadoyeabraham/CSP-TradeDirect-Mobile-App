@@ -51,6 +51,8 @@ export class SwitchPortfolioComponent implements OnInit {
     this.portfolios$.subscribe((portfolios: Array<IPortfolio>) => {
       this._portfolios = portfolios;
     });
+
+    //TODO: use map or mergeMap to merge activePortfolio$ and activePortfolioMetaData$
   }
 
   portfolioChanged() {
@@ -61,6 +63,11 @@ export class SwitchPortfolioComponent implements OnInit {
 
     // Dispatch an action to change the current portfolio in the store
     this.stbPortfolioActionDispatcher.setActivePortfolioInStore(
+      nextActivePortfolio
+    );
+
+    // Dispatch an action to change the current portfolio metadata in the store
+    this.stbPortfolioActionDispatcher.setActivePortfolioMetaData(
       nextActivePortfolio
     );
 

@@ -307,7 +307,7 @@ export const initialStockbrokingPortfolioState = {
     securityExchange: "NSE"
   }
 };
-export const intialStbActivePortflioMetaData: IStbActivePortfolioMetaData {
+export const intialStbActivePortflioMetaData: IStbActivePortfolioMetaData = {
   totalValue: 0
 };
 export const initialStockbrokingActivePortfolioState = {

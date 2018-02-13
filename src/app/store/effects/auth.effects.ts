@@ -38,6 +38,9 @@ export class AuthEffects {
             ),
             new StockbrokingPortfolioActions.SetActivePortfolioInStore(
               userData.STB.EXCHANGE[0]
+            ),
+            new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
+              userData.STB.EXCHANGE[0]
             )
           ]),
           catchError(error => [

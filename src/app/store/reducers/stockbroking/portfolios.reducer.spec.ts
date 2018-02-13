@@ -1,14 +1,17 @@
 import {
   initialStockbrokingPortfolioState,
-  initialStockbrokingActivePortfolioState
+  initialStockbrokingActivePortfolioState,
+  intialStbActivePortflioMetaData
 } from "../../models/initialState";
 import { IPortfolio } from "../../../stockbrokingModule/models/portfolio.interface";
 import stbPortfolioReducer, {
-  stbActivePortfolioReducer
+  stbActivePortfolioReducer,
+  stbActivePortfolioMetaDataReducer
 } from "./portfolios.reducer";
 import {
   SaveStbPortfoliosToStore,
-  SetActivePortfolioInStore
+  SetActivePortfolioInStore,
+  SetActivePortfolioMetaData
 } from "../../actions/stockbroking/portfolios.actions";
 import { IStockBrokingPortfolioState } from "../../models/index";
 
@@ -264,6 +267,7 @@ describe("Portfolio Reducer", () => {
   });
 });
 
+// STB ACTIVE PORTFOLIO
 describe("Stb Active Portfolio", () => {
   let initialActivePortfolio: IPortfolio;
 
@@ -287,5 +291,30 @@ describe("Stb Active Portfolio", () => {
 
     const state = stbActivePortfolioReducer(initialActivePortfolio, action);
     expect(state).toEqual(changedPortfolio);
+  });
+});
+
+// STB ACTIVE PORTFOLIO METADATA
+describe("Stb Active Portfolio MetaData", () => {
+  it("returns the initial state", () => {
+    const action = {} as any;
+    const state = stbActivePortfolioMetaDataReducer(undefined, action);
+
+    expect(state).toEqual(intialStbActivePortflioMetaData);
+  });
+
+  it("should set the metadata correctly", () => {
+    const newMetaData = {
+      ...intialStbActivePortflioMetaData,
+      totalValue: 2893.6
+    };
+    const action = new SetActivePortfolioMetaData(
+      initialStockbrokingActivePortfolioState
+    );
+    const state = stbActivePortfolioMetaDataReducer(
+      intialStbActivePortflioMetaData,
+      action
+    );
+    expect(state).toEqual({ ...newMetaData });
   });
 });

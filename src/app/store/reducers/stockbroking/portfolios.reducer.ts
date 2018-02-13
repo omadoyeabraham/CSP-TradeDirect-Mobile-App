@@ -1,10 +1,14 @@
 import {
   initialStockbrokingPortfolioState,
-  initialStockbrokingActivePortfolioState
+  initialStockbrokingActivePortfolioState,
+  intialStbActivePortflioMetaData
 } from "../../models/initialState";
 import * as StbPortfolioActions from "../../actions/stockbroking/portfolios.actions";
 import { IPortfolio } from "../../../stockbrokingModule/models/portfolio.interface";
-import { IStockBrokingPortfolioState } from "../../models";
+import {
+  IStockBrokingPortfolioState,
+  IStbActivePortfolioMetaData
+} from "../../models";
 import { convertArrayToEntities } from "../../helpers";
 
 export default function stbPortfolioReducer(
@@ -49,6 +53,33 @@ export function stbActivePortfolioReducer(
       return {
         ...action.payload
       };
+    default:
+      return state;
+  }
+}
+
+/**
+ * Reducer controlling the stbActivePortfolioMetaData slice of state
+ *
+ * @export
+ * @param {IStbActivePortfolioMetaData} [state=intialStbActivePortflioMetaData]
+ * @param {StbPortfolioActions.StbPortfolioActionType} action
+ */
+export function stbActivePortfolioMetaDataReducer(
+  state: IStbActivePortfolioMetaData = intialStbActivePortflioMetaData,
+  action: StbPortfolioActions.StbPortfolioActionType
+): IStbActivePortfolioMetaData {
+  //TODO: Add checks for null objects etc
+  switch (action.type) {
+    case StbPortfolioActions.SET_ACTIVE_PORTFOLIO_META_DATA: {
+      const portfolio = action.payload;
+      const totalValue = parseFloat(portfolio.currentValuation.amount);
+
+      return {
+        totalValue
+      };
+    }
+
     default:
       return state;
   }
