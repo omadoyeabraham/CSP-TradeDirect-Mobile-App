@@ -18,7 +18,7 @@ export function convertArrayToEntities<T>(
     (entities: { [entityKey: number]: T }, arrayElement) => {
       return {
         ...entities,
-        [arrayElement[entityKey]]: arrayElement
+        [parseFloat(arrayElement[entityKey])]: arrayElement
       };
     },
     {

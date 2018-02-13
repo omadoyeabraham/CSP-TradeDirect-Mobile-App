@@ -1,6 +1,7 @@
 import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 
 export interface IStockBrokingPortfolioState {
+  [id: string]: IPortfolio;
   [id: number]: IPortfolio;
 }
 

@@ -1,0 +1,46 @@
+<!-- Generated template for the SwitchPortfolioComponent component -->
+
+<div class="bg-blue">
+  <ion-slides pager style="height: 100px" (ionSlideDidChange)="portfolioChanged()">
+
+    <ion-slide *ngFor="let portfolio of portfolios$ | async">
+      <ion-grid>
+        {{portfolio.id}}
+        <ion-row>
+          <ion-col>
+            {{currentPortfolio}}
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{currentPortfolioIndex}} of {{numberOfPortfolios$ | async}}
+          </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+          <ion-col style="text-align: right">
+            {{currentPortfolioIndex}} of {{numberOfPortfolios}}
+          </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+          <ion-col class="swipe" col-3>
+            <span>&lt; SWIPE &gt;</span>
+          </ion-col>
+          <ion-col class="pb0" style="text-align: right" col-9>
+            <h6 *ngIf="showTotalValue" class="m0 font-size-13">Portfolio Value</h6>
+            <h6 *ngIf="showCashAvailableForTrading" class="m0 font-size-13">Available Cash</h6>
+            <h4 class="m0 font-size-20s">
+              <span *ngIf="showCashAvailableForTrading">
+                &#8358;{{currentPortfolioCashAvailableForTrading | number:'1.2-2'}}
+              </span>
+              <span *ngIf="showTotalValue">
+                &#8358;{{currentPortfolioTotalValue | number:'1.2-2'}}
+              </span>
+            </h4>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-slide>
+
+  </ion-slides>
+</div>

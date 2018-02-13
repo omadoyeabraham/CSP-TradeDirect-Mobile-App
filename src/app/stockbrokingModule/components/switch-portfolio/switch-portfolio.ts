@@ -1,0 +1,52 @@
+import { Component, ViewChild, Input, OnInit } from "@angular/core";
+import { Slides } from "ionic-angular";
+import { Observable } from "rxjs/Observable";
+import { Store } from "@ngrx/store";
+
+import { IStockBrokingPortfolioState, IAppState } from "../../../store/models";
+import * as selectors from "../../../store/selectors/stockbroking/portfolios.selectors";
+import { IPortfolio } from "../../models/portfolio.interface";
+
+/**
+ * Component used to switch between the user's STB portfolios
+ *
+ * @type Smart component
+ * @export
+ * @class SwitchPortfolioComponent
+ */
+@Component({
+  selector: "csmobile-switch-portfolio",
+  templateUrl: "switch-portfolio.html"
+})
+export class SwitchPortfolioComponent implements OnInit {
+  @Input() showTotalValue: boolean;
+  @Input() showCashAvailableForTrading: boolean;
+  // Expose the slides in the slider to the class for tracking and appropriate update
+  @ViewChild(Slides) slides: Slides;
+
+  public portfolios$: Observable<Array<IPortfolio>>;
+  private _portfolios: Array<IPortfolio>;
+  public portfolios: Array<IPortfolio>;
+  public numberOfPortfolios$: Observable<number>;
+
+  constructor(private store: Store<IAppState>) {}
+
+  ngOnInit() {
+    // Select needed slices of state from the store
+    this.portfolios$ = this.store.select(selectors.getStbPortfolios);
+    this.numberOfPortfolios$ = this.store.select(
+      selectors.getNumberOfStbPortfolios
+    );
+
+    this.portfolios$.subscribe((portfolios: Array<IPortfolio>) => {
+      this._portfolios = portfolios;
+    });
+  }
+
+  portfolioChanged() {
+    // The current portfolio index is +1 because the portfolios are in a zero indexed array
+    let activeSlideIndex = this.slides.getActiveIndex();
+    console.log(activeSlideIndex);
+    console.log(this._portfolios[activeSlideIndex]);
+  }
+}

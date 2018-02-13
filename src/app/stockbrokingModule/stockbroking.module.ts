@@ -4,6 +4,7 @@ import { IonicModule } from "ionic-angular";
 
 import { StbSummaryComponent } from "./pages/summary/stb-summary/stb-summary";
 import { SharedModule } from "../sharedModule/shared.module";
+import { SwitchPortfolioComponent } from "./components/switch-portfolio/switch-portfolio";
 
 /**
  * The StockbrokingModule contains all STB services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -13,8 +14,8 @@ import { SharedModule } from "../sharedModule/shared.module";
  */
 @NgModule({
   imports: [IonicModule, CommonModule, SharedModule],
-  declarations: [StbSummaryComponent],
-  exports: [StbSummaryComponent]
+  declarations: [StbSummaryComponent, SwitchPortfolioComponent],
+  exports: [StbSummaryComponent, SwitchPortfolioComponent]
 })
 export class StockbrokingModule {
   /**

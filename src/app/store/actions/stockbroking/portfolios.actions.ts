@@ -6,6 +6,8 @@ import { IAppState } from "../../models/index";
 
 export const SAVE_STB_PORTFOLIOS_IN_STORE =
   "[STB] [PORTFOLIOS] Save the user's stb portfolio(s) in the store";
+export const SET_ACTIVE_PORTFOLIO_IN_STORE =
+  "[STB] [Active Portfolio] Set the currently active portfolio in the store";
 
 // Action creator class for saving stb portfolios to the store
 export class SaveStbPortfoliosToStore implements Action {
@@ -13,8 +15,16 @@ export class SaveStbPortfoliosToStore implements Action {
   constructor(public payload: IPortfolio[]) {}
 }
 
+// Action creator class for setting the active portfolio
+export class SetActivePortfolioInStore implements Action {
+  readonly type = SET_ACTIVE_PORTFOLIO_IN_STORE;
+  constructor(public payload: IPortfolio) {}
+}
+
 // Action Types
-export type StbPortfolioActionType = SaveStbPortfoliosToStore;
+export type StbPortfolioActionType =
+  | SaveStbPortfoliosToStore
+  | SetActivePortfolioInStore;
 
 /**
  * Action Dispatchers for stb portfolio related actions.
@@ -35,5 +45,15 @@ export class StbPortfolioActionDispatcher {
    */
   savePortfoliosToStore(payload: IPortfolio[]) {
     this.store.dispatch(new SaveStbPortfoliosToStore(payload));
+  }
+
+  /**
+   * Dispatch the action to set the active portfolio in the store
+   *
+   * @param {IPortfolio} payload
+   * @memberof StbPortfolioActionDispatcher
+   */
+  setActivePortfolioInStore(payload: IPortfolio) {
+    this.store.dispatch(new SetActivePortfolioInStore(payload));
   }
 }

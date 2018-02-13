@@ -26,13 +26,23 @@ describe("stbPortfolios Selector", () => {
     spyOn(store, "dispatch").and.callThrough();
   });
 
-  it("should return the stbPortfolios feature state", () => {
+  it("should return the stbPortfolios entities", () => {
     let result;
     store
-      .select(selectors.getStbPortfoliosState)
+      .select(selectors.getStbPortfoliosEntities)
       .subscribe(val => (result = val));
 
     expect(result).toEqual(initialStbPortfoliosState);
+  });
+
+  it("should correctly return the portfolios as an array", () => {
+    let result;
+    store.select(selectors.getStbPortfolios).subscribe(val => (result = val));
+
+    expect(result).toEqual([
+      initialStbPortfoliosState[3791],
+      initialStbPortfoliosState[3792]
+    ]);
   });
 
   it("should count the number of stb portfolios correctly", () => {
