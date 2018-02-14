@@ -10,6 +10,7 @@ import { StbPortfolioActionDispatcher } from "../../../store";
 
 /**
  * Component used to switch between the user's STB portfolios
+ * This component is declared and exported by the StockbrokingModule, and the STB pages (each individual modules courtesy ionic) import the StockbrokingModule so they can use this component.
  *
  * @type Smart component
  * @export

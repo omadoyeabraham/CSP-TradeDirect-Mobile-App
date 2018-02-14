@@ -1,3 +1,5 @@
 page-stb-container {
-
+  ion-header#stbContainerHeader {
+    z-index: -1000;
+  }
 }

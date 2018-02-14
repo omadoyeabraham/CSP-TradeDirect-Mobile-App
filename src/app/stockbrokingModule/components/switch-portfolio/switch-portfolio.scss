@@ -1,12 +1,12 @@
 csmobile-switch-portfolio {
-
+  margin-top: 1000px;
   .swiper-pagination-bullets {
     display: none;
   }
 
   ion-slide {
-    background: #1A2155;
-    color: #FFFFFF;
+    background: #1a2155;
+    color: #ffffff;
 
     .slide-zoom {
       // position: absolute;
@@ -20,13 +20,12 @@ csmobile-switch-portfolio {
     align-self: flex-end;
 
     span {
-      background: #FFF;
-      color: #1A2155;
+      background: #fff;
+      color: #1a2155;
       font-size: 11px;
       font-weight: bold;
       padding: 5px;
       border-radius: 5px;
     }
   }
-
 }

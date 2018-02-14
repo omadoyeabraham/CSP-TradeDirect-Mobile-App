@@ -1,25 +1,21 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
 
 /**
- * Generated class for the PortfolioHoldingsPage page.
+ * Presentational component for stockbroking portfolio holdings
+ * This component displays stb portfolio holdings, and receives @Inputs and @Outputs from StbPortfolioHoldingsContainerPage
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * @export
+ * @class PortfolioHoldingsComponent
  */
-
-@IonicPage()
 @Component({
-  selector: 'page-portfolio-holdings',
-  templateUrl: 'portfolio-holdings.html',
+  selector: "portfolio-holdings",
+  templateUrl: "portfolio-holdings.html"
 })
-export class PortfolioHoldingsPage {
+export class PortfolioHoldingsComponent {
+  text: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor() {
+    console.log("Hello PortfolioHoldingsComponent Component");
+    this.text = "Hello World";
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PortfolioHoldingsPage');
-  }
-
 }
