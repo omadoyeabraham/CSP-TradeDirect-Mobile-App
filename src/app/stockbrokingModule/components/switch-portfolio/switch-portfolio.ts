@@ -3,7 +3,7 @@ import { Slides } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 
-import { IAppState } from "../../../store/models";
+import { IAppState, IStbActivePortfolioMetaData } from "../../../store/models";
 import * as selectors from "../../../store/selectors/stockbroking/portfolios.selectors";
 import { IPortfolio } from "../../models/portfolio.interface";
 import { StbPortfolioActionDispatcher } from "../../../store";
@@ -28,6 +28,7 @@ export class SwitchPortfolioComponent implements OnInit {
   public portfolios$: Observable<Array<IPortfolio>>;
   private _portfolios: Array<IPortfolio>;
   public activePortfolio$: Observable<IPortfolio>;
+  public activePortfolioMetaData$: Observable<IStbActivePortfolioMetaData>;
   public portfolios: Array<IPortfolio>;
   public numberOfPortfolios$: Observable<number>;
   public activeSlideIndex: number;
@@ -46,20 +47,32 @@ export class SwitchPortfolioComponent implements OnInit {
       selectors.getNumberOfStbPortfolios
     );
     this.activePortfolio$ = this.store.select(selectors.getActivePortfolio);
+    this.activePortfolioMetaData$ = this.store.select(
+      selectors.getActivePortfolioMetaData
+    );
 
     // Update the component's portfolios array whenever the store's portfolios are updated
     this.portfolios$.subscribe((portfolios: Array<IPortfolio>) => {
       this._portfolios = portfolios;
     });
 
+    // Default index of the slide selected
+    this.activeSlideIndex = 1;
+
     //TODO: use map or mergeMap to merge activePortfolio$ and activePortfolioMetaData$
   }
 
+  /**
+   *
+   *
+   * @memberof SwitchPortfolioComponent
+   */
   portfolioChanged() {
-    // The current portfolio index from the slider
-    this.activeSlideIndex = this.slides.getActiveIndex();
+    // The current portfolio index from the slider (+ 1 because the array is zero indexed)
+    this.activeSlideIndex = this.slides.getActiveIndex() + 1;
+    const portfolioIndex = this.slides.getActiveIndex();
     // Get the currentPortfolio based on the index slid to
-    const nextActivePortfolio = this._portfolios[this.activeSlideIndex];
+    const nextActivePortfolio = this._portfolios[portfolioIndex];
 
     // Dispatch an action to change the current portfolio in the store
     this.stbPortfolioActionDispatcher.setActivePortfolioInStore(

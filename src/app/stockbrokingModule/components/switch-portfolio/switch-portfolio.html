@@ -10,7 +10,7 @@
             {{(activePortfolio$ | async)?.label}}
           </ion-col>
           <ion-col style="text-align: right">
-            {{currentPortfolioIndex}} of {{numberOfPortfolios$ | async}}
+            {{activeSlideIndex}} of {{numberOfPortfolios$ | async}}
           </ion-col>
         </ion-row>
 
@@ -32,7 +32,7 @@
                 &#8358;{{currentPortfolioCashAvailableForTrading | number:'1.2-2'}}
               </span>
               <span *ngIf="showTotalValue">
-                &#8358;{{currentPortfolioTotalValue | number:'1.2-2'}}
+                &#8358;{{(activePortfolioMetaData$ | async)?.totalValue | number:'1.2-2'}}
               </span>
             </h4>
           </ion-col>
