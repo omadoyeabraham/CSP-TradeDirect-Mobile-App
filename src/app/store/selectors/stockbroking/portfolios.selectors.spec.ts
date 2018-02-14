@@ -64,4 +64,13 @@ describe("stbPortfolios Selector", () => {
       initialState.initialStockbrokingActivePortfolioState
     );
   });
+
+  it("should return the stbActivePortfolioMetaData feature state", () => {
+    let result;
+    store
+      .select(selectors.getActivePortfolioMetaData)
+      .subscribe(metadata => (result = metadata));
+
+    expect(result).toEqual(initialState.intialStbActivePortflioMetaData);
+  });
 });

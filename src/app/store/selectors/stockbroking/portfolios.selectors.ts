@@ -1,5 +1,8 @@
 import { createFeatureSelector } from "@ngrx/store";
-import { IStockBrokingPortfolioState } from "../../models";
+import {
+  IStockBrokingPortfolioState,
+  IStbActivePortfolioMetaData
+} from "../../models";
 import { createSelector } from "@ngrx/store";
 import { IPortfolio } from "../../../stockbrokingModule/models/portfolio.interface";
 
@@ -34,3 +37,8 @@ export const getNumberOfStbPortfolios = createSelector(
 export const getActivePortfolio = createFeatureSelector<IPortfolio>(
   "stbActivePortfolio"
 );
+
+// Get the stbActivePortfolioMetaData feature state slice
+export const getActivePortfolioMetaData = createFeatureSelector<
+  IStbActivePortfolioMetaData
+>("stbActivePortfolioMetaData");
