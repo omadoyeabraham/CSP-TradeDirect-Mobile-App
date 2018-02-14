@@ -25,6 +25,14 @@ export default function stbPortfolioReducer(
           portfolio.portfolioHoldings = [];
         }
 
+        // Ensure that the portfolio holdings are in an array of IPortfolioHolding
+        if (
+          typeof portfolio.portfolioHoldings === "object" &&
+          !Array.isArray(portfolio.portfolioHoldings)
+        ) {
+          portfolio.portfolioHoldings = [portfolio.portfolioHoldings];
+        }
+
         // calculate the gain or loss for all portfolios
         const gainOrLoss =
           parseFloat(portfolio.currentValuation.amount) -

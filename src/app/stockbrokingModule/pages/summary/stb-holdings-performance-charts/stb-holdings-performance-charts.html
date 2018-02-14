@@ -1,0 +1,25 @@
+<div no-padding>
+  <div>
+    <ion-segment [(ngModel)]="chartType">
+      <ion-segment-button value="stockPerformance">
+        Stocks Performance
+      </ion-segment-button>
+      <ion-segment-button value="bondPerformance">
+        Bond Performance
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+</div>
+
+<div *ngIf="stockData" id="stockPerformanceChart" style="height: 200px" [ngClass]="{'hideGraph': hideStockPerformanceChart()}">
+</div>
+
+<ion-item *ngIf="!stockData" [ngClass]="{'hideGraph': hideStockPerformanceChart()}" id="stockPerformanceChart">
+  <ion-grid>
+    <ion-row class="mt40 mb40">
+      <ion-col text-center class="font-size-16">
+        No stock holdings in this portfolio
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>

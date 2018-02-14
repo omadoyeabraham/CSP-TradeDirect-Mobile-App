@@ -22,6 +22,7 @@ import * as selectors from "../../../../store/selectors";
 })
 export class StbSummaryContainerPage {
   public activePortfolio: IPortfolio;
+  public activePortfolioStockData: any;
 
   constructor(
     public navCtrl: NavController,
@@ -35,5 +36,11 @@ export class StbSummaryContainerPage {
     this.store.select(selectors.getActivePortfolio).subscribe(portfolio => {
       this.activePortfolio = portfolio;
     });
+
+    this.store
+      .select(selectors.getActivePortfolioStockHoldingsGraphData)
+      .subscribe(stockGraphData => {
+        this.activePortfolioStockData = stockGraphData;
+      });
   }
 }

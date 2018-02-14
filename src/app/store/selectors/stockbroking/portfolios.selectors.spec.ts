@@ -73,4 +73,17 @@ describe("stbPortfolios Selector", () => {
 
     expect(result).toEqual(initialState.intialStbActivePortflioMetaData);
   });
+
+  it("should return all portfolio holdings correctly", () => {
+    let result;
+    store
+      .select(selectors.getAllActivePortfolioHoldings)
+      .subscribe(val => (result = val));
+
+    expect(result).toEqual(
+      initialState.initialStockbrokingActivePortfolioState.portfolioHoldings
+    );
+  });
 });
+
+// TODO: Tests from getActivePortfolioStockHoldings downwards
