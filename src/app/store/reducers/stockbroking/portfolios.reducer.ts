@@ -24,6 +24,13 @@ export default function stbPortfolioReducer(
         if (!portfolio.portfolioHoldings) {
           portfolio.portfolioHoldings = [];
         }
+
+        // calculate the gain or loss for all portfolios
+        const gainOrLoss =
+          parseFloat(portfolio.currentValuation.amount) -
+          parseFloat(portfolio.costBasis.amount);
+        portfolio.gainOrLoss = gainOrLoss;
+
         return portfolio;
       });
 
