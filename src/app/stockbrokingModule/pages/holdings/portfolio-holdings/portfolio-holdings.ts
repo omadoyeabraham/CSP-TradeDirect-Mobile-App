@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { IPortfolioHolding } from "../../../models/portfolioHolding.interface";
 
 /**
  * Presentational component for stockbroking portfolio holdings
@@ -8,14 +9,15 @@ import { Component } from "@angular/core";
  * @class PortfolioHoldingsComponent
  */
 @Component({
-  selector: "portfolio-holdings",
+  selector: "csmobile-portfolio-holdings",
   templateUrl: "portfolio-holdings.html"
 })
 export class PortfolioHoldingsComponent {
-  text: string;
+  // The initial tab of holdings shown
+  public holdingType: string = "stocks";
 
-  constructor() {
-    console.log("Hello PortfolioHoldingsComponent Component");
-    this.text = "Hello World";
-  }
+  @Input("stockHoldings") stockHoldings: IPortfolioHolding[];
+  @Input("bondHoldings") bondHoldings: IPortfolioHolding[];
+
+  constructor() {}
 }

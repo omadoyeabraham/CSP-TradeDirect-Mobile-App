@@ -1,4 +1,6 @@
 import { createFeatureSelector } from "@ngrx/store";
+import * as moment from "moment";
+
 import {
   IStockBrokingPortfolioState,
   IStbActivePortfolioMetaData
@@ -74,6 +76,46 @@ export const getActivePortfolioBondHoldings = createSelector(
     // Filter to pick only bonds
     return state.filter(holding => holding.securityType === "BOND");
   }
+);
+
+/**
+ * Private function which calculates some metadata (faceValue etc) for all bond holdings
+ * @param bondPortfolioHoldings
+ */
+export const _getActivePortfolioBondHoldingsWithMetaData = (
+  bondPortfolioHoldings: IPortfolioHolding[]
+) => {
+  // Data initialization
+  let faceValue = 0;
+  let accruedCoupon = 0;
+  let currentPortfolioBondHoldings = [];
+
+  // Loop through the bond holding, and perform the necessary calculations
+  bondPortfolioHoldings.forEach((bondHolding, index) => {
+    faceValue = parseFloat(bondHolding.marketValue);
+    accruedCoupon =
+      (parseFloat(bondHolding.dirtyPrice) -
+        parseFloat(bondHolding.marketPrice)) *
+      parseFloat(bondHolding.quantityHeld);
+
+    bondHolding.id = index;
+    bondHolding.faceValue = faceValue;
+    bondHolding.accruedCoupon = accruedCoupon;
+    let nextCouponDate = moment(bondHolding.lastCouponDate).add(90, "days");
+    bondHolding.nextCouponDate = nextCouponDate;
+
+    currentPortfolioBondHoldings.push(bondHolding);
+  });
+
+  return currentPortfolioBondHoldings;
+};
+
+/**
+ * Get the bond portfolio holdings for the active portfolio plus some calculated metadata
+ */
+export const getActivePortfolioBondHoldingsWithMetaData = createSelector(
+  getActivePortfolioBondHoldings,
+  _getActivePortfolioBondHoldingsWithMetaData
 );
 
 /**

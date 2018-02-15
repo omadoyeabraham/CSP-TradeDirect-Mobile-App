@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Store } from "@ngrx/store";
+
+import { IAppState } from "../../../../store/models";
+import * as selectors from "../../../../store/selectors";
+import { IPortfolioHolding } from "../../../models/portfolioHolding.interface";
 
 /**
  * Container component for stockbroking portfolio holdings
@@ -15,9 +20,28 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
   templateUrl: "stb-portfolio-holdings-container.html"
 })
 export class StbPortfolioHoldingsContainerPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  public activePortfolioStockHoldings: IPortfolioHolding[];
+  public activePortfolioBondHoldings: IPortfolioHolding[];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private store: Store<IAppState>
+  ) {}
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad StbPortfolioHoldingsContainerPage");
+    // Subscribe to stock holdings of the currently selected portfolio
+    this.store
+      .select(selectors.getActivePortfolioStockHoldings)
+      .subscribe(stockHoldings => {
+        this.activePortfolioStockHoldings = stockHoldings;
+      });
+
+    // Subscribe to bond holdings of the currently selected portfolio
+    this.store
+      .select(selectors.getActivePortfolioBondHoldingsWithMetaData)
+      .subscribe(bondHoldings => {
+        this.activePortfolioBondHoldings = bondHoldings;
+      });
   }
 }
