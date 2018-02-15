@@ -6,6 +6,7 @@ import { StbSummaryComponent } from "./pages/summary/stb-summary/stb-summary";
 import { SharedModule } from "../sharedModule/shared.module";
 import { SwitchPortfolioComponent } from "./components/switch-portfolio/switch-portfolio";
 import { StbHoldingsPerformanceChartsComponent } from "./pages/summary/stb-holdings-performance-charts/stb-holdings-performance-charts";
+import { ChartsProvider } from "./providers/charts/charts";
 
 /**
  * The StockbrokingModule contains all STB services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -34,10 +35,10 @@ export class StockbrokingModule {
    * @returns {ModuleWithProviders}
    * @memberof StockbrokingModule
    */
-  //   static forRoot(): ModuleWithProviders {
-  //     return {
-  //       ngModule: StockbrokingModule,
-  //       providers: []
-  //     };
-  //   }
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: StockbrokingModule,
+      providers: [ChartsProvider]
+    };
+  }
 }

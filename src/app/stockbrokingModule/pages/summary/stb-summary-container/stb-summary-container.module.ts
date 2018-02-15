@@ -14,7 +14,7 @@ import { StockbrokingModule } from "../../../stockbroking.module";
   declarations: [StbSummaryContainerPage],
   imports: [
     IonicPageModule.forChild(StbSummaryContainerPage),
-    StockbrokingModule
+    StockbrokingModule.forRoot()
   ]
 })
 export class StbSummaryContainerPageModule {}

@@ -17,11 +17,8 @@ import { IPortfolio } from "../../../models/portfolio.interface";
 export class StbSummaryComponent {
   @Input("portfolio") portfolio: IPortfolio;
   constructor() {
-    console.log(this.portfolio);
     this.portfolio = {} as any;
   }
 
-  ngOnInit() {
-    console.log(this.portfolio);
-  }
+  ngOnInit() {}
 }
