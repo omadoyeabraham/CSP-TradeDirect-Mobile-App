@@ -24,6 +24,8 @@ export class StbSummaryContainerPage {
   public activePortfolio: IPortfolio;
   public activePortfolioStockData: any;
   public activePortfolioStockGraphData: any;
+  public activePortfolioBondData: any;
+  public activePortfolioBondGraphData: any;
 
   constructor(
     public navCtrl: NavController,
@@ -53,6 +55,22 @@ export class StbSummaryContainerPage {
       .subscribe(stockGraphData => {
         this.activePortfolioStockGraphData = this.chartsProvider.getCspDefinedBarChart(
           stockGraphData
+        );
+      });
+
+    // Subscribe to the bond holdings for the active portfolio
+    this.store
+      .select(selectors.getActivePortfolioBondHoldings)
+      .subscribe(bondData => {
+        this.activePortfolioBondData = bondData;
+      });
+
+    // Subscribe to the bondHoldings graph data for the active portfolio, and get the exact object needed to plot a graph with this data
+    this.store
+      .select(selectors.getActivePortfolioBondHoldingsGraphData)
+      .subscribe(bondGraphData => {
+        this.activePortfolioBondGraphData = this.chartsProvider.getCspDefinedBarChart(
+          bondGraphData
         );
       });
   }

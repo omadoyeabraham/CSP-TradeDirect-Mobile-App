@@ -26,6 +26,8 @@ export class StbHoldingsPerformanceChartsComponent
 
   @Input("stockData") stockData: any;
   @Input("stockGraphData") stockGraphData: any;
+  @Input("bondData") bondData: any;
+  @Input("bondGraphData") bondGraphData: any;
 
   constructor() {}
 
@@ -34,7 +36,13 @@ export class StbHoldingsPerformanceChartsComponent
   ngAfterViewInit() {
     // Delay so that the component has time to get the data onload before it tries to render the graph
     setTimeout(() => {
-      Highcharts.chart("stockPerformanceChart", this.stockGraphData);
+      if (this.stockData.length > 0) {
+        Highcharts.chart("stockPerformanceChart", this.stockGraphData);
+      }
+
+      if (this.bondData.length > 0) {
+        Highcharts.chart("bondPerformanceChart", this.bondGraphData);
+      }
     }, 1000);
   }
 
@@ -49,6 +57,21 @@ export class StbHoldingsPerformanceChartsComponent
           Highcharts.chart(
             "stockPerformanceChart",
             changes.stockGraphData.currentValue
+          );
+        }, 500);
+      }
+    }
+
+    // Watch the changes to the @Input and replot the graph whenever the data changes
+    if (changes.bondGraphData.currentValue) {
+      /**
+       * Plot the graph if bond data exists, after 500ms. The time lag is so angular bindings showing/hiding the divs based on bondData will be done before the graph is plotted
+       */
+      if (this.bondData.length > 0) {
+        setTimeout(() => {
+          Highcharts.chart(
+            "bondPerformanceChart",
+            changes.bondGraphData.currentValue
           );
         }, 500);
       }

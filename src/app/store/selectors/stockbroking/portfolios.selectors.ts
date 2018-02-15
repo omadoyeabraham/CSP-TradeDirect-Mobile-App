@@ -71,7 +71,7 @@ export const getActivePortfolioStockHoldings = createSelector(
 export const getActivePortfolioBondHoldings = createSelector(
   getAllActivePortfolioHoldings,
   (state: IPortfolioHolding[]) => {
-    // Filter to pick only equity stock
+    // Filter to pick only bonds
     return state.filter(holding => holding.securityType === "BOND");
   }
 );
@@ -145,4 +145,53 @@ export const getActivePortfolioStockHoldingsGraphData = createSelector(
   getActivePortfolio,
   getActivePortfolioStockHoldings,
   _getActivePortfolioStockHoldingsGraphData
+);
+
+/**
+ * Private function used to calculate the data used for plotting bond portfolio holdings graphs
+ *
+ * @param activePortfolio
+ * @param bondHoldings
+ */
+export const _getActivePortfolioBondHoldingsGraphData = (
+  activePortfolio: IPortfolio,
+  bondHoldings: IPortfolioHolding[]
+) => {
+  let bondData = [];
+  let bondValue = 0;
+  let bondPerformance = 0;
+  let totalPortfolioValue = 0;
+
+  // Obtain the total value of the portfolio
+  bondHoldings.forEach(portfolioHolding => {
+    totalPortfolioValue += parseFloat(portfolioHolding.valuation);
+  });
+
+  bondHoldings.forEach(portfolioHolding => {
+    // get the stock's performance, value, and % of the portfolio
+    bondValue = parseFloat(portfolioHolding.valuation);
+    bondPerformance = parseFloat(portfolioHolding.percentGain);
+
+    let percentageOfPortfolio = (bondValue / totalPortfolioValue * 100).toFixed(
+      2
+    );
+    // Because highcharts requires this structure to draw pie charts
+    bondData.push({
+      name: portfolioHolding.securityName,
+      y: bondValue,
+      percentageOfPortfolio: percentageOfPortfolio,
+      percentageGain: bondPerformance
+    });
+  });
+
+  return bondData;
+};
+
+/**
+ * Get the bond holdings data transformed to suit graph plotting
+ */
+export const getActivePortfolioBondHoldingsGraphData = createSelector(
+  getActivePortfolio,
+  getActivePortfolioBondHoldings,
+  _getActivePortfolioBondHoldingsGraphData
 );

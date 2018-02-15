@@ -25,3 +25,18 @@
     </ion-grid>
   </ion-item>
 </div>
+
+<div *ngIf="bondData?.length" id="bondPerformanceChart" style="height: 200px" [ngClass]="{'hideGraph': hideBondPerformanceChart()}">
+</div>
+
+<div *ngIf="!bondData?.length" id="bondPerformanceChart" [ngClass]="{'hideGraph': hideBondPerformanceChart()}">
+  <ion-item>
+    <ion-grid>
+      <ion-row class="mt40 mb40">
+        <ion-col text-center class="font-size-16">
+          No bond holdings in this portfolio
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</div>
