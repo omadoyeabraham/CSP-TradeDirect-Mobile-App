@@ -8,6 +8,7 @@ import { SwitchPortfolioComponent } from "./components/switch-portfolio/switch-p
 import { StbHoldingsPerformanceChartsComponent } from "./pages/summary/stb-holdings-performance-charts/stb-holdings-performance-charts";
 import { ChartsProvider } from "./providers/charts/charts";
 import { PortfolioHoldingsComponent } from "./pages/holdings/portfolio-holdings/portfolio-holdings";
+import { TradeOverviewComponent } from "./pages/trade/trade-overview/trade-overview";
 
 /**
  * The StockbrokingModule contains all STB services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -21,13 +22,15 @@ import { PortfolioHoldingsComponent } from "./pages/holdings/portfolio-holdings/
     StbSummaryComponent,
     SwitchPortfolioComponent,
     StbHoldingsPerformanceChartsComponent,
-    PortfolioHoldingsComponent
+    PortfolioHoldingsComponent,
+    TradeOverviewComponent
   ],
   exports: [
     StbSummaryComponent,
     SwitchPortfolioComponent,
     StbHoldingsPerformanceChartsComponent,
-    PortfolioHoldingsComponent
+    PortfolioHoldingsComponent,
+    TradeOverviewComponent
   ]
 })
 export class StockbrokingModule {

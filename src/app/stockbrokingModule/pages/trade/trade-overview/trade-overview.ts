@@ -1,22 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 /**
- * Generated class for the TradeOverviewComponent component.
+ * Presentational component which displays all equities with their pictures
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * @type Presentational
+ * @export
+ * @class TradeOverviewComponent
  */
 @Component({
-  selector: 'trade-overview',
-  templateUrl: 'trade-overview.html'
+  selector: "csmobile-trade-overview",
+  templateUrl: "trade-overview.html"
 })
 export class TradeOverviewComponent {
-
-  text: string;
-
-  constructor() {
-    console.log('Hello TradeOverviewComponent Component');
-    this.text = 'Hello World';
-  }
-
+  constructor() {}
 }

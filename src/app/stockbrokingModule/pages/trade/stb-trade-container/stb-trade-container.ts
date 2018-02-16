@@ -1,25 +1,21 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 /**
- * Generated class for the StbTradeContainerPage page.
+ * Container component which houses all trade related redux code
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * @export
+ * @class StbTradeContainerPage
  */
-
 @IonicPage()
 @Component({
-  selector: 'page-stb-trade-container',
-  templateUrl: 'stb-trade-container.html',
+  selector: "page-stb-trade-container",
+  templateUrl: "stb-trade-container.html"
 })
 export class StbTradeContainerPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StbTradeContainerPage');
+    console.log("ionViewDidLoad StbTradeContainerPage");
   }
-
 }
