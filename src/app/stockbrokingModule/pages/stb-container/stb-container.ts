@@ -56,12 +56,12 @@ export class StbContainerPage {
   hideSwitchPortfolioComponent() {
     // const summaryTab = this.stbTabs._tabs[0];
     // const holdingsTab = this.stbTabs._tabs[1];
-    // const tradeTab = this.stbTabs._tabs[2];
+    const tradeTab = this.stbTabs._tabs[2];
     // const historyTab = this.stbTabs._tabs[3];
     const watchlistTab = this.stbTabs._tabs[4];
 
     // Hide the switch portfolio component on the watchlist page
-    if (watchlistTab.isSelected) {
+    if (watchlistTab.isSelected || tradeTab.isSelected) {
       this.hideSwitchPortfolio = true;
     } else {
       this.hideSwitchPortfolio = false;
