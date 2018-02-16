@@ -1,7 +1,7 @@
 import { ISecurity } from "../../../stockbrokingModule/models";
 import * as securityActions from "../../actions/stockbroking/securities.actions";
 
-export function securitiesReducer(
+export default function securitiesReducer(
   state: Array<ISecurity> = [],
   action: securityActions.SecuritiesActionTypes
 ): Array<ISecurity> {

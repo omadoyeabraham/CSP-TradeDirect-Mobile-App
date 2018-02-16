@@ -18,7 +18,7 @@ export class getSecurities implements Action {
 // Action creator to save securities in the store
 export class saveSecuritiesInStore implements Action {
   readonly type = SAVE_SECURITIES_IN_STORE;
-  constructor(public payload: ISecurity) {}
+  constructor(public payload: Array<ISecurity> = []) {}
 }
 
 /**
