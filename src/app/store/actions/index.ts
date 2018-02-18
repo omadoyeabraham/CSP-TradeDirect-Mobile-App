@@ -9,3 +9,6 @@ export * from "./errors/error.actions";
 
 // STOCKBROKING
 export * from "./stockbroking/portfolios.actions";
+
+// FixedIncome
+export * from "./fixedIncome/fixedIncome.actions";

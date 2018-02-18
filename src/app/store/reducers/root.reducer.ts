@@ -8,6 +8,7 @@ import stockbrokingPortfolioReducer, {
   stbActivePortfolioReducer,
   stbActivePortfolioMetaDataReducer
 } from "./stockbroking/portfolios.reducer";
+import fixedIncomeReducer from "./fixedIncome/fixedIncome.reducer";
 import {
   IAuthState,
   IUserState,
@@ -18,6 +19,7 @@ import {
 import securitiesReducer from "./stockbroking/securities.reducer";
 import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 import { ISecurity } from "../../stockbrokingModule/models";
+import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -28,6 +30,7 @@ export interface IRootReducer {
   stbActivePortfolio: IPortfolio;
   stbActivePortfolioMetaData: IStbActivePortfolioMetaData;
   stbSecurities: Array<ISecurity>;
+  fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
 }
 
 /**
@@ -41,7 +44,8 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbPortfolios: stockbrokingPortfolioReducer,
   stbActivePortfolio: stbActivePortfolioReducer,
   stbActivePortfolioMetaData: stbActivePortfolioMetaDataReducer,
-  stbSecurities: securitiesReducer
+  stbSecurities: securitiesReducer,
+  fixedIncomeInvestments: fixedIncomeReducer
 };
 
 /**
@@ -59,13 +63,14 @@ export const onSyncError = err => {
 // Configuration for ngrx-store-ionic-storage
 //TODO: remove auth from the keys
 export const storageSyncReducer = storageSync({
-  keys: [
-    "user",
-    "error",
-    "stbPortfolios",
-    "stbActivePortfolio",
-    "stbSecurities"
-  ],
+  // keys: [
+  //   "user",
+  //   "error",
+  //   "stbPortfolios",
+  //   "stbActivePortfolio",
+  //   "stbSecurities",
+  //   "fixedIncomeInvestments"
+  // ],
   hydratedStateKey: "hydrated", // Add this key to the state
   onSyncError: onSyncError // If a sync fails
 });

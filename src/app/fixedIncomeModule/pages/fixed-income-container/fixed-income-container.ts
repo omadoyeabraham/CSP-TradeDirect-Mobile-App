@@ -1,25 +1,50 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+
+import { IAppState } from "../../../store/models";
+import {
+  getRunningFixedIncomeInvestments,
+  getTerminatedFixedIncomeInvestments
+} from "../../../store";
+import { Store } from "@ngrx/store";
+import { IFixedIncomeInvestment } from "../../models";
 
 /**
- * Generated class for the FixedIncomeContainerPage page.
+ * Container page which houses the fixed income page
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * @type Container / Smart component
+ * @export
+ * @class FixedIncomeContainerPage
  */
-
 @IonicPage()
 @Component({
-  selector: 'page-fixed-income-container',
-  templateUrl: 'fixed-income-container.html',
+  selector: "page-fixed-income-container",
+  templateUrl: "fixed-income-container.html"
 })
 export class FixedIncomeContainerPage {
+  public runningInvestments: IFixedIncomeInvestment[] = [];
+  public terminatedInvestments: IFixedIncomeInvestment[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public store: Store<IAppState>
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FixedIncomeContainerPage');
-  }
+    // Subscribe and get running fixed income investments from the store
+    this.store
+      .select(getRunningFixedIncomeInvestments)
+      .subscribe(
+        runningInvestments => (this.runningInvestments = runningInvestments)
+      );
 
+    // Subscribe and get terminated investments from store
+    this.store
+      .select(getTerminatedFixedIncomeInvestments)
+      .subscribe(
+        terminatedInvestments =>
+          (this.terminatedInvestments = terminatedInvestments)
+      );
+  }
 }

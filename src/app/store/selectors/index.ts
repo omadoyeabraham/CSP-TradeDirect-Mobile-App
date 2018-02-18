@@ -8,3 +8,5 @@ export * from "./errors/errors.selector";
 
 export * from "./stockbroking/portfolios.selectors";
 export * from "./stockbroking/securities.selectors";
+
+export * from "./fixedIncome/fixedIncome.selectors";

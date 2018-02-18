@@ -7,6 +7,7 @@ import * as UserActions from "../actions/user/user.actions";
 import * as ErrorActions from "../actions/errors/error.actions";
 import * as StockbrokingPortfolioActions from "../actions/stockbroking/portfolios.actions";
 import * as SecurityActions from "../actions/stockbroking/securities.actions";
+import * as FixedIncomeActions from "../actions/fixedIncome/fixedIncome.actions";
 
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
 
@@ -44,7 +45,8 @@ export class AuthEffects {
             new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
               userData.STB.EXCHANGE[0]
             ),
-            new SecurityActions.getSecurities()
+            new SecurityActions.getSecurities(),
+            new FixedIncomeActions.saveFixedIncomeData(userData.FI.NGN)
           ]),
           catchError(error => [
             new AuthActions.LoginUserFailed(),

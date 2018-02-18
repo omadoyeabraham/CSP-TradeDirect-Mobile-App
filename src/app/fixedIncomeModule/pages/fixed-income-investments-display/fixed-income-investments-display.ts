@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { IFixedIncomeInvestment } from "../../models";
 
 /**
  * Presentational component which displays an array of fixedIncome investments passed into it
@@ -15,6 +16,7 @@ import { Component, Input } from "@angular/core";
 export class FixedIncomeInvestmentsDisplayComponent {
   // The type of fixedIncome investments being displayed by the component
   @Input("type") type: string = "";
+  @Input("investments") investments: IFixedIncomeInvestment[];
 
   constructor() {}
 }

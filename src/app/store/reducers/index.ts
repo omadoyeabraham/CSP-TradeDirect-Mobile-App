@@ -11,3 +11,6 @@ export * from "./error/error.reducer";
 // STOCKBROKING
 export * from "./stockbroking/portfolios.reducer";
 export * from "./stockbroking/securities.reducer";
+
+// FIXED INCOME
+export * from "./fixedIncome/fixedIncome.reducer";

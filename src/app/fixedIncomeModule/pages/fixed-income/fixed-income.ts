@@ -1,10 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { IFixedIncomeInvestment } from "../../models";
 
 /**
- * Generated class for the FixedIncomeComponent component.
+ * Component which uses ionic segments to display the components for running and terminated investments
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * @type Presentational
+ * @export
+ * @class FixedIncomeComponent
  */
 @Component({
   selector: "csmobile-fixed-income",
@@ -13,6 +15,10 @@ import { Component } from "@angular/core";
 export class FixedIncomeComponent {
   // Default investment type to be shown once the fixed income page is opened
   public investmentType = "runningInvestment";
+
+  @Input("runningInvestments") runningInvestments: IFixedIncomeInvestment[];
+  @Input("terminatedInvestments")
+  terminatedInvestments: IFixedIncomeInvestment[];
 
   constructor() {}
 }
