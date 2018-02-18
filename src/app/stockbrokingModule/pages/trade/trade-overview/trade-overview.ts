@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+
+import { ISecurity } from "../../../models";
 
 /**
  * Presentational component which displays all equities with their pictures
@@ -13,4 +15,6 @@ import { Component } from "@angular/core";
 })
 export class TradeOverviewComponent {
   constructor() {}
+
+  @Input("securities") securities: ISecurity[];
 }
