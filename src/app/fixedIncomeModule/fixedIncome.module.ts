@@ -4,6 +4,7 @@ import { IonicModule } from "ionic-angular";
 
 import { SharedModule } from "../sharedModule/shared.module";
 import { FixedIncomeComponent } from "./pages/fixed-income/fixed-income";
+import { FixedIncomeInvestmentsDisplayComponent } from "./pages/fixed-income-investments-display/fixed-income-investments-display";
 
 /**
  * The FixedIncomeModule contains all FixedIncome services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -13,8 +14,8 @@ import { FixedIncomeComponent } from "./pages/fixed-income/fixed-income";
  */
 @NgModule({
   imports: [IonicModule, CommonModule, SharedModule],
-  declarations: [FixedIncomeComponent],
-  exports: [FixedIncomeComponent]
+  declarations: [FixedIncomeComponent, FixedIncomeInvestmentsDisplayComponent],
+  exports: [FixedIncomeComponent, FixedIncomeInvestmentsDisplayComponent]
 })
 export class FixedIncomeModule {
   /**

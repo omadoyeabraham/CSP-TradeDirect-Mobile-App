@@ -1,22 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 /**
- * Generated class for the FixedIncomeInvestmentsDisplayComponent component.
+ * Presentational component which displays an array of fixedIncome investments passed into it
+ * This component could be used to display running or terminated investments.
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * @type Presentational
+ * @export
+ * @class FixedIncomeInvestmentsDisplayComponent
  */
 @Component({
-  selector: 'fixed-income-investments-display',
-  templateUrl: 'fixed-income-investments-display.html'
+  selector: "csmobile-fixed-income-investments-display",
+  templateUrl: "fixed-income-investments-display.html"
 })
 export class FixedIncomeInvestmentsDisplayComponent {
+  // The type of fixedIncome investments being displayed by the component
+  @Input("type") type: string = "";
 
-  text: string;
-
-  constructor() {
-    console.log('Hello FixedIncomeInvestmentsDisplayComponent Component');
-    this.text = 'Hello World';
-  }
-
+  constructor() {}
 }
