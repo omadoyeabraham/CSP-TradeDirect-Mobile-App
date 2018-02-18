@@ -8,7 +8,9 @@ import stockbrokingPortfolioReducer, {
   stbActivePortfolioReducer,
   stbActivePortfolioMetaDataReducer
 } from "./stockbroking/portfolios.reducer";
-import fixedIncomeReducer from "./fixedIncome/fixedIncome.reducer";
+import fixedIncomeReducer, {
+  fxInvestmentsReducer
+} from "./fixedIncome/fixedIncome.reducer";
 import {
   IAuthState,
   IUserState,
@@ -31,6 +33,7 @@ export interface IRootReducer {
   stbActivePortfolioMetaData: IStbActivePortfolioMetaData;
   stbSecurities: Array<ISecurity>;
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
+  fxInvestments: Array<IFixedIncomeInvestment>;
 }
 
 /**
@@ -45,7 +48,8 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbActivePortfolio: stbActivePortfolioReducer,
   stbActivePortfolioMetaData: stbActivePortfolioMetaDataReducer,
   stbSecurities: securitiesReducer,
-  fixedIncomeInvestments: fixedIncomeReducer
+  fixedIncomeInvestments: fixedIncomeReducer,
+  fxInvestments: fxInvestmentsReducer
 };
 
 /**
@@ -69,7 +73,8 @@ export const storageSyncReducer = storageSync({
     "stbPortfolios",
     "stbActivePortfolio",
     "stbSecurities",
-    "fixedIncomeInvestments"
+    "fixedIncomeInvestments",
+    "fxInvestments"
   ],
   hydratedStateKey: "hydrated", // Add this key to the state
   onSyncError: onSyncError // If a sync fails

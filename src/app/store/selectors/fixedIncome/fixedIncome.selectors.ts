@@ -82,3 +82,65 @@ export const getTotalValueOfFixedIncomeInvestments = createSelector(
     }, 0);
   }
 );
+
+/**
+ * ################################################################################################################
+ * FX INVESTMENTS SELECTORS
+ * ################################################################################################################
+ */
+
+export const getFxInvestments = createFeatureSelector<IFixedIncomeInvestment[]>(
+  "fxInvestments"
+);
+
+/**
+ * Get the currently running fx Investments
+ */
+export const getRunningFxInvestments = createSelector(
+  getFxInvestments,
+  (state: IFixedIncomeInvestment[]) => {
+    return state.filter(
+      fixedIncomeInvestment =>
+        fixedIncomeInvestment.status === IFixedIncomeInvestmentStatus.RUNNING
+    );
+  }
+);
+
+/**
+ * Get the terminated fx Investments
+ */
+export const getTerminatedFxInvestments = createSelector(
+  getFxInvestments,
+  (state: IFixedIncomeInvestment[]) => {
+    return state
+      .filter(
+        fixedIncomeInvestment =>
+          fixedIncomeInvestment.status ===
+          IFixedIncomeInvestmentStatus.TERMINATED
+      )
+      .map(fixedIncomeInvestment => {
+        // Determine the value at termination for terminated investments
+        fixedIncomeInvestment.valueAtTermination =
+          parseFloat(fixedIncomeInvestment.faceValue) +
+          parseFloat(fixedIncomeInvestment.accruedInterest);
+
+        return fixedIncomeInvestment;
+      });
+  }
+);
+
+/**
+ * Get the total value of all fx investments (running)
+ */
+export const getTotalValueOfFxInvestments = createSelector(
+  getRunningFxInvestments,
+  (state: IFixedIncomeInvestment[]) => {
+    return state.reduce((total, investment) => {
+      return (
+        total +
+        parseFloat(investment.accruedInterest) +
+        parseFloat(investment.faceValue)
+      );
+    }, 0);
+  }
+);
