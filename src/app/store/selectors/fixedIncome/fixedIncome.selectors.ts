@@ -30,10 +30,20 @@ export const getRunningFixedIncomeInvestments = createSelector(
 export const getTerminatedFixedIncomeInvestments = createSelector(
   getFixedIncomeInvestments,
   (state: IFixedIncomeInvestment[]) => {
-    return state.filter(
-      fixedIncomeInvestment =>
-        fixedIncomeInvestment.status === IFixedIncomeInvestmentStatus.TERMINATED
-    );
+    return state
+      .filter(
+        fixedIncomeInvestment =>
+          fixedIncomeInvestment.status ===
+          IFixedIncomeInvestmentStatus.TERMINATED
+      )
+      .map(fixedIncomeInvestment => {
+        // Determine the value at termination for terminated investments
+        fixedIncomeInvestment.valueAtTermination =
+          parseFloat(fixedIncomeInvestment.faceValue) +
+          parseFloat(fixedIncomeInvestment.accruedInterest);
+
+        return fixedIncomeInvestment;
+      });
   }
 );
 
@@ -54,5 +64,21 @@ export const getNumberOfTerminatedFixedIncomeInvestments = createSelector(
   getTerminatedFixedIncomeInvestments,
   (state: IFixedIncomeInvestment[]) => {
     return state.length;
+  }
+);
+
+/**
+ * Get the total value of all fixed income investments (running)
+ */
+export const getTotalValueOfFixedIncomeInvestments = createSelector(
+  getRunningFixedIncomeInvestments,
+  (state: IFixedIncomeInvestment[]) => {
+    return state.reduce((total, investment) => {
+      return (
+        total +
+        parseFloat(investment.accruedInterest) +
+        parseFloat(investment.faceValue)
+      );
+    }, 0);
   }
 );

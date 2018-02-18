@@ -17,6 +17,34 @@ export class FixedIncomeInvestmentsDisplayComponent {
   // The type of fixedIncome investments being displayed by the component
   @Input("type") type: string = "";
   @Input("investments") investments: IFixedIncomeInvestment[];
+  @Input("totalFixedIncomeValue") totalFixedIncomeValue: number;
+  @Input("currency") currency: any = "₦";
+
+  private lastToggledDiv: any;
+  public totalInvestmentsValue: any = "---";
 
   constructor() {}
+
+  /**
+   * Used to toggle the visibility of an investment's details when it is clicked on
+   */
+  toggleInvestmentDisplay($event) {
+    let investmentDiv = $event.srcElement;
+    investmentDiv = investmentDiv.parentNode.parentNode.parentNode;
+
+    // A div has been clicked on
+    if (this.lastToggledDiv) {
+      if (this.lastToggledDiv === investmentDiv) {
+        this.lastToggledDiv.classList.toggle("showDetails");
+      } else {
+        this.lastToggledDiv.classList.remove("showDetails");
+        investmentDiv.classList.toggle("showDetails");
+      }
+    } else {
+      // No Div previously clicked on
+      investmentDiv.classList.toggle("showDetails");
+    }
+
+    this.lastToggledDiv = investmentDiv;
+  }
 }

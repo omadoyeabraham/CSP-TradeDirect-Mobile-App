@@ -9,10 +9,10 @@
 
 <div [ngSwitch]="investmentType">
   <ion-list *ngSwitchCase="'runningInvestment'">
-    <csmobile-fixed-income-investments-display [type]="'running'" [investments]="runningInvestments"></csmobile-fixed-income-investments-display>
+    <csmobile-fixed-income-investments-display [type]="'Running'" [investments]="runningInvestments" [totalFixedIncomeValue]="totalFixedIncomeValue"></csmobile-fixed-income-investments-display>
   </ion-list>
 
   <ion-list *ngSwitchCase="'terminatedInvestment'">
-    <csmobile-fixed-income-investments-display [type]="'terminated'" [investments]="terminatedInvestments"></csmobile-fixed-income-investments-display>
+    <csmobile-fixed-income-investments-display [type]="'Terminated'" [investments]="terminatedInvestments" [totalFixedIncomeValue]="'0'"></csmobile-fixed-income-investments-display>
   </ion-list>
 </div>

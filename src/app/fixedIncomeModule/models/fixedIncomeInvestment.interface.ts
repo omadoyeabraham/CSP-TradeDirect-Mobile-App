@@ -34,4 +34,5 @@ export interface IFixedIncomeInvestment {
   startDate: string;
   status: IFixedIncomeInvestmentStatus;
   tenure: number;
+  valueAtTermination?: number;
 }

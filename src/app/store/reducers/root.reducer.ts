@@ -63,14 +63,14 @@ export const onSyncError = err => {
 // Configuration for ngrx-store-ionic-storage
 //TODO: remove auth from the keys
 export const storageSyncReducer = storageSync({
-  // keys: [
-  //   "user",
-  //   "error",
-  //   "stbPortfolios",
-  //   "stbActivePortfolio",
-  //   "stbSecurities",
-  //   "fixedIncomeInvestments"
-  // ],
+  keys: [
+    "user",
+    "error",
+    "stbPortfolios",
+    "stbActivePortfolio",
+    "stbSecurities",
+    "fixedIncomeInvestments"
+  ],
   hydratedStateKey: "hydrated", // Add this key to the state
   onSyncError: onSyncError // If a sync fails
 });

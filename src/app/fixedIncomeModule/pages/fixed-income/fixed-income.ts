@@ -19,6 +19,7 @@ export class FixedIncomeComponent {
   @Input("runningInvestments") runningInvestments: IFixedIncomeInvestment[];
   @Input("terminatedInvestments")
   terminatedInvestments: IFixedIncomeInvestment[];
+  @Input("totalFixedIncomeValue") totalFixedIncomeValue: number;
 
   constructor() {}
 }

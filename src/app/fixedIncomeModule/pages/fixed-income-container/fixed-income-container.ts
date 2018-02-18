@@ -4,7 +4,8 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { IAppState } from "../../../store/models";
 import {
   getRunningFixedIncomeInvestments,
-  getTerminatedFixedIncomeInvestments
+  getTerminatedFixedIncomeInvestments,
+  getTotalValueOfFixedIncomeInvestments
 } from "../../../store";
 import { Store } from "@ngrx/store";
 import { IFixedIncomeInvestment } from "../../models";
@@ -24,6 +25,7 @@ import { IFixedIncomeInvestment } from "../../models";
 export class FixedIncomeContainerPage {
   public runningInvestments: IFixedIncomeInvestment[] = [];
   public terminatedInvestments: IFixedIncomeInvestment[] = [];
+  public totalFixedIncomeValue: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -46,5 +48,10 @@ export class FixedIncomeContainerPage {
         terminatedInvestments =>
           (this.terminatedInvestments = terminatedInvestments)
       );
+
+    // Subscribe and get total FI Value from store
+    this.store
+      .select(getTotalValueOfFixedIncomeInvestments)
+      .subscribe(totalValue => (this.totalFixedIncomeValue = totalValue));
   }
 }
