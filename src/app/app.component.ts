@@ -18,6 +18,11 @@ export class MyApp {
       title: "Stockbroking",
       pageName: PAGES.STB_CONTAINER_PAGE,
       icon: "folder-open"
+    },
+    {
+      title: "FixedIncome",
+      pageName: PAGES.FIXED_INCOME_CONTAINER_PAGE,
+      icon: "folder-closed"
     }
   ];
 

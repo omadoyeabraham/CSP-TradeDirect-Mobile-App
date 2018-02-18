@@ -1,25 +1,18 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
 
 /**
- * Generated class for the FixedIncomePage page.
+ * Generated class for the FixedIncomeComponent component.
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
  */
-
-@IonicPage()
 @Component({
-  selector: 'page-fixed-income',
-  templateUrl: 'fixed-income.html',
+  selector: "csmobile-fixed-income",
+  templateUrl: "fixed-income.html"
 })
-export class FixedIncomePage {
+export class FixedIncomeComponent {
+  // Default investment type to be shown once the fixed income page is opened
+  public investmentType = "runningInvestment";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FixedIncomePage');
-  }
-
+  constructor() {}
 }
