@@ -18,7 +18,10 @@ import {
   IStockBrokingPortfolioState,
   IStbActivePortfolioMetaData
 } from "../models";
-import securitiesReducer from "./stockbroking/securities.reducer";
+import securitiesReducer, {
+  selectedSecurityOnOverviewPageReducer,
+  selectedSecurityMarketDataReducer
+} from "./stockbroking/securities.reducer";
 import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 import { ISecurity } from "../../stockbrokingModule/models";
 import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
@@ -32,6 +35,8 @@ export interface IRootReducer {
   stbActivePortfolio: IPortfolio;
   stbActivePortfolioMetaData: IStbActivePortfolioMetaData;
   stbSecurities: Array<ISecurity>;
+  stbSelectedSecurityOnOverviewPage: ISecurity;
+  stbSelectedSecurityMarketData: Object;
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
 }
@@ -48,6 +53,8 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbActivePortfolio: stbActivePortfolioReducer,
   stbActivePortfolioMetaData: stbActivePortfolioMetaDataReducer,
   stbSecurities: securitiesReducer,
+  stbSelectedSecurityOnOverviewPage: selectedSecurityOnOverviewPageReducer,
+  stbSelectedSecurityMarketData: selectedSecurityMarketDataReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
   fxInvestments: fxInvestmentsReducer
 };
@@ -73,6 +80,8 @@ export const storageSyncReducer = storageSync({
     "stbPortfolios",
     "stbActivePortfolio",
     "stbSecurities",
+    "stbSelectedSecurityOnOverviewPage",
+    "stbSelectedSecurityMarketData",
     "fixedIncomeInvestments",
     "fxInvestments"
   ],

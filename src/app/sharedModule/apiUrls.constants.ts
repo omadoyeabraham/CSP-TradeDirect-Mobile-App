@@ -9,3 +9,5 @@ export const loginURL = baseURL + "findCustomerByName";
 
 // STOCKBROKING ENDPOINTS
 export const getSecuritiesURL = baseURL + "getSecurityNames";
+export const getSelectedSecurityMarketDataURL =
+  baseURL + "findSecurityOverviewByName";

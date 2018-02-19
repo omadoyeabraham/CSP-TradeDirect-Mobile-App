@@ -2,7 +2,7 @@ import * as securitiesActions from "./securities.actions";
 import { ISecurity } from "../../../stockbrokingModule/models";
 
 describe("STB Securities Actions", () => {
-  const testSecurity = {} as ISecurity;
+  const testSecurity = [] as ISecurity[];
   it("should create the action to get all securities", () => {
     const action = new securitiesActions.getSecurities();
 

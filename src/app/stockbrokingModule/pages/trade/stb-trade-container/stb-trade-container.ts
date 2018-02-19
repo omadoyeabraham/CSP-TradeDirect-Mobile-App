@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import { IAppState } from "../../../../store/models";
 import { getStbSecurities } from "../../../../store";
 import { ISecurity } from "../../../models";
+import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
 
 /**
  * Container component which houses all trade related redux code
@@ -23,7 +24,8 @@ export class StbTradeContainerPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private store: Store<IAppState>
+    private store: Store<IAppState>,
+    public securitiesActionsDispatcher: SecuritiesActionsDispatcher
   ) {}
 
   ionViewDidLoad() {
@@ -38,12 +40,14 @@ export class StbTradeContainerPage {
   }
 
   /**
-   * Navigate to the Instrument details page
-   * 
-   * @param {string} [$security=''] 
+   * Dispatch the action
+   *
+   * @param {any} security
    * @memberof StbTradeContainerPage
    */
-  goToInstrumentDetailsPage($security: string = '') {
-
+  dispatchSecuritySelectedAction(security) {
+    this.securitiesActionsDispatcher.setSelectedSecurityOnOverviewPage(
+      security
+    );
   }
 }

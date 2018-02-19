@@ -5,7 +5,7 @@ import "rxjs/add/observable/of";
 import { Observable } from "rxjs/Observable";
 
 import * as securityActions from "../../actions/stockbroking/securities.actions";
-import { map, switchMap } from "rxjs/operators";
+import { map, switchMap, catchError } from "rxjs/operators";
 import { SecuritiesProvider } from "../../../sharedModule/services/securities/securities";
 
 /**
@@ -38,4 +38,21 @@ export class SecuritiesEffects {
       );
     })
   );
+
+  @Effect()
+  getSelectedSecurityData$ = this.actions$
+    .ofType(securityActions.SET_SELECTED_SECURITY_ON_OVERVIEW_PAGE)
+    .pipe(
+      map(
+        (action: securityActions.setSelectedSecurityOnOverviewPage) => action
+      ),
+      switchMap(setSelectedSecurityAction => {
+        return this.securitiesProvider
+          .getSelectedSecurityMarketData(setSelectedSecurityAction.payload.name)
+          .pipe(
+            switchMap(securityMarketData => [console.log(securityMarketData)]),
+            catchError(error => [console.log(error)])
+          );
+      })
+    );
 }
