@@ -50,7 +50,11 @@ export class SecuritiesEffects {
         return this.securitiesProvider
           .getSelectedSecurityMarketData(setSelectedSecurityAction.payload.name)
           .pipe(
-            switchMap(securityMarketData => [console.log(securityMarketData)]),
+            switchMap(securityMarketData => [
+              new securityActions.saveSelectedSecurityOnOverviewPageMarketDataToStore(
+                securityMarketData
+              )
+            ]),
             catchError(error => [console.log(error)])
           );
       })

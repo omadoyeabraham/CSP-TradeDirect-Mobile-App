@@ -28,8 +28,16 @@
   <div id="priceMovementGraph" style="height: 200px">
   </div>
 
+  <div *ngIf="!securityGraphData" id="priceMovementGraph" class="align-center pt10">
+    <ion-col text-center>
+      <b>
+        <i>No Price Movement Data Available</i>
+      </b>
+    </ion-col>
+  </div>
+
   <!-- Stock highlights -->
-  <ion-item-divider color="light" class="font-size-18 bg-light-blue mt20">
+  <ion-item-divider color="light" class="font-size-18 bg-light-blue mt10">
     <b>Stock Highlights</b>
   </ion-item-divider>
   <ion-grid>
@@ -39,19 +47,19 @@
         <ion-grid>
           <ion-row>
             <ion-col>Current Price</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.refPrice}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Open Price</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.openPrice}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Low Price</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.lowPrice}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>High Price</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.highPrice}}</ion-col>
           </ion-row>
         </ion-grid>
       </ion-col>
@@ -61,15 +69,15 @@
         <ion-grid>
           <ion-row>
             <ion-col>Price Change</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <csmobile-format-number-with-color [data]="securityMarketData?.priceChange" [showCurrency]="true"></csmobile-format-number-with-color>
           </ion-row>
           <ion-row>
             <ion-col>Price Change (%)</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <csmobile-format-number-with-color [data]="securityMarketData?.priceChangeP | number:'1.2-2'" [showCurrency]="false"></csmobile-format-number-with-color>
           </ion-row>
           <ion-row>
             <ion-col>Vol. Traded</ion-col>
-            <ion-col text-right>&#8358;97.12</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.volumeTraded | number:'1.2-2' }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Val. Traded</ion-col>
