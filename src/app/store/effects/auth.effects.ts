@@ -46,7 +46,8 @@ export class AuthEffects {
               userData.STB.EXCHANGE[0]
             ),
             new SecurityActions.getSecurities(),
-            new FixedIncomeActions.saveFixedIncomeData(userData.FI.NGN)
+            new FixedIncomeActions.saveFixedIncomeData(userData.FI.NGN),
+            new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD)
           ]),
           catchError(error => [
             new AuthActions.LoginUserFailed(),

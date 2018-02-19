@@ -20,9 +20,14 @@ export class MyApp {
       icon: "folder-open"
     },
     {
-      title: "FixedIncome",
+      title: "Fixed Income",
       pageName: PAGES.FIXED_INCOME_CONTAINER_PAGE,
-      icon: "folder-closed"
+      icon: "briefcase"
+    },
+    {
+      title: "FX Investments",
+      pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
+      icon: "cash"
     }
   ];
 

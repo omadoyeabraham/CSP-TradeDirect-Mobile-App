@@ -20,6 +20,8 @@ export class FixedIncomeComponent {
   @Input("terminatedInvestments")
   terminatedInvestments: IFixedIncomeInvestment[];
   @Input("totalFixedIncomeValue") totalFixedIncomeValue: number;
+  @Input("currency") currency: any = "₦";
+  @Input("kind") kind: string;
 
   constructor() {}
 }

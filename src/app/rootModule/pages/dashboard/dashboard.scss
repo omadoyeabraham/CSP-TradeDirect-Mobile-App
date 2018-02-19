@@ -1,3 +1,16 @@
 page-dashboard {
+  ion-item {
+    &:hover {
+      cursor: pointer;
+      background: #eeeeee;
+    }
+  }
 
+  .item-inner {
+    margin-left: 0px !important;
+  }
+
+  .total {
+    color: #28587b;
+  }
 }

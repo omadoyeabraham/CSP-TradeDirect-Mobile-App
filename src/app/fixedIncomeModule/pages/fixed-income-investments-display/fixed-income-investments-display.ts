@@ -19,6 +19,7 @@ export class FixedIncomeInvestmentsDisplayComponent {
   @Input("investments") investments: IFixedIncomeInvestment[];
   @Input("totalFixedIncomeValue") totalFixedIncomeValue: number;
   @Input("currency") currency: any = "₦";
+  @Input("kind") kind: string;
 
   private lastToggledDiv: any;
   public totalInvestmentsValue: any = "---";

@@ -18,3 +18,4 @@ export const STB_TRADE_HISTORY_CONTAINER_PAGE = "StbTradeHistoryContainerPage";
 
 // FIXED INCOME
 export const FIXED_INCOME_CONTAINER_PAGE = "FixedIncomeContainerPage";
+export const FX_INVESTMENTS_CONTAINER_PAGE = "FxInvestmentsContainerPage";
