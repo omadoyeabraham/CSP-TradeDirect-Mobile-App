@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams, Tabs } from "ionic-angular";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
 import { SecurityOverviewPage } from "../trade/security-overview/security-overview";
+import { IAppState } from "../../../store/models";
+import { Store } from "@ngrx/store";
+import { getSelectedPage } from "../../../store";
 
 /**
  * Container Page for all STB related pages in the application
@@ -26,10 +29,15 @@ export class StbContainerPage {
 
   public hideSwitchPortfolio: boolean = false;
   public tabTitle: string = "Stockbroking";
+  public showHeader: boolean = true;
 
   @ViewChild("stbTabs") stbTabs: Tabs;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public store: Store<IAppState>
+  ) {
     // The various components are lazy-loaded by ionic using strings. This improves the app's intial load performance.
     this.StbSummaryContainerPage = PAGES.STB_SUMMARY_CONTAINER_PAGE;
     this.StbPortfolioHoldingsContainerPage =
@@ -37,6 +45,20 @@ export class StbContainerPage {
     this.StbTradeContainerPage = PAGES.STB_TRADE_CONTAINER_PAGE;
     this.StbTradeHistoryContainerPage = PAGES.STB_TRADE_HISTORY_CONTAINER_PAGE;
     this.StbWatchlistContainerPage = PAGES.STB_WATCHLIST_CONTAINER_PAGE;
+  }
+
+  ionViewDidLoad() {
+    // this.store.select(getSelectedPage).subscribe((selectedPage: any) => {
+    //   if (selectedPage.name === PAGES.STB_SECURITY_OVERVIEW_PAGE) {
+    //     this.showHeader = false;
+    //   } else {
+    //     this.showHeader = true;
+    //   }
+    //   console.log("HeaderName ", this.showHeader, selectedPage.name);
+    // });
+    // this.navCtrl.viewDidEnter.subscribe(view => {
+    //   console.log(view.instance.constructor.name);
+    // });
   }
 
   /**

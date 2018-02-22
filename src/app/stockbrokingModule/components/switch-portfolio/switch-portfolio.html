@@ -29,7 +29,7 @@
             <h6 *ngIf="showCashAvailableForTrading" class="m0 font-size-13">Available Cash</h6>
             <h4 class="m0 font-size-20s">
               <span *ngIf="showCashAvailableForTrading">
-                &#8358;{{currentPortfolioCashAvailableForTrading | number:'1.2-2'}}
+                &#8358;{{(activePortfolio$ | async)?.availableCash?.amount | number:'1.2-2'}}
               </span>
               <span *ngIf="showTotalValue">
                 &#8358;{{(activePortfolioMetaData$ | async)?.totalValue | number:'1.2-2'}}

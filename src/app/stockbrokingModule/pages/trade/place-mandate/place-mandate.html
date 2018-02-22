@@ -1,18 +1,70 @@
-<!--
-  Generated template for the PlaceMandatePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>PlaceMandate</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content no-padding>
+  <csmobile-switch-portfolio [showCashAvailableForTrading]="true" [showTotalValue]="false" [hidden]="hideSwitchPortfolio">
+  </csmobile-switch-portfolio>
 
-<ion-content padding>
+  <!-- Place Mandate Form -->
+  <form action="">
+    <!-- OrderType -->
+    <ion-item>
+      <ion-label color="primary">Order Type</ion-label>
+      <ion-select>
+        <ion-option value="BUY">BUY</ion-option>
+        <ion-option value="SELL">SELL</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Symbol -->
+    <ion-item>
+      <ion-label color="primary">Symbol</ion-label>
+      <ion-select>
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="m">Male</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Units Owned [optional, dependent on symbol] -->
+    <ion-item>
+      <ion-label color="primary" fixed>Units Owned</ion-label>
+      <ion-input type="number" placeholder=""></ion-input>
+    </ion-item>
+
+    <!-- Price Option -->
+    <ion-item>
+      <ion-label color="primary">Price Option</ion-label>
+      <ion-select>
+        <ion-option value="MARKET">MARKET</ion-option>
+        <ion-option value="LIMIT">LIMIT</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Limit Price [optional] -->
+    <ion-item>
+      <ion-label color="primary" fixed>Limit Price</ion-label>
+      <ion-input type="number" placeholder=""></ion-input>
+    </ion-item>
+
+    <!-- Quantity -->
+    <ion-item>
+      <ion-label color="primary" fixed>Quantity</ion-label>
+      <ion-input type="number" placeholder=""></ion-input>
+    </ion-item>
+
+    <!-- ORDER TERM -->
+    <ion-item>
+      <ion-label color="primary">Order Term</ion-label>
+      <ion-select>
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="m">Male</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <button ion-button full class="mt30">Preview Order</button>
+  </form>
 
 </ion-content>

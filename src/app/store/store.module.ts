@@ -5,7 +5,8 @@ import {
   AuthActionDispatcher,
   UserActionDispatcher,
   ErrorActionDispatcher,
-  StbPortfolioActionDispatcher
+  StbPortfolioActionDispatcher,
+  SelectedPageActionsDispatcher
 } from "./index";
 import { SharedModule } from "../sharedModule/shared.module";
 
@@ -33,7 +34,8 @@ export class CspStoreModule {
         AuthActionDispatcher,
         UserActionDispatcher,
         ErrorActionDispatcher,
-        StbPortfolioActionDispatcher
+        StbPortfolioActionDispatcher,
+        SelectedPageActionsDispatcher
       ]
     };
   }
