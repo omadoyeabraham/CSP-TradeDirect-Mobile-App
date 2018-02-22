@@ -1,16 +1,10 @@
-<ion-header>
-
-  <!-- <ion-navbar>
+<!-- <ion-header>
+  <ion-navbar>
     <ion-title>Security Overview</ion-title>
-  </ion-navbar> -->
-
-</ion-header>
-
+  </ion-navbar>
+</ion-header> -->
 
 <ion-content no-padding>
-
-  <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
-  </csmobile-switch-portfolio>
 
   <ion-grid>
     <ion-row class="nameDiv pt15 pb15">
@@ -19,6 +13,11 @@
           <b class="text-blue">{{security?.label}}</b>
         </div>
         <div>{{security?.name}}</div>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button (click)="goToMandatePage()">BUY</button>
+        <button ion-button>SELL</button>
+        <button ion-button>WATCHLIST</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -181,13 +180,5 @@
       </ion-row>
     </ion-list>
   </div>
-
-
-  <ion-fab bottom left>
-    <button ion-fab>BUY</button>
-  </ion-fab>
-  <ion-fab bottom right>
-    <button ion-fab>SELL</button>
-  </ion-fab>
 
 </ion-content>

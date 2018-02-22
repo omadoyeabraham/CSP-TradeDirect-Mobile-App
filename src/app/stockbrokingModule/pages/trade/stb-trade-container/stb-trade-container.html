@@ -1,3 +1,4 @@
 <ion-content no-padding>
-    <csmobile-trade-overview [securities]="securities" [filteredSecurities]="securities" (securitySelected)="dispatchSecuritySelectedAction($event)"></csmobile-trade-overview>
+    <csmobile-trade-overview [securities]="securities" [filteredSecurities]="securities" (securitySelected)="dispatchSecuritySelectedAction($event)"
+        (pageChanged)="dispatchSelectedPageChangedAction($event)"></csmobile-trade-overview>
 </ion-content>

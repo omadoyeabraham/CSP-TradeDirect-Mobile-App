@@ -7,6 +7,7 @@ export * from "./root.reducer";
 export * from "./auth/auth.reducers";
 export * from "./user/user.reducer";
 export * from "./error/error.reducer";
+export * from "./selectedPage/selectedPage.reducer";
 
 // STOCKBROKING
 export * from "./stockbroking/portfolios.reducer";

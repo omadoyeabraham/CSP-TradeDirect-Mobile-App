@@ -25,8 +25,9 @@ import { STB_SECURITY_OVERVIEW_PAGE } from "../../../../sharedModule/pages.const
 export class TradeOverviewComponent implements OnInit {
   @Input("securities") securities: ISecurity[];
   @Input("filteredSecurities") filteredSecurities: ISecurity[];
-  public searchTerm: string;
+  @Output() pageChanged = new EventEmitter();
   @Output() securitySelected = new EventEmitter();
+  public searchTerm: string;
 
   constructor(public navCtrl: NavController) {}
 
@@ -55,13 +56,14 @@ export class TradeOverviewComponent implements OnInit {
   }
 
   /**
-   * Navigate to the security overview page after emitting the selected security
+   * Navigate to the security overview page after emitting the selected security, and broadcasting the page we are navigating to, so the container can act appropriately with the data
    *
    * @param {any} securityId
    * @memberof TradeOverviewComponent
    */
   goToSecurityOverview(securityId) {
     this.securitySelected.emit(securityId);
+    this.pageChanged.emit(STB_SECURITY_OVERVIEW_PAGE);
     this.navCtrl.push(STB_SECURITY_OVERVIEW_PAGE);
   }
 }

@@ -3,7 +3,10 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
-import { getStbSecurities } from "../../../../store";
+import {
+  getStbSecurities,
+  SelectedPageActionsDispatcher
+} from "../../../../store";
 import { ISecurity } from "../../../models";
 import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
 
@@ -25,7 +28,8 @@ export class StbTradeContainerPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private store: Store<IAppState>,
-    public securitiesActionsDispatcher: SecuritiesActionsDispatcher
+    public securitiesActionsDispatcher: SecuritiesActionsDispatcher,
+    public selectedPageActionsDispatcher: SelectedPageActionsDispatcher
   ) {}
 
   ionViewDidLoad() {
@@ -49,5 +53,18 @@ export class StbTradeContainerPage {
     this.securitiesActionsDispatcher.setSelectedSecurityOnOverviewPage(
       security
     );
+  }
+
+  /**
+   * Dispatch the action which sets data about the selectedPage in the store
+   *
+   * @param {string} pageName
+   * @memberof StbTradeContainerPage
+   */
+  dispatchSelectedPageChangedAction(pageName: string) {
+    this.selectedPageActionsDispatcher.setSelectedPageData({
+      name: pageName,
+      time: Date.now()
+    });
   }
 }

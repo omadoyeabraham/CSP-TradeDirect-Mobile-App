@@ -25,12 +25,14 @@ import securitiesReducer, {
 import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
 import { ISecurity } from "../../stockbrokingModule/models";
 import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
+import selectedPageReducer from "./selectedPage/selectedPage.reducer";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
   auth: IAuthState;
   user: IUserState;
   error: IErrorState;
+  selectedPage: Object;
   stbPortfolios: IStockBrokingPortfolioState;
   stbActivePortfolio: IPortfolio;
   stbActivePortfolioMetaData: IStbActivePortfolioMetaData;
@@ -49,6 +51,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   auth: authReducer,
   user: userReducer,
   error: errorReducer,
+  selectedPage: selectedPageReducer,
   stbPortfolios: stockbrokingPortfolioReducer,
   stbActivePortfolio: stbActivePortfolioReducer,
   stbActivePortfolioMetaData: stbActivePortfolioMetaDataReducer,

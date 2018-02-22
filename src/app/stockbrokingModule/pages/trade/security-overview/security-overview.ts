@@ -13,6 +13,7 @@ import {
 } from "../../../../store";
 import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
+import * as pages from "../../../../sharedModule/pages.constants";
 
 /**
  * The page which shows the overview for the security selected on the trade overview page
@@ -87,5 +88,16 @@ export class SecurityOverviewPage {
         return index <= 9;
       });
     });
+  }
+
+  /**
+   * Navigate to the mandate page, passing in an orderType and securityName if appropriate
+   *
+   * @param {string} [orderType=null]
+   * @param {string} [securityName=null]
+   * @memberof SecurityOverviewPage
+   */
+  goToMandatePage(orderType: string = null, securityName: string = null) {
+    this.navCtrl.push(pages.STB_PLACE_MANDATE_PAGE);
   }
 }

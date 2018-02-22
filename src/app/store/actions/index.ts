@@ -6,6 +6,7 @@
 export * from "./auth/auth.actions";
 export * from "./user/user.actions";
 export * from "./errors/error.actions";
+export * from "./selectedPage/selectedPage.actions";
 
 // STOCKBROKING
 export * from "./stockbroking/portfolios.actions";
