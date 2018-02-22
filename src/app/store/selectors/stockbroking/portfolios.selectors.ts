@@ -36,6 +36,28 @@ export const getNumberOfStbPortfolios = createSelector(
   }
 );
 
+/**
+ * Get an array containing the name of all stocks owned by the user, regardless of portfolio
+ */
+export const getAllPortfolioHoldings=createSelector(
+  getStbPortfolios,
+  (state: IPortfolio[]) => {
+    let uniqueStockHoldings: Array<any> = [];
+
+    // Get all holdings, in all portfolios
+    state.forEach((portfolio: IPortfolio) => {
+      portfolio.portfolioHoldings.forEach((holding: IPortfolioHolding) => {
+        uniqueStockHoldings.push(holding.securityName);
+      })
+    })
+    
+    // Ensure that the array contains only unique values using ES6's Set
+    uniqueStockHoldings = Array.from(new Set(uniqueStockHoldings))
+
+    return uniqueStockHoldings
+  }
+)
+
 // Get the stbActivePortfolio feature state slice
 export const getActivePortfolio = createFeatureSelector<IPortfolio>(
   "stbActivePortfolio"
@@ -237,3 +259,5 @@ export const getActivePortfolioBondHoldingsGraphData = createSelector(
   getActivePortfolioBondHoldings,
   _getActivePortfolioBondHoldingsGraphData
 );
+
+

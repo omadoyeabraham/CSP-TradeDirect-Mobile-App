@@ -15,8 +15,9 @@ import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
 
 /**
+ * The page which shows the overview for the security selected on the trade overview page
  *
- *
+ * @type Presentational / Smart component
  * @export
  * @class SecurityOverviewPage
  */
