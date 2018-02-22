@@ -7,7 +7,9 @@ import { Store } from "@ngrx/store";
 import {
   getSelectedSecurityOnOverviewPage,
   getSelectedSecurityMarketData,
-  getSelectedSecurityGraphData
+  getSelectedSecurityPriceMovements,
+  getSelectedSecurityBids,
+  getSelectedSecurityOffers
 } from "../../../../store";
 import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
@@ -27,6 +29,10 @@ export class SecurityOverviewPage {
   public securityGraphData: any;
   public securityMarketData: Object;
   public security: ISecurity;
+  public bids: Array<any> = [];
+  public offers: Array<any> = [];
+  public trades: Array<any> = [];
+  public bidsOffersTrades: string = "bids";
 
   constructor(
     public navCtrl: NavController,
@@ -46,15 +52,39 @@ export class SecurityOverviewPage {
       .subscribe(marketdata => (this.securityMarketData = marketdata));
 
     // Subscribe to store and get data for graph plotting
-    this.store.select(getSelectedSecurityGraphData).subscribe(graphData => {
-      if (graphData) {
-        this.securityGraphData = this.chartsProvider.getCspDefinedPriceMovementChart(
-          graphData
-        );
-        Highcharts.chart("priceMovementGraph", this.securityGraphData);
-      } else {
-        this.securityGraphData = null;
-      }
+    this.store
+      .select(getSelectedSecurityPriceMovements)
+      .subscribe(graphData => {
+        if (graphData) {
+          this.securityGraphData = this.chartsProvider.getCspDefinedPriceMovementChart(
+            graphData
+          );
+          setTimeout(() => {
+            Highcharts.chart("priceMovementGraph", this.securityGraphData);
+          }, 500);
+
+          // Get only 10 trades to be displayed
+          this.trades = graphData.filter((trade, index) => {
+            return index <= 9;
+          });
+        } else {
+          this.securityGraphData = null;
+        }
+      });
+
+    // Subscribe to store and get bids
+    this.store.select(getSelectedSecurityBids).subscribe(bids => {
+      // Only select 10 bids to be displayed
+      this.bids = bids.filter((bid, index) => {
+        return index <= 9;
+      });
+    });
+
+    // Subscribe to store and get offers
+    this.store.select(getSelectedSecurityOffers).subscribe(offers => {
+      this.offers = offers.filter((offer, index) => {
+        return index <= 9;
+      });
     });
   }
 }

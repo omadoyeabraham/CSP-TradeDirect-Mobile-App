@@ -25,9 +25,9 @@ export const getSelectedSecurityMarketData = createFeatureSelector<Object>(
 );
 
 /**
- *
+ * Selector used to get the prive movement graph data for the selected security
  */
-export const getSelectedSecurityGraphData = createSelector(
+export const getSelectedSecurityPriceMovements = createSelector(
   getSelectedSecurityMarketData,
   (state: any) => {
     const chartData = state.trades ? state.trades : null;
@@ -40,7 +40,8 @@ export const getSelectedSecurityGraphData = createSelector(
       return {
         id: ++index,
         date: moment(data.time).format("HH:mm:ss"),
-        price: data.tradePrice
+        price: data.tradePrice,
+        qty: data.tradeSize
       };
     });
 
@@ -48,5 +49,59 @@ export const getSelectedSecurityGraphData = createSelector(
     priceMovements.reverse();
 
     return priceMovements;
+  }
+);
+
+/**
+ * Get the selected securitie's bids
+ */
+export const getSelectedSecurityBids = createSelector(
+  getSelectedSecurityMarketData,
+  (state: any) => {
+    let marketSnapShot = state;
+
+    // Calculating bids
+    let bidLevels =
+      marketSnapShot && marketSnapShot.bidLevels
+        ? marketSnapShot.bidLevels
+        : [];
+    let bids = [];
+    let bidsTotal = 0;
+
+    bidLevels.forEach((bidLevel, index) => {
+      bidLevel.id = ++index;
+      bidLevel.total = bidsTotal + parseFloat(bidLevel.qty);
+      bidsTotal = bidLevel.total;
+      bids.push(bidLevel);
+    });
+
+    return bids;
+  }
+);
+
+/**
+ * Get the selected securities' offers
+ */
+export const getSelectedSecurityOffers = createSelector(
+  getSelectedSecurityMarketData,
+  (state: any) => {
+    let marketSnapShot = state;
+
+    // Calculating offers
+    let offerLevels =
+      marketSnapShot && marketSnapShot.offerLevels
+        ? marketSnapShot.offerLevels
+        : [];
+    let offers = [];
+    let offersTotal = 0;
+
+    offerLevels.forEach((offerLevel, index) => {
+      offerLevel.id = ++index;
+      offerLevel.total = offersTotal + parseFloat(offerLevel.qty);
+      offersTotal = offerLevel.total;
+      offers.push(offerLevel);
+    });
+
+    return offers;
   }
 );

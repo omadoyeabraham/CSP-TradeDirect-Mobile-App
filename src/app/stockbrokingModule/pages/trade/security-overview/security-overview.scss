@@ -4,4 +4,13 @@ csmobile-page-security-overview {
     box-shadow: 2px 2px #eee;
     border-left: 7px solid #333;
   }
+
+  .bidsList {
+    ion-row:nth-child(even) {
+      background: #efefef;
+    }
+    ion-row:nth-child(1) {
+      background: #aaa;
+    }
+  }
 }
