@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Effect, Actions } from "@ngrx/effects";
 
 import "rxjs/add/observable/of";
-import { Observable } from "rxjs/Observable";
 
 import * as securityActions from "../../actions/stockbroking/securities.actions";
 import { map, switchMap, catchError } from "rxjs/operators";

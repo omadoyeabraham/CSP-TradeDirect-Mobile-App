@@ -2,10 +2,9 @@ import { Component, ViewChild } from "@angular/core";
 import { IonicPage, NavController, NavParams, Tabs } from "ionic-angular";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
-import { SecurityOverviewPage } from "../trade/security-overview/security-overview";
 import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
-import { getSelectedPage } from "../../../store";
+
 
 /**
  * Container Page for all STB related pages in the application

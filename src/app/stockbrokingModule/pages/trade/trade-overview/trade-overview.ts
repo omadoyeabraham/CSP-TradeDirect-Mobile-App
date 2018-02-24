@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnInit,
-  SimpleChanges,
   Output,
   EventEmitter
 } from "@angular/core";

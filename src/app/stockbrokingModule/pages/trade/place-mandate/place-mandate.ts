@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
 import { getStbSecurityNames } from "../../../../store";
-import { MandateQuantityValidator } from "../../../validators/MandateQuantity";
+import { MandateQuantityValidator, LimitPriceValidator } from "../../../validators/MandateFormValidators";
 
 /**
  * Page used when creating a mandate to be previewed before it is executed
@@ -30,6 +30,7 @@ export class PlaceMandatePage {
   public securities: string[];
   private mandateForm: FormGroup;
   public submitAttempt: boolean = false;
+  public validLimitPrice: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -40,8 +41,8 @@ export class PlaceMandatePage {
     this.orderType = new FormControl("", Validators.required);
     this.security = new FormControl("", Validators.required);
     this.unitsOwned = new FormControl();
-    this.priceOption = new FormControl("LIMIT", Validators.required);
-    this.limitPrice = new FormControl();
+    this.priceOption = new FormControl("", Validators.required);
+    this.limitPrice = new FormControl("");
     this.quantity = new FormControl(
       "",
       Validators.compose([
@@ -63,13 +64,19 @@ export class PlaceMandatePage {
   }
 
   ionViewDidLoad() {
+    // Select security names from the store
     this.store.select(getStbSecurityNames).subscribe(securityNames => {
       this.securities = securityNames;
     });
+
+    // Watch the limit price input, so the error div's visibility is dynamically controlled based on the input's value
+    this.limitPrice.valueChanges.subscribe(value => {
+      this.validLimitPrice = (value > 0)
+    })
   }
 
   /**
-   * Function called when a user tries to place a mandate
+   * Function called when a user tries to preview a mandate
    *
    * @memberof PlaceMandatePage
    */
@@ -78,20 +85,40 @@ export class PlaceMandatePage {
 
     if (!this.mandateForm.valid) {
       // Form Validation has failed
-      console.log("Preview mandate function called");
-      this.submitAttempt = false;
+      console.log("Validation for required fields failed");
       return;
     } else {
       // Validation for required fields has passed, carryout other non-required validation checks depending on the users's input
-
-      console.log("Validating extra fields");
-
-      // Check to ensure that a limit price is set if it's a limit order
-      if (this.orderType.value === "LIMIT") {
-        if (this.limitPrice.value <= 0) {
-          console.log("Limit Price must be > zero");
-        }
+      if(!this.validateNonRequiredFormFields()) {
+        return;
+      } else {
+        // Validation for non-required fields passed, so preview the form
+        console.log('Previewing the mandate ....');
       }
+
     }
   }
+
+  /**
+   * Validations for all mandateForm fields which are not required fields
+   * 
+   * @memberof PlaceMandatePage
+   */
+  validateNonRequiredFormFields() {
+    console.log("Validating extra fields");
+
+     // Check to ensure that a limit price is set if it's a limit order
+    if (this.priceOption.value === "LIMIT") {
+      if (this.limitPrice.value <= 0) {
+        this.validLimitPrice = false;
+        return false;
+      } else {
+        this.validLimitPrice = true
+      }
+    }
+
+    return true;
+
+  }
+
 }
