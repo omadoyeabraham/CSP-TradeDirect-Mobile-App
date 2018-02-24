@@ -36,8 +36,8 @@
             </ion-row>
             <ion-row>
               <ion-col class="font-size-12">
-                Cur Price: {{ stockHolding?.marketPrice }}
-                <csmobile-format-number-with-color [data]="10.00" [showCurrency]="true"></csmobile-format-number-with-color>
+                Cur Price: &#8358; {{ stockHolding?.marketPrice }}
+
               </ion-col>
               <ion-col class="font-size-12 align-right">
                 Val: &#8358;{{ stockHolding?.valuation | number:'1.2-2' }}</ion-col>
