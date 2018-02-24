@@ -11,6 +11,16 @@ export const getStbSecurities = createFeatureSelector<Array<ISecurity>>(
 );
 
 /**
+ * Get all tradeable securities as an array of names
+ */
+export const getStbSecurityNames = createSelector(
+  getStbSecurities,
+  (state: ISecurity[]) => {
+    return state.map(security => security.name);
+  }
+);
+
+/**
  * Feature selector used to select the "selectedSecurityOnOverviewPage slice of state"
  */
 export const getSelectedSecurityOnOverviewPage = createFeatureSelector<
