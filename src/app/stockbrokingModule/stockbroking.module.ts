@@ -11,7 +11,6 @@ import { PortfolioHoldingsComponent } from "./pages/holdings/portfolio-holdings/
 import { TradeOverviewComponent } from "./pages/trade/trade-overview/trade-overview";
 import { SecuritiesActionsDispatcher } from "../store/actions/stockbroking/securities.actions";
 import { SelectedPageActionsDispatcher } from "../store";
-import { TradeOrderProvider } from "./providers/trade-order/trade-order";
 
 /**
  * The StockbrokingModule contains all STB services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -49,7 +48,6 @@ export class StockbrokingModule {
       ngModule: StockbrokingModule,
       providers: [
         ChartsProvider,
-        TradeOrderProvider,
         SecuritiesActionsDispatcher,
         SelectedPageActionsDispatcher
       ]

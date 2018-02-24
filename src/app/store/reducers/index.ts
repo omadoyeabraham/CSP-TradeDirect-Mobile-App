@@ -12,6 +12,7 @@ export * from "./selectedPage/selectedPage.reducer";
 // STOCKBROKING
 export * from "./stockbroking/portfolios.reducer";
 export * from "./stockbroking/securities.reducer";
+export * from "./stockbroking/tradeOrder.reducer";
 
 // FIXED INCOME
 export * from "./fixedIncome/fixedIncome.reducer";

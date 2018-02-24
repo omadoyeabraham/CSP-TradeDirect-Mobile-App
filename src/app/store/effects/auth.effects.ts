@@ -8,8 +8,11 @@ import * as ErrorActions from "../actions/errors/error.actions";
 import * as StockbrokingPortfolioActions from "../actions/stockbroking/portfolios.actions";
 import * as SecurityActions from "../actions/stockbroking/securities.actions";
 import * as FixedIncomeActions from "../actions/fixedIncome/fixedIncome.actions";
+import * as TradeOrderActions from "../actions/stockbroking/tradeOrder.actions";
 
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
+import { TradeOrderProvider } from "../../stockbrokingModule/providers/trade-order/trade-order";
+import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
 
 /**
  * Side effects for auth related actions. The side effects listen for @ngrx/store options and then carry-out various external (outside angular) actions
@@ -17,7 +20,11 @@ import { AuthProvider } from "../../sharedModule/services/auth/auth";
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthProvider) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthProvider,
+    private tradeOrderProvider: TradeOrderProvider
+  ) {}
 
   /**
    * Side effect to occur when a user attempts to log in. This effect calls the authService and dispatches actions based on the response from the authService
@@ -54,6 +61,28 @@ export class AuthEffects {
             new ErrorActions.AuthenticationFailed(
               "Incorrect username or password"
             )
+          ])
+        );
+    })
+  );
+
+  /**
+   * Side effect which gets other required data upon successful login.
+   * Data required includes
+   *  + TradeOrderTerms
+   *
+   * @memberof AuthEffects
+   */
+  @Effect()
+  successfulLogin = this.actions$.ofType(AuthActions.LOGIN_USER_SUCCESS).pipe(
+    map((action: AuthActions.LoginUserSuccess) => action),
+    switchMap(action => {
+      return this.tradeOrderProvider
+        .getTradeOrderTerms()
+        .pipe(
+          map((tradeOrderTerms: Array<ITradeOrderTerm>) => tradeOrderTerms),
+          switchMap(tradeOrderTerms => [
+            new TradeOrderActions.SaveTradeOrderTermsInStore(tradeOrderTerms)
           ])
         );
     })

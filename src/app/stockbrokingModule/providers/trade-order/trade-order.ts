@@ -1,17 +1,34 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
-/*
-  Generated class for the TradeOrderProvider provider.
+import { Observable } from "rxjs/Observable";
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+import { ITradeOrderTerm } from "../../models/tradeOrderTerm.interface";
+import { getActiveTradeOrderTermsURL } from "../../../sharedModule/apiUrls.constants";
+import { map, catchError } from "rxjs/operators";
+
+/**
+ * Provider for TradeOrders
+ *
+ * @export
+ * @class TradeOrderProvider
+ */
 @Injectable()
 export class TradeOrderProvider {
+  constructor(public http: HttpClient) {}
 
-  constructor(public http: HttpClient) {
-    console.log('Hello TradeOrderProvider Provider');
+  /**
+   * Get all the active trade order terms available
+   *
+   * @returns {Observable<ITradeOrderTerm[]>}
+   * @memberof TradeOrderProvider
+   */
+  getTradeOrderTerms(): Observable<ITradeOrderTerm[]> {
+    return this.http
+      .get(getActiveTradeOrderTermsURL)
+      .pipe(
+        map((response: any) => response.item),
+        catchError(err => Observable.throw(err))
+      );
   }
-
 }

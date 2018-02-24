@@ -10,6 +10,7 @@ export * from "./selectedPage/selectedPage.actions";
 
 // STOCKBROKING
 export * from "./stockbroking/portfolios.actions";
+export * from "./stockbroking/tradeOrder.actions";
 
 // FixedIncome
 export * from "./fixedIncome/fixedIncome.actions";

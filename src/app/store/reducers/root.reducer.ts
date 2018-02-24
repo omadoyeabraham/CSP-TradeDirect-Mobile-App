@@ -11,6 +11,8 @@ import stockbrokingPortfolioReducer, {
 import fixedIncomeReducer, {
   fxInvestmentsReducer
 } from "./fixedIncome/fixedIncome.reducer";
+import tradeOrderTermReducer from "./stockbroking/tradeOrder.reducer";
+import selectedPageReducer from "./selectedPage/selectedPage.reducer";
 import {
   IAuthState,
   IUserState,
@@ -22,10 +24,10 @@ import securitiesReducer, {
   selectedSecurityOnOverviewPageReducer,
   selectedSecurityMarketDataReducer
 } from "./stockbroking/securities.reducer";
-import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
-import { ISecurity } from "../../stockbrokingModule/models";
+// import { IPortfolio } from "../../stockbrokingModule/models/portfolio.interface";
+import { ISecurity, IPortfolio } from "../../stockbrokingModule/models";
 import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
-import selectedPageReducer from "./selectedPage/selectedPage.reducer";
+import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -39,6 +41,7 @@ export interface IRootReducer {
   stbSecurities: Array<ISecurity>;
   stbSelectedSecurityOnOverviewPage: ISecurity;
   stbSelectedSecurityMarketData: Object;
+  stbTradeOrderTerms: Array<ITradeOrderTerm>;
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
 }
@@ -58,6 +61,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbSecurities: securitiesReducer,
   stbSelectedSecurityOnOverviewPage: selectedSecurityOnOverviewPageReducer,
   stbSelectedSecurityMarketData: selectedSecurityMarketDataReducer,
+  stbTradeOrderTerms: tradeOrderTermReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
   fxInvestments: fxInvestmentsReducer
 };
@@ -85,6 +89,7 @@ export const storageSyncReducer = storageSync({
     "stbSecurities",
     "stbSelectedSecurityOnOverviewPage",
     "stbSelectedSecurityMarketData",
+    "stbTradeOrderTerms",
     "fixedIncomeInvestments",
     "fxInvestments"
   ],
