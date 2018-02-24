@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
 import { getStbSecurityNames } from "../../../../store";
-import { MandateQuantityValidator, LimitPriceValidator } from "../../../validators/MandateFormValidators";
+import { MandateQuantityValidator } from "../../../validators/MandateFormValidators";
 
 /**
  * Page used when creating a mandate to be previewed before it is executed
