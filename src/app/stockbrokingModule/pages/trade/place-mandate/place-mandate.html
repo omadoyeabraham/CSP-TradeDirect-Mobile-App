@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>PlaceMandate</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <csmobile-switch-portfolio [showCashAvailableForTrading]="true" [showTotalValue]="false" [hidden]="hideSwitchPortfolio">
+  </csmobile-switch-portfolio>
+
+  <!-- Place Mandate Form -->
+  <form novalidate [formGroup]="mandateForm" (submit)="previewMandate()">
+
+    <!-- OrderType -->
+    <ion-item>
+      <ion-label color="primary" floating>Order Type</ion-label>
+      <ion-select formControlName="orderType" [class.invalid]="!orderType.valid && (orderType.dirty || submitAttempt)">
+        <ion-option value="BUY">BUY</ion-option>
+        <ion-option value="SELL">SELL</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Symbol -->
+    <ion-item>
+      <ion-label color="primary" floating>Symbol</ion-label>
+      <ion-select formControlName="security" [class.invalid]="!security.valid && (security.dirty || submitAttempt)">
+        <ion-option *ngFor="let security of securities" [value]="security">{{security}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Units Owned [optional, dependent on symbol] -->
+    <ion-item *ngIf="orderType.value === 'SELL'">
+      <ion-label color="primary" floating>Units Owned</ion-label>
+      <ion-input type="number" placeholder="" formControlName="unitsOwned"></ion-input>
+    </ion-item>
+
+    <!-- Price Option -->
+    <ion-item>
+      <ion-label color="primary" floating>Price Option</ion-label>
+      <ion-select formControlName="priceOption" [class.invalid]="!priceOption.valid && (priceOption.dirty || submitAttempt)">
+        <ion-option value="MARKET">MARKET</ion-option>
+        <ion-option value="LIMIT">LIMIT</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Limit Price [optional] -->
+    <ion-item *ngIf="priceOption.value === 'LIMIT'">
+      <ion-label color="primary" floating>Limit Price</ion-label>
+      <ion-input type="number" placeholder="" formControlName="limitPrice"></ion-input>
+    </ion-item>
+
+    <!-- Quantity -->
+    <ion-item>
+      <ion-label color="primary" floating>Quantity</ion-label>
+      <ion-input type="number" placeholder="" formControlName="quantity" [class.invalid]="!quantity.valid && (quantity.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <p class="error-message-text" *ngIf="!quantity.valid && (quantity.dirty || submitAttempt)">Please enter a valid quantity.</p>
+
+    <!-- ORDER TERM -->
+    <ion-item>
+      <ion-label color="primary" floating>Order Term</ion-label>
+      <ion-select formControlName="orderTerm" [class.invalid]="!orderTerm.valid && (orderTerm.dirty || submitAttempt)">
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="m">Male</ion-option>
+      </ion-select>
+    </ion-item>
+    <pre>{{ mandateForm?.value | json }}</pre>
+    <pre>{{ mandateForm?.controls.security.dirty | json }}</pre>
+    <button ion-button full class="mt40 mb40">Preview Order</button>
+  </form>
+
+</ion-content>

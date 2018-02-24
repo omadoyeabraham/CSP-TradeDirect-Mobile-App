@@ -1,0 +1,16 @@
+csmobile-stb-holdings-performance-charts {
+  .portfolio-summary-wrapper {
+    ion-item {
+      min-height: 25px !important;
+      height: 25px !important;
+      font-size: 14px;
+      .item-inner {
+        border: none !important;
+      }
+    }
+  }
+
+  .hideGraph {
+    display: none !important;
+  }
+}

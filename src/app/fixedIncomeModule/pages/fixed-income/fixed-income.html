@@ -1,0 +1,20 @@
+<ion-segment [(ngModel)]="investmentType">
+  <ion-segment-button value="runningInvestment">
+    RUNNING INVESTMENTS
+  </ion-segment-button>
+  <ion-segment-button value="terminatedInvestment">
+    TERMINATED INVESTMENTS
+  </ion-segment-button>
+</ion-segment>
+
+<div [ngSwitch]="investmentType">
+  <ion-list *ngSwitchCase="'runningInvestment'">
+    <csmobile-fixed-income-investments-display [type]="'Running'" [investments]="runningInvestments" [totalFixedIncomeValue]="totalFixedIncomeValue"
+      [kind]="kind" [currency]="currency"></csmobile-fixed-income-investments-display>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'terminatedInvestment'">
+    <csmobile-fixed-income-investments-display [type]="'Terminated'" [investments]="terminatedInvestments" [totalFixedIncomeValue]="'0'"
+      [kind]="kind" [currency]="currency"></csmobile-fixed-income-investments-display>
+  </ion-list>
+</div>

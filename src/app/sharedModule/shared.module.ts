@@ -3,6 +3,8 @@ import { CommonModule } from "@angular/common";
 
 import { AuthProvider } from "./services/auth/auth";
 import { UtilityProvider } from "./services/utility/utility";
+import { FormatNumberWithColorComponent } from "./components/format-number-with-color/format-number-with-color";
+import { SecuritiesProvider } from "./services/securities/securities";
 
 /**
  * The SharedModule contains all services, components and directives that could be required by various other modules in the application
@@ -12,8 +14,8 @@ import { UtilityProvider } from "./services/utility/utility";
  */
 @NgModule({
   imports: [CommonModule],
-  declarations: [],
-  exports: []
+  declarations: [FormatNumberWithColorComponent],
+  exports: [FormatNumberWithColorComponent]
 })
 export class SharedModule {
   /**
@@ -26,7 +28,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [AuthProvider, UtilityProvider]
+      providers: [AuthProvider, UtilityProvider, SecuritiesProvider]
     };
   }
 }

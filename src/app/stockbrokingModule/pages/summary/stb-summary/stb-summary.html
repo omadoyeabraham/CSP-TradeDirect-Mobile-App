@@ -1,0 +1,37 @@
+<!-- Generated template for the StbSummaryComponent component -->
+<div no-padding>
+
+  <!-- Summary -->
+  <ion-item-group class="portfolio-summary-wrapper">
+    <ion-item-divider color="light" class="font-size-18 bg-light-blue">Summary</ion-item-divider>
+    <ion-item class="ml0">
+      <span class="ml0">CHN</span>
+      <span item-end>{{(portfolio)?.clearingHouseNo}}</span>
+    </ion-item>
+    <ion-item>
+      CSCS Number
+      <span item-end>{{(portfolio)?.accountNo}}</span>
+    </ion-item>
+    <ion-item>
+      Current Value
+      <span item-end>&#8358;{{portfolio?.currentValuation?.amount | number:'1.2-2'}}</span>
+    </ion-item>
+    <ion-item>
+      Acquisition Cost
+      <span item-end>&#8358;{{ portfolio?.costBasis?.amount | number:'1.2-2' }}</span>
+    </ion-item>
+    <ion-item>
+      Gain/Loss
+      <span item-end class="font-green">
+        <csmobile-format-number-with-color [data]="portfolio?.gainOrLoss" [showCurrency]="true"></csmobile-format-number-with-color>
+      </span>
+    </ion-item>
+    <ion-item>
+      Gain/Loss (%)
+      <span item-end class="font-green">
+        <csmobile-format-number-with-color [data]="portfolio?.percGain" [showCurrency]="false"></csmobile-format-number-with-color>
+      </span>
+    </ion-item>
+    <ion-item></ion-item>
+  </ion-item-group>
+</div>

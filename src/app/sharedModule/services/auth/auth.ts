@@ -49,11 +49,5 @@ export class AuthProvider {
         }),
         catchError((error: any) => Observable.throw(error))
       );
-    // .map((response: HttpResponse<Object>) => {
-    //   return response.body;
-    // })
-    // .catch((err: any) => {
-    //   return Observable.of(false);
-    // });
   }
 }

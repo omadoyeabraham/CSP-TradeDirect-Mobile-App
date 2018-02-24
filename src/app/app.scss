@@ -27,3 +27,8 @@
 .bar-button {
   color: #fff;
 }
+
+// Hide the vertical scroll bar displayed on web pages by ionic
+.scroll-content {
+  overflow-y: auto !important;
+}

@@ -1,0 +1,183 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Security Overview</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-grid>
+    <ion-row class="nameDiv pt15 pb15">
+      <ion-col>
+        <div class="font-size-20 pb5">
+          <b class="text-blue">{{security?.label}}</b>
+        </div>
+        <div>{{security?.name}}</div>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button (click)="goToMandatePage()">BUY</button>
+        <button ion-button>SELL</button>
+        <button ion-button>WATCHLIST</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Graph -->
+  <ion-item-divider color="light" class="font-size-18 bg-light-blue">
+    <b>Price Movement Chart</b>
+  </ion-item-divider>
+
+  <div id="priceMovementGraph" style="height: 200px">
+  </div>
+
+  <div *ngIf="!securityGraphData" class="align-center pt20 pb10">
+    <ion-col text-center>
+      <b>
+        <i>No Price Movement Data Available</i>
+      </b>
+    </ion-col>
+  </div>
+
+  <!-- Stock highlights -->
+  <ion-item-divider color="light" class="font-size-18 bg-light-blue mt10">
+    <b>Stock Highlights</b>
+  </ion-item-divider>
+  <ion-grid>
+    <ion-row>
+      <!-- 1st DIV -->
+      <ion-col>
+        <ion-grid>
+          <ion-row>
+            <ion-col>Current Price</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.refPrice}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Open Price</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.openPrice}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Low Price</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.lowPrice}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>High Price</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.highPrice}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+
+      <!-- 2ND DIV -->
+      <ion-col>
+        <ion-grid>
+          <ion-row>
+            <ion-col>Price Change</ion-col>
+            <div *ngIf="securityMarketData?.priceChange">
+              <csmobile-format-number-with-color [data]="securityMarketData?.priceChange" [showCurrency]="true"></csmobile-format-number-with-color>
+            </div>
+            <div *ngIf="!securityMarketData?.priceChange">---</div>
+          </ion-row>
+          <ion-row>
+            <ion-col>Price Change (%)</ion-col>
+            <div *ngIf="securityMarketData?.priceChangeP">
+              <csmobile-format-number-with-color [data]="securityMarketData?.priceChangeP" [showCurrency]="false"></csmobile-format-number-with-color>
+            </div>
+            <div *ngIf="!securityMarketData?.priceChangeP">---</div>
+          </ion-row>
+          <ion-row>
+            <ion-col>Vol. Traded</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.volumeTraded | number:'1.2-2' }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Val. Traded</ion-col>
+            <ion-col text-right>&#8358;{{securityMarketData?.valueTraded | number:'1.2-2' }}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Bids, Offers and Trades -->
+  <ion-item-divider color="light" class="font-size-18 bg-light-blue mt20">
+    <b>Bids, Offers and Trades</b>
+  </ion-item-divider>
+
+  <ion-segment [(ngModel)]="bidsOffersTrades" class="mb1">
+    <ion-segment-button value="bids">
+      BIDS
+    </ion-segment-button>
+    <ion-segment-button value="offers">
+      OFFERS
+    </ion-segment-button>
+    <ion-segment-button value="trades">
+      TRADES
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="bidsOffersTrades">
+    <ion-list *ngSwitchCase="'bids'" class="bidsList">
+      <ion-row text-right>
+        <ion-col>
+          <b>TOTAL QTY</b>
+        </ion-col>
+        <ion-col>
+          <b>BID QTY</b>
+        </ion-col>
+        <ion-col class="mr20">
+          <b>PRICE</b>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let bid of bids" text-right>
+        <ion-col>{{bid.total | number:'1.0-0'}}</ion-col>
+        <ion-col>{{bid.qty | number:'1.0-0'}}</ion-col>
+        <ion-col class="mr20">{{bid.price | number:'1.2-2'}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="!bids.length" class="pt15 pb15" text-center>
+        <ion-col>No Bids</ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'offers'" class="bidsList">
+      <ion-row text-right>
+        <ion-col>
+          <b>TOTAL QTY</b>
+        </ion-col>
+        <ion-col>
+          <b>OFFER QTY</b>
+        </ion-col>
+        <ion-col class="mr20">
+          <b>PRICE</b>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let offer of offers" text-right>
+        <ion-col>{{offer.total | number:'1.0-0'}}</ion-col>
+        <ion-col>{{offer.qty | number:'1.0-0'}}</ion-col>
+        <ion-col class="mr20">{{offer.price | number:'1.2-2'}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="!offers.length" class="pt15 pb15" text-center>
+        <ion-col>No Offers</ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'trades'" class="bidsList">
+      <ion-row text-right>
+        <ion-col>
+          <b>PRICE</b>
+        </ion-col>
+        <ion-col>
+          <b>QTY</b>
+        </ion-col>
+        <ion-col class="mr20">
+          <b>TIME</b>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let trade of trades" text-right>
+        <ion-col>{{trade.price | number:'1.2-2'}}</ion-col>
+        <ion-col>{{trade.qty | number:'1.0-0'}}</ion-col>
+        <ion-col class="mr20">{{trade.date }}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="!trades.length" text-center class="pt15 pb15">
+        <ion-col>No Trades</ion-col>
+      </ion-row>
+    </ion-list>
+  </div>
+
+</ion-content>

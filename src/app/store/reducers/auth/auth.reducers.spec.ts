@@ -43,6 +43,18 @@ describe("auth reducer", () => {
     expect(state.authenticated).toBe(true);
   });
 
+  it("should reset the number of failed login attemps on LOGIN_USER_SUCCESS", () => {
+    const payload = { data: "data returned from api" };
+    const action = new AuthActions.LoginUserSuccess(payload);
+    const state = authReducer(
+      { ...initialAuthState, failedAuthAttempts: 3 },
+      action
+    );
+
+    expect(state.isAuthenticating).toBe(false);
+    expect(state.authenticated).toBe(true);
+  });
+
   it("should increase the number of failed auth attempts on LOGIN_USER_FAILED", () => {
     const action = new AuthActions.LoginUserFailed();
     const state = authReducer(
@@ -51,5 +63,18 @@ describe("auth reducer", () => {
     );
 
     expect(state.failedAuthAttempts).toEqual(12);
+  });
+
+  it("should reset the number of failed login attemps on LOGIN_USER_SUCCESS", () => {
+    const payload = { data: "data returned from api" };
+    const action = new AuthActions.LoginUserSuccess(payload);
+    const state = authReducer(
+      { ...initialAuthState, failedAuthAttempts: 3 },
+      action
+    );
+
+    expect(state.isAuthenticating).toBe(false);
+    expect(state.authenticated).toBe(true);
+    expect(state.failedAuthAttempts).toEqual(0);
   });
 });

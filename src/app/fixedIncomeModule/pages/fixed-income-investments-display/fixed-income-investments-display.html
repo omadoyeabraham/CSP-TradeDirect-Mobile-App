@@ -1,0 +1,64 @@
+<div class="pt20 pb20 pl20 summary">
+  <ion-row class="font-size-16 pb5">
+    Account Summary - {{ type }} {{kind}} Investments
+  </ion-row>
+  <ion-row class="font-size-14 pb5">
+    Value of ({{investments.length}}) {{type}} {{kind}} Investments
+  </ion-row>
+  <ion-row class="font-size-22 font-bold">
+    {{currency}}{{totalFixedIncomeValue | number:'1.2-2'}}
+  </ion-row>
+</div>
+
+<div *ngIf="investments.length === 0" class="center pt20 font-bold font-size-15 align-center">
+  <p class="text-center">
+    <i>No {{type}} {{kind}} Investments</i>
+  </p>
+</div>
+
+<div *ngIf="investments.length > 0">
+  <ion-grid class="investmentWrapper" *ngFor="let investment of investments" (click)="toggleInvestmentDisplay($event)">
+    <div class="headers">
+      <ion-row>
+        <ion-col class="pl15">INVESTMENT TYPE</ion-col>
+        <ion-col text-right>{{investment?.instrumentTypeLabel }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">AMOUNT INVESTED</ion-col>
+        <ion-col text-right>{{currency}}{{investment?.faceValue | number:'1.2-2' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">RETURN TO TERMINATION</ion-col>
+        <ion-col text-right>{{currency}}{{investment?.accruedInterest | number:'1.2-2' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">VALUE AT TERMINATION</ion-col>
+        <ion-col text-right>{{currency}}{{investment?.valueAtTermination | number:'1.2-2' }}</ion-col>
+      </ion-row>
+    </div>
+
+    <!-- investment details -->
+    <div class="details">
+      <ion-row>
+        <ion-col class="pl15">Date of Investment</ion-col>
+        <ion-col text-right>{{investment?.startDate | date:'mediumDate'}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">Date of Termination</ion-col>
+        <ion-col text-right>{{investment?.terminationDate | date:'mediumDate'}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">Original Investment Duration</ion-col>
+        <ion-col text-right>{{investment?.tenure}} days</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">Actual Investment Duration</ion-col>
+        <ion-col text-right>{{investment?.tenure}} days</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="pl15">Rate</ion-col>
+        <ion-col text-right>{{investment?.currentRate | number:'1.2-2' }}%</ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</div>

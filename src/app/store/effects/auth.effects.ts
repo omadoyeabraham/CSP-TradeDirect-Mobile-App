@@ -5,6 +5,10 @@ import { map, catchError, switchMap } from "rxjs/operators";
 import * as AuthActions from "../actions/auth/auth.actions";
 import * as UserActions from "../actions/user/user.actions";
 import * as ErrorActions from "../actions/errors/error.actions";
+import * as StockbrokingPortfolioActions from "../actions/stockbroking/portfolios.actions";
+import * as SecurityActions from "../actions/stockbroking/securities.actions";
+import * as FixedIncomeActions from "../actions/fixedIncome/fixedIncome.actions";
+
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
 
 /**
@@ -20,6 +24,7 @@ export class AuthEffects {
    *
    * @memberof AuthEffects
    */
+  //TODO: Perform checks and return defaults before dispatching actions
   @Effect()
   loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
     map((action: AuthActions.LoginUser) => action.payload),
@@ -30,7 +35,19 @@ export class AuthEffects {
           map(userData => userData),
           switchMap(userData => [
             new AuthActions.LoginUserSuccess(userData),
-            new UserActions.AddUserDataToStore(userData.customer)
+            new UserActions.AddUserDataToStore(userData.customer),
+            new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
+              userData.STB.EXCHANGE
+            ),
+            new StockbrokingPortfolioActions.SetActivePortfolioInStore(
+              userData.STB.EXCHANGE[0]
+            ),
+            new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
+              userData.STB.EXCHANGE[0]
+            ),
+            new SecurityActions.getSecurities(),
+            new FixedIncomeActions.saveFixedIncomeData(userData.FI.NGN),
+            new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD)
           ]),
           catchError(error => [
             new AuthActions.LoginUserFailed(),

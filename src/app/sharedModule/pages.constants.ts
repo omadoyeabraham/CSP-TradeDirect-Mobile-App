@@ -8,4 +8,16 @@ export const LOGIN_PAGE = "LoginPage";
 export const WELCOME_PAGE = "WelcomePage";
 
 // STOCKBROKING
-export const STB_PAGE = "StbContainerPage";
+export const STB_CONTAINER_PAGE = "StbContainerPage";
+export const STB_SUMMARY_CONTAINER_PAGE = "StbSummaryContainerPage";
+export const STB_PORTFOLIO_HOLDINGS_CONTAINER_PAGE =
+  "StbPortfolioHoldingsContainerPage";
+export const STB_WATCHLIST_CONTAINER_PAGE = "StbWatchlistContainerPage";
+export const STB_TRADE_CONTAINER_PAGE = "StbTradeContainerPage";
+export const STB_TRADE_HISTORY_CONTAINER_PAGE = "StbTradeHistoryContainerPage";
+export const STB_SECURITY_OVERVIEW_PAGE = "SecurityOverviewPage";
+export const STB_PLACE_MANDATE_PAGE = "PlaceMandatePage";
+
+// FIXED INCOME
+export const FIXED_INCOME_CONTAINER_PAGE = "FixedIncomeContainerPage";
+export const FX_INVESTMENTS_CONTAINER_PAGE = "FxInvestmentsContainerPage";

@@ -4,8 +4,11 @@ import { CommonModule } from "@angular/common";
 import {
   AuthActionDispatcher,
   UserActionDispatcher,
-  ErrorActionDispatcher
+  ErrorActionDispatcher,
+  StbPortfolioActionDispatcher,
+  SelectedPageActionsDispatcher
 } from "./index";
+import { SharedModule } from "../sharedModule/shared.module";
 
 /**
  * Angular module created for the purposing of injecting the services created in the ngrx store into angular's dependency injection framework
@@ -14,7 +17,7 @@ import {
  * @class CspStoreModule
  */
 @NgModule({
-  imports: [CommonModule]
+  imports: [CommonModule, SharedModule]
 })
 export class CspStoreModule {
   /**
@@ -30,7 +33,9 @@ export class CspStoreModule {
       providers: [
         AuthActionDispatcher,
         UserActionDispatcher,
-        ErrorActionDispatcher
+        ErrorActionDispatcher,
+        StbPortfolioActionDispatcher,
+        SelectedPageActionsDispatcher
       ]
     };
   }

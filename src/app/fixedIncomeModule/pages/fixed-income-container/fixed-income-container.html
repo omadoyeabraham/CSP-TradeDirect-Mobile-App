@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Fixed Income</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+  <csmobile-fixed-income [runningInvestments]="runningInvestments" [terminatedInvestments]="terminatedInvestments" [totalFixedIncomeValue]="totalFixedIncomeValue"
+    [kind]="'Fixed Income'" [currency]="'₦'"></csmobile-fixed-income>
+</ion-content>

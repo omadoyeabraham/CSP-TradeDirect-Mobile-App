@@ -6,3 +6,8 @@ const baseURL = "https://restserver2.cardinalstone.com/api/";
 
 // Authentication endpoints
 export const loginURL = baseURL + "findCustomerByName";
+
+// STOCKBROKING ENDPOINTS
+export const getSecuritiesURL = baseURL + "getSecurityNames";
+export const getSelectedSecurityMarketDataURL =
+  baseURL + "findSecurityOverviewByName";

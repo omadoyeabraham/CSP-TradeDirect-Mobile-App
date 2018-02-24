@@ -14,7 +14,21 @@ export class MyApp {
   rootPage: string = PAGES.HOME_PAGE;
   pages: Array<{ title: string; pageName: any; icon: string }> = [
     { title: "Dashboard", pageName: PAGES.DASHBOARD_PAGE, icon: "home" },
-    { title: "Stockbroking", pageName: PAGES.STB_PAGE, icon: "folder-open" }
+    {
+      title: "Stockbroking",
+      pageName: PAGES.STB_CONTAINER_PAGE,
+      icon: "folder-open"
+    },
+    {
+      title: "Fixed Income",
+      pageName: PAGES.FIXED_INCOME_CONTAINER_PAGE,
+      icon: "briefcase"
+    },
+    {
+      title: "FX Investments",
+      pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
+      icon: "cash"
+    }
   ];
 
   constructor(
