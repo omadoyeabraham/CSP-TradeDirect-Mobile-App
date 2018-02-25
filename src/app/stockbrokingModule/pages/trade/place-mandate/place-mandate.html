@@ -33,7 +33,7 @@
     <!-- Units Owned [optional, dependent on symbol] -->
     <ion-item *ngIf="orderType.value === 'SELL'">
       <ion-label color="primary" floating>Units Owned</ion-label>
-      <ion-input type="number" placeholder="" formControlName="unitsOwned"></ion-input>
+      <ion-input type="number" placeholder="" [value]='unitsOwned' disabled readonly></ion-input>
     </ion-item>
 
     <!-- Price Option -->
@@ -68,8 +68,6 @@
       </ion-select>
     </ion-item>
     <p class="error-message-text" *ngIf="!orderTerm.valid && (orderTerm.dirty || submitAttempt)">Please an order term.</p>
-
-    <pre>{{ mandateForm?.value | json }}</pre>
 
     <button ion-button full class="mt40 mb40">Preview Order</button>
   </form>

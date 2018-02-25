@@ -7,21 +7,37 @@ import { ITradeOrder } from "../../../stockbrokingModule/models";
 
 export const SAVE_TRADE_ORDER_TERMS_IN_STORE =
   "[STB TRADE ORDERS] Save the active trade order terms in the store";
-export const PREVIEW_TRADE_ORDER =
-  "[STB TRADE ORDERS] Preview the trade order a client is trying to place";
+export const SAVE_PREVIEWED_TRADE_ORDER_IN_STORE =
+  "[STB TRADE ORDERS] Save the previewed trade order a client is trying to place";
+export const CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE =
+  "[STB TRADE ORDERS] Clear the previewed trade order stored in the store";
 
 export class SaveTradeOrderTermsInStore implements Action {
   readonly type = SAVE_TRADE_ORDER_TERMS_IN_STORE;
   constructor(public payload: Array<ITradeOrderTerm>) {}
 }
 
-export class PreviewTradeOrder implements Action {
-  readonly type = PREVIEW_TRADE_ORDER;
+export class SavePreviewedTradeOrderInStore implements Action {
+  readonly type = SAVE_PREVIEWED_TRADE_ORDER_IN_STORE;
   constructor(public payload: ITradeOrder) {}
 }
 
-export type TradeOrderActions = SaveTradeOrderTermsInStore | PreviewTradeOrder;
+export class ClearPreviewedTradeOrder implements Action {
+  readonly type = CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE;
+  constructor() {}
+}
 
+export type TradeOrderActionTypes =
+  | SaveTradeOrderTermsInStore
+  | SavePreviewedTradeOrderInStore
+  | ClearPreviewedTradeOrder;
+
+/**
+ * Action dispatcher class for trade order actions
+ *
+ * @export
+ * @class TradeOrderActionsDispatcher
+ */
 @Injectable()
 export class TradeOrderActionsDispatcher {
   constructor(private store: Store<IAppState>) {}
@@ -37,12 +53,21 @@ export class TradeOrderActionsDispatcher {
   }
 
   /**
-   * Dispatch the action to preview a trade order
+   * Dispatch the action to save a previewed trade order in the store
    *
    * @param {ITradeOrder} payload
    * @memberof TradeOrderActionsDispatcher
    */
-  previewTradeOrder(payload: ITradeOrder) {
-    this.store.dispatch(new PreviewTradeOrder(payload));
+  savePreviewedTradeOrderInStore(payload: ITradeOrder) {
+    this.store.dispatch(new SavePreviewedTradeOrderInStore(payload));
+  }
+
+  /**
+   * Dispatch the action to clear the previewed trade order from the store
+   *
+   * @memberof TradeOrderActionsDispatcher
+   */
+  clearPreviewedTradeOrder() {
+    this.store.dispatch(new ClearPreviewedTradeOrder());
   }
 }

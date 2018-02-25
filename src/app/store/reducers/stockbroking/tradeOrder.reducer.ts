@@ -1,8 +1,11 @@
 import { ITradeOrderTerm } from "../../../stockbrokingModule/models/tradeOrderTerm.interface";
 import {
-  TradeOrderActions,
-  SAVE_TRADE_ORDER_TERMS_IN_STORE
+  TradeOrderActionTypes,
+  SAVE_TRADE_ORDER_TERMS_IN_STORE,
+  SAVE_PREVIEWED_TRADE_ORDER_IN_STORE,
+  CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE
 } from "../../actions/stockbroking/tradeOrder.actions";
+import { ITradeOrder } from "../../../stockbrokingModule/models";
 
 /**
  * Reducer which handles the "stbTradeOrderTerms" slice of state
@@ -14,11 +17,34 @@ import {
  */
 export default function tradeOrderTermReducer(
   state: Array<ITradeOrderTerm> = [],
-  action: TradeOrderActions
+  action: TradeOrderActionTypes
 ): Array<ITradeOrderTerm> {
   switch (action.type) {
     case SAVE_TRADE_ORDER_TERMS_IN_STORE:
       return action.payload;
+    default:
+      return state;
+  }
+}
+
+/**
+ * Reducer which handles the stbPreviewedTradeOrder
+ *
+ * @export
+ * @param {ITradeOrder} [state={} as ITradeOrder]
+ * @param {TradeOrderActionTypes} action
+ */
+export function previewedTradeOrderReducer(
+  state: ITradeOrder = {} as ITradeOrder,
+  action: TradeOrderActionTypes
+) {
+  switch (action.type) {
+    case SAVE_PREVIEWED_TRADE_ORDER_IN_STORE:
+      return action.payload;
+
+    case CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE:
+      return {} as ITradeOrder;
+
     default:
       return state;
   }

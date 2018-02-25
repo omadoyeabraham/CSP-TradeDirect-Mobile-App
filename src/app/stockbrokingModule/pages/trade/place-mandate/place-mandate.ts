@@ -13,7 +13,8 @@ import {
   getStbSecurityNames,
   getSortedTradeOrderTerms,
   getActivePortfolio,
-  getStbSecurities
+  getStbSecurities,
+  getActivePortfolioStockHoldings
 } from "../../../../store";
 import { MandateQuantityValidator } from "../../../validators/MandateFormValidators";
 import { ITradeOrderTerm } from "../../../models/tradeOrderTerm.interface";
@@ -41,12 +42,13 @@ export class PlaceMandatePage {
   public totalAmount: number;
   public orderType: FormControl;
   public security: FormControl;
-  public unitsOwned: FormControl;
+  public unitsOwned: any;
   public priceOption: FormControl;
   public limitPrice: FormControl;
   public quantity: FormControl;
   public orderTerm: FormControl;
   public securities: string[];
+  public allSecurities: string[];
   public tradeOrderTerms: Array<ITradeOrderTerm>;
   private mandateForm: FormGroup;
   public submitAttempt: boolean = false;
@@ -80,7 +82,6 @@ export class PlaceMandatePage {
     this.mandateForm = new FormGroup({
       orderType: this.orderType,
       security: this.security,
-      unitsOwned: this.unitsOwned,
       priceOption: this.priceOption,
       limitPrice: this.limitPrice,
       quantity: this.quantity,
@@ -91,6 +92,7 @@ export class PlaceMandatePage {
   ionViewDidLoad() {
     // Select security names from the store
     this.store.select(getStbSecurityNames).subscribe(securityNames => {
+      this.allSecurities = securityNames;
       this.securities = securityNames;
     });
 
@@ -109,6 +111,57 @@ export class PlaceMandatePage {
     // Watch the limit price input, so the error div's visibility is dynamically controlled based on the input's value
     this.limitPrice.valueChanges.subscribe(value => {
       this.validLimitPrice = value > 0;
+    });
+
+    /**
+     * Watch the order type input, and set the securities based on the user's input
+     * For sell orders, only display the stocks owned in the active account,
+     * For buy orders display a list of all securities in the market
+     */
+    this.watchOrderTypeValueChanges();
+
+    /**
+     * Watch the selected security input, and set the units owned if its in the user's portfolio
+     */
+    this.watchSecurityValueChanges();
+  }
+
+  /**
+   * Watch the security input and make appropriate changes
+   *
+   * @memberof PlaceMandatePage
+   */
+  watchSecurityValueChanges() {
+    this.security.valueChanges.subscribe(securityName => {
+      this.store.select(getActivePortfolioStockHoldings).subscribe(holdings => {
+        let holding = holdings.filter(
+          holding => holding.securityName === securityName
+        )[0];
+        if (holding) {
+          this.unitsOwned = holding.quantityHeld;
+        } else {
+          this.unitsOwned = "";
+        }
+      });
+    });
+  }
+
+  /**
+   * Watch order type input and make appropriate changes
+   *
+   * @memberof PlaceMandatePage
+   */
+  watchOrderTypeValueChanges() {
+    this.orderType.valueChanges.subscribe(orderType => {
+      if (orderType === "SELL") {
+        this.store
+          .select(getActivePortfolioStockHoldings)
+          .subscribe(holdings => {
+            this.securities = holdings.map(holding => holding.securityName);
+          });
+      } else {
+        this.securities = this.allSecurities;
+      }
     });
   }
 
@@ -129,7 +182,6 @@ export class PlaceMandatePage {
         return;
       } else {
         // Validation for non-required fields passed, so preview the form
-        console.log("Previewing the mandate ....");
 
         // Create the tradeOrder Object
         const tradeOrder: ITradeOrder = {
@@ -159,7 +211,6 @@ export class PlaceMandatePage {
              * to place the current tradeOrder and its totalAmount in the store
              */
             if (returnedTradeOrderTotal) {
-              console.log(tradeOrder);
               const tradeOrderWithMetaData = this.calculateTradeOrderMetaData(
                 tradeOrder
               );
