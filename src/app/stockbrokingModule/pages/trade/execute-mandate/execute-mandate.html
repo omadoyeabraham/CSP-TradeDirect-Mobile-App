@@ -1,0 +1,100 @@
+<!--
+  Generated template for the ExecuteMandatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ExecuteMandate</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <!-- Cash for trading -->
+  <ion-grid>
+    <ion-row class="cashDiv">
+      <ion-col>
+        <div>Cash Available for trading</div>
+        <div class="font-size-22">
+          <b>&#8358;{{tradeOrder?.cashAvailableForTrading | number:'1.2-2'}}</b>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Warning -->
+  <ion-grid>
+    <ion-row class="font-size-18 bg-light-blue-2 pt5 pb5 text-light-blue text-bold">
+      <ion-col>
+        <div class="">Please verify that your order is correct</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Trade Order Details -->
+  <ion-item-group class="tradeOrderDetails">
+    <ion-item class="ml0">
+      <span class="ml0">Account</span>
+      <span item-end>{{tradeOrder?.portfolioLabel}}</span>
+    </ion-item>
+    <ion-item>
+      <span>Order Type</span>
+      <span item-end>{{tradeOrder?.orderType}}</span>
+    </ion-item>
+    <ion-item>
+      <span>No of Shares</span>
+      <span item-end>{{tradeOrder?.quantityRequested}}</span>
+    </ion-item>
+    <ion-item>
+      <span>Symbol</span>
+      <span item-end>{{tradeOrder?.instrument}}</span>
+    </ion-item>
+    <ion-item>
+      <span>Price Option</span>
+      <span item-end>{{tradeOrder?.priceType}}</span>
+    </ion-item>
+    <ion-item>
+      <span>Limit Price</span>
+      <span item-end>&#8358;{{tradeOrder?.limitPrice | number:'1.2-2'}}</span>
+    </ion-item>
+    <ion-item>
+      <span>Order Term</span>
+      <span item-end>{{tradeOrder?.orderTermLabel}}</span>
+    </ion-item>
+    <ion-item>
+      <span>{{tradeOrder?.tradeOrderTotalDescription}} (includes commissions + fees)</span>
+      <span item-end>{{tradeOrder?.formattedTradeOrderTotal}}</span>
+    </ion-item>
+    <ion-item></ion-item>
+  </ion-item-group>
+
+  <!-- NSE Message -->
+  <ion-grid>
+    <ion-row class="nseDiv pt5 pb5">
+      <ion-col>
+        <div class="">*Orders placed on this platform will be effected immediately on the NSE</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Buttons -->
+  <ion-grid>
+    <ion-row class="">
+      <ion-col>
+        <button ion-button class="w100p height-100" (click)="alertBeforeTradeOrderExecution()">
+          Place Order
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="danger" class="w100p">Cancel</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

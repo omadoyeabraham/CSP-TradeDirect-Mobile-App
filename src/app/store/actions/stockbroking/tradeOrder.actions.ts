@@ -11,6 +11,8 @@ export const SAVE_PREVIEWED_TRADE_ORDER_IN_STORE =
   "[STB TRADE ORDERS] Save the previewed trade order a client is trying to place";
 export const CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE =
   "[STB TRADE ORDERS] Clear the previewed trade order stored in the store";
+export const REFRESH_TRADE_ORDER_HISTORY =
+  "[STB TRADE ORDERS] Refresh the user's trade order history";
 
 export class SaveTradeOrderTermsInStore implements Action {
   readonly type = SAVE_TRADE_ORDER_TERMS_IN_STORE;
@@ -27,10 +29,16 @@ export class ClearPreviewedTradeOrder implements Action {
   constructor() {}
 }
 
+export class RefreshTradeOrderHistory implements Action {
+  readonly type = REFRESH_TRADE_ORDER_HISTORY;
+  constructor() {}
+}
+
 export type TradeOrderActionTypes =
   | SaveTradeOrderTermsInStore
   | SavePreviewedTradeOrderInStore
-  | ClearPreviewedTradeOrder;
+  | ClearPreviewedTradeOrder
+  | RefreshTradeOrderHistory;
 
 /**
  * Action dispatcher class for trade order actions
@@ -70,4 +78,11 @@ export class TradeOrderActionsDispatcher {
   clearPreviewedTradeOrder() {
     this.store.dispatch(new ClearPreviewedTradeOrder());
   }
+
+  /**
+   * Dispatch the action to refresh the trade order History
+   *
+   * @memberof TradeOrderActionsDispatcher
+   */
+  refreshTradeOrderHistory() {}
 }

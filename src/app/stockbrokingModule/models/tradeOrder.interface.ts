@@ -9,6 +9,7 @@ export interface ITradeOrder {
   priceType: string;
   instrument: string;
   orderTermName: string;
+  orderTermLabel?: string;
   quantityRequested: number;
   limitPrice?: number;
   orderOrigin: string;
@@ -20,4 +21,5 @@ export interface ITradeOrder {
   formattedTradeOrderTotal?: string;
   consideration?: any;
   totalFees?: any;
+  cashAvailableForTrading?: any;
 }

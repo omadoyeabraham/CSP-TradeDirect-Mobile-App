@@ -6,7 +6,8 @@ import { Observable } from "rxjs/Observable";
 import { ITradeOrderTerm } from "../../models/tradeOrderTerm.interface";
 import {
   getActiveTradeOrderTermsURL,
-  previewTradeOrderURL
+  previewTradeOrderURL,
+  executeTradeOrderURL
 } from "../../../sharedModule/apiUrls.constants";
 import { map, catchError, retry } from "rxjs/operators";
 import { ITradeOrder } from "../../models";
@@ -46,6 +47,19 @@ export class TradeOrderProvider {
   previewTradeOrder(tradeOrder: ITradeOrder) {
     return this.http
       .post(previewTradeOrderURL, tradeOrder, { observe: "response" })
+      .pipe(retry(2), catchError(err => Observable.throw(err)));
+  }
+
+  /**
+   * Execute a trade order
+   *
+   * @param {ITradeOrder} tradeOrder
+   * @returns
+   * @memberof TradeOrderProvider
+   */
+  executeTradeOrder(tradeOrder: ITradeOrder) {
+    return this.http
+      .post(executeTradeOrderURL, tradeOrder, { observe: "response" })
       .pipe(retry(2), catchError(err => Observable.throw(err)));
   }
 }

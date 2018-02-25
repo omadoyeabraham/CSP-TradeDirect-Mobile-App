@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { ITradeOrderTerm } from "../../../stockbrokingModule/models/tradeOrderTerm.interface";
+import { ITradeOrder } from "../../../stockbrokingModule/models";
 
 /**
  * Get the "tradeOrderTerms" slice of state
@@ -17,4 +18,8 @@ export const getSortedTradeOrderTerms = createSelector(
   (state: Array<ITradeOrderTerm>) => {
     return state.sort((a, b) => a.defLifeTime - b.defLifeTime);
   }
+);
+
+export const getPreviewedTradeOrder = createFeatureSelector<ITradeOrder>(
+  "stbPreviewedTradeOrder"
 );

@@ -17,6 +17,7 @@ export const STB_TRADE_CONTAINER_PAGE = "StbTradeContainerPage";
 export const STB_TRADE_HISTORY_CONTAINER_PAGE = "StbTradeHistoryContainerPage";
 export const STB_SECURITY_OVERVIEW_PAGE = "SecurityOverviewPage";
 export const STB_PLACE_MANDATE_PAGE = "PlaceMandatePage";
+export const STB_EXECUTE_MANDATE_PAGE = "ExecuteMandatePage";
 
 // FIXED INCOME
 export const FIXED_INCOME_CONTAINER_PAGE = "FixedIncomeContainerPage";

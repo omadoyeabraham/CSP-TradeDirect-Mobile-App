@@ -14,3 +14,4 @@ export const getSelectedSecurityMarketDataURL =
 export const getActiveTradeOrderTermsURL =
   baseURL + "findActiveTradeOrderTerms";
 export const previewTradeOrderURL = baseURL + "getTradeOrderTotal";
+export const executeTradeOrderURL = baseURL + "createTradeOrder";

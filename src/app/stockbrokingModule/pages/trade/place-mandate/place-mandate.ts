@@ -9,18 +9,20 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
+import * as PAGES from "../../../../sharedModule/pages.constants";
 import {
   getStbSecurityNames,
   getSortedTradeOrderTerms,
   getActivePortfolio,
   getStbSecurities,
-  getActivePortfolioStockHoldings
+  getActivePortfolioStockHoldings,
+  TradeOrderActionsDispatcher,
+  getTradeOrderTerms
 } from "../../../../store";
 import { MandateQuantityValidator } from "../../../validators/MandateFormValidators";
 import { ITradeOrderTerm } from "../../../models/tradeOrderTerm.interface";
 import { TradeOrderProvider } from "../../../providers/trade-order/trade-order";
 import { catchError, map } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
 import { ITradeOrder, IPortfolio } from "../../../models";
 import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
 
@@ -61,6 +63,7 @@ export class PlaceMandatePage {
     public navParams: NavParams,
     public store: Store<IAppState>,
     public tradeOrderProvider: TradeOrderProvider,
+    public tradeOrderActionsDispatcher: TradeOrderActionsDispatcher,
     private loadingCtrl: LoadingController,
     private utilityProvider: UtilityProvider
   ) {
@@ -214,7 +217,14 @@ export class PlaceMandatePage {
               const tradeOrderWithMetaData = this.calculateTradeOrderMetaData(
                 tradeOrder
               );
-              console.log(tradeOrderWithMetaData);
+
+              // Dispatch action to save the previewed trade order in the store
+              this.tradeOrderActionsDispatcher.savePreviewedTradeOrderInStore(
+                tradeOrderWithMetaData
+              );
+
+              // Navigate to the execute mandate page
+              this.navCtrl.push(PAGES.STB_EXECUTE_MANDATE_PAGE);
             }
           },
           err => {
@@ -337,6 +347,13 @@ export class PlaceMandatePage {
     const tradeOrderTotalDescription = this.getTradeOrderTotalDescription(
       tradeOrder
     );
+    const orderTermLabel = this.getTradeOrderTermLabel(
+      tradeOrder.orderTermName
+    );
+    let cashAvailableForTrading;
+    this.store.select(getActivePortfolio).subscribe(portfolio => {
+      cashAvailableForTrading = portfolio.availableCash.amount;
+    });
 
     return {
       ...tradeOrder,
@@ -344,7 +361,9 @@ export class PlaceMandatePage {
       totalFees,
       tradeOrderTotal: this.totalAmount,
       formattedTradeOrderTotal: this.previewedOrderTotalAmount,
-      tradeOrderTotalDescription
+      tradeOrderTotalDescription,
+      orderTermLabel,
+      cashAvailableForTrading
     };
   }
 
@@ -419,5 +438,22 @@ export class PlaceMandatePage {
     } else {
       return "TOTAL ESTIMATED PROCEEDS";
     }
+  }
+
+  /**
+   * Return the trade order term label for a trade order term name
+   *
+   * @param {string} orderTermName
+   * @memberof PlaceMandatePage
+   */
+  getTradeOrderTermLabel(orderTermName: string) {
+    let orderTerm: ITradeOrderTerm;
+    this.store.select(getTradeOrderTerms).subscribe(orderTerms => {
+      orderTerm = orderTerms.filter(
+        orderTerm => orderTerm.name === orderTermName
+      )[0];
+    });
+
+    return orderTerm.label;
   }
 }
