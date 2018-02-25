@@ -4,8 +4,12 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
 import { ITradeOrderTerm } from "../../models/tradeOrderTerm.interface";
-import { getActiveTradeOrderTermsURL } from "../../../sharedModule/apiUrls.constants";
-import { map, catchError } from "rxjs/operators";
+import {
+  getActiveTradeOrderTermsURL,
+  previewTradeOrderURL
+} from "../../../sharedModule/apiUrls.constants";
+import { map, catchError, retry } from "rxjs/operators";
+import { ITradeOrder } from "../../models";
 
 /**
  * Provider for TradeOrders
@@ -30,5 +34,18 @@ export class TradeOrderProvider {
         map((response: any) => response.item),
         catchError(err => Observable.throw(err))
       );
+  }
+
+  /**
+   * Preview a trade order and get the trade order total
+   *
+   * @param {ITradeOrder} tradeOrder
+   * @returns
+   * @memberof TradeOrderProvider
+   */
+  previewTradeOrder(tradeOrder: ITradeOrder) {
+    return this.http
+      .post(previewTradeOrderURL, tradeOrder, { observe: "response" })
+      .pipe(retry(2), catchError(err => Observable.throw(err)));
   }
 }

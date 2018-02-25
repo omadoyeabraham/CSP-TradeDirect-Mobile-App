@@ -9,5 +9,6 @@ export * from "./selectedPage/selectedPage.selector";
 
 export * from "./stockbroking/portfolios.selectors";
 export * from "./stockbroking/securities.selectors";
+export * from "./stockbroking/tradeOrder.selectors";
 
 export * from "./fixedIncome/fixedIncome.selectors";

@@ -19,18 +19,18 @@ export class UtilityProvider {
    *
    *
    * @param {string} [message=""]
-   * @param {string} [position=UtilityProvider.toastPosition]
-   * @param {number} [duration=UtilityProvider.toastDuration]
    * @param {string} [toastKind=UtilityProvider.toastKind]  The toastKind(toastError | toastSuccess | toastInfo)
+   * @param {number} [duration=UtilityProvider.toastDuration]
    * @param {boolean} [showClose=false]
+   * @param {string} [position=UtilityProvider.toastPosition]
    * @memberof UtilityProvider
    */
   presentToast(
     message: string = "",
     toastKind: string = UtilityProvider.toastKind,
-    position: string = UtilityProvider.toastPosition,
     duration: number = UtilityProvider.toastDuration,
-    showClose: boolean = false
+    showClose: boolean = false,
+    position: string = UtilityProvider.toastPosition
   ) {
     let toaster = this.toastCtrl.create({
       message: message,

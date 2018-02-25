@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -16,6 +16,7 @@ import { CspStoreModule } from "./store/store.module";
 
 import { rootReducer, metaReducers } from "./store/reducers";
 import { allEffects } from "./store/effects";
+import { TokenInterceptor } from "./sharedModule/services/auth/token.interceptor";
 
 @NgModule({
   declarations: [MyApp],
@@ -36,6 +37,11 @@ import { allEffects } from "./store/effects";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     HttpClientModule
   ]
 })

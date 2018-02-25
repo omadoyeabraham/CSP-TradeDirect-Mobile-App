@@ -11,4 +11,6 @@ export const loginURL = baseURL + "findCustomerByName";
 export const getSecuritiesURL = baseURL + "getSecurityNames";
 export const getSelectedSecurityMarketDataURL =
   baseURL + "findSecurityOverviewByName";
-export const getActiveTradeOrderTermsURL = baseURL + "findActiveTradeOrderTerms";
+export const getActiveTradeOrderTermsURL =
+  baseURL + "findActiveTradeOrderTerms";
+export const previewTradeOrderURL = baseURL + "getTradeOrderTotal";

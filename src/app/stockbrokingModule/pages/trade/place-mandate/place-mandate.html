@@ -64,14 +64,13 @@
     <ion-item>
       <ion-label color="primary" floating>Order Term</ion-label>
       <ion-select formControlName="orderTerm" [class.invalid]="!orderTerm.valid && (orderTerm.dirty || submitAttempt)">
-        <ion-option value="f">GOOD FOR A DAY</ion-option>
-        <ion-option value="m">GOOD FOR 7 DAYS</ion-option>
+        <ion-option *ngFor="let tradeOrderTerm of tradeOrderTerms" [value]="tradeOrderTerm.name">{{ tradeOrderTerm.label }}</ion-option>
       </ion-select>
     </ion-item>
     <p class="error-message-text" *ngIf="!orderTerm.valid && (orderTerm.dirty || submitAttempt)">Please an order term.</p>
 
     <pre>{{ mandateForm?.value | json }}</pre>
-    
+
     <button ion-button full class="mt40 mb40">Preview Order</button>
   </form>
 
