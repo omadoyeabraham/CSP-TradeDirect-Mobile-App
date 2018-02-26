@@ -1,14 +1,11 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter
-} from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
 import { ISecurity } from "../../../models";
 import { NavController } from "ionic-angular";
-import { STB_SECURITY_OVERVIEW_PAGE } from "../../../../sharedModule/pages.constants";
+import {
+  STB_SECURITY_OVERVIEW_PAGE,
+  STB_PLACE_MANDATE_PAGE
+} from "../../../../sharedModule/pages.constants";
 
 /**
  * Presentational component which displays all equities with their pictures
@@ -64,5 +61,14 @@ export class TradeOverviewComponent implements OnInit {
     this.securitySelected.emit(securityId);
     this.pageChanged.emit(STB_SECURITY_OVERVIEW_PAGE);
     this.navCtrl.push(STB_SECURITY_OVERVIEW_PAGE);
+  }
+
+  /**
+   * Navigate to the place mandate page
+   *
+   * @memberof TradeOverviewComponent
+   */
+  goToPlaceMandatePage() {
+    this.navCtrl.push(STB_PLACE_MANDATE_PAGE);
   }
 }

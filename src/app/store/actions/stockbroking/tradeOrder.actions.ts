@@ -92,7 +92,9 @@ export class TradeOrderActionsDispatcher {
    *
    * @memberof TradeOrderActionsDispatcher
    */
-  getTradeOrderHistory() {}
+  getTradeOrderHistory() {
+    this.store.dispatch(new GetTradeOrderHistory());
+  }
 
   /**
    * Dispatch the action to save the trade order history in the store

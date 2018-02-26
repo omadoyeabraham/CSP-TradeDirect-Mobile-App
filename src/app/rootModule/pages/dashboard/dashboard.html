@@ -21,12 +21,12 @@
   <!-- Naira Investments -->
   <ion-item-group>
     <ion-item-divider color="light" class="font-size-18 bg-light-blue">Naira Investments</ion-item-divider>
-    <ion-item class="ml0">
+    <ion-item class="ml0" (click)="goToPage(stbPage)">
       <ion-icon name="folder-open" item-start class=""></ion-icon>
       <span class="ml0">Stockbroking</span>
       <span item-end>&#8358;10,000</span>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToPage(fixedIncomePage)">
       <ion-icon name="pricetags" item-start class=""></ion-icon>
       Fixed Income
       <span item-end>&#8358;10,000</span>
@@ -50,9 +50,9 @@
 
   <ion-item-group class="mt5">
     <ion-item-divider color="light" class="font-size-18 bg-light-blue">FX Investments</ion-item-divider>
-    <ion-item>
+    <ion-item (click)="goToPage(fxPage)">
       <ion-icon name="card" item-start class=""></ion-icon>
-      Dollar Investments
+      FX Investments
       <span item-end>&#8358;10,000</span>
     </ion-item>
     <ion-item>

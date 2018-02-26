@@ -7,6 +7,7 @@ import {
   LoadingController
 } from "ionic-angular";
 import { ITradeOrder } from "../../../models";
+import * as PAGES from "../../../../sharedModule/pages.constants";
 import { IAppState } from "../../../../store/models";
 import { Store } from "@ngrx/store";
 import {
@@ -111,6 +112,13 @@ export class ExecuteMandatePage {
         // Refresh the user's trade order history
         this.tradeOrderActionsDispatcher.getTradeOrderHistory();
 
+        /**
+         * Move to the tradeHistory tab (3rd tab).
+         * nav.push() was not used, because it pushes the trade history page unto the trade tab,
+         * instead of moving to the tradeHistory tab
+         */
+        this.navCtrl.parent.select(3);
+
         this.utilityProvider.presentToast(
           "Mandate placement successful",
           "toastSuccess",
@@ -122,32 +130,18 @@ export class ExecuteMandatePage {
         console.log(err), loader.dismiss();
       }
     );
+  }
 
-    // this.stbService.executeTradeOrder(this.tradeOrder).subscribe(
-    //   (data) => {
-    //     console.log(data)
+  /**
+   * Cancel the previewed order and go back to the Place mandate page
+   *
+   * @memberof ExecuteMandatePage
+   */
+  cancelOrder(): void {
+    this.navCtrl.pop();
+  }
 
-    //     // Refresh trade orders and clear the storedpreviewed trade orders
-    //     this.stbStore.performActionsAfterMandatePlacement()
-
-    //     // Hide the loader
-    //     loader.dismiss()
-
-    //     // Navigate to the trade history page
-    //     this.navCtrl.push('TradeHistoryPage')
-
-    //     // Show an alert for success
-    //     this.constants.presentToast('Mandate placement successful', 'toastSuccess')
-    //   },
-    //   (error) => {
-    //     console.log(error)
-    //     loader.dismiss()
-
-    //     // Show an alert for error
-    //     this.constants.presentToast('Mandate placement failed', 'toastError')
-
-    //     this.navCtrl.push('PlaceMandatePage')
-    //   }
-    // )
+  move() {
+    console.log(this.navCtrl.parent._tabs[3]);
   }
 }
