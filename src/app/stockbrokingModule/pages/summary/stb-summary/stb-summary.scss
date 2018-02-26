@@ -1,4 +1,4 @@
-stb-summary {
+csmobile-stb-summary {
   .portfolio-summary-wrapper {
     ion-item {
       min-height: 25px !important;
@@ -7,6 +7,11 @@ stb-summary {
       .item-inner {
         border: none !important;
       }
+    }
+
+    .item-block {
+      max-height: 3rem !important;
+      min-height: 3rem !important;
     }
   }
 

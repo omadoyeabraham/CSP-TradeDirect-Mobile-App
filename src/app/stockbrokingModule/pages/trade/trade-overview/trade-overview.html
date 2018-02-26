@@ -7,7 +7,6 @@
   <ion-grid *ngFor="let security of filteredSecurities">
     <ion-row align-items-center (click)="goToSecurityOverview(security)">
       <ion-col class="img-div">
-        <img src="assets/imgs/stocks/{{security.name}}.png" class="img-responsive mr20">
         <b>{{security.name}}</b>
       </ion-col>
       <ion-col class="font-size-16 align-right">

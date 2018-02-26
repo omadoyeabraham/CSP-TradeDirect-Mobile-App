@@ -1,9 +1,20 @@
 page-dashboard {
   ion-item {
+    font-size: 14px !important;
     &:hover {
       cursor: pointer;
       background: #eeeeee;
     }
+
+    ion-label {
+      margin-top: 0 important;
+      margin-bottom: 0 important;
+    }
+  }
+
+  .item-block {
+    max-height: 3.5rem !important;
+    min-height: 3.5rem !important;
   }
 
   .item-inner {
