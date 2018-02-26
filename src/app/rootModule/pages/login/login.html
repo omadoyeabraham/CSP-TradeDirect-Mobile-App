@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar class="login-navbar" hideBackButton>
-    <ion-title>Welcome Back</ion-title>
+    <ion-title>Welcome back</ion-title>
     <ion-buttons end>
       <!-- Button used to close the login modal page -->
       <button ion-button (click)="closeLoginPage()">
@@ -12,6 +12,9 @@
 
 
 <ion-content padding>
+  <ion-card no-padding>
+    <img src="../assets/imgs/logo.png" />
+  </ion-card>
   <form novalidate [formGroup]="loginForm" (submit)="login()" class="mb40">
     <ion-list>
       <!-- Username validation rules -->
@@ -34,7 +37,15 @@
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit">Login</button>
+
+    <ion-grid>
+      <ion-row text-center>
+        <ion-col>
+          <button ion-button type="submit" class="mt20 w60p">Login</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
 
   </form>
 
