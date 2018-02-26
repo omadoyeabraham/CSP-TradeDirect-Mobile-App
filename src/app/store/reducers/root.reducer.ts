@@ -41,7 +41,7 @@ export interface IRootReducer {
   auth: IAuthState;
   user: IUserState;
   error: IErrorState;
-  selectedPage: Object;
+  selectedPage: any;
   stbPortfolios: IStockBrokingPortfolioState;
   stbActivePortfolio: IPortfolio;
   stbActivePortfolioMetaData: IStbActivePortfolioMetaData;
@@ -95,6 +95,7 @@ export const storageSyncReducer = storageSync({
   keys: [
     "user",
     "error",
+    "selectedPage",
     "stbPortfolios",
     "stbActivePortfolio",
     "stbSecurities",

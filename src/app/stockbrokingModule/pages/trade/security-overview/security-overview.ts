@@ -9,7 +9,8 @@ import {
   getSelectedSecurityMarketData,
   getSelectedSecurityPriceMovements,
   getSelectedSecurityBids,
-  getSelectedSecurityOffers
+  getSelectedSecurityOffers,
+  SelectedPageActionsDispatcher
 } from "../../../../store";
 import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
@@ -40,10 +41,15 @@ export class SecurityOverviewPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<IAppState>,
-    public chartsProvider: ChartsProvider
+    public chartsProvider: ChartsProvider,
+    public selectedPageActionDispatcher: SelectedPageActionsDispatcher
   ) {}
 
   ionViewDidLoad() {
+    this.selectedPageActionDispatcher.setSelectedPageData({
+      showHeader: false
+    });
+
     this.store
       .select(getSelectedSecurityOnOverviewPage)
       .subscribe(security => (this.security = security));

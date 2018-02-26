@@ -6,7 +6,7 @@ import * as selectedPageActions from "../../actions/selectedPage/selectedPage.ac
  * @param action
  */
 export default function selectedPageReducer(
-  state: object = {},
+  state: any = {},
   action: selectedPageActions.SelectedPageActionTypes
 ) {
   switch (action.type) {

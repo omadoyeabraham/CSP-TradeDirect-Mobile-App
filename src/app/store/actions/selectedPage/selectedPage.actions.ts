@@ -8,7 +8,7 @@ export const SET_SELECTED_PAGE =
 
 export class setSelectedPageInStore implements Action {
   readonly type = SET_SELECTED_PAGE;
-  constructor(public payload: object) {}
+  constructor(public payload: any) {}
 }
 
 export type SelectedPageActionTypes = setSelectedPageInStore;
@@ -17,7 +17,7 @@ export type SelectedPageActionTypes = setSelectedPageInStore;
 export class SelectedPageActionsDispatcher {
   constructor(public store: Store<IAppState>) {}
 
-  setSelectedPageData(payload: object) {
+  setSelectedPageData(payload: any) {
     this.store.dispatch(new setSelectedPageInStore(payload));
   }
 }

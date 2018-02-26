@@ -6,6 +6,7 @@ import {
   STB_SECURITY_OVERVIEW_PAGE,
   STB_PLACE_MANDATE_PAGE
 } from "../../../../sharedModule/pages.constants";
+import { SelectedPageActionsDispatcher } from "../../../../store";
 
 /**
  * Presentational component which displays all equities with their pictures
@@ -25,9 +26,16 @@ export class TradeOverviewComponent implements OnInit {
   @Output() securitySelected = new EventEmitter();
   public searchTerm: string;
 
-  constructor(public navCtrl: NavController) {}
+  constructor(
+    public navCtrl: NavController,
+    public selectedPageActionDispatcher: SelectedPageActionsDispatcher
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedPageActionDispatcher.setSelectedPageData({
+      showHeader: true
+    });
+  }
 
   /**
    * Function called once a user inputs a search term

@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, Tabs } from "ionic-angular";
 import * as PAGES from "../../../sharedModule/pages.constants";
 import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
-
+import { getSelectedPage } from "../../../store";
 
 /**
  * Container Page for all STB related pages in the application
@@ -47,17 +47,14 @@ export class StbContainerPage {
   }
 
   ionViewDidLoad() {
-    // this.store.select(getSelectedPage).subscribe((selectedPage: any) => {
-    //   if (selectedPage.name === PAGES.STB_SECURITY_OVERVIEW_PAGE) {
-    //     this.showHeader = false;
-    //   } else {
-    //     this.showHeader = true;
-    //   }
-    //   console.log("HeaderName ", this.showHeader, selectedPage.name);
-    // });
-    // this.navCtrl.viewDidEnter.subscribe(view => {
-    //   console.log(view.instance.constructor.name);
-    // });
+    this.store.select(getSelectedPage).subscribe((selectedPage: any) => {
+      if (!selectedPage.showHeader) {
+        this.showHeader = false;
+      } else {
+        this.showHeader = true;
+      }
+      console.log("HeaderName ", this.showHeader);
+    });
   }
 
   /**
