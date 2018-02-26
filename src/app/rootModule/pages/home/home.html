@@ -1,28 +1,18 @@
 <ion-content class="home-page-background">
-  <ion-card padding>
+  <ion-card no-padding>
     <img src="../assets/imgs/home/logo.png" />
     <div class="card-title">Trade Direct</div>
   </ion-card>
 
-  <ion-grid no-padding>
-    <ion-row>
-      <ion-col col-12>
-        <div class="home-nav-box-wrapper" (click)="openLoginModal()">
-          <a class="home-nav-box">
-            Login
-          </a>
-        </div>
-        <div class="home-nav-box-wrapper">
-          <a class="home-nav-box">
-            FAQs
-          </a>
-        </div>
-        <div class="home-nav-box-wrapper">
-          <a class="home-nav-box">
-            Contact Us
-          </a>
-        </div>
+  <ion-grid text-center class="h60p">
+    <ion-row class="w60p margin-center h100p" align-items-end>
+      <ion-col text-right>
+        <button ion-button class="btn-transparent w100p" (click)="openLoginModal()">Sign In</button>
+      </ion-col>
+      <ion-col text-left>
+        <button ion-button class="btn-white w100p">Sign UP</button>
       </ion-col>
     </ion-row>
   </ion-grid>
+
 </ion-content>

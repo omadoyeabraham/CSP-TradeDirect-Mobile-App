@@ -1,66 +1,36 @@
 page-home {
-
   .home-page-background {
-    background-image: url('../assets/imgs/home/background.jpg');
-    background-size: cover;
-
+    background: rgba(26, 33, 85, 1);
     img {
       width: 50%;
+      height: auto;
       margin: 20px auto;
+      margin-top: 20%;
     }
 
     ion-card {
-        position: relative;
-        text-align: center;
-        border-radius: 0;
-        box-shadow: unset;
-        background-color: transparent;
-        height: 20%;
+      position: relative;
+      text-align: center;
+      border-radius: 0;
+      box-shadow: unset;
+      background-color: transparent;
+      *height: 20%;
     }
     .card-title {
-        font-size: 1.2em;
-        width: 100%;
-        font-weight: 500;
-        color: #1A2155;
-    }
-    ion-grid {
-        margin-top: 50%;
-    }
-    ion-grid button span {
-        text-align: left;
-        text-transform: none;
-    }
-    .home-nav-box-wrapper {
+      font-size: 1.2em;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.6);
-      padding: 20px 5px;
-      height: 55px;
-      position: relative;
-      margin-bottom: 2px;
-
-      &::before {
-        content: '';
-        width: 10px;
-        height: 55px;
-        background: #201C5C;
-        opacity: 0.4;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      &:hover {
-        cursor: pointer
-      }
+      font-weight: 500;
+      color: #ffffff;
     }
 
-    a.home-nav-box {
-      font-size: 16px;
-      font-weight: bold;
-      color: #201C5C;
-      margin-left: 30px;
+    .btn-transparent {
+      background: transparent;
+      border: 1px solid #ffffff;
     }
 
+    .btn-white {
+      background: #ffffff;
+      color: #1a2155;
+    }
   }
-
 }
