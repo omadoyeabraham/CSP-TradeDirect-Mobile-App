@@ -109,7 +109,7 @@ export class ExecuteMandatePage {
         this.tradeOrderActionsDispatcher.clearPreviewedTradeOrder();
 
         // Refresh the user's trade order history
-        this.tradeOrderActionsDispatcher.refreshTradeOrderHistory();
+        this.tradeOrderActionsDispatcher.getTradeOrderHistory();
 
         this.utilityProvider.presentToast(
           "Mandate placement successful",

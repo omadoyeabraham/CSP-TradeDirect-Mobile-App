@@ -54,7 +54,8 @@ export class AuthEffects {
             ),
             new SecurityActions.getSecurities(),
             new FixedIncomeActions.saveFixedIncomeData(userData.FI.NGN),
-            new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD)
+            new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
+            new TradeOrderActions.GetTradeOrderHistory()
           ]),
           catchError(error => [
             new AuthActions.LoginUserFailed(),

@@ -15,3 +15,4 @@ export const getActiveTradeOrderTermsURL =
   baseURL + "findActiveTradeOrderTerms";
 export const previewTradeOrderURL = baseURL + "getTradeOrderTotal";
 export const executeTradeOrderURL = baseURL + "createTradeOrder";
+export const getTradeOrdersURL = baseURL + "findCustomerOrders";

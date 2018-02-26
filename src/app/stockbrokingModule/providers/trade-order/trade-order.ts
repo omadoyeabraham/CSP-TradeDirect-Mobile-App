@@ -7,7 +7,8 @@ import { ITradeOrderTerm } from "../../models/tradeOrderTerm.interface";
 import {
   getActiveTradeOrderTermsURL,
   previewTradeOrderURL,
-  executeTradeOrderURL
+  executeTradeOrderURL,
+  getTradeOrdersURL
 } from "../../../sharedModule/apiUrls.constants";
 import { map, catchError, retry } from "rxjs/operators";
 import { ITradeOrder } from "../../models";
@@ -61,5 +62,19 @@ export class TradeOrderProvider {
     return this.http
       .post(executeTradeOrderURL, tradeOrder, { observe: "response" })
       .pipe(retry(2), catchError(err => Observable.throw(err)));
+  }
+
+  /**
+   * Get the trade order history for the user
+   *
+   * @param {number} userID
+   * @param {number} [cacheStatus=0]
+   * @returns
+   * @memberof TradeOrderProvider
+   */
+  getTradeOrderHistory(userID: number, cacheStatus: number = 0) {
+    return this.http
+      .get(getTradeOrdersURL + `/${userID}/${cacheStatus}`)
+      .pipe(catchError(err => Observable.throw(err)));
   }
 }

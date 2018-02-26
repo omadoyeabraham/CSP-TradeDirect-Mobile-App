@@ -3,7 +3,8 @@ import {
   TradeOrderActionTypes,
   SAVE_TRADE_ORDER_TERMS_IN_STORE,
   SAVE_PREVIEWED_TRADE_ORDER_IN_STORE,
-  CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE
+  CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE,
+  SAVE_TRADE_ORDER_HISTORY_IN_STORE
 } from "../../actions/stockbroking/tradeOrder.actions";
 import { ITradeOrder } from "../../../stockbrokingModule/models";
 
@@ -45,6 +46,26 @@ export function previewedTradeOrderReducer(
     case CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE:
       return {} as ITradeOrder;
 
+    default:
+      return state;
+  }
+}
+
+/**
+ * Reducer which handles the "tradeOrderHistory" slice of stata
+ *
+ * @export
+ * @param {Array<any>} [state=[]]
+ * @param {TradeOrderActionTypes} action
+ * @returns {Array<any>}
+ */
+export function tradeOrderHistoryReducer(
+  state: Array<any> = [],
+  action: TradeOrderActionTypes
+): Array<any> {
+  switch (action.type) {
+    case SAVE_TRADE_ORDER_HISTORY_IN_STORE:
+      return action.payload;
     default:
       return state;
   }

@@ -12,7 +12,8 @@ import fixedIncomeReducer, {
   fxInvestmentsReducer
 } from "./fixedIncome/fixedIncome.reducer";
 import tradeOrderTermReducer, {
-  previewedTradeOrderReducer
+  previewedTradeOrderReducer,
+  tradeOrderHistoryReducer
 } from "./stockbroking/tradeOrder.reducer";
 import selectedPageReducer from "./selectedPage/selectedPage.reducer";
 import {
@@ -49,6 +50,7 @@ export interface IRootReducer {
   stbSelectedSecurityMarketData: Object;
   stbTradeOrderTerms: Array<ITradeOrderTerm>;
   stbPreviewedTradeOrder: ITradeOrder;
+  stbTradeOrders: Array<any>;
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
 }
@@ -70,6 +72,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbSelectedSecurityMarketData: selectedSecurityMarketDataReducer,
   stbTradeOrderTerms: tradeOrderTermReducer,
   stbPreviewedTradeOrder: previewedTradeOrderReducer,
+  stbTradeOrders: tradeOrderHistoryReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
   fxInvestments: fxInvestmentsReducer
 };
@@ -99,6 +102,7 @@ export const storageSyncReducer = storageSync({
     "stbSelectedSecurityMarketData",
     "stbTradeOrderTerms",
     "stbPreviewedTradeOrder",
+    "stbTradeOrders",
     "fixedIncomeInvestments",
     "fxInvestments"
   ],
