@@ -31,10 +31,12 @@ import securitiesReducer, {
 import {
   ISecurity,
   IPortfolio,
-  ITradeOrder
+  ITradeOrder,
+  IMarketData
 } from "../../stockbrokingModule/models";
 import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
 import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
+import marketDataReducer from "./stockbroking/marketdata.reducer";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -51,6 +53,7 @@ export interface IRootReducer {
   stbTradeOrderTerms: Array<ITradeOrderTerm>;
   stbPreviewedTradeOrder: ITradeOrder;
   stbTradeOrders: Array<any>;
+  stbMarketData: Array<IMarketData>;
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
 }
@@ -73,6 +76,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbTradeOrderTerms: tradeOrderTermReducer,
   stbPreviewedTradeOrder: previewedTradeOrderReducer,
   stbTradeOrders: tradeOrderHistoryReducer,
+  stbMarketData: marketDataReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
   fxInvestments: fxInvestmentsReducer
 };
@@ -104,6 +108,7 @@ export const storageSyncReducer = storageSync({
     "stbTradeOrderTerms",
     "stbPreviewedTradeOrder",
     "stbTradeOrders",
+    "stbMarketData",
     "fixedIncomeInvestments",
     "fxInvestments"
   ],

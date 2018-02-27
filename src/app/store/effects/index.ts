@@ -3,6 +3,7 @@ import { StorageSyncEffects } from "ngrx-store-ionic-storage";
 import { AuthEffects } from "./auth.effects";
 import { SecuritiesEffects } from "./stockbroking/securities.effects";
 import { TradeOrderEffects } from "./stockbroking/tradeOrder.effects";
+import { MarketDataEffects } from "./stockbroking/marketData.effects";
 
 /**
  * Barrel file used to export functions and constants from the effects folder.
@@ -18,9 +19,11 @@ export const allEffects: any[] = [
   StorageSyncEffects,
   AuthEffects,
   SecuritiesEffects,
-  TradeOrderEffects
+  TradeOrderEffects,
+  MarketDataEffects
 ];
 
 export * from "./auth.effects";
 export * from "./stockbroking/securities.effects";
 export * from "./stockbroking/tradeOrder.effects";
+export * from "./stockbroking/marketData.effects";

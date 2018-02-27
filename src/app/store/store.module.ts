@@ -7,7 +7,8 @@ import {
   ErrorActionDispatcher,
   StbPortfolioActionDispatcher,
   SelectedPageActionsDispatcher,
-  TradeOrderActionsDispatcher
+  TradeOrderActionsDispatcher,
+  MarketDataActionsDispatcher
 } from "./index";
 import { SharedModule } from "../sharedModule/shared.module";
 
@@ -37,7 +38,8 @@ export class CspStoreModule {
         ErrorActionDispatcher,
         TradeOrderActionsDispatcher,
         StbPortfolioActionDispatcher,
-        SelectedPageActionsDispatcher
+        SelectedPageActionsDispatcher,
+        MarketDataActionsDispatcher
       ]
     };
   }

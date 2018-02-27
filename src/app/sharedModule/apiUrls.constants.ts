@@ -16,3 +16,4 @@ export const getActiveTradeOrderTermsURL =
 export const previewTradeOrderURL = baseURL + "getTradeOrderTotal";
 export const executeTradeOrderURL = baseURL + "createTradeOrder";
 export const getTradeOrdersURL = baseURL + "findCustomerOrders";
+export const getMarketDataURL = baseURL + "getSecurity";

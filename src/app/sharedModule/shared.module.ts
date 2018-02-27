@@ -6,6 +6,7 @@ import { UtilityProvider } from "./services/utility/utility";
 import { FormatNumberWithColorComponent } from "./components/format-number-with-color/format-number-with-color";
 import { SecuritiesProvider } from "./services/securities/securities";
 import { TradeOrderProvider } from "../stockbrokingModule/providers/trade-order/trade-order";
+import { MarketDataProvider } from "../stockbrokingModule/providers/market-data/market-data";
 
 /**
  * The SharedModule contains all services, components and directives that could be required by various other modules in the application
@@ -33,7 +34,8 @@ export class SharedModule {
         AuthProvider,
         UtilityProvider,
         SecuritiesProvider,
-        TradeOrderProvider
+        TradeOrderProvider,
+        MarketDataProvider
       ]
     };
   }
