@@ -67,4 +67,13 @@ csmobile-page-security-overview {
   .tradeHeaderRow {
     border-bottom: 1px solid #999999;
   }
+
+  ion-segment {
+    border: 2px solid #1a2155 !important;
+    border-radius: 5px !important;
+  }
+  .segment-activated {
+    background: #1a2155 !important;
+    color: #ffffff !important;
+  }
 }

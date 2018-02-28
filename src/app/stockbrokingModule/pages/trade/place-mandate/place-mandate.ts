@@ -71,7 +71,7 @@ export class PlaceMandatePage {
     this.orderType = new FormControl("BUY", Validators.required);
     this.security = new FormControl("ACCESS", Validators.required);
     this.unitsOwned = new FormControl();
-    this.priceOption = new FormControl("MARKET", Validators.required);
+    this.priceOption = new FormControl("LIMIT", Validators.required);
     this.limitPrice = new FormControl(1);
     this.quantity = new FormControl(
       1,
@@ -143,7 +143,7 @@ export class PlaceMandatePage {
         if (holding) {
           this.unitsOwned = holding.quantityHeld;
         } else {
-          this.unitsOwned = "";
+          this.unitsOwned = 0;
         }
       });
     });

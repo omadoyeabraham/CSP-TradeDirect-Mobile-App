@@ -30,4 +30,20 @@ page-place-mandate {
   .invalid {
     border-bottom: 2px solid #ea6153;
   }
+
+  #unitsOwnedCol {
+    margin-top: -11px;
+  }
+  ion-segment {
+    border: 2px solid #1a2155 !important;
+    border-radius: 5px !important;
+  }
+  .segment-activated {
+    background: #1a2155 !important;
+    color: #ffffff !important;
+  }
+  .segment-button {
+    max-height: 35px !important;
+    line-height: 35px !important;
+  }
 }

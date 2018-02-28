@@ -76,9 +76,9 @@ export class SecurityOverviewPage {
     // Subscribe to store and get bids
     this.store.select(getSelectedSecurityBids).subscribe(bids => {
       // Only select 10 bids to be displayed
-      this.bids = bids.filter((bid, index) => {
-        return index <= 9;
-      });
+      // this.bids = bids.filter((bid, index) => {
+      //   return index <= 9;
+      // });
     });
 
     // Subscribe to store and get offers
