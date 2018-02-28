@@ -5,14 +5,33 @@
   </ion-searchbar>
 
   <ion-grid *ngFor="let security of filteredSecurities">
-    <ion-row align-items-center (click)="goToSecurityOverview(security)">
-      <ion-col class="img-div">
+    <ion-row (click)="goToSecurityOverview(security)">
+      <!-- Security Name -->
+      <ion-col class="securityNameCol font-size-14">
         <b>{{security.name}}</b>
       </ion-col>
-      <ion-col class="font-size-16 align-right">
-        <div>Cur Price: &#8358;{{security.lastTradePrice}}</div>
-        <div class="text-red">Change: 29.34%</div>
+
+      <!--Current Price and 24h vol -->
+      <ion-col class="currPriceCol font-size-12">
+        <div>&#8358; {{security.currentPrice}}</div>
+        <div>
+          <span>vol:</span>
+          <span>{{ security.quantityTraded | number:'1.0-0' }}</span>
+        </div>
       </ion-col>
+
+      <!-- Bid and Offer -->
+      <ion-col col-lg-4 class="font-size-12">
+        <ion-row>
+          <ion-col class="p0" col-4>Bid</ion-col>
+          <ion-col class="p0 text-green">&#8358;{{ security.bidPrice | number:'1.2-2' }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="p0" col-4>Offer</ion-col>
+          <ion-col class="p0 text-red">&#8358;{{ security.offerPrice | number:'1.2-2' }}</ion-col>
+        </ion-row>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 

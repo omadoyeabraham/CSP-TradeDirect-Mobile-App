@@ -35,7 +35,7 @@ export class SecurityOverviewPage {
   public bids: Array<any> = [];
   public offers: Array<any> = [];
   public trades: Array<any> = [];
-  public bidsOffersTrades: string = "bids";
+  public bidsOffersTrades: string = "bidsOffers";
 
   constructor(
     public navCtrl: NavController,
@@ -64,13 +64,6 @@ export class SecurityOverviewPage {
       .select(getSelectedSecurityPriceMovements)
       .subscribe(graphData => {
         if (graphData) {
-          this.securityGraphData = this.chartsProvider.getCspDefinedPriceMovementChart(
-            graphData
-          );
-          setTimeout(() => {
-            Highcharts.chart("priceMovementGraph", this.securityGraphData);
-          }, 500);
-
           // Get only 10 trades to be displayed
           this.trades = graphData.filter((trade, index) => {
             return index <= 9;

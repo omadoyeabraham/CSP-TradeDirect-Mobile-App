@@ -29,7 +29,6 @@ export class MarketDataEffects {
     switchMap(getMarketDataAction => {
       return this.marketDataProvider.getMarketData().pipe(
         map(marketData => {
-          console.log(marketData);
           return marketData;
         }),
         switchMap(marketData => [

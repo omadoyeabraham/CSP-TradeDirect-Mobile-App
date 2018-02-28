@@ -7,47 +7,33 @@
 <ion-content no-padding id="securityOverviewWrapper">
   <ion-grid>
     <ion-row class="nameDiv pt15 pb15">
-      <ion-col>
-        <div class="font-size-20 pb5">
+      <ion-col class="pl0 pr0">
+        <div class="font-size-17 pb5">
           <b class="text-blue">{{security?.label}}</b>
         </div>
         <div>{{security?.name}}</div>
       </ion-col>
-      <ion-col text-right>
+      <ion-col text-right class="pl0 pr0">
         <button ion-button (click)="goToMandatePage()">BUY</button>
         <button ion-button>SELL</button>
-        <button ion-button>WATCHLIST</button>
+        <button ion-button icon-only>
+          <ion-icon name="eye"></ion-icon>
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- Graph -->
-  <ion-item-divider color="light" class="font-size-18 bg-light-blue">
-    <b>Price Movement Chart</b>
-  </ion-item-divider>
-
-  <div id="priceMovementGraph" style="height: 200px">
-  </div>
-
-  <div *ngIf="!securityGraphData" class="align-center pt20 pb10">
-    <ion-col text-center>
-      <b>
-        <i>No Price Movement Data Available</i>
-      </b>
-    </ion-col>
-  </div>
-
   <!-- Stock highlights -->
-  <ion-item-divider color="light" class="font-size-18 bg-light-blue mt10">
+  <ion-item-divider color="light" class="font-size-15 bg-light-blue mt10 pl5">
     <b>Stock Highlights</b>
   </ion-item-divider>
-  <ion-grid>
+  <ion-grid no-padding class="stockHighlightsDiv">
     <ion-row>
       <!-- 1st DIV -->
-      <ion-col>
+      <ion-col col-5 class="priceDiv">
         <ion-grid>
           <ion-row>
-            <ion-col>Current Price</ion-col>
+            <ion-col>Curr Price</ion-col>
             <ion-col text-right>&#8358;{{securityMarketData?.refPrice}}</ion-col>
           </ion-row>
           <ion-row>
@@ -66,21 +52,21 @@
       </ion-col>
 
       <!-- 2ND DIV -->
-      <ion-col>
+      <ion-col col-7 class="changeDiv">
         <ion-grid>
           <ion-row>
             <ion-col>Price Change</ion-col>
-            <div *ngIf="securityMarketData?.priceChange">
+            <ion-col text-right *ngIf="securityMarketData?.priceChange">
               <csmobile-format-number-with-color [data]="securityMarketData?.priceChange" [showCurrency]="true"></csmobile-format-number-with-color>
-            </div>
-            <div *ngIf="!securityMarketData?.priceChange">---</div>
+            </ion-col>
+            <ion-col text-right *ngIf="!securityMarketData?.priceChange">---</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Price Change (%)</ion-col>
-            <div *ngIf="securityMarketData?.priceChangeP">
+            <ion-col text-right *ngIf="securityMarketData?.priceChangeP">
               <csmobile-format-number-with-color [data]="securityMarketData?.priceChangeP" [showCurrency]="false"></csmobile-format-number-with-color>
-            </div>
-            <div *ngIf="!securityMarketData?.priceChangeP">---</div>
+            </ion-col>
+            <ion-col text-right *ngIf="!securityMarketData?.priceChangeP">---</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Vol. Traded</ion-col>
@@ -96,88 +82,84 @@
   </ion-grid>
 
   <!-- Bids, Offers and Trades -->
-  <ion-item-divider color="light" class="font-size-18 bg-light-blue mt20">
-    <b>Bids, Offers and Trades</b>
-  </ion-item-divider>
-
-  <ion-segment [(ngModel)]="bidsOffersTrades" class="mb1">
-    <ion-segment-button value="bids">
-      BIDS
-    </ion-segment-button>
-    <ion-segment-button value="offers">
-      OFFERS
+  <ion-segment [(ngModel)]="bidsOffersTrades" class="mb1 mt15">
+    <ion-segment-button value="bidsOffers">
+      BIDS & OFFERS
     </ion-segment-button>
     <ion-segment-button value="trades">
       TRADES
     </ion-segment-button>
   </ion-segment>
 
+
   <div [ngSwitch]="bidsOffersTrades">
-    <ion-list *ngSwitchCase="'bids'" class="bidsList">
-      <ion-row text-right>
-        <ion-col>
-          <b>TOTAL QTY</b>
+
+    <!-- BIDS & OFFERS -->
+    <ion-list *ngSwitchCase="'bidsOffers'" class="bidsList">
+      <ion-row>
+        <!-- BIDS -->
+        <ion-col class="bidCol pr3">
+          <ion-row class="bidOfferHeader">
+            <ion-col>
+              <b class="font-size-11">BID QTY</b>
+            </ion-col>
+            <ion-col text-right>
+              <b class="font-size-11">PRICE</b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let bid of bids">
+            <ion-col text-left class="font-size-11">{{bid.qty | number:'1.0-0'}}</ion-col>
+            <ion-col text-right class="text-red font-size-11">{{bid.price | number:'1.2-2'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="!bids.length" class="pt15 pb15" text-center>
+            <ion-col>No Bids</ion-col>
+          </ion-row>
         </ion-col>
-        <ion-col>
-          <b>BID QTY</b>
+
+        <!-- OFFERS -->
+        <ion-col class="pl3">
+          <ion-row class="bidOfferHeader">
+            <ion-col text-left>
+              <b class="font-size-11">OFFER QTY</b>
+            </ion-col>
+            <ion-col text-right>
+              <b class="font-size-11">PRICE</b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let offer of offers">
+            <ion-col text-left class="font-size-11">{{offer.qty | number:'1.0-0'}}</ion-col>
+            <ion-col text-right class="text-green font-size-11">{{offer.price | number:'1.2-2'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="!offers.length" class="pt15 pb15" text-center>
+            <ion-col>No Offers</ion-col>
+          </ion-row>
         </ion-col>
-        <ion-col class="mr20">
-          <b>PRICE</b>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngFor="let bid of bids" text-right>
-        <ion-col>{{bid.total | number:'1.0-0'}}</ion-col>
-        <ion-col>{{bid.qty | number:'1.0-0'}}</ion-col>
-        <ion-col class="mr20">{{bid.price | number:'1.2-2'}}</ion-col>
-      </ion-row>
-      <ion-row *ngIf="!bids.length" class="pt15 pb15" text-center>
-        <ion-col>No Bids</ion-col>
       </ion-row>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'offers'" class="bidsList">
-      <ion-row text-right>
-        <ion-col>
-          <b>TOTAL QTY</b>
-        </ion-col>
-        <ion-col>
-          <b>OFFER QTY</b>
-        </ion-col>
-        <ion-col class="mr20">
-          <b>PRICE</b>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngFor="let offer of offers" text-right>
-        <ion-col>{{offer.total | number:'1.0-0'}}</ion-col>
-        <ion-col>{{offer.qty | number:'1.0-0'}}</ion-col>
-        <ion-col class="mr20">{{offer.price | number:'1.2-2'}}</ion-col>
-      </ion-row>
-      <ion-row *ngIf="!offers.length" class="pt15 pb15" text-center>
-        <ion-col>No Offers</ion-col>
-      </ion-row>
-    </ion-list>
-
+    <!-- TRADES -->
     <ion-list *ngSwitchCase="'trades'" class="bidsList">
-      <ion-row text-right>
-        <ion-col>
-          <b>PRICE</b>
+      <ion-row class="pt5 tradeHeaderRow">
+        <ion-col text-left class="ml15">
+          <b class="font-size-11">PRICE</b>
         </ion-col>
-        <ion-col>
-          <b>QTY</b>
+        <ion-col text-center>
+          <b class="font-size-11">QTY</b>
         </ion-col>
-        <ion-col class="mr20">
-          <b>TIME</b>
+        <ion-col text-right class="mr15">
+          <b class="font-size-11">TIME</b>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let trade of trades" text-right>
-        <ion-col>{{trade.price | number:'1.2-2'}}</ion-col>
-        <ion-col>{{trade.qty | number:'1.0-0'}}</ion-col>
-        <ion-col class="mr20">{{trade.date }}</ion-col>
+      <ion-row *ngFor="let trade of trades">
+        <ion-col text-left class="font-size-11 ml15">{{trade.price | number:'1.2-2'}}</ion-col>
+        <ion-col text-center class="font-size-11">{{trade.qty | number:'1.0-0'}}</ion-col>
+        <ion-col text-right class="font-size-11 mr15">{{trade.date }}</ion-col>
       </ion-row>
       <ion-row *ngIf="!trades.length" text-center class="pt15 pb15">
         <ion-col>No Trades</ion-col>
       </ion-row>
     </ion-list>
+
   </div>
 
 </ion-content>

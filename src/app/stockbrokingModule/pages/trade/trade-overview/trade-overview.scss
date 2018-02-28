@@ -14,6 +14,18 @@ csmobile-trade-overview {
   }
 
   ion-grid:nth-child(even) {
-    background: #efefef;
+    background: #ddd;
+  }
+
+  .securityNameCol {
+    display: flex;
+    align-items: center;
+  }
+
+  .currPriceCol {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 }

@@ -5,9 +5,10 @@ import { Store } from "@ngrx/store";
 import { IAppState } from "../../../../store/models";
 import {
   getStbSecurities,
-  SelectedPageActionsDispatcher
+  SelectedPageActionsDispatcher,
+  getMarketData
 } from "../../../../store";
-import { ISecurity } from "../../../models";
+import { ISecurity, IMarketData } from "../../../models";
 import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
 
 /**
@@ -34,13 +35,19 @@ export class StbTradeContainerPage {
 
   ionViewDidLoad() {
     /**
-     * Subscribe to the stbSecurities slice of state
+     * Subscribe to the marketData slice of state
      */
+    // this.store
+    //   .select(getStbSecurities)
+    //   .subscribe(
+    //     (securities: Array<ISecurity>) => (this.securities = securities)
+    //   );
+
     this.store
-      .select(getStbSecurities)
-      .subscribe(
-        (securities: Array<ISecurity>) => (this.securities = securities)
-      );
+      .select(getMarketData)
+      .subscribe((marketData: Array<IMarketData>) => {
+        this.securities = marketData;
+      });
   }
 
   /**

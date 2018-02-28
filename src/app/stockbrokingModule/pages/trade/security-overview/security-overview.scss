@@ -1,11 +1,18 @@
 csmobile-page-security-overview {
+  .label-md {
+    margin: 5px 0px;
+  }
+  .fab {
+    position: absolute;
+    right: 1%;
+  }
   .nameDiv {
     border: 2px solid #eee;
     box-shadow: 2px 2px #eee;
     border-left: 7px solid #333;
   }
 
-  .bidsList {
+  .bidsListt {
     ion-row:nth-child(even) {
       background: #efefef;
     }
@@ -16,5 +23,48 @@ csmobile-page-security-overview {
 
   .scroll-contentw {
     margin-top: 0px !important;
+  }
+
+  .stockHighlightsDiv {
+    ion-row {
+      ion-col {
+        font-size: 12px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .changeDiv {
+    padding-left: 7px !important;
+  }
+
+  .priceDiv {
+    position: relative;
+    padding-right: 10px !important;
+  }
+
+  .bidOfferHeader {
+    border-bottom: 1px solid #999999;
+  }
+
+  .bidCol {
+    position: relative;
+  }
+
+  .bidCol:after {
+    content: "";
+    height: 100%; //You can change this if you want smaller/bigger borders
+    width: 1px;
+
+    position: absolute;
+    right: 0;
+    top: 10%; // If you want to set a smaller height and center it, change this value
+
+    background-color: #999999; // The color of the border
+  }
+
+  .tradeHeaderRow {
+    border-bottom: 1px solid #999999;
   }
 }
