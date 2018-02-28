@@ -6,8 +6,8 @@
 
 <ion-content no-padding id="securityOverviewWrapper">
   <ion-grid>
-    <ion-row class="nameDiv pt15 pb15">
-      <ion-col class="pl0 pr0">
+    <ion-row class="nameDiv pt2 pb2">
+      <ion-col class="pl5 pr0">
         <div class="font-size-17 pb5">
           <b class="text-blue">{{security?.label}}</b>
         </div>
@@ -24,7 +24,7 @@
   </ion-grid>
 
   <!-- Stock highlights -->
-  <ion-item-divider color="light" class="font-size-15 bg-light-blue mt10 pl5">
+  <ion-item-divider color="light" class="font-size-15 bg-light-blue mt0 pl5">
     <b>Stock Highlights</b>
   </ion-item-divider>
   <ion-grid no-padding class="stockHighlightsDiv">
@@ -81,8 +81,24 @@
     </ion-row>
   </ion-grid>
 
+  <!-- Graph -->
+  <ion-item-divider color="light" class="font-size-18 bg-light-blue">
+    <b>Price Movement Chart</b>
+  </ion-item-divider>
+
+  <div id="priceMovementGraph" style="height: 130px">
+  </div>
+
+  <div *ngIf="!securityGraphData" class="align-center pt20 pb10">
+    <ion-col text-center>
+      <b>
+        <i>No Price Movement Data Available</i>
+      </b>
+    </ion-col>
+  </div>
+
   <!-- Bids, Offers and Trades -->
-  <ion-segment [(ngModel)]="bidsOffersTrades" class="mb1 mt15">
+  <ion-segment [(ngModel)]="bidsOffersTrades" class="mb1 mt0">
     <ion-segment-button value="bidsOffers">
       BIDS & OFFERS
     </ion-segment-button>
