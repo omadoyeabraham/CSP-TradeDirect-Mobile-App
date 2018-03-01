@@ -3,7 +3,8 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  LoadingController
+  LoadingController,
+  AlertController
 } from "ionic-angular";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
@@ -26,6 +27,7 @@ import { catchError, map } from "rxjs/operators";
 import { ITradeOrder, IPortfolio } from "../../../models";
 import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
 import { Observable } from "rxjs/Observable";
+import { DomSanitizer } from "@angular/platform-browser";
 
 /**
  * Page used when creating a mandate to be previewed before it is executed
@@ -68,7 +70,9 @@ export class PlaceMandatePage {
     public tradeOrderProvider: TradeOrderProvider,
     public tradeOrderActionsDispatcher: TradeOrderActionsDispatcher,
     private loadingCtrl: LoadingController,
-    private utilityProvider: UtilityProvider
+    private utilityProvider: UtilityProvider,
+    private alertCtrl: AlertController,
+    private sanitizer: DomSanitizer
   ) {
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     // this.orderType = new FormControl("", Validators.required);
@@ -205,7 +209,6 @@ export class PlaceMandatePage {
    */
   previewMandate(orderType: string) {
     this.submitAttempt = true;
-    console.log(`Preview Mandate called with ${orderType} at: ` + Date.now());
 
     if (!this.mandateForm.valid) {
       // Form Validation has failed
@@ -255,8 +258,11 @@ export class PlaceMandatePage {
                 tradeOrderWithMetaData
               );
 
+              // Display the confirmation popup for the order
+              this.displayMandateConfirmationPopup(tradeOrderWithMetaData);
+
               // Navigate to the execute mandate page
-              this.navCtrl.push(PAGES.STB_EXECUTE_MANDATE_PAGE);
+              // this.navCtrl.push(PAGES.STB_EXECUTE_MANDATE_PAGE);
             }
           },
           err => {
@@ -487,5 +493,122 @@ export class PlaceMandatePage {
     });
 
     return orderTerm.label;
+  }
+
+  /**
+   * Display the confirmation popup requesting that the user confirm the mandate before it is placed.
+   *
+   * @param {any} tradeOrderWithMetaData
+   * @memberof PlaceMandatePage
+   */
+  displayMandateConfirmationPopup(tradeOrderWithMetaData) {
+    const {
+      orderType,
+      priceOption,
+      priceType,
+      limitPrice,
+      tradeOrderTotal,
+      totalFees,
+      formattedTradeOrderTotal,
+      totalAmount,
+      instrument,
+      quantityRequested,
+      consideration
+    } = tradeOrderWithMetaData;
+
+    let message: any;
+    let title: any;
+
+    // Set the message format for LIMIT orders
+    if (priceType === "LIMIT") {
+      message = `
+        <div>
+          <span class="d--inline--block w50p"><b>Price</b></span>
+          <span> ₦${limitPrice} </span>
+        </div>
+        <div>
+          <span class="d--inline--block w50p"> <b>Amount</b> </span>
+          <span> ₦${consideration} </span>
+        </div>
+        <div>
+          <span class="d--inline--block w50p"> <b>Fee</b> </span>
+          <span> ₦${totalFees} </span>
+        </div>
+        <div>
+          <span class="d--inline--block w50p"> <b>Total</b> </span>
+          <span> ${formattedTradeOrderTotal} </span>
+        </div>
+      `;
+      message = this.sanitizer.bypassSecurityTrustHtml(message);
+    }
+
+    // Set the message for MARKET orders
+    if (priceType === "MARKET") {
+      message = `You are about to ${orderType.toLowerCase()} ${quantityRequested} units(s) of ${instrument} @ market price`;
+    }
+
+    // Set the title
+    title = `<span class="font-size-14"> ${orderType} ${priceType} </span>`;
+
+    let confirm = this.alertCtrl.create({
+      title,
+      message,
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel"
+        },
+        {
+          text: `${orderType}`,
+          handler: () => {
+            this.executeTradeOrder(tradeOrderWithMetaData);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  /**
+   * Execute the tradeOrder on the floor of the Nigerian Stock Exchange
+   *
+   * @memberof ExecuteMandatePage
+   */
+  executeTradeOrder(tradeOrder) {
+    // Show the loading spinner
+    let loader = this.loadingCtrl.create({
+      content: "Placing Mandate..."
+    });
+    loader.present();
+
+    // Execute the trade order
+    this.tradeOrderProvider.executeTradeOrder(tradeOrder).subscribe(
+      data => {
+        loader.dismiss();
+
+        // Clear the previewed trade order from the store
+        this.tradeOrderActionsDispatcher.clearPreviewedTradeOrder();
+
+        // Refresh the user's trade order history
+        this.tradeOrderActionsDispatcher.getTradeOrderHistory();
+
+        /**
+         * Move to the tradeHistory tab (3rd tab).
+         * nav.push() was not used, because it pushes the trade history page unto the trade tab,
+         * instead of moving to the tradeHistory tab
+         */
+        this.navCtrl.parent.select(3);
+
+        this.utilityProvider.presentToast(
+          "Mandate placement successful",
+          "toastSuccess",
+          4000
+        );
+      },
+
+      err => {
+        console.log(err), loader.dismiss();
+      }
+    );
   }
 }
