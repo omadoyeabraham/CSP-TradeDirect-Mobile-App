@@ -25,6 +25,7 @@ import { TradeOrderProvider } from "../../../providers/trade-order/trade-order";
 import { catchError, map } from "rxjs/operators";
 import { ITradeOrder, IPortfolio } from "../../../models";
 import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
+import { Observable } from "rxjs/Observable";
 
 /**
  * Page used when creating a mandate to be previewed before it is executed
@@ -42,7 +43,7 @@ export class PlaceMandatePage {
   private activePortfolio: IPortfolio;
   public previewedOrderTotalAmount: string;
   public totalAmount: number;
-  public orderType: FormControl;
+  // public orderType: FormControl;
   public security: FormControl;
   public unitsOwned: any;
   public priceOption: FormControl;
@@ -57,6 +58,8 @@ export class PlaceMandatePage {
   public validLimitPrice: boolean = true;
   public previewingMandate: boolean = false;
   private loader: any;
+  public canSell: boolean = false;
+  public canBuy: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -68,13 +71,12 @@ export class PlaceMandatePage {
     private utilityProvider: UtilityProvider
   ) {
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
-    this.orderType = new FormControl("BUY", Validators.required);
-    this.security = new FormControl("ACCESS", Validators.required);
-    this.unitsOwned = new FormControl();
+    // this.orderType = new FormControl("", Validators.required);
+    this.security = new FormControl("", Validators.required);
     this.priceOption = new FormControl("LIMIT", Validators.required);
-    this.limitPrice = new FormControl(1);
+    this.limitPrice = new FormControl();
     this.quantity = new FormControl(
-      1,
+      "",
       Validators.compose([
         Validators.required,
         MandateQuantityValidator.isValid
@@ -82,8 +84,8 @@ export class PlaceMandatePage {
     );
     this.orderTerm = new FormControl("", Validators.required);
 
+    // orderType: this.orderType,
     this.mandateForm = new FormGroup({
-      orderType: this.orderType,
       security: this.security,
       priceOption: this.priceOption,
       limitPrice: this.limitPrice,
@@ -91,7 +93,11 @@ export class PlaceMandatePage {
       orderTerm: this.orderTerm
     });
   }
-
+  /**
+   *
+   *
+   * @memberof PlaceMandatePage
+   */
   ionViewDidLoad() {
     // Select security names from the store
     this.store.select(getStbSecurityNames).subscribe(securityNames => {
@@ -121,12 +127,34 @@ export class PlaceMandatePage {
      * For sell orders, only display the stocks owned in the active account,
      * For buy orders display a list of all securities in the market
      */
-    this.watchOrderTypeValueChanges();
+    // this.watchOrderTypeValueChanges();
 
     /**
      * Watch the selected security input, and set the units owned if its in the user's portfolio
      */
     this.watchSecurityValueChanges();
+
+    /**
+     * Watch the entire mandateForm, and change the canBuy, and canSell variables (used to set the disabled property of the buy and sell buttons)
+     */
+    this.watchMandateFormValueChanges();
+  }
+
+  /**
+   * Watch the mandateForm's "valid" value and set the canSell, and canBuy variables
+   *
+   * @memberof PlaceMandatePage
+   */
+  watchMandateFormValueChanges() {
+    this.mandateForm.valueChanges.subscribe(mandateFormValue => {
+      if (this.mandateForm.valid) {
+        this.canBuy = true;
+        this.canSell = true;
+      } else {
+        this.canBuy = false;
+        this.canSell = false;
+      }
+    });
   }
 
   /**
@@ -142,6 +170,7 @@ export class PlaceMandatePage {
         )[0];
         if (holding) {
           this.unitsOwned = holding.quantityHeld;
+          console.log(parseInt(holding.quantityHeld));
         } else {
           this.unitsOwned = 0;
         }
@@ -154,27 +183,29 @@ export class PlaceMandatePage {
    *
    * @memberof PlaceMandatePage
    */
-  watchOrderTypeValueChanges() {
-    this.orderType.valueChanges.subscribe(orderType => {
-      if (orderType === "SELL") {
-        this.store
-          .select(getActivePortfolioStockHoldings)
-          .subscribe(holdings => {
-            this.securities = holdings.map(holding => holding.securityName);
-          });
-      } else {
-        this.securities = this.allSecurities;
-      }
-    });
-  }
+  // watchOrderTypeValueChanges() {
+  //   this.orderType.valueChanges.subscribe(orderType => {
+  //     if (orderType === "SELL") {
+  //       this.store
+  //         .select(getActivePortfolioStockHoldings)
+  //         .subscribe(holdings => {
+  //           // this.securities = holdings.map(holding => holding.securityName);
+  //         });
+  //     } else {
+  //       this.securities = this.allSecurities;
+  //     }
+  //   });
+  // }
 
   /**
    * Function called when a user tries to preview a mandate
    *
+   * @orderType {string} The type of the order {BUY | SELL}
    * @memberof PlaceMandatePage
    */
-  previewMandate() {
+  previewMandate(orderType: string) {
     this.submitAttempt = true;
+    console.log(`Preview Mandate called with ${orderType} at: ` + Date.now());
 
     if (!this.mandateForm.valid) {
       // Form Validation has failed
@@ -188,7 +219,8 @@ export class PlaceMandatePage {
 
         // Create the tradeOrder Object
         const tradeOrder: ITradeOrder = {
-          orderType: this.orderType.value,
+          // orderType: this.orderType.value,
+          orderType: orderType,
           priceType: this.priceOption.value,
           instrument: this.security.value,
           orderTermName: this.orderTerm.value,

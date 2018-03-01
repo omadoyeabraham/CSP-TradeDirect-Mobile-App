@@ -75,6 +75,7 @@ export class SecurityOverviewPage {
           // this.trades = graphData.filter((trade, index) => {
           //   return index <= 9;
           // });
+          this.trades = graphData;
         } else {
           this.securityGraphData = null;
         }
@@ -86,13 +87,15 @@ export class SecurityOverviewPage {
       // this.bids = bids.filter((bid, index) => {
       //   return index <= 9;
       // });
+      this.bids = bids;
     });
 
     // Subscribe to store and get offers
     this.store.select(getSelectedSecurityOffers).subscribe(offers => {
-      this.offers = offers.filter((offer, index) => {
-        return index <= 9;
-      });
+      // this.offers = offers.filter((offer, index) => {
+      //   return index <= 9;
+      // });
+      this.offers = offers;
     });
   }
 

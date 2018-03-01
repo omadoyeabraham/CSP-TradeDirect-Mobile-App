@@ -61,3 +61,6 @@ $colors: (
 // --------------------------------------------------
 @import "roboto";
 @import "noto-sans";
+
+// Custom overwriting of ionic's default scss variables
+// $font-size-base: "14px";

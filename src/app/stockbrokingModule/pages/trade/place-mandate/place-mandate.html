@@ -8,13 +8,30 @@
   <csmobile-switch-portfolio [showCashAvailableForTrading]="true" [showTotalValue]="false" [hidden]="hideSwitchPortfolio">
   </csmobile-switch-portfolio>
 
-  <form novalidate [formGroup]="mandateForm" (submit)="previewMandate()">
-    <ion-grid>
+  <form novalidate [formGroup]="mandateForm">
+    <ion-grid class="pt0">
+
+      <!-- Market and Limit Segments -->
+      <ion-row class="">
+        <ion-col>
+          <div no-padding>
+            <ion-segment class="csp--segment" formControlName="priceOption">
+              <ion-segment-button value="LIMIT">
+                LIMIT
+              </ion-segment-button>
+              <ion-segment-button value="MARKET">
+                MARKET
+              </ion-segment-button>
+            </ion-segment>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- EOF Market and Limit Segments -->
 
       <!-- SYMBOL AND QUANTITY HELD -->
       <ion-row>
         <!-- Symbol -->
-        <ion-col>
+        <ion-col class="pt0 pb0">
           <ion-item>
             <ion-label color="primary" floating>Symbol</ion-label>
             <ion-select formControlName="security" [class.invalid]="!security.valid && (security.dirty || submitAttempt)">
@@ -25,34 +42,17 @@
         </ion-col>
 
         <!-- Units Owned [optional, dependent on symbol] -->
-        <ion-col id="unitsOwnedCol">
+        <ion-col class="pt0 pb0" id="unitsOwnedCol">
           <ion-item>
             <ion-label color="primary" floating>Units Owned</ion-label>
-            <ion-input type="number" placeholder="" [value]='unitsOwned' disabled readonly></ion-input>
+            <ion-input type="number" placeholder="" [value]="unitsOwned" disabled readonly></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <!-- EOF SYMBOL AND QUANTITY HELD -->
 
-      <!-- Market and Limit Segments -->
-      <ion-row>
-        <ion-col>
-          <div no-padding>
-            <ion-segment formControlName="priceOption">
-              <ion-segment-button value="MARKET">
-                MARKET
-              </ion-segment-button>
-              <ion-segment-button value="LIMIT">
-                LIMIT
-              </ion-segment-button>
-            </ion-segment>
-          </div>
-        </ion-col>
-      </ion-row>
-      <!-- EOF Market and Limit Segments -->
-
       <!-- Limit Orders -->
-      <ion-row *ngIf="priceOption.value === 'LIMIT'">
+      <ion-row class="pt0 pb0" *ngIf="priceOption.value === 'LIMIT'">
         <ion-col>
           <!-- Quantity -->
           <ion-item>
@@ -96,12 +96,12 @@
       <!-- EOF Order Terms -->
 
       <!-- Buy and Sell Buttons -->
-      <ion-row>
+      <ion-row class="mt10">
         <ion-col>
-          <button full ion-button class="">BUY</button>
+          <button full ion-button class="br5" [disabled]='!canBuy' (click)="previewMandate('BUY')">BUY</button>
         </ion-col>
         <ion-col>
-          <button full ion-button color="danger">SELL</button>
+          <button full ion-button color="danger" id="sellButton" class="br5" [disabled]='!canSell' (click)="previewMandate('SELL')">SELL</button>
         </ion-col>
       </ion-row>
       <!-- EOF Buy and Sell Buttons -->
@@ -110,53 +110,6 @@
   </form>
 
   <!-- Place Mandate Form -->
-  <!-- <form novalidate [formGroup]="mandateForm" (submit)="previewMandate()">
 
-    OrderType
-    <ion-item>
-      <ion-label color="primary" floating>Order Type</ion-label>
-      <ion-select formControlName="orderType" [class.invalid]="!orderType.valid && (orderType.dirty || submitAttempt)">
-        <ion-option value="BUY">BUY</ion-option>
-        <ion-option value="SELL">SELL</ion-option>
-      </ion-select>
-    </ion-item>
-    <p class="error-message-text" *ngIf="!orderType.valid && (orderType.dirty || submitAttempt)">Please select an order type.</p>
-
-    Symbol
-    <ion-item>
-      <ion-label color="primary" floating>Symbol</ion-label>
-      <ion-select formControlName="security" [class.invalid]="!security.valid && (security.dirty || submitAttempt)">
-        <ion-option *ngFor="let security of securities" [value]="security">{{security}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <p class="error-message-text" *ngIf="!security.valid && (security.dirty || submitAttempt)">Please select a security to trade.</p>
-
-    Units Owned [optional, dependent on symbol]
-    <ion-item *ngIf="orderType.value === 'SELL'">
-      <ion-label color="primary" floating>Units Owned</ion-label>
-      <ion-input type="number" placeholder="" [value]='unitsOwned' disabled readonly></ion-input>
-    </ion-item>
-
-    Price Option
-    <ion-item>
-      <ion-label color="primary" floating>Price Option</ion-label>
-      <ion-select formControlName="priceOption" [class.invalid]="!priceOption.valid && (priceOption.dirty || submitAttempt)">
-        <ion-option value="MARKET">MARKET</ion-option>
-        <ion-option value="LIMIT">LIMIT</ion-option>
-      </ion-select>
-    </ion-item>
-    <p class="error-message-text" *ngIf="!priceOption.valid && (priceOption.dirty || submitAttempt)">Please select a price type.</p>
-
-    ORDER TERM
-    <ion-item>
-      <ion-label color="primary" floating>Order Term</ion-label>
-      <ion-select formControlName="orderTerm" [class.invalid]="!orderTerm.valid && (orderTerm.dirty || submitAttempt)">
-        <ion-option *ngFor="let tradeOrderTerm of tradeOrderTerms" [value]="tradeOrderTerm.name">{{ tradeOrderTerm.label }}</ion-option>
-      </ion-select>
-    </ion-item>
-    <p class="error-message-text" *ngIf="!orderTerm.valid && (orderTerm.dirty || submitAttempt)">Please an order term.</p>
-
-    <button ion-button full class="mt40 mb40">Preview Order</button>
-  </form> -->
 
 </ion-content>

@@ -24,7 +24,7 @@ page-place-mandate {
   ion-select,
   ion-textarea {
     *background-color: #f2f2f2;
-    padding: 5px 10px;
+    padding: 2px 10px;
   }
 
   .invalid {
@@ -32,18 +32,26 @@ page-place-mandate {
   }
 
   #unitsOwnedCol {
-    margin-top: -11px;
+    margin-top: -4px;
   }
+
+  page-place-mandate ion-input,
+  page-place-mandate ion-select,
+  page-place-mandate ion-textarea {
+    padding: 2px !important;
+  }
+
   ion-segment {
     border: 2px solid #1a2155 !important;
     border-radius: 5px !important;
-  }
-  .segment-activated {
-    background: #1a2155 !important;
-    color: #ffffff !important;
-  }
-  .segment-button {
-    max-height: 35px !important;
-    line-height: 35px !important;
+
+    .segment-activated {
+      background: #1a2155 !important;
+      color: #ffffff !important;
+    }
+    .segment-button {
+      max-height: 35px !important;
+      line-height: 35px !important;
+    }
   }
 }
