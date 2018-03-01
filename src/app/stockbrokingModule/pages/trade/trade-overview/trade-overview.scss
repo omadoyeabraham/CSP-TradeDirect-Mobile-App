@@ -1,4 +1,12 @@
 csmobile-trade-overview {
+  /**
+  * Overriding bottom margin placed by ionic
+  */
+  .fixed-content,
+  .scroll-content {
+    margin-bottom: 0 !important;
+  }
+
   .img-responsive {
     width: 70px;
     height: auto;
@@ -20,6 +28,7 @@ csmobile-trade-overview {
   .securityNameCol {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   .currPriceCol {
@@ -27,5 +36,18 @@ csmobile-trade-overview {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+  }
+
+  .btn-security-name {
+    background: #1a2155;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  #fab--trade--text {
+    position: absolute;
+    margin-top: -7px;
+    left: 4px;
   }
 }

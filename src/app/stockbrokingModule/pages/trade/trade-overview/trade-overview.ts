@@ -65,8 +65,8 @@ export class TradeOverviewComponent implements OnInit {
    * @param {any} securityId
    * @memberof TradeOverviewComponent
    */
-  goToSecurityOverview(securityId) {
-    this.securitySelected.emit(securityId);
+  goToSecurityOverview(securityName) {
+    this.securitySelected.emit(securityName);
     this.pageChanged.emit(STB_SECURITY_OVERVIEW_PAGE);
     this.navCtrl.push(STB_SECURITY_OVERVIEW_PAGE);
   }

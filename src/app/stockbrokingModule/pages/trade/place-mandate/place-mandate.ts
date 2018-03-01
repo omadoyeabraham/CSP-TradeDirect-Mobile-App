@@ -18,16 +18,21 @@ import {
   getStbSecurities,
   getActivePortfolioStockHoldings,
   TradeOrderActionsDispatcher,
-  getTradeOrderTerms
+  getTradeOrderTerms,
+  getMarketData,
+  getSelectedSecurityPriceMovements,
+  getSelectedSecurityBids,
+  getSelectedSecurityOffers
 } from "../../../../store";
 import { MandateQuantityValidator } from "../../../validators/MandateFormValidators";
 import { ITradeOrderTerm } from "../../../models/tradeOrderTerm.interface";
 import { TradeOrderProvider } from "../../../providers/trade-order/trade-order";
 import { catchError, map } from "rxjs/operators";
-import { ITradeOrder, IPortfolio } from "../../../models";
+import { ITradeOrder, IPortfolio, ISecurity } from "../../../models";
 import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
 import { Observable } from "rxjs/Observable";
 import { DomSanitizer } from "@angular/platform-browser";
+import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
 
 /**
  * Page used when creating a mandate to be previewed before it is executed
@@ -62,6 +67,11 @@ export class PlaceMandatePage {
   private loader: any;
   public canSell: boolean = false;
   public canBuy: boolean = false;
+  public bids: Array<any> = [];
+  public offers: Array<any> = [];
+  public trades: Array<any> = [];
+  public bidsOffersTrades: string = "bidsOffers";
+  public marketSecurities: Array<ISecurity>;
 
   constructor(
     public navCtrl: NavController,
@@ -72,7 +82,8 @@ export class PlaceMandatePage {
     private loadingCtrl: LoadingController,
     private utilityProvider: UtilityProvider,
     private alertCtrl: AlertController,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private securitiesActionsDispatcher: SecuritiesActionsDispatcher
   ) {
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     // this.orderType = new FormControl("", Validators.required);
@@ -107,6 +118,43 @@ export class PlaceMandatePage {
     this.store.select(getStbSecurityNames).subscribe(securityNames => {
       this.allSecurities = securityNames;
       this.securities = securityNames;
+    });
+
+    // Select the securities with market data from the store
+    this.store
+      .select(getMarketData)
+      .subscribe(marketData => (this.marketSecurities = marketData));
+
+    // Subscribe to store and get data for graph plotting
+    this.store
+      .select(getSelectedSecurityPriceMovements)
+      .subscribe(graphData => {
+        if (graphData) {
+          // Get only 10 trades to be displayed
+          // this.trades = graphData.filter((trade, index) => {
+          //   return index <= 9;
+          // });
+          this.trades = graphData;
+        } else {
+          this.trades = [];
+        }
+      });
+
+    // Subscribe to store and get bids
+    this.store.select(getSelectedSecurityBids).subscribe(bids => {
+      // Only select 10 bids to be displayed
+      // this.bids = bids.filter((bid, index) => {
+      //   return index <= 9;
+      // });
+      this.bids = bids;
+    });
+
+    // Subscribe to store and get offers
+    this.store.select(getSelectedSecurityOffers).subscribe(offers => {
+      // this.offers = offers.filter((offer, index) => {
+      //   return index <= 9;
+      // });
+      this.offers = offers;
     });
 
     // Select trade order terms from store
@@ -168,13 +216,22 @@ export class PlaceMandatePage {
    */
   watchSecurityValueChanges() {
     this.security.valueChanges.subscribe(securityName => {
+      // Set the selected security in the store
+      const selectedSecurity = this.marketSecurities.filter(
+        sec => sec.name === securityName
+      )[0];
+
+      this.securitiesActionsDispatcher.setSelectedSecurityOnOverviewPage(
+        selectedSecurity
+      );
+
+      // Set the no of unitsOwned based on the security selected
       this.store.select(getActivePortfolioStockHoldings).subscribe(holdings => {
         let holding = holdings.filter(
           holding => holding.securityName === securityName
         )[0];
         if (holding) {
           this.unitsOwned = holding.quantityHeld;
-          console.log(parseInt(holding.quantityHeld));
         } else {
           this.unitsOwned = 0;
         }

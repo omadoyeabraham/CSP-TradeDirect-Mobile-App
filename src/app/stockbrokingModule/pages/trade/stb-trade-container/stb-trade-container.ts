@@ -56,9 +56,13 @@ export class StbTradeContainerPage {
    * @param {any} security
    * @memberof StbTradeContainerPage
    */
-  dispatchSecuritySelectedAction(security) {
+  dispatchSecuritySelectedAction(securityName) {
+    const selectedSecurity = this.securities.filter(
+      sec => sec.name === securityName
+    )[0];
+
     this.securitiesActionsDispatcher.setSelectedSecurityOnOverviewPage(
-      security
+      selectedSecurity
     );
   }
 

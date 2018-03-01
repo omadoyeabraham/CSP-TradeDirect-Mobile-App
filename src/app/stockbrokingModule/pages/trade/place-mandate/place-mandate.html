@@ -14,7 +14,7 @@
       <!-- Market and Limit Segments -->
       <ion-row class="">
         <ion-col>
-          <div no-padding>
+          <div no-padding id="marketLimitSegment">
             <ion-segment class="csp--segment" formControlName="priceOption">
               <ion-segment-button value="LIMIT">
                 LIMIT
@@ -96,7 +96,7 @@
       <!-- EOF Order Terms -->
 
       <!-- Buy and Sell Buttons -->
-      <ion-row class="mt10">
+      <ion-row class="">
         <ion-col>
           <button full ion-button class="br5" [disabled]='!canBuy' (click)="previewMandate('BUY')">BUY</button>
         </ion-col>
@@ -109,7 +109,86 @@
     </ion-grid>
   </form>
 
-  <!-- Place Mandate Form -->
+  <!-- Bids, Offers and Trades -->
+  <div class="pl10 pr10">
+    <ion-segment [(ngModel)]="bidsOffersTrades" class="mb1 mt0">
+      <ion-segment-button value="bidsOffers">
+        BIDS & OFFERS
+      </ion-segment-button>
+      <ion-segment-button value="trades">
+        TRADES
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
+  <div [ngSwitch]="bidsOffersTrades">
+
+    <!-- BIDS & OFFERS -->
+    <ion-list *ngSwitchCase="'bidsOffers'" class="bidsList">
+      <ion-row>
+        <!-- BIDS -->
+        <ion-col class="bidCol pr3">
+          <ion-row class="bidOfferHeader">
+            <ion-col>
+              <b class="font-size-11">BID QTY</b>
+            </ion-col>
+            <ion-col text-right>
+              <b class="font-size-11">PRICE</b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let bid of bids">
+            <ion-col text-left class="font-size-11">{{bid.qty | number:'1.0-0'}}</ion-col>
+            <ion-col text-right class="text-red font-size-11">{{bid.price | number:'1.2-2'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="!bids.length" class="pt15 pb15" text-center>
+            <ion-col>No Bids</ion-col>
+          </ion-row>
+        </ion-col>
+
+        <!-- OFFERS -->
+        <ion-col class="pl3">
+          <ion-row class="bidOfferHeader">
+            <ion-col text-left>
+              <b class="font-size-11">OFFER QTY</b>
+            </ion-col>
+            <ion-col text-right>
+              <b class="font-size-11">PRICE</b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let offer of offers">
+            <ion-col text-left class="font-size-11">{{offer.qty | number:'1.0-0'}}</ion-col>
+            <ion-col text-right class="text-green font-size-11">{{offer.price | number:'1.2-2'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="!offers.length" class="pt15 pb15" text-center>
+            <ion-col>No Offers</ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+    <!-- TRADES -->
+    <ion-list *ngSwitchCase="'trades'" class="bidsList">
+      <ion-row class="pt5 tradeHeaderRow">
+        <ion-col text-left class="ml15">
+          <b class="font-size-11">PRICE</b>
+        </ion-col>
+        <ion-col text-center>
+          <b class="font-size-11">QTY</b>
+        </ion-col>
+        <ion-col text-right class="mr15">
+          <b class="font-size-11">TIME</b>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let trade of trades">
+        <ion-col text-left class="font-size-11 ml15">{{trade.price | number:'1.2-2'}}</ion-col>
+        <ion-col text-center class="font-size-11">{{trade.qty | number:'1.0-0'}}</ion-col>
+        <ion-col text-right class="font-size-11 mr15">{{trade.date }}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="!trades.length" text-center class="pt15 pb15">
+        <ion-col>No Trades</ion-col>
+      </ion-row>
+    </ion-list>
+
+  </div>
 
 </ion-content>

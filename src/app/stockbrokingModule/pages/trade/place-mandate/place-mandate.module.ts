@@ -5,6 +5,9 @@ import { StockbrokingModule } from "../../../stockbroking.module";
 
 @NgModule({
   declarations: [PlaceMandatePage],
-  imports: [IonicPageModule.forChild(PlaceMandatePage), StockbrokingModule]
+  imports: [
+    IonicPageModule.forChild(PlaceMandatePage),
+    StockbrokingModule.forRoot()
+  ]
 })
 export class PlaceMandatePageModule {}
