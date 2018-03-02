@@ -1,48 +1,75 @@
 csmobile-stb-trade-history {
-  ion-grid.tradeOrderWrapper:nth-child(even) {
-    background: #efefef;
-  }
+  // ion-grid.tradeOrderWrapper:nth-child(even) {
+  //   background: #efefef;
+  // }
 
-  .tradeOrderWrapper {
-    .details {
-      display: none;
-    }
-  }
+  // .tradeOrderWrapper {
+  //   .details {
+  //     display: none;
+  //   }
+  // }
 
-  .tradeOrderWrapper.showDetails {
-    .headers {
-      ion-row {
-        font-weight: bold;
-      }
-    }
-    .details {
-      display: block;
-    }
-  }
+  // .tradeOrderWrapper.showDetails {
+  //   .headers {
+  //     ion-row {
+  //       font-weight: bold;
+  //     }
+  //   }
+  //   .details {
+  //     display: block;
+  //   }
+  // }
 
-  .tradeOrderGroup {
-    ion-grid:first-of-type {
-      display: none;
-    }
-  }
+  // .tradeOrderGroup {
+  //   ion-grid:first-of-type {
+  //     display: none;
+  //   }
+  // }
 
-  ion-item-divider {
-    border-left: 5px solid #1a2155;
-    .label-md {
-      margin: 0 !important;
-      font-weight: bold;
-    }
-  }
+  // ion-item-divider {
+  //   border-left: 5px solid #1a2155;
+  //   .label-md {
+  //     margin: 0 !important;
+  //     font-weight: bold;
+  //   }
+  // }
 
-  ion-grid.tradeHistory {
+  // ion-grid.tradeHistory {
+  //   ion-row:nth-child(even) {
+  //     background: #efefef;
+  //   }
+  //   ion-row {
+  //     &:hover {
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
+
+  ion-grid.tradeOrderGrid {
     ion-row:nth-child(even) {
-      background: #efefef;
+      background: rgb(238, 238, 238);
     }
+
     ion-row {
-      &:hover {
-        cursor: pointer;
+      ion-col {
+        div {
+          padding-top: 1px;
+          padding-bottom: 1px;
+        }
       }
     }
+  }
+
+  .iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 16px;
+  }
+
+  .bold--text {
+    color: #444444;
   }
 
   ion-segment {

@@ -4,8 +4,8 @@ import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
 import {
-  getActivePortfolioTradeOrdersGroupedByDate,
-  getActivePortfolioOutstandingTradeOrdersGroupedByDate
+  getActivePortfolioTradeOrders,
+  getActivePortfolioOutstandingTradeOrders
 } from "../../../../store";
 
 /**
@@ -32,13 +32,14 @@ export class StbTradeHistoryContainerPage {
 
   ionViewDidLoad() {
     // Subscribe to trade orders from the store
-    this.store
-      .select(getActivePortfolioTradeOrdersGroupedByDate)
-      .subscribe(tradeOrders => (this.tradeOrders = tradeOrders));
+    this.store.select(getActivePortfolioTradeOrders).subscribe(tradeOrders => {
+      this.tradeOrders = tradeOrders;
+      console.log(this.tradeOrders);
+    });
 
     // Subscribe to outstanding trade orders from the store
     this.store
-      .select(getActivePortfolioOutstandingTradeOrdersGroupedByDate)
+      .select(getActivePortfolioOutstandingTradeOrders)
       .subscribe(
         outstandingTradeOrders =>
           (this.outstandingTradeOrders = outstandingTradeOrders)
