@@ -15,7 +15,7 @@
   <!-- Outstanding orders -->
   <div *ngSwitchCase="'outstanding'">
     <ion-grid class="tradeOrderGrid">
-      <ion-row *ngFor="let tradeOrder of outstandingTradeOrders" class="mb10">
+      <ion-row *ngFor="let tradeOrder of outstandingTradeOrders" class="">
         <ion-col col-5 class="font-size-12">
           <div class="font-size-13 text-red" *ngIf="tradeOrder.orderType === 'SELL'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
           <div class="font-size-13 text-green" *ngIf="tradeOrder.orderType === 'BUY'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
@@ -61,7 +61,7 @@
 
         <ion-col col-2>
           <div class="iconWrapper">
-            <ion-icon *ngIf="tradeOrder.canBeCancelled" name="close" class="text-red"></ion-icon>
+            <ion-icon *ngIf="tradeOrder.canBeCancelled" name="close" class="text-red" (click)="showCancelTradeOrderAlert(tradeOrder.id)"></ion-icon>
             <ion-icon *ngIf="tradeOrder.orderStatus === 'EXECUTED'" name="checkmark-circle" class="text-green" active="false"></ion-icon>
             <ion-icon *ngIf="tradeOrder.orderStatus === 'CANCELLED'" name="remove-circle" class="text-red" active="false"></ion-icon>
           </div>
@@ -86,7 +86,7 @@
   <!-- All orders -->
   <div *ngSwitchCase="'all'">
     <ion-grid class="tradeOrderGrid">
-      <ion-row *ngFor="let tradeOrder of tradeOrders" class="mb10">
+      <ion-row *ngFor="let tradeOrder of tradeOrders" class="">
         <ion-col col-5 class="font-size-12">
           <div class="font-size-13 text-red" *ngIf="tradeOrder.orderType === 'SELL'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
           <div class="font-size-13 text-green" *ngIf="tradeOrder.orderType === 'BUY'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
@@ -132,7 +132,7 @@
 
         <ion-col col-2>
           <div class="iconWrapper">
-            <ion-icon *ngIf="tradeOrder.canBeCancelled" name="close" class="text-red"></ion-icon>
+            <ion-icon *ngIf="tradeOrder.canBeCancelled" name="close" class="text-red" (click)="showCancelTradeOrderAlert(tradeOrder.id)"></ion-icon>
             <ion-icon *ngIf="tradeOrder.orderStatus === 'EXECUTED'" name="checkmark-circle" class="text-green" active="false"></ion-icon>
             <ion-icon *ngIf="tradeOrder.orderStatus === 'CANCELLED'" name="remove-circle" class="text-red" active="false"></ion-icon>
           </div>

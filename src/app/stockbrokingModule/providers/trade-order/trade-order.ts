@@ -8,7 +8,8 @@ import {
   getActiveTradeOrderTermsURL,
   previewTradeOrderURL,
   executeTradeOrderURL,
-  getTradeOrdersURL
+  getTradeOrdersURL,
+  cancelTradeOrderURL
 } from "../../../sharedModule/apiUrls.constants";
 import { map, catchError, retry } from "rxjs/operators";
 import { ITradeOrder } from "../../models";
@@ -76,5 +77,18 @@ export class TradeOrderProvider {
     return this.http
       .get(getTradeOrdersURL + `/${userID}/${cacheStatus}`)
       .pipe(catchError(err => Observable.throw(err)));
+  }
+
+  /**
+   * Cancel a trade order
+   *
+   * @param {number} tradeOrderID
+   * @returns
+   * @memberof TradeOrderProvider
+   */
+  cancelTradeOrder(tradeOrderID: number) {
+    return this.http
+      .post(cancelTradeOrderURL, { id: tradeOrderID }, { observe: "response" })
+      .pipe(retry(2), catchError(err => Observable.throw(err)));
   }
 }

@@ -15,6 +15,13 @@ export const GET_TRADE_ORDER_HISTORY =
   "[STB TRADE ORDERS] Get the user's trade order history";
 export const SAVE_TRADE_ORDER_HISTORY_IN_STORE =
   "[STB TRADE ORDERS] Save the user's trade order history in the store";
+export const CANCEL_TRADE_ORDER = "[STB TRADE ORDERS] Cancel a trade order";
+export const CANCEL_TRADE_ORDER_SUCCESS =
+  "[STB TRADE ORDERS] A trade order was cancelled successfully";
+export const CANCEL_TRADE_ORDER_FAILURE =
+  "[STB TRADE ORDERS] A trade order cancellation failed";
+export const RESET_CANCEL_TRADE_ORDER_STATE =
+  "[STB TRADE ORDERS] Reset the cancel trade order state to the default";
 
 export class SaveTradeOrderTermsInStore implements Action {
   readonly type = SAVE_TRADE_ORDER_TERMS_IN_STORE;
@@ -41,12 +48,36 @@ export class SaveTradeOrderHistoryInStore implements Action {
   constructor(public payload: Array<any>) {}
 }
 
+export class CancelTradeOrder implements Action {
+  readonly type = CANCEL_TRADE_ORDER;
+  constructor(public payload: number) {}
+}
+
+export class CancelTradeOrderSuccess implements Action {
+  readonly type = CANCEL_TRADE_ORDER_SUCCESS;
+  constructor() {}
+}
+
+export class CancelTradeOrderFailure implements Action {
+  readonly type = CANCEL_TRADE_ORDER_FAILURE;
+  constructor() {}
+}
+
+export class ResetCancelTradeOrderState implements Action {
+  readonly type = RESET_CANCEL_TRADE_ORDER_STATE;
+  constructor() {}
+}
+
 export type TradeOrderActionTypes =
   | SaveTradeOrderTermsInStore
   | SavePreviewedTradeOrderInStore
   | ClearPreviewedTradeOrder
   | GetTradeOrderHistory
-  | SaveTradeOrderHistoryInStore;
+  | SaveTradeOrderHistoryInStore
+  | CancelTradeOrder
+  | CancelTradeOrderSuccess
+  | CancelTradeOrderFailure
+  | ResetCancelTradeOrderState;
 
 /**
  * Action dispatcher class for trade order actions
@@ -104,5 +135,42 @@ export class TradeOrderActionsDispatcher {
    */
   saveTradeOrderHistoryInStore(payload: Array<any>) {
     this.store.dispatch(new SaveTradeOrderHistoryInStore(payload));
+  }
+
+  /**
+   * Dispatch the action to cancel a trade order
+   *
+   * @param {*} payload
+   * @memberof TradeOrderActionsDispatcher
+   */
+  cancelTradeOrder(payload: number) {
+    this.store.dispatch(new CancelTradeOrder(payload));
+  }
+
+  /**
+   * Dispatch the action for when a trade order is cancelled successfully
+   *
+   * @memberof TradeOrderActionsDispatcher
+   */
+  cancelTradeOrderSuccess() {
+    this.store.dispatch(new CancelTradeOrderSuccess());
+  }
+
+  /**
+   * Dispatch the action for when a trade order's cancellation fails
+   *
+   * @memberof TradeOrderActionsDispatcher
+   */
+  cancelTradeOrderFailure() {
+    this.store.dispatch(new CancelTradeOrderFailure());
+  }
+
+  /**
+   * Reset the cancel trade order state
+   *
+   * @memberof TradeOrderActionsDispatcher
+   */
+  resetCancelTradeOrderState() {
+    this.store.dispatch(new ResetCancelTradeOrderState());
   }
 }

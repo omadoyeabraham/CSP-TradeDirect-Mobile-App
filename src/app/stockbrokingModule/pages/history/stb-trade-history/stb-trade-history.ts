@@ -1,9 +1,20 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import {
+  TradeOrderActionsDispatcher,
+  getTradeOrderCancellationState
+} from "../../../../store";
+import { AlertController, LoadingController } from "ionic-angular";
+import {
+  IAppState,
+  ITradeOrderCancellationState
+} from "../../../../store/models";
+import { Store } from "@ngrx/store";
+import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
 
 /**
  * Component for display trade order history
  *
- * @type Presentational Component
+ * @type Presentational and Container Component
  * @export
  * @class StbTradeHistoryComponent
  */
@@ -11,37 +22,100 @@ import { Component, Input } from "@angular/core";
   selector: "csmobile-stb-trade-history",
   templateUrl: "stb-trade-history.html"
 })
-export class StbTradeHistoryComponent {
+export class StbTradeHistoryComponent implements OnInit {
   @Input("tradeOrders") tradeOrders: Array<any>;
   @Input("outstandingTradeOrders") outstandingTradeOrders: Array<any>;
   public tradeOrderStatus: string = "outstanding";
-  private lastToggledDiv: any;
+  private isCancellingTradeOrder;
 
-  constructor() {}
+  constructor(
+    private tradeOrderActionsDispatcher: TradeOrderActionsDispatcher,
+    private alertController: AlertController,
+    private loadingCtrl: LoadingController,
+    private utilityProvider: UtilityProvider,
+    private store: Store<IAppState>
+  ) {}
+
+  ngOnInit() {
+    this.store
+      .select(getTradeOrderCancellationState)
+      .subscribe((cancellationState: ITradeOrderCancellationState) => {
+        // Show the spinner when cancelling the trade order
+        if (cancellationState.isCancelling) {
+          this.isCancellingTradeOrder = this.loadingCtrl.create({
+            content: "Cancelling trade order..."
+          });
+
+          this.isCancellingTradeOrder.present();
+        } else if (
+          !cancellationState.cancellationFailed &&
+          cancellationState.cancelledSuccessfully
+        ) {
+          // The order was cancelled successfully
+          if (this.isCancellingTradeOrder) {
+            // Dismiss the loader;
+            this.isCancellingTradeOrder.dismiss();
+          }
+          // Show the success message
+          this.utilityProvider.presentToast(
+            "Trade order cancelled successfully",
+            "toastSuccess"
+          );
+        } else if (
+          cancellationState.cancellationFailed &&
+          !cancellationState.cancelledSuccessfully
+        ) {
+          // The order cancellation failed
+          if (this.isCancellingTradeOrder) {
+            // Dismiss the loader;
+            this.isCancellingTradeOrder.dismiss();
+          }
+          // Show the success message
+          this.utilityProvider.presentToast(
+            "Trade order cancellation failed",
+            "toastError"
+          );
+        }
+      });
+  }
 
   /**
-   * Used to toggle the visibility of a TradeOrder's details when it is clicked on
+   * Cancel a trade order by dispatching an action to the store.
+   * This component should ideally be presentational only, but I am tired right and cannot deal right now,
+   * so I've added the @TODO here as a reminder that I need to refactor this component
    *
-   * @param {any} $event
-   * @memberof StbTradeHistoryContainerPage
+   * TODO: Refactor this method to be an @Output from the parent container component
+   * @param {number} tradeOrderID
+   * @memberof StbTradeHistoryComponent
    */
-  toggleTradeOrderDisplay($event) {
-    let tradeOrderDiv = $event.srcElement;
-    tradeOrderDiv = tradeOrderDiv.parentNode.parentNode.parentNode;
+  cancelTradeOrder(tradeOrderID: number) {
+    this.tradeOrderActionsDispatcher.cancelTradeOrder(tradeOrderID);
+  }
 
-    // A div has been clicked on
-    if (this.lastToggledDiv) {
-      if (this.lastToggledDiv === tradeOrderDiv) {
-        this.lastToggledDiv.classList.toggle("showDetails");
-      } else {
-        this.lastToggledDiv.classList.remove("showDetails");
-        tradeOrderDiv.classList.toggle("showDetails");
-      }
-    } else {
-      // No Div previously clicked on
-      tradeOrderDiv.classList.toggle("showDetails");
-    }
+  /**
+   * Show the alert which allows users to cancel a trade order
+   *
+   * @param {number} tradeOrderID
+   * @memberof StbTradeHistoryComponent
+   */
+  showCancelTradeOrderAlert(tradeOrderID: number) {
+    let confirm = this.alertController.create({
+      title: "Cancel Trade Order",
+      message: "Are you sure you want to cancel this order",
+      buttons: [
+        {
+          text: "No",
+          role: "cancel"
+        },
+        {
+          text: "Cancel",
+          handler: () => {
+            this.cancelTradeOrder(tradeOrderID);
+          }
+        }
+      ]
+    });
 
-    this.lastToggledDiv = tradeOrderDiv;
+    confirm.present();
   }
 }

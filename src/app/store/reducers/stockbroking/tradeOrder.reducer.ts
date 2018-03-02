@@ -4,9 +4,14 @@ import {
   SAVE_TRADE_ORDER_TERMS_IN_STORE,
   SAVE_PREVIEWED_TRADE_ORDER_IN_STORE,
   CLEAR_PREVIEWED_TRADE_ORDER_IN_STORE,
-  SAVE_TRADE_ORDER_HISTORY_IN_STORE
+  SAVE_TRADE_ORDER_HISTORY_IN_STORE,
+  CANCEL_TRADE_ORDER,
+  CANCEL_TRADE_ORDER_SUCCESS,
+  CANCEL_TRADE_ORDER_FAILURE,
+  RESET_CANCEL_TRADE_ORDER_STATE
 } from "../../actions/stockbroking/tradeOrder.actions";
 import { ITradeOrder } from "../../../stockbrokingModule/models";
+import { ITradeOrderCancellationState } from "../../models";
 
 /**
  * Reducer which handles the "stbTradeOrderTerms" slice of state
@@ -66,6 +71,43 @@ export function tradeOrderHistoryReducer(
   switch (action.type) {
     case SAVE_TRADE_ORDER_HISTORY_IN_STORE:
       return action.payload;
+    default:
+      return state;
+  }
+}
+
+export function tradeOrderCancellationReducer(
+  state: ITradeOrderCancellationState = {} as ITradeOrderCancellationState,
+  action: TradeOrderActionTypes
+): ITradeOrderCancellationState {
+  switch (action.type) {
+    case CANCEL_TRADE_ORDER:
+      return {
+        isCancelling: true,
+        cancelledSuccessfully: false,
+        cancellationFailed: false
+      };
+
+    case CANCEL_TRADE_ORDER_SUCCESS:
+      return {
+        isCancelling: false,
+        cancelledSuccessfully: true,
+        cancellationFailed: false
+      };
+
+    case CANCEL_TRADE_ORDER_FAILURE:
+      return {
+        isCancelling: false,
+        cancelledSuccessfully: false,
+        cancellationFailed: true
+      };
+
+    case RESET_CANCEL_TRADE_ORDER_STATE:
+      return {
+        isCancelling: false,
+        cancellationFailed: false,
+        cancelledSuccessfully: false
+      };
     default:
       return state;
   }

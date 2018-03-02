@@ -9,6 +9,12 @@ export interface IStbActivePortfolioMetaData {
   totalValue: number;
 }
 
+export interface ITradeOrderCancellationState {
+  isCancelling: boolean;
+  cancelledSuccessfully: boolean;
+  cancellationFailed: boolean;
+}
+
 /**
  * Interface which defines the shape of the stockbroking 'slice' of the redux store.
  *

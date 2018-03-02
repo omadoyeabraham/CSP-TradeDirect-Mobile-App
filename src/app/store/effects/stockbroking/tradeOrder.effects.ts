@@ -51,4 +51,34 @@ export class TradeOrderEffects {
           );
       })
     );
+
+  /**
+   * Side effect triggered when an action to cancel a trade order is dispatched
+   *
+   * @memberof TradeOrderEffects
+   */
+  @Effect()
+  cancelTradeOrder$ = this.actions$
+    .ofType(tradeOrderActions.CANCEL_TRADE_ORDER)
+    .pipe(
+      map((action: tradeOrderActions.CancelTradeOrder) => action),
+      switchMap(cancelTradeOrderAction => {
+        return this.tradeOrderProvider
+          .cancelTradeOrder(cancelTradeOrderAction.payload)
+          .pipe(
+            map(response => {
+              return response;
+            }),
+            switchMap(response => [
+              new tradeOrderActions.CancelTradeOrderSuccess(),
+              new tradeOrderActions.ResetCancelTradeOrderState(),
+              new tradeOrderActions.GetTradeOrderHistory()
+            ]),
+            catchError(err => [
+              new tradeOrderActions.CancelTradeOrderFailure(),
+              new tradeOrderActions.ResetCancelTradeOrderState()
+            ])
+          );
+      })
+    );
 }

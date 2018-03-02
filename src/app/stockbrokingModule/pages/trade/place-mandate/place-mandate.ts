@@ -240,25 +240,6 @@ export class PlaceMandatePage {
   }
 
   /**
-   * Watch order type input and make appropriate changes
-   *
-   * @memberof PlaceMandatePage
-   */
-  // watchOrderTypeValueChanges() {
-  //   this.orderType.valueChanges.subscribe(orderType => {
-  //     if (orderType === "SELL") {
-  //       this.store
-  //         .select(getActivePortfolioStockHoldings)
-  //         .subscribe(holdings => {
-  //           // this.securities = holdings.map(holding => holding.securityName);
-  //         });
-  //     } else {
-  //       this.securities = this.allSecurities;
-  //     }
-  //   });
-  // }
-
-  /**
    * Function called when a user tries to preview a mandate
    *
    * @orderType {string} The type of the order {BUY | SELL}

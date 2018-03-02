@@ -198,3 +198,7 @@ export const getActivePortfolioOutstandingTradeOrdersGroupedByDate = createSelec
   getActivePortfolioOutstandingTradeOrders,
   _groupTradeOrdersByDate
 );
+
+export const getTradeOrderCancellationState = createFeatureSelector(
+  "stbTradeOrderCancellation"
+);
