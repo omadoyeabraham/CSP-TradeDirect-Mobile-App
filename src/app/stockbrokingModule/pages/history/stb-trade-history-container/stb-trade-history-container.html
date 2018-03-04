@@ -11,7 +11,8 @@
 
 
 <ion-content no-padding class="stbTradeHistoryPageWrapper">
-
+  <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
+  </csmobile-switch-portfolio>
   <csmobile-stb-trade-history [tradeOrders]="tradeOrders" [outstandingTradeOrders]="outstandingTradeOrders"></csmobile-stb-trade-history>
 
 </ion-content>

@@ -29,6 +29,7 @@ export class SwitchPortfolioComponent implements OnInit {
   public portfolios$: Observable<Array<IPortfolio>>;
   private _portfolios: Array<IPortfolio>;
   public activePortfolio$: Observable<IPortfolio>;
+  public _activePortfolio: IPortfolio;
   public activePortfolioMetaData$: Observable<IStbActivePortfolioMetaData>;
   public portfolios: Array<IPortfolio>;
   public numberOfPortfolios$: Observable<number>;
@@ -37,7 +38,7 @@ export class SwitchPortfolioComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private stbPortfolioActionDispatcher: StbPortfolioActionDispatcher
-  ) {}
+  ) { }
 
   ngOnInit() {
     /**
@@ -57,8 +58,25 @@ export class SwitchPortfolioComponent implements OnInit {
       this._portfolios = portfolios;
     });
 
-    // Default index of the slide selected
-    this.activeSlideIndex = 1;
+    // Set the active portfolio index, whenver the active portfolio is changed
+    this.activePortfolio$.subscribe(activePortfolio => {
+      this._activePortfolio = activePortfolio;
+
+      // Get and set the active portfolio index
+      let activeSlideIndex = this._portfolios.findIndex((portfolio, index) => {
+        return portfolio.id === this._activePortfolio.id
+      })
+
+      if (activeSlideIndex) {
+        this.activeSlideIndex = activeSlideIndex + 1
+      } else {
+        // Default index of the slide selected
+        this.activeSlideIndex = 1;
+      }
+    })
+
+
+
 
     //TODO: use map or mergeMap to merge activePortfolio$ and activePortfolioMetaData$
   }
@@ -70,7 +88,7 @@ export class SwitchPortfolioComponent implements OnInit {
    */
   portfolioChanged() {
     // The current portfolio index from the slider (+ 1 because the array is zero indexed)
-    this.activeSlideIndex = this.slides.getActiveIndex() + 1;
+    // this.activeSlideIndex = this.slides.getActiveIndex() + 1;
     const portfolioIndex = this.slides.getActiveIndex();
     // Get the currentPortfolio based on the index slid to
     const nextActivePortfolio = this._portfolios[portfolioIndex];
