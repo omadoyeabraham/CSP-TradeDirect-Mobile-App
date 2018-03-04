@@ -67,22 +67,16 @@ export class SwitchPortfolioComponent implements OnInit {
         return portfolio.id === this._activePortfolio.id
       })
 
-      if (activeSlideIndex) {
-        this.activeSlideIndex = activeSlideIndex + 1
-      } else {
-        // Default index of the slide selected
-        this.activeSlideIndex = 1;
-      }
+      this.activeSlideIndex = activeSlideIndex + 1
+
+      this._recursiveSlideTo(activeSlideIndex)
     })
-
-
-
 
     //TODO: use map or mergeMap to merge activePortfolio$ and activePortfolioMetaData$
   }
 
   /**
-   *
+   * Called when the active portfolio is changed by sliding the slider component
    *
    * @memberof SwitchPortfolioComponent
    */
@@ -109,4 +103,45 @@ export class SwitchPortfolioComponent implements OnInit {
      *   + get me the new current portfolio metadata based on the current portfolio
      */
   }
+
+  /**
+   * Call the _slideTo fn recursively, until the slideTo is available.
+   * This is needed because of the ionic slide bug detailed @ https://github.com/ionic-team/ionic/issues/10271
+   * 
+   * @private
+   * @param {number} slideIndex 
+   * @returns {Promise<void>} 
+   * @memberof SwitchPortfolioComponent
+   */
+  private _recursiveSlideTo(slideIndex: number): Promise<void> {
+    return new Promise((resolve: Function, reject: Function): void => {
+      let tryCount: number = 0;
+      this._slideTo(slideIndex, tryCount, resolve, reject);
+    });
+  }
+
+  /**
+   * Workaround function used to handle the ionic slides bug detailed at https://github.com/ionic-team/ionic/issues/10271
+   * 
+   * @private
+   * @param {number} slideIndex 
+   * @param {number} tryCount 
+   * @param {Function} resolve 
+   * @param {Function} reject 
+   * @memberof SwitchPortfolioComponent
+   */
+  private _slideTo(slideIndex: number, tryCount: number, resolve: Function, reject: Function): void {
+    try {
+      this.slides.slideTo(slideIndex, 0);
+      resolve();
+    } catch (error) {
+      if (tryCount < 100) {
+        tryCount++;
+        setTimeout(() => this._slideTo(slideIndex, tryCount, resolve, reject), 50);
+      } else {
+        reject(error);
+      }
+    }
+  }
+
 }
