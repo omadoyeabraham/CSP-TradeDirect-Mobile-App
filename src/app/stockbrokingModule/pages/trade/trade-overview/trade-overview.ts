@@ -29,13 +29,14 @@ export class TradeOverviewComponent implements OnInit {
   constructor(
     public navCtrl: NavController,
     public selectedPageActionDispatcher: SelectedPageActionsDispatcher
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.selectedPageActionDispatcher.setSelectedPageData({
       showHeader: true
     });
   }
+
 
   /**
    * Function called once a user inputs a search term

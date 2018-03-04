@@ -34,7 +34,7 @@ export class StbTradeHistoryComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private utilityProvider: UtilityProvider,
     private store: Store<IAppState>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.store
@@ -108,7 +108,7 @@ export class StbTradeHistoryComponent implements OnInit {
           role: "cancel"
         },
         {
-          text: "Cancel",
+          text: "Yes",
           handler: () => {
             this.cancelTradeOrder(tradeOrderID);
           }

@@ -169,3 +169,10 @@
 //     line-height: 35px !important;
 //   }
 // }
+
+.csmobile-page-header {
+  min-height: 56px;
+  background: #1a2155 !important;
+  display: flex;
+  align-items: center
+}

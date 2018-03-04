@@ -1,3 +1,16 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Portfolio Holdings</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content no-padding id="stbHoldingsPageWrapper">
+  <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
+  </csmobile-switch-portfolio>
   <csmobile-portfolio-holdings [stockHoldings]="activePortfolioStockHoldings" [bondHoldings]="activePortfolioBondHoldings"></csmobile-portfolio-holdings>
 </ion-content>

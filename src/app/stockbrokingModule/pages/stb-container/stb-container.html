@@ -1,4 +1,4 @@
-<ion-header *ngIf="showHeader">
+<!-- <ion-header>
   <ion-navbar hideBackButton>
     <ion-buttons left>
       <button ion-button icon-only menuToggle>
@@ -7,13 +7,13 @@
     </ion-buttons>
     <ion-title>{{tabTitle}}</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 
 
 <ion-content no-padding>
-  <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
-  </csmobile-switch-portfolio>
+  <!-- <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
+  </csmobile-switch-portfolio> -->
 
   <ion-tabs #stbTabs>
     <ion-tab tabTitle="Summary" tabIcon="apps" [root]="StbSummaryContainerPage" (ionSelect)="onTabChange()"></ion-tab>

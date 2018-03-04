@@ -28,13 +28,12 @@ export class StbTradeHistoryContainerPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<IAppState>
-  ) {}
+  ) { }
 
   ionViewDidLoad() {
     // Subscribe to trade orders from the store
     this.store.select(getActivePortfolioTradeOrders).subscribe(tradeOrders => {
       this.tradeOrders = tradeOrders;
-      console.log(this.tradeOrders);
     });
 
     // Subscribe to outstanding trade orders from the store

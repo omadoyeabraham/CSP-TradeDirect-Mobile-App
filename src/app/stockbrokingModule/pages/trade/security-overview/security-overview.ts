@@ -43,7 +43,12 @@ export class SecurityOverviewPage {
     public store: Store<IAppState>,
     public chartsProvider: ChartsProvider,
     public selectedPageActionDispatcher: SelectedPageActionsDispatcher
-  ) {}
+  ) { }
+
+  goBack() {
+    this.navCtrl.pop()
+  }
+
 
   ionViewDidLoad() {
     this.selectedPageActionDispatcher.setSelectedPageData({

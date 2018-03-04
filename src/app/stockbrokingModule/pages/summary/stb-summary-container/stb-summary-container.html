@@ -1,5 +1,17 @@
-<ion-content no-padding id="stbSummaryPageWrapper">
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Summary</ion-title>
+  </ion-navbar>
+</ion-header>
 
+<ion-content no-padding id="stbSummaryPageWrapper">
+  <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
+  </csmobile-switch-portfolio>
   <csmobile-stb-summary [portfolio]="(activePortfolio)"></csmobile-stb-summary>
   <csmobile-stb-holdings-performance-charts [stockData]="activePortfolioStockData" [stockGraphData]="activePortfolioStockGraphData"
     [bondData]="activePortfolioBondData" [bondGraphData]="activePortfolioBondGraphData">
