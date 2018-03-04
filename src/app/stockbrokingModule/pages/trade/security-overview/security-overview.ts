@@ -11,11 +11,13 @@ import {
   getSelectedSecurityBids,
   getSelectedSecurityOffers,
   SelectedPageActionsDispatcher,
-  getUniquePortfolioHoldingNames
+  getUniquePortfolioHoldingNames,
+  getMarketData
 } from "../../../../store";
 import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
 import * as pages from "../../../../sharedModule/pages.constants";
+import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
 
 /**
  * The page which shows the overview for the security selected on the trade overview page
@@ -39,13 +41,15 @@ export class SecurityOverviewPage {
   public bidsOffersTrades: string = "bidsOffers";
   public uniquePortfolioHoldings: Array<string>
   public shouldSell: boolean = false;
+  public marketSecurities: Array<ISecurity>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<IAppState>,
     public chartsProvider: ChartsProvider,
-    public selectedPageActionDispatcher: SelectedPageActionsDispatcher
+    public selectedPageActionDispatcher: SelectedPageActionsDispatcher,
+    public securitiesActionsDispatcher: SecuritiesActionsDispatcher
   ) { }
 
   goBack() {
@@ -66,6 +70,11 @@ export class SecurityOverviewPage {
     this.store
       .select(getSelectedSecurityMarketData)
       .subscribe(marketdata => (this.securityMarketData = marketdata));
+
+    // Select the securities with market data from the store
+    this.store
+      .select(getMarketData)
+      .subscribe(marketData => (this.marketSecurities = marketData));
 
     // Subscribe to store and get data for graph plotting
     this.store
@@ -126,6 +135,13 @@ export class SecurityOverviewPage {
    * @memberof SecurityOverviewPage
    */
   goToMandatePage(orderType: string = null, securityName: string = null) {
+    const selectedSecurity = this.marketSecurities.filter(
+      sec => sec.name === securityName
+    )[0];
+
+    this.securitiesActionsDispatcher.setSelectedSecurityOnOverviewPage(
+      selectedSecurity
+    );
     this.navCtrl.push(pages.STB_PLACE_MANDATE_PAGE, {
       securityName,
       orderType
