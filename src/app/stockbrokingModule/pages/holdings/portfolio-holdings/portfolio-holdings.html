@@ -19,7 +19,7 @@
       <ion-list class="mt10 holdings-list">
         <!-- Display if stock holdings exist -->
         <ion-item *ngIf="stockHoldings?.length > 0">
-          <ion-grid *ngFor="let stockHolding of stockHoldings">
+          <ion-grid *ngFor="let stockHolding of stockHoldings" (click)="goToMandatePage(stockHolding?.securityName)">
             <ion-row>
               <ion-col>
                 <strong>{{ stockHolding?.securityName }}</strong>

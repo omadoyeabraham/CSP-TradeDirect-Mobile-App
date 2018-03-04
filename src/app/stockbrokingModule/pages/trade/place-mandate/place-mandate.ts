@@ -85,9 +85,13 @@ export class PlaceMandatePage {
     private sanitizer: DomSanitizer,
     private securitiesActionsDispatcher: SecuritiesActionsDispatcher
   ) {
+    // Get the navParams if any
+    const paramSecurityName = this.navParams.get('securityName');
+    const paramOrderType = this.navParams.get('orderType');
+
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     // this.orderType = new FormControl("", Validators.required);
-    this.security = new FormControl("", Validators.required);
+    this.security = new FormControl(paramSecurityName, Validators.required);
     this.priceOption = new FormControl("LIMIT", Validators.required);
     this.limitPrice = new FormControl();
     this.quantity = new FormControl(

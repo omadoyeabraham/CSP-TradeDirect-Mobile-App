@@ -18,7 +18,7 @@ import { IPortfolioHolding } from "../../../stockbrokingModule/models/portfolioH
  */
 export const getStbPortfoliosEntities = createFeatureSelector<
   IStockBrokingPortfolioState
->("stbPortfolios");
+  >("stbPortfolios");
 
 // Get the stb portfolios owned by the user as an ARRAY
 export const getStbPortfolios = createSelector(
@@ -27,6 +27,24 @@ export const getStbPortfolios = createSelector(
     return Object.keys(state).map(id => state[id]);
   }
 );
+
+/**
+ * Get the total value of the user's stockbroking account
+ */
+export const getTotalStockbrokingValue = createSelector(getStbPortfolios, (state: Array<IPortfolio>) => {
+  let stbTotalValue = 0
+
+  state.forEach((portfolio) => {
+    // DO not sum up non-exchange or SMA portfolios
+    if (portfolio.portfolioClass != "EXCHANGE" || portfolio.label.indexOf('(SMA)') != -1) {
+      return
+    } else {
+      stbTotalValue += parseFloat(portfolio.currentValuation.amount)
+    }
+  })
+
+  return stbTotalValue
+})
 
 // Get the number of stb portfolios owned by the user
 export const getNumberOfStbPortfolios = createSelector(
@@ -39,7 +57,7 @@ export const getNumberOfStbPortfolios = createSelector(
 /**
  * Get an array containing the name of all stocks owned by the user, regardless of portfolio
  */
-export const getAllPortfolioHoldings=createSelector(
+export const getUniquePortfolioHoldingNames = createSelector(
   getStbPortfolios,
   (state: IPortfolio[]) => {
     let uniqueStockHoldings: Array<any> = [];
@@ -50,7 +68,7 @@ export const getAllPortfolioHoldings=createSelector(
         uniqueStockHoldings.push(holding.securityName);
       })
     })
-    
+
     // Ensure that the array contains only unique values using ES6's Set
     uniqueStockHoldings = Array.from(new Set(uniqueStockHoldings))
 
@@ -66,7 +84,7 @@ export const getActivePortfolio = createFeatureSelector<IPortfolio>(
 // Get the stbActivePortfolioMetaData feature state slice
 export const getActivePortfolioMetaData = createFeatureSelector<
   IStbActivePortfolioMetaData
->("stbActivePortfolioMetaData");
+  >("stbActivePortfolioMetaData");
 
 /**
  * Get the portfolio holdings for the active portfolio

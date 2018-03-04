@@ -53,7 +53,7 @@ export class StbContainerPage {
       } else {
         this.showHeader = true;
       }
-      console.log("HeaderName ", this.showHeader);
+
     });
   }
 

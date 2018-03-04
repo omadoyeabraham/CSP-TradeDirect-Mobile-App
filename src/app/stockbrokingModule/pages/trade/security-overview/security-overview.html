@@ -14,8 +14,8 @@
         <div>{{security?.name}}</div>
       </ion-col>
       <ion-col text-right class="pl0 pr0">
-        <button ion-button (click)="goToMandatePage()">BUY</button>
-        <button ion-button>SELL</button>
+        <button ion-button (click)="goToMandatePage('BUY', security.name)">BUY</button>
+        <button ion-button [disabled]="!shouldSell">SELL</button>
         <button ion-button icon-only>
           <ion-icon name="eye"></ion-icon>
         </button>
@@ -86,7 +86,7 @@
     <b>Price Movement Chart</b>
   </ion-item-divider>
 
-  <div id="priceMovementGraph" style="height: 130px">
+  <div *ngIf="securityGraphData" id="priceMovementGraph" style="height: 130px">
   </div>
 
   <div *ngIf="!securityGraphData" class="align-center pt20 pb10">

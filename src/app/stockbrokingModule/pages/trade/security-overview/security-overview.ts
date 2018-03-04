@@ -10,7 +10,8 @@ import {
   getSelectedSecurityPriceMovements,
   getSelectedSecurityBids,
   getSelectedSecurityOffers,
-  SelectedPageActionsDispatcher
+  SelectedPageActionsDispatcher,
+  getUniquePortfolioHoldingNames
 } from "../../../../store";
 import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
@@ -36,6 +37,8 @@ export class SecurityOverviewPage {
   public offers: Array<any> = [];
   public trades: Array<any> = [];
   public bidsOffersTrades: string = "bidsOffers";
+  public uniquePortfolioHoldings: Array<string>
+  public shouldSell: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -74,7 +77,7 @@ export class SecurityOverviewPage {
           );
           setTimeout(() => {
             Highcharts.chart("priceMovementGraph", this.securityGraphData);
-          }, 500);
+          }, 1000);
 
           // Get only 10 trades to be displayed
           // this.trades = graphData.filter((trade, index) => {
@@ -102,6 +105,17 @@ export class SecurityOverviewPage {
       // });
       this.offers = offers;
     });
+
+    // Determine if the security is owned by the user
+    this.store.select(getUniquePortfolioHoldingNames).subscribe(uniqueHoldingNames => {
+      this.uniquePortfolioHoldings = uniqueHoldingNames;
+      let shouldSell = this.uniquePortfolioHoldings.find(holdingName => holdingName === this.security.name)
+      if (shouldSell) {
+        this.shouldSell = true
+      } else {
+        this.shouldSell = false
+      }
+    })
   }
 
   /**
@@ -112,6 +126,9 @@ export class SecurityOverviewPage {
    * @memberof SecurityOverviewPage
    */
   goToMandatePage(orderType: string = null, securityName: string = null) {
-    this.navCtrl.push(pages.STB_PLACE_MANDATE_PAGE);
+    this.navCtrl.push(pages.STB_PLACE_MANDATE_PAGE, {
+      securityName,
+      orderType
+    });
   }
 }
