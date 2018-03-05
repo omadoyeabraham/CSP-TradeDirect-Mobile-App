@@ -18,7 +18,7 @@ import { IPortfolioHolding } from "../../../stockbrokingModule/models/portfolioH
  */
 export const getStbPortfoliosEntities = createFeatureSelector<
   IStockBrokingPortfolioState
-  >("stbPortfolios");
+>("stbPortfolios");
 
 // Get the stb portfolios owned by the user as an ARRAY
 export const getStbPortfolios = createSelector(
@@ -31,20 +31,26 @@ export const getStbPortfolios = createSelector(
 /**
  * Get the total value of the user's stockbroking account
  */
-export const getTotalStockbrokingValue = createSelector(getStbPortfolios, (state: Array<IPortfolio>) => {
-  let stbTotalValue = 0
+export const getTotalStockbrokingValue = createSelector(
+  getStbPortfolios,
+  (state: Array<IPortfolio>) => {
+    let stbTotalValue = 0;
 
-  state.forEach((portfolio) => {
-    // DO not sum up non-exchange or SMA portfolios
-    if (portfolio.portfolioClass != "EXCHANGE" || portfolio.label.indexOf('(SMA)') != -1) {
-      return
-    } else {
-      stbTotalValue += parseFloat(portfolio.currentValuation.amount)
-    }
-  })
+    state.forEach(portfolio => {
+      // DO not sum up non-exchange or SMA portfolios
+      if (
+        portfolio.portfolioClass != "EXCHANGE" ||
+        portfolio.label.indexOf("(SMA)") != -1
+      ) {
+        return;
+      } else {
+        stbTotalValue += parseFloat(portfolio.currentValuation.amount);
+      }
+    });
 
-  return stbTotalValue
-})
+    return stbTotalValue;
+  }
+);
 
 // Get the number of stb portfolios owned by the user
 export const getNumberOfStbPortfolios = createSelector(
@@ -66,15 +72,15 @@ export const getUniquePortfolioHoldingNames = createSelector(
     state.forEach((portfolio: IPortfolio) => {
       portfolio.portfolioHoldings.forEach((holding: IPortfolioHolding) => {
         uniqueStockHoldings.push(holding.securityName);
-      })
-    })
+      });
+    });
 
     // Ensure that the array contains only unique values using ES6's Set
-    uniqueStockHoldings = Array.from(new Set(uniqueStockHoldings))
+    uniqueStockHoldings = Array.from(new Set(uniqueStockHoldings));
 
-    return uniqueStockHoldings
+    return uniqueStockHoldings;
   }
-)
+);
 
 // Get the stbActivePortfolio feature state slice
 export const getActivePortfolio = createFeatureSelector<IPortfolio>(
@@ -84,7 +90,7 @@ export const getActivePortfolio = createFeatureSelector<IPortfolio>(
 // Get the stbActivePortfolioMetaData feature state slice
 export const getActivePortfolioMetaData = createFeatureSelector<
   IStbActivePortfolioMetaData
-  >("stbActivePortfolioMetaData");
+>("stbActivePortfolioMetaData");
 
 /**
  * Get the portfolio holdings for the active portfolio
@@ -92,7 +98,10 @@ export const getActivePortfolioMetaData = createFeatureSelector<
 export const getAllActivePortfolioHoldings = createSelector(
   getActivePortfolio,
   (state: IPortfolio) => {
-    return state.portfolioHoldings;
+    // Filter to pick only equity stock
+
+    let holdings = state.portfolioHoldings ? state.portfolioHoldings : [];
+    return holdings;
   }
 );
 
@@ -102,7 +111,6 @@ export const getAllActivePortfolioHoldings = createSelector(
 export const getActivePortfolioStockHoldings = createSelector(
   getAllActivePortfolioHoldings,
   (state: IPortfolioHolding[]) => {
-    // Filter to pick only equity stock
     return state.filter(holding => holding.securityType === "EQUITY");
   }
 );
@@ -277,5 +285,3 @@ export const getActivePortfolioBondHoldingsGraphData = createSelector(
   getActivePortfolioBondHoldings,
   _getActivePortfolioBondHoldingsGraphData
 );
-
-

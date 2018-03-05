@@ -33,12 +33,12 @@ export class SwitchPortfolioComponent implements OnInit {
   public activePortfolioMetaData$: Observable<IStbActivePortfolioMetaData>;
   public portfolios: Array<IPortfolio>;
   public numberOfPortfolios$: Observable<number>;
-  public activeSlideIndex: number;
+  public activeSlideIndex: number = 1;
 
   constructor(
     private store: Store<IAppState>,
     private stbPortfolioActionDispatcher: StbPortfolioActionDispatcher
-  ) { }
+  ) {}
 
   ngOnInit() {
     /**
@@ -58,19 +58,25 @@ export class SwitchPortfolioComponent implements OnInit {
       this._portfolios = portfolios;
     });
 
-    // Set the active portfolio index, whenver the active portfolio is changed
+    /**
+     * Set the active portfolio index, whenver the active portfolio is changed, this also ensures
+     * that this component retains the last selected portfolio even when used on different pages,
+     * as the store is the single source of truth for it.
+     */
     this.activePortfolio$.subscribe(activePortfolio => {
       this._activePortfolio = activePortfolio;
 
-      // Get and set the active portfolio index
+      // Get the index of the active portfolio in the portfolios array
       let activeSlideIndex = this._portfolios.findIndex((portfolio, index) => {
-        return portfolio.id === this._activePortfolio.id
-      })
+        return portfolio.id === this._activePortfolio.id;
+      });
 
-      this.activeSlideIndex = activeSlideIndex + 1
-
-      this._recursiveSlideTo(activeSlideIndex)
-    })
+      /**
+       * Slide to the active portfolio (in the slider view), using this private fn which handles
+       * some ionic specific slider bugs
+       */
+      this._recursiveSlideTo(activeSlideIndex);
+    });
 
     //TODO: use map or mergeMap to merge activePortfolio$ and activePortfolioMetaData$
   }
@@ -81,36 +87,44 @@ export class SwitchPortfolioComponent implements OnInit {
    * @memberof SwitchPortfolioComponent
    */
   portfolioChanged() {
-    // The current portfolio index from the slider (+ 1 because the array is zero indexed)
-    // this.activeSlideIndex = this.slides.getActiveIndex() + 1;
-    const portfolioIndex = this.slides.getActiveIndex();
-    // Get the currentPortfolio based on the index slid to
+    // Get the active slide index
+    let portfolioIndex = this.slides.getActiveIndex();
+    let numberOfSlides = this.slides.length();
+
+    // Check to ensure that when the slider overshoots it's index, we revert back to the last index
+    if (portfolioIndex === numberOfSlides) {
+      portfolioIndex = portfolioIndex - 1;
+    }
+
+    // Show the activeIndex + 1 in the template, because it's zero indexed
+    this.activeSlideIndex = portfolioIndex + 1;
+
+    /**
+     * Set the active portfolio, based on the index of the slider that the user slid to.
+     * Also account for edge cases by reverting to the last portfolio when the user tries to
+     * slide past the allowable index
+     */
     const nextActivePortfolio = this._portfolios[portfolioIndex];
 
     // Dispatch an action to change the current portfolio in the store
     this.stbPortfolioActionDispatcher.setActivePortfolioInStore(
       nextActivePortfolio
     );
-
     // Dispatch an action to change the current portfolio metadata in the store
     this.stbPortfolioActionDispatcher.setActivePortfolioMetaData(
       nextActivePortfolio
     );
 
-    /**
-     * Tell system that
-     *   + get me the new current portfolio, based on the index
-     *   + get me the new current portfolio metadata based on the current portfolio
-     */
+    console.log(portfolioIndex, numberOfSlides);
   }
 
   /**
    * Call the _slideTo fn recursively, until the slideTo is available.
    * This is needed because of the ionic slide bug detailed @ https://github.com/ionic-team/ionic/issues/10271
-   * 
+   *
    * @private
-   * @param {number} slideIndex 
-   * @returns {Promise<void>} 
+   * @param {number} slideIndex
+   * @returns {Promise<void>}
    * @memberof SwitchPortfolioComponent
    */
   private _recursiveSlideTo(slideIndex: number): Promise<void> {
@@ -122,26 +136,33 @@ export class SwitchPortfolioComponent implements OnInit {
 
   /**
    * Workaround function used to handle the ionic slides bug detailed at https://github.com/ionic-team/ionic/issues/10271
-   * 
+   *
    * @private
-   * @param {number} slideIndex 
-   * @param {number} tryCount 
-   * @param {Function} resolve 
-   * @param {Function} reject 
+   * @param {number} slideIndex
+   * @param {number} tryCount
+   * @param {Function} resolve
+   * @param {Function} reject
    * @memberof SwitchPortfolioComponent
    */
-  private _slideTo(slideIndex: number, tryCount: number, resolve: Function, reject: Function): void {
+  private _slideTo(
+    slideIndex: number,
+    tryCount: number,
+    resolve: Function,
+    reject: Function
+  ): void {
     try {
       this.slides.slideTo(slideIndex, 0);
       resolve();
     } catch (error) {
       if (tryCount < 100) {
         tryCount++;
-        setTimeout(() => this._slideTo(slideIndex, tryCount, resolve, reject), 50);
+        setTimeout(
+          () => this._slideTo(slideIndex, tryCount, resolve, reject),
+          50
+        );
       } else {
         reject(error);
       }
     }
   }
-
 }
