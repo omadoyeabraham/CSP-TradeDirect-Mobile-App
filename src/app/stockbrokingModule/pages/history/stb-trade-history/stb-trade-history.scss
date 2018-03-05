@@ -1,5 +1,4 @@
 csmobile-stb-trade-history {
-
   ion-grid.tradeOrderGrid {
     ion-row:nth-child(even) {
       background: rgb(238, 238, 238);
@@ -34,5 +33,9 @@ csmobile-stb-trade-history {
   .segment-activated {
     background: #1a2155 !important;
     color: #ffffff !important;
+  }
+  .segment-md .segment-button {
+    height: 30px;
+    line-height: 30px;
   }
 }

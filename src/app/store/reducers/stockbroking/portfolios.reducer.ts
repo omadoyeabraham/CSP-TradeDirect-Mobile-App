@@ -12,7 +12,7 @@ import {
 import { convertArrayToEntities } from "../../helpers";
 
 export default function stbPortfolioReducer(
-  state = initialStockbrokingPortfolioState,
+  state = {} as IStockBrokingPortfolioState,
   action: StbPortfolioActions.StbPortfolioActionType
 ): IStockBrokingPortfolioState {
   switch (action.type) {

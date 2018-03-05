@@ -114,8 +114,6 @@ export class SwitchPortfolioComponent implements OnInit {
     this.stbPortfolioActionDispatcher.setActivePortfolioMetaData(
       nextActivePortfolio
     );
-
-    console.log(portfolioIndex, numberOfSlides);
   }
 
   /**

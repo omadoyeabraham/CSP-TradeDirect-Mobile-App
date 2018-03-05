@@ -86,8 +86,8 @@ export class PlaceMandatePage {
     private securitiesActionsDispatcher: SecuritiesActionsDispatcher
   ) {
     // Get the navParams if any
-    const paramSecurityName = this.navParams.get('securityName');
-    const paramOrderType = this.navParams.get('orderType');
+    const paramSecurityName = this.navParams.get("securityName");
+    const paramOrderType = this.navParams.get("orderType");
 
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     // this.orderType = new FormControl("", Validators.required);
@@ -176,6 +176,18 @@ export class PlaceMandatePage {
     // Watch the limit price input, so the error div's visibility is dynamically controlled based on the input's value
     this.limitPrice.valueChanges.subscribe(value => {
       this.validLimitPrice = value > 0;
+    });
+
+    // Set the no of unitsOwned based on the security selected
+    this.store.select(getActivePortfolioStockHoldings).subscribe(holdings => {
+      let holding = holdings.filter(
+        holding => holding.securityName === this.security.value
+      )[0];
+      if (holding) {
+        this.unitsOwned = holding.quantityHeld;
+      } else {
+        this.unitsOwned = 0;
+      }
     });
 
     /**
