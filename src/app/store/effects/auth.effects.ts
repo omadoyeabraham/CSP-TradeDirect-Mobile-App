@@ -25,7 +25,7 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthProvider,
     private tradeOrderProvider: TradeOrderProvider
-  ) { }
+  ) {}
 
   /**
    * Side effect to occur when a user attempts to log in. This effect calls the authService and dispatches actions based on the response from the authService
@@ -37,41 +37,38 @@ export class AuthEffects {
   loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
     map((action: AuthActions.LoginUser) => action.payload),
     switchMap(credentials => {
-      return this.authService
-        .login(credentials)
-        .pipe(
-          map(userData => {
-            console.log(userData);
-            console.log(userData.FI.NGN)
-            console.log(userData.FI.TBills)
-            console.log(userData.FI.NGN.concat(userData.FI.TBills))
-            return userData
-          }),
-          switchMap(userData => [
-            new AuthActions.LoginUserSuccess(userData),
-            new UserActions.AddUserDataToStore(userData.customer),
-            new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
-              userData.STB.EXCHANGE
-            ),
-            new StockbrokingPortfolioActions.SetActivePortfolioInStore(
-              userData.STB.EXCHANGE[0]
-            ),
-            new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
-              userData.STB.EXCHANGE[0]
-            ),
-            new SecurityActions.getSecurities(),
-            new FixedIncomeActions.saveFixedIncomeData(userData.FI.NGN.concat(userData.FI.TBills)),
-            new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
-            new TradeOrderActions.GetTradeOrderHistory(),
-            new MarketDataActions.GetMarketData()
-          ]),
-          catchError(error => [
-            new AuthActions.LoginUserFailed(),
-            new ErrorActions.AuthenticationFailed(
-              "Incorrect username or password"
-            )
-          ])
-        );
+      return this.authService.login(credentials).pipe(
+        map(userData => {
+          return userData;
+        }),
+        switchMap(userData => [
+          new AuthActions.ResetAuthState(),
+          new AuthActions.LoginUserSuccess(userData),
+          new UserActions.AddUserDataToStore(userData.customer),
+          new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
+            userData.STB.EXCHANGE
+          ),
+          new StockbrokingPortfolioActions.SetActivePortfolioInStore(
+            userData.STB.EXCHANGE[0]
+          ),
+          new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
+            userData.STB.EXCHANGE[0]
+          ),
+          new SecurityActions.getSecurities(),
+          new FixedIncomeActions.saveFixedIncomeData(
+            userData.FI.NGN.concat(userData.FI.TBills)
+          ),
+          new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
+          new TradeOrderActions.GetTradeOrderHistory(),
+          new MarketDataActions.GetMarketData()
+        ]),
+        catchError(error => [
+          new AuthActions.LoginUserFailed(),
+          new ErrorActions.AuthenticationFailed(
+            "Incorrect username or password"
+          )
+        ])
+      );
     })
   );
 

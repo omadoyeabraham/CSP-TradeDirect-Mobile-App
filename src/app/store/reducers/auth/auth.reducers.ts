@@ -30,6 +30,14 @@ export default function authReducer(
         authenticated: false,
         failedAuthAttempts: noOfFailedAuthAttempts + 1
       };
+
+    case authActions.RESET_AUTH_STATE:
+      return {
+        ...state,
+        isAuthenticating: false,
+        authenticated: false,
+        failedAuthAttempts: 0
+      };
     default:
       return state;
   }

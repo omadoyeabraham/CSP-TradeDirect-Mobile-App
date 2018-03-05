@@ -91,7 +91,9 @@ export class LoginPage {
 
     // Subscribe to the failedAuthAttempts auth state, and show a toast everytime there is a failed login
     this.failedAuthAttempt$.subscribe(failedAttempt => {
-      this.utilityProvider.presentToast("Invalid credentials", "toastError");
+      if (failedAttempt > 0) {
+        this.utilityProvider.presentToast("Invalid credentials", "toastError");
+      }
     });
   }
 

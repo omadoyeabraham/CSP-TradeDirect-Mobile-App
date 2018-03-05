@@ -9,6 +9,7 @@ import { IAppState } from "../../models";
 export const LOGIN_USER = "[Auth] Log the user into the application";
 export const LOGIN_USER_FAILED = "[Auth] Login attempt failed";
 export const LOGIN_USER_SUCCESS = "[Auth] Login successful";
+export const RESET_AUTH_STATE = "[Auth] Reset the authentication state";
 
 // Action Creator for the LOGIN_USER action
 export class LoginUser implements Action {
@@ -27,8 +28,17 @@ export class LoginUserSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+export class ResetAuthState implements Action {
+  readonly type = RESET_AUTH_STATE;
+  constructor() {}
+}
+
 // Action types
-export type AuthActionType = LoginUser | LoginUserFailed | LoginUserSuccess;
+export type AuthActionType =
+  | LoginUser
+  | LoginUserFailed
+  | LoginUserSuccess
+  | ResetAuthState;
 
 /**
  * Action Dispatchers for auth related actions.
@@ -68,5 +78,9 @@ export class AuthActionDispatcher {
    */
   loginUserSuccess(payload: any) {
     this.store.dispatch(new LoginUserSuccess(payload));
+  }
+
+  resetAuthState() {
+    this.store.dispatch(new ResetAuthState());
   }
 }
