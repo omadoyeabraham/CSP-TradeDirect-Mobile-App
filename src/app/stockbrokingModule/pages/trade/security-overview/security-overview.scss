@@ -10,6 +10,7 @@ csmobile-page-security-overview {
     border: 2px solid #eee;
     box-shadow: 2px 2px #eee;
     border-left: 7px solid #333;
+    height: 100%;
   }
 
   .bidsListt {
@@ -19,6 +20,8 @@ csmobile-page-security-overview {
     ion-row:nth-child(1) {
       background: #aaa;
     }
+
+    overflow: hidden;
   }
 
   .scroll-contentw {
@@ -31,17 +34,21 @@ csmobile-page-security-overview {
         font-size: 12px;
         padding-left: 0;
         padding-right: 0;
+        padding-top: 1px;
+        padding-bottom: 1px;
       }
     }
+
+    *border-bottom: 1px solid #aaa;
   }
 
   .changeDiv {
-    padding-left: 7px !important;
+    *padding-left: 7px !important;
   }
 
   .priceDiv {
     position: relative;
-    padding-right: 10px !important;
+    *padding-right: 10px !important;
   }
 
   .bidOfferHeader {
@@ -54,12 +61,12 @@ csmobile-page-security-overview {
 
   .bidCol:after {
     content: "";
-    height: 100%; //You can change this if you want smaller/bigger borders
+    height: 300%; //You can change this if you want smaller/bigger borders
     width: 1px;
 
     position: absolute;
     right: 0;
-    top: 10%; // If you want to set a smaller height and center it, change this value
+    top: 0%; // If you want to set a smaller height and center it, change this value
 
     background-color: #999999; // The color of the border
   }
@@ -68,12 +75,60 @@ csmobile-page-security-overview {
     border-bottom: 1px solid #999999;
   }
 
-  ion-segment {
-    border: 2px solid #1a2155 !important;
-    border-radius: 5px !important;
+  #bids--Offers--Content,
+  #trade--content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 100%;
+    overflow-y: scroll;
+    max-height: 120px;
   }
-  .segment-activated {
-    background: #1a2155 !important;
-    color: #ffffff !important;
+  .csmobile--btn {
+    height: 30px;
+    padding: 0 7px;
+  }
+
+  /**
+  * Styling for flex layout
+  */
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #securityNameDiv {
+    flex: 1;
+  }
+
+  #securityPriceDiv {
+    flex: 2;
+  }
+
+  #graphDiv {
+    flex: 2;
+  }
+
+  #bidsOffersTradeDiv {
+    flex: 3;
+    display: block;
+
+    ion-segment {
+      border: 2px solid #1a2155 !important;
+      border-radius: 5px !important;
+    }
+    .segment-md .segment-button {
+      height: 30px;
+      line-height: 30px;
+    }
+    .segment-activated {
+      background: #1a2155 !important;
+      color: #ffffff !important;
+    }
   }
 }

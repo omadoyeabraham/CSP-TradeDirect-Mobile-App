@@ -39,7 +39,7 @@ export class SecurityOverviewPage {
   public offers: Array<any> = [];
   public trades: Array<any> = [];
   public bidsOffersTrades: string = "bidsOffers";
-  public uniquePortfolioHoldings: Array<string>
+  public uniquePortfolioHoldings: Array<string>;
   public shouldSell: boolean = false;
   public marketSecurities: Array<ISecurity>;
 
@@ -50,12 +50,11 @@ export class SecurityOverviewPage {
     public chartsProvider: ChartsProvider,
     public selectedPageActionDispatcher: SelectedPageActionsDispatcher,
     public securitiesActionsDispatcher: SecuritiesActionsDispatcher
-  ) { }
+  ) {}
 
   goBack() {
-    this.navCtrl.pop()
+    this.navCtrl.pop();
   }
-
 
   ionViewDidLoad() {
     this.selectedPageActionDispatcher.setSelectedPageData({
@@ -116,15 +115,19 @@ export class SecurityOverviewPage {
     });
 
     // Determine if the security is owned by the user
-    this.store.select(getUniquePortfolioHoldingNames).subscribe(uniqueHoldingNames => {
-      this.uniquePortfolioHoldings = uniqueHoldingNames;
-      let shouldSell = this.uniquePortfolioHoldings.find(holdingName => holdingName === this.security.name)
-      if (shouldSell) {
-        this.shouldSell = true
-      } else {
-        this.shouldSell = false
-      }
-    })
+    this.store
+      .select(getUniquePortfolioHoldingNames)
+      .subscribe(uniqueHoldingNames => {
+        this.uniquePortfolioHoldings = uniqueHoldingNames;
+        let shouldSell = this.uniquePortfolioHoldings.find(
+          holdingName => holdingName === this.security.name
+        );
+        if (shouldSell) {
+          this.shouldSell = true;
+        } else {
+          this.shouldSell = false;
+        }
+      });
   }
 
   /**

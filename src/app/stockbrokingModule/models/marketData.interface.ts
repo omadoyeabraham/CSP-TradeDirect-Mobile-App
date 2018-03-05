@@ -24,4 +24,6 @@ export interface IMarketData {
   offerPrice: string;
   bestOfferQty: string;
   bestBidQty: string;
+  priceChange?: any;
+  priceChangePercent?: any;
 }

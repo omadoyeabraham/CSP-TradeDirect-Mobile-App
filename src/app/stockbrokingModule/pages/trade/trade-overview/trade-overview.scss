@@ -4,7 +4,8 @@ csmobile-trade-overview {
   */
   .fixed-content,
   .scroll-content {
-    *margin-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
   }
 
   .img-responsive {
@@ -46,8 +47,8 @@ csmobile-trade-overview {
   }
 
   #fab--trade--text {
-    position: absolute;
-    margin-top: -7px;
-    left: 4px;
+    // position: absolute;
+    // margin-top: -7px;
+    // left: 15%;
   }
 }

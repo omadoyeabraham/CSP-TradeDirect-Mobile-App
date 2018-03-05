@@ -32,9 +32,6 @@ export class TradeOverviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedPageActionDispatcher.setSelectedPageData({
-      showHeader: true
-    });
   }
 
 
