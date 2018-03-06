@@ -31,7 +31,6 @@ export class NairaCashPage {
   ionViewDidLoad() {
     this.store.select(getNairaCashAccounts).subscribe(cashAccounts => {
       this.nairaCashAccounts = cashAccounts;
-      console.log(this.nairaCashAccounts);
     });
   }
 }

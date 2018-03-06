@@ -1,0 +1,33 @@
+<div class="bg-blue">
+  <ion-slides pager style="height: 75px" (ionSlideDidChange)="cashAccountChanged()">
+
+    <ion-slide *ngFor="let cashAccount of cashAccounts">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="font-size-12">
+            {{cashAccount.label}}
+          </ion-col>
+          <ion-col style="text-align: right" class="font-size-14">
+            {{1}} of {{numberOfCashAccounts}}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="swipe" col-3>
+            <span>&lt; SWIPE &gt;</span>
+          </ion-col>
+          <ion-col class="pb0" style="text-align: right" col-9>
+            <h6 class="m0 font-size-13">Total Balance</h6>
+            <h4 class="m0 font-size-13">
+              <span>
+                <b>&#8358;{{cashAccount.clearedBalance | number:'1.2-2'}}</b>
+              </span>
+            </h4>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-slide>
+
+  </ion-slides>
+</div>

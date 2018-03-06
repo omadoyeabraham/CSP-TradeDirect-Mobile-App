@@ -36,7 +36,7 @@
       SMA
       <span item-end>&#8358;0.00</span>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToPage(nairaCashPage)">
       <ion-icon name="cash" item-start class=""></ion-icon>
       Cash Account
       <span item-end>&#8358;10,000,000</span>
@@ -55,7 +55,7 @@
       FX Investments
       <span item-end>&#8358;{{ totalFxFiValue | number:'1.2-2' }}</span>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToPage(dollarCashPage)">
       <ion-icon name="cash" item-start class=""></ion-icon>
       Cash Accounts
       <span item-end>&#8358;10,000,000</span>

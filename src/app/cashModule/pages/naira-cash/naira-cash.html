@@ -7,12 +7,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>NairaCash</ion-title>
+    <ion-title>Naira Cash Accounts</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
+
+  <!-- Component used to switch cash accounts -->
+  <csmobile-switch-cash-account [cashAccounts]="nairaCashAccounts" [currency]="'₦'">
+  </csmobile-switch-cash-account>
 
 </ion-content>

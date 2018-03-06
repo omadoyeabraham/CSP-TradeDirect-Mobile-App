@@ -23,3 +23,7 @@ export const STB_TRADE_HISTORY_PAGE = "StbTradeHistoryContainerPage";
 // FIXED INCOME
 export const FIXED_INCOME_CONTAINER_PAGE = "FixedIncomeContainerPage";
 export const FX_INVESTMENTS_CONTAINER_PAGE = "FxInvestmentsContainerPage";
+
+// CASH
+export const NAIRA_CASH_PAGE = "NairaCashPage";
+export const DOLLAR_CASH_PAGE = "DollarCashPage";

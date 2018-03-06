@@ -31,6 +31,16 @@ export class MyApp {
       title: "FX Investments",
       pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
       icon: "cash"
+    },
+    {
+      title: "Cash Account - Naira",
+      pageName: PAGES.NAIRA_CASH_PAGE,
+      icon: "cash"
+    },
+    {
+      title: "Cash Account - Dollar",
+      pageName: PAGES.DOLLAR_CASH_PAGE,
+      icon: "cash"
     }
   ];
 

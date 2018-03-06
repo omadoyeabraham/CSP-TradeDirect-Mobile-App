@@ -4,6 +4,9 @@ import { IonicModule } from "ionic-angular";
 import { SharedModule } from "../sharedModule/shared.module";
 
 import { CashAccountViewComponent } from "./pages/cash-account-view/cash-account-view";
+import { SwitchCashAccountComponent } from "./pages/switch-cash-account/switch-cash-account";
+import { CashAccountSummaryComponent } from "./pages/cash-account-summary/cash-account-summary";
+import { CashAccountHistoryComponent } from "./pages/cash-account-history/cash-account-history";
 
 /**
  * The CashModule contains all Cash related services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -13,8 +16,18 @@ import { CashAccountViewComponent } from "./pages/cash-account-view/cash-account
  */
 @NgModule({
   imports: [IonicModule, CommonModule, SharedModule],
-  declarations: [CashAccountViewComponent],
-  exports: [CashAccountViewComponent]
+  declarations: [
+    CashAccountViewComponent,
+    SwitchCashAccountComponent,
+    CashAccountSummaryComponent,
+    CashAccountHistoryComponent
+  ],
+  exports: [
+    CashAccountViewComponent,
+    SwitchCashAccountComponent,
+    CashAccountSummaryComponent,
+    CashAccountHistoryComponent
+  ]
 })
 export class CashModule {
   /**
