@@ -13,3 +13,5 @@ export * from "./stockbroking/tradeOrder.selectors";
 export * from "./stockbroking/marketData.selectors";
 
 export * from "./fixedIncome/fixedIncome.selectors";
+
+export * from "./cash/cash.selectors";

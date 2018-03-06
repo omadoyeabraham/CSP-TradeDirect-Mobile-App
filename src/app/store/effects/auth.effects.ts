@@ -10,6 +10,7 @@ import * as SecurityActions from "../actions/stockbroking/securities.actions";
 import * as FixedIncomeActions from "../actions/fixedIncome/fixedIncome.actions";
 import * as TradeOrderActions from "../actions/stockbroking/tradeOrder.actions";
 import * as MarketDataActions from "../actions/stockbroking/marketdata.actions";
+import * as CashAccountActions from "../actions/cash/cash.actions";
 
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
 import { TradeOrderProvider } from "../../stockbrokingModule/providers/trade-order/trade-order";
@@ -60,7 +61,8 @@ export class AuthEffects {
           ),
           new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
           new TradeOrderActions.GetTradeOrderHistory(),
-          new MarketDataActions.GetMarketData()
+          new MarketDataActions.GetMarketData(),
+          new CashAccountActions.saveCashAcccountsToStore(userData.CA)
         ]),
         catchError(error => [
           new AuthActions.LoginUserFailed(),

@@ -17,3 +17,6 @@ export * from "./stockbroking/marketdata.reducer";
 
 // FIXED INCOME
 export * from "./fixedIncome/fixedIncome.reducer";
+
+// Cash
+export * from "./cash/cash.reducer";

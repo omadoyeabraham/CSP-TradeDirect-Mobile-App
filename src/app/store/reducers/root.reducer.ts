@@ -23,7 +23,8 @@ import {
   IErrorState,
   IStockBrokingPortfolioState,
   IStbActivePortfolioMetaData,
-  ITradeOrderCancellationState
+  ITradeOrderCancellationState,
+  ICashState
 } from "../models";
 import securitiesReducer, {
   selectedSecurityOnOverviewPageReducer,
@@ -40,12 +41,14 @@ import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
 import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
 import marketDataReducer from "./stockbroking/marketdata.reducer";
 import { LOGOUT } from "..";
+import cashReducer from "./cash/cash.reducer";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
   auth: IAuthState;
   user: IUserState;
   error: IErrorState;
+  cashAccounts: ICashState;
   selectedPage: any;
   stbPortfolios: IStockBrokingPortfolioState;
   stbActivePortfolio: IPortfolio;
@@ -70,6 +73,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   auth: authReducer,
   user: userReducer,
   error: errorReducer,
+  cashAccounts: cashReducer,
   selectedPage: selectedPageReducer,
   stbPortfolios: stockbrokingPortfolioReducer,
   stbActivePortfolio: stbActivePortfolioReducer,
@@ -104,6 +108,7 @@ export const storageSyncReducer = storageSync({
   keys: [
     "user",
     "error",
+    "cashAccounts",
     "selectedPage",
     "stbPortfolios",
     "stbActivePortfolio",
@@ -132,6 +137,13 @@ export function storageMetaReducer(
   return storageSyncReducer(reducer);
 }
 
+/**
+ * MetaReducer used to handle the LOGOUT action.
+ *
+ * @export
+ * @param {any} reducer
+ * @returns
+ */
 export function resetReducer(reducer) {
   return function newReducer(state, action) {
     if (action.type === LOGOUT) {
