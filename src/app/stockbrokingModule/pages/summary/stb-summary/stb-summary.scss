@@ -1,17 +1,22 @@
 csmobile-stb-summary {
   .portfolio-summary-wrapper {
     ion-item {
-      min-height: 25px !important;
-      height: 25px !important;
-      font-size: 14px;
+      min-height: 20px !important;
+      height: 20px !important;
+      font-size: 12px;
       .item-inner {
         border: none !important;
+      }
+
+      span {
+        margin-top: 0px;
+        margin-bottom: 0px;
       }
     }
 
     .item-block {
-      max-height: 3rem !important;
-      min-height: 3rem !important;
+      *max-height: 2rem !important;
+      *min-height: 2rem !important;
     }
   }
 

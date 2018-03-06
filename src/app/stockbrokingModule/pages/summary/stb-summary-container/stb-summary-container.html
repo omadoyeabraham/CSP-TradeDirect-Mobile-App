@@ -12,8 +12,18 @@
 <ion-content no-padding id="stbSummaryPageWrapper">
   <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
   </csmobile-switch-portfolio>
-  <csmobile-stb-summary [portfolio]="(activePortfolio)"></csmobile-stb-summary>
-  <csmobile-stb-holdings-performance-charts [stockData]="activePortfolioStockData" [stockGraphData]="activePortfolioStockGraphData"
-    [bondData]="activePortfolioBondData" [bondGraphData]="activePortfolioBondGraphData">
-  </csmobile-stb-holdings-performance-charts>
+
+  <!-- Portfolio Summary -->
+  <div id="portfolioSummary">
+    <csmobile-stb-summary [portfolio]="(activePortfolio)"></csmobile-stb-summary>
+  </div>
+
+  <!-- Portfolio Graph -->
+  <div id="portfolioGraphs">
+    <csmobile-stb-holdings-performance-charts [stockData]="activePortfolioStockData" [stockGraphData]="activePortfolioStockGraphData"
+      [bondData]="activePortfolioBondData" [bondGraphData]="activePortfolioBondGraphData">
+    </csmobile-stb-holdings-performance-charts>
+  </div>
+
+
 </ion-content>

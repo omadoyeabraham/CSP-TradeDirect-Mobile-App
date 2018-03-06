@@ -1,5 +1,32 @@
 page-stb-summary-container {
   #stbSummaryPageWrapper {
     *margin-top: 75px !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #portfolioGraphs {
+    *flex: 1;
+    *height: 55%;
+  }
+
+  #portfolioSummary {
+    *flex: 1;
+    *height: 44%;
+  }
+
+  ion-segment {
+    border: 2px solid #1a2155 !important;
+    border-radius: 5px !important;
+
+    .segment-activated {
+      background: #1a2155 !important;
+      color: #ffffff !important;
+    }
+  }
+
+  .segment-md .segment-button {
+    height: 30px;
+    line-height: 30px;
   }
 }
