@@ -15,3 +15,6 @@ export * from "./stockbroking/marketdata.actions";
 
 // FixedIncome
 export * from "./fixedIncome/fixedIncome.actions";
+
+// Cash
+export * from "./cash/cash.actions";
