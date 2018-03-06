@@ -10,6 +10,7 @@ export const LOGIN_USER = "[Auth] Log the user into the application";
 export const LOGIN_USER_FAILED = "[Auth] Login attempt failed";
 export const LOGIN_USER_SUCCESS = "[Auth] Login successful";
 export const RESET_AUTH_STATE = "[Auth] Reset the authentication state";
+export const LOGOUT = "[Auth] Logout the user";
 
 // Action Creator for the LOGIN_USER action
 export class LoginUser implements Action {
@@ -33,12 +34,18 @@ export class ResetAuthState implements Action {
   constructor() {}
 }
 
+export class Logout implements Action {
+  readonly type = LOGOUT;
+  constructor() {}
+}
+
 // Action types
 export type AuthActionType =
   | LoginUser
   | LoginUserFailed
   | LoginUserSuccess
-  | ResetAuthState;
+  | ResetAuthState
+  | Logout;
 
 /**
  * Action Dispatchers for auth related actions.
@@ -82,5 +89,9 @@ export class AuthActionDispatcher {
 
   resetAuthState() {
     this.store.dispatch(new ResetAuthState());
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
   }
 }

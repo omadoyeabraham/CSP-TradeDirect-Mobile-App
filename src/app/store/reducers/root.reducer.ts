@@ -39,6 +39,7 @@ import {
 import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
 import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
 import marketDataReducer from "./stockbroking/marketdata.reducer";
+import { LOGOUT } from "..";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -131,5 +132,19 @@ export function storageMetaReducer(
   return storageSyncReducer(reducer);
 }
 
+export function resetReducer(reducer) {
+  return function newReducer(state, action) {
+    if (action.type === LOGOUT) {
+      state = undefined;
+    }
+
+    const nextState = reducer(state, action);
+    return nextState;
+  };
+}
+
 // MetaReducers array used in app.module.ts
-export const metaReducers: MetaReducer<any>[] = [storageMetaReducer];
+export const metaReducers: MetaReducer<any>[] = [
+  storageMetaReducer,
+  resetReducer
+];

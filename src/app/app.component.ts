@@ -4,6 +4,9 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import * as PAGES from "./sharedModule/pages.constants";
+import * as authActions from "../../src/app/store/actions/auth/auth.actions";
+import { IAppState } from "./store/models";
+import { Store } from "@ngrx/store";
 
 @Component({
   templateUrl: "app.html"
@@ -34,7 +37,8 @@ export class MyApp {
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public store: Store<IAppState>
   ) {
     this.initializeApp();
   }
@@ -61,4 +65,18 @@ export class MyApp {
   }
 
   isActive(page) {}
+
+  /**
+   * Logout the user, and dispatch the action to clear the local store
+   *
+   * @memberof MyApp
+   */
+  logout() {
+    this.store.dispatch(new authActions.Logout());
+
+    // Navigate back to the homepage, after logging out
+    setTimeout(() => {
+      this.nav.setRoot(PAGES.HOME_PAGE);
+    }, 500);
+  }
 }
