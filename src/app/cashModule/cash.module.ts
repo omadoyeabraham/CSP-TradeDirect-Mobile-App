@@ -7,6 +7,7 @@ import { CashAccountViewComponent } from "./pages/cash-account-view/cash-account
 import { SwitchCashAccountComponent } from "./pages/switch-cash-account/switch-cash-account";
 import { CashAccountSummaryComponent } from "./pages/cash-account-summary/cash-account-summary";
 import { CashAccountHistoryComponent } from "./pages/cash-account-history/cash-account-history";
+import { CashTransactionDetailsPage } from "./pages/cash-transaction-details/cash-transaction-details";
 
 /**
  * The CashModule contains all Cash related services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -20,13 +21,15 @@ import { CashAccountHistoryComponent } from "./pages/cash-account-history/cash-a
     CashAccountViewComponent,
     SwitchCashAccountComponent,
     CashAccountSummaryComponent,
-    CashAccountHistoryComponent
+    CashAccountHistoryComponent,
+    CashTransactionDetailsPage
   ],
   exports: [
     CashAccountViewComponent,
     SwitchCashAccountComponent,
     CashAccountSummaryComponent,
-    CashAccountHistoryComponent
+    CashAccountHistoryComponent,
+    CashTransactionDetailsPage
   ]
 })
 export class CashModule {

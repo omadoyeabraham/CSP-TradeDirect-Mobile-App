@@ -1,20 +1,16 @@
 import { Component } from "@angular/core";
 
 /**
- * Generated class for the CashAccountHistoryComponent component.
+ * Presentational component which displays the history for the active cash account selected by the user
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * @type Presentational Component
+ * @export
+ * @class CashAccountHistoryComponent
  */
 @Component({
   selector: "csmobile-cash-account-history",
   templateUrl: "cash-account-history.html"
 })
 export class CashAccountHistoryComponent {
-  text: string;
-
-  constructor() {
-    console.log("Hello CashAccountHistoryComponent Component");
-    this.text = "Hello World";
-  }
+  constructor() {}
 }

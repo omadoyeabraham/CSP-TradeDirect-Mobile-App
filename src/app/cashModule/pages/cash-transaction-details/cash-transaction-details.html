@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Transaction Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <!-- Jumbotron Header -->
+  <ion-row>
+    <ion-col text-center>
+      <div class="font-size-12">Debit Transfer</div>
+      <div class="font-size-18">90,000,000</div>
+      <div class="font-size-12">8th March 2018</div>
+    </ion-col>
+  </ion-row>
+  <!-- EOF Jumbotron Header -->
+
+  <!-- Transaction details -->
+  {{ transaction | json }}
+  <!-- EOF Transaction details -->
+</ion-content>

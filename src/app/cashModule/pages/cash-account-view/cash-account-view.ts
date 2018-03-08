@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { CASH_TRANSACTION_DETAILS } from "../../../sharedModule/pages.constants";
 
 /**
  * Presentational component which is used to display the details of a particular cash account, and its history.
@@ -10,14 +12,22 @@ import { Component } from "@angular/core";
  * @class CashAccountViewComponent
  */
 @Component({
-  selector: "cash-account-view",
+  selector: "csmobile-cash-account-view",
   templateUrl: "cash-account-view.html"
 })
 export class CashAccountViewComponent {
-  text: string;
+  constructor(public navCtrl: NavController) {}
 
-  constructor() {
-    console.log("Hello CashAccountViewComponent Component");
-    this.text = "Hello World";
+  /**
+   * Navigate to the transaction details page, which displays the details for a
+   * particular transaction
+   *
+   * @param {*} [transaction=[]]
+   * @memberof CashAccountViewComponent
+   */
+  goToTransactionDetailsPage(transaction: any = []) {
+    this.navCtrl.push(CASH_TRANSACTION_DETAILS, {
+      transaction
+    });
   }
 }

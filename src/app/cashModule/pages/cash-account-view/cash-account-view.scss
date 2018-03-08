@@ -1,3 +1,41 @@
-cash-account-view {
+csmobile-cash-account-view {
+  .cashTransactionRow {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #ccc;
+  }
 
+  .transaction--date--div {
+    background: #ccc;
+    font-size: 11px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    font-weight: bold;
+  }
+
+  /**
+  * Styles overriding ionic form inputs, to make our form more compact
+  */
+  .item-label-stacked .text-input-md,
+  .item-label-floating .text-input-md,
+  .datetime-md {
+    margin-top: 0px !important;
+    padding: 1px 8px 13px 6px;
+  }
+  form,
+  input,
+  optgroup,
+  select {
+    font-size: 12px;
+  }
+  .item-md {
+    font-size: 14px;
+  }
+
+  .item-label-stacked .select-md,
+  .item-label-floating .select-md {
+    *padding-top: 0px;
+    *padding-bottom: 0px;
+  }
 }

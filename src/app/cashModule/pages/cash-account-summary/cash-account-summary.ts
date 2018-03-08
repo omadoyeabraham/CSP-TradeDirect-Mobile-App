@@ -1,20 +1,16 @@
 import { Component } from "@angular/core";
 
 /**
- * Generated class for the CashAccountSummaryComponent component.
+ * Presentational component which displays the summary for the active cash account selected by the user
  *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * @type Presentational Component
+ * @export
+ * @class CashAccountSummaryComponent
  */
 @Component({
   selector: "csmobile-cash-account-summary",
   templateUrl: "cash-account-summary.html"
 })
 export class CashAccountSummaryComponent {
-  text: string;
-
-  constructor() {
-    console.log("Hello CashAccountSummaryComponent Component");
-    this.text = "Hello World";
-  }
+  constructor() {}
 }
