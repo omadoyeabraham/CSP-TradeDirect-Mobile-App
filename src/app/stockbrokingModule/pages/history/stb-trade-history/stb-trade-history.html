@@ -97,7 +97,7 @@
           <div class="font-size-10 mt1">{{tradeOrder.statusDate | date:'medium'}}</div>
         </ion-col>
 
-        <ion-col col-5>
+        <ion-col col-6>
           <div>
             <span class="d--inline--block w35p">Quantity:</span>
             <span class="d--inline--block w60p text-red" *ngIf="tradeOrder.orderType === 'SELL'">
@@ -130,7 +130,7 @@
           </div>
         </ion-col>
 
-        <ion-col col-2>
+        <ion-col col-1>
           <div class="iconWrapper">
             <ion-icon *ngIf="tradeOrder.canBeCancelled" name="close" class="text-red" (click)="showCancelTradeOrderAlert(tradeOrder.id)"></ion-icon>
             <ion-icon *ngIf="tradeOrder.orderStatus === 'EXECUTED'" name="checkmark-circle" class="text-green" active="false"></ion-icon>
