@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastController } from "ionic-angular";
+import moment from "moment";
 
 /**
  * A collection of utility functions which can be used globally
@@ -69,5 +70,25 @@ export class UtilityProvider {
     );
 
     return entities;
+  }
+
+  /**
+   * Return the default startDate for cash account searches.
+   * This date is the first of the month
+   *
+   * @return String
+   */
+  getDefaultCashStatementStartDate() {
+    return moment().format("YYYY-MM-01");
+  }
+
+  /**
+   * Return the default endDate for cash account searches.
+   * This date is today
+   *
+   * @return String
+   */
+  getDefaultCashStatementEndDate() {
+    return moment().format("YYYY-MM-DD");
   }
 }

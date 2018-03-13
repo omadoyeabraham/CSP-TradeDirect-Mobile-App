@@ -7,7 +7,7 @@ import { CashAccountViewComponent } from "./pages/cash-account-view/cash-account
 import { SwitchCashAccountComponent } from "./pages/switch-cash-account/switch-cash-account";
 import { CashAccountSummaryComponent } from "./pages/cash-account-summary/cash-account-summary";
 import { CashAccountHistoryComponent } from "./pages/cash-account-history/cash-account-history";
-import { CashTransactionDetailsPage } from "./pages/cash-transaction-details/cash-transaction-details";
+import { CashProvider } from "./provider/cash/cash";
 
 /**
  * The CashModule contains all Cash related services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -21,15 +21,13 @@ import { CashTransactionDetailsPage } from "./pages/cash-transaction-details/cas
     CashAccountViewComponent,
     SwitchCashAccountComponent,
     CashAccountSummaryComponent,
-    CashAccountHistoryComponent,
-    CashTransactionDetailsPage
+    CashAccountHistoryComponent
   ],
   exports: [
     CashAccountViewComponent,
     SwitchCashAccountComponent,
     CashAccountSummaryComponent,
-    CashAccountHistoryComponent,
-    CashTransactionDetailsPage
+    CashAccountHistoryComponent
   ]
 })
 export class CashModule {
@@ -40,11 +38,10 @@ export class CashModule {
    * @returns {ModuleWithProviders}
    * @memberof CashModule
    */
-  //   static forRoot(): ModuleWithProviders {
-  //     return {
-  //       ngModule: StockbrokingModule,
-  //       providers: [
-  //       ]
-  //     };
-  //   }
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: CashModule,
+      providers: [CashProvider]
+    };
+  }
 }

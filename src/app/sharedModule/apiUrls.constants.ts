@@ -18,3 +18,7 @@ export const executeTradeOrderURL = baseURL + "createTradeOrder";
 export const cancelTradeOrderURL = baseURL + "cancelTradeOrder";
 export const getTradeOrdersURL = baseURL + "findCustomerOrders";
 export const getMarketDataURL = baseURL + "getSecurity";
+
+// CASH ENDPOINTS
+export const getCashAccountStatementsURL =
+  baseURL + "findFiAcctLedgerEntriesByAccountNumber";
