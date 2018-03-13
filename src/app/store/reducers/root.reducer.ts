@@ -41,7 +41,10 @@ import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
 import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
 import marketDataReducer from "./stockbroking/marketdata.reducer";
 import { LOGOUT } from "..";
-import cashReducer from "./cash/cash.reducer";
+import cashReducer, {
+  selectedNairaCashAccountReducer
+} from "./cash/cash.reducer";
+import { ICashAccountInterface } from "../../cashModule/models/cashAccount.interface";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -63,6 +66,7 @@ export interface IRootReducer {
   stbTradeOrderCancellation: ITradeOrderCancellationState;
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
+  cashActiveNairaAccount: ICashAccountInterface;
 }
 
 /**
@@ -87,7 +91,8 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbMarketData: marketDataReducer,
   stbTradeOrderCancellation: tradeOrderCancellationReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
-  fxInvestments: fxInvestmentsReducer
+  fxInvestments: fxInvestmentsReducer,
+  cashActiveNairaAccount: selectedNairaCashAccountReducer
 };
 
 /**
@@ -121,7 +126,8 @@ export const storageSyncReducer = storageSync({
     "stbMarketData",
     // "stbTradeOrderCancellation",
     "fixedIncomeInvestments",
-    "fxInvestments"
+    "fxInvestments",
+    "cashActiveNairaAccount"
   ],
   hydratedStateKey: "hydrated", // Add this key to the state
   onSyncError: onSyncError // If a sync fails

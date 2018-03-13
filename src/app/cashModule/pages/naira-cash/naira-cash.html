@@ -1,9 +1,3 @@
-<!--
-  Generated template for the NairaCashPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -16,7 +10,7 @@
 <ion-content no-padding>
 
   <!-- Component used to switch cash accounts -->
-  <csmobile-switch-cash-account [cashAccounts]="nairaCashAccounts" [currency]="'₦'">
+  <csmobile-switch-cash-account [cashAccounts]="nairaCashAccounts" [currency]="'₦'" (cashAccountSelected)="changeSelectedNairaCashAccount($event)">
   </csmobile-switch-cash-account>
 
   <!-- Component used to display the active cash account's summary -->

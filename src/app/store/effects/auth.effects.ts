@@ -62,7 +62,13 @@ export class AuthEffects {
           new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
           new TradeOrderActions.GetTradeOrderHistory(),
           new MarketDataActions.GetMarketData(),
-          new CashAccountActions.saveCashAcccountsToStore(userData.CA)
+          new CashAccountActions.saveCashAcccountsToStore(userData.CA),
+          new CashAccountActions.saveActiveNairaCashAccountToStore(
+            userData.CA.NGN[0]
+          ),
+          new CashAccountActions.saveActiveDollarCashAccountToStore(
+            userData.CA.USD[0]
+          )
         ]),
         catchError(error => [
           new AuthActions.LoginUserFailed(),
