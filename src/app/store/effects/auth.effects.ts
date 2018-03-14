@@ -68,6 +68,12 @@ export class AuthEffects {
           ),
           new CashAccountActions.saveActiveDollarCashAccountToStore(
             userData.CA.USD[0]
+          ),
+          new CashAccountActions.populateCashAccountStatementsEntities(
+            userData.CA.NGN
+          ),
+          new CashAccountActions.populateCashAccountStatementsEntities(
+            userData.CA.USD
           )
         ]),
         catchError(error => [

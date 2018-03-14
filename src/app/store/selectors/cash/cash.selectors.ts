@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { ICashState } from "../../models";
+import { ICashAccountInterface } from "../../../cashModule/models/cashAccount.interface";
 
 export const getCashAccounts = createFeatureSelector("cashAccounts");
 
@@ -22,3 +23,10 @@ export const getDollarCashAccounts = createSelector(
     return cashAccounts.USD;
   }
 );
+
+/**
+ * Get the currently active naira cash account
+ */
+export const getActiveNairaCashAccount = createFeatureSelector<
+  ICashAccountInterface
+>("cashActiveNairaAccount");

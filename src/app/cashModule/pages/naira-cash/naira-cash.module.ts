@@ -6,6 +6,6 @@ import { CashModule } from "../../cash.module";
 
 @NgModule({
   declarations: [NairaCashPage],
-  imports: [IonicPageModule.forChild(NairaCashPage), CashModule]
+  imports: [IonicPageModule.forChild(NairaCashPage), CashModule.forRoot()]
 })
 export class NairaCashPageModule {}

@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, retry } from "rxjs/operators";
+import { catchError, retry, map } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
@@ -42,6 +42,9 @@ export class CashProvider {
         },
         { observe: "response" }
       )
-      .pipe(retry(3), catchError(err => Observable.throw(err)));
+      .pipe(
+        map((response: HttpResponse<Object>) => response),
+        catchError(err => Observable.throw(err))
+      );
   }
 }
