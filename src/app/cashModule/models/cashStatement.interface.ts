@@ -9,4 +9,7 @@ export interface ICashStatement {
   name: string;
   transactionDate: string;
   valueDate: string;
+  unclearedAmount?: any;
+  transactionType?: any;
+  transactionAmount?: any;
 }

@@ -17,6 +17,8 @@
   <csmobile-cash-account-summary></csmobile-cash-account-summary>
 
   <!-- Component used to display the active cash account's overview -->
-  <csmobile-cash-account-view></csmobile-cash-account-view>
+  <csmobile-cash-account-view [cashStatements]="cashStatements" [groupedCashStatements]="groupedCashStatements" [currency]="'₦'"
+    (filterCashAccountStatements)="filterCashAccountStatements($event)">
+  </csmobile-cash-account-view>
 
 </ion-content>

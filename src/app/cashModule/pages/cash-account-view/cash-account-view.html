@@ -5,17 +5,17 @@
         <ion-col class="pt0" col-5>
             <ion-item>
                 <ion-label floating>Start Date</ion-label>
-                <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY"></ion-datetime>
+                <ion-datetime [(ngModel)]="startDate" displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY"></ion-datetime>
             </ion-item>
         </ion-col>
         <ion-col class="pt0" col-5>
             <ion-item>
                 <ion-label floating>End Date</ion-label>
-                <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY"></ion-datetime>
+                <ion-datetime [(ngModel)]="endDate" displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY"></ion-datetime>
             </ion-item>
         </ion-col>
         <ion-col col-2 align-self-end>
-            <button ion-button icon-only>
+            <button ion-button icon-only (click)="filterCashStatements()">
                 <ion-icon name="search"></ion-icon>
             </button>
         </ion-col>
@@ -23,14 +23,17 @@
     <!-- EOF Date and search button -->
 
     <!-- Show cash transaction history -->
-    <ion-grid *ngFor="let numbers of [1,2,3,4]">
-        <div class="transaction--date--div"> 8TH MARCH 2018</div>
-        <ion-row *ngFor="let number of [1,2,3,4]" class="cashTransactionRow" (click)="goToTransactionDetailsPage()">
+    <ion-grid *ngFor="let dateGroup of groupedCashStatements" class="cashDateGroup">
+        <div class="transaction--date--div"> {{ dateGroup[0]?.date }}</div>
+        <ion-row *ngFor="let cashStatement of dateGroup" class="cashTransactionRow" (click)="goToTransactionDetailsPage(cashStatement)">
             <ion-col text-left>
-                <b>E-Payment Transaction</b>
+                <b>{{cashStatement?.label}}</b>
             </ion-col>
-            <ion-col text-right class="text-green">80,000,000.00</ion-col>
+            <ion-col *ngIf="cashStatement.transactionType === 'CREDIT' " text-right class="text-green">{{currency}}{{cashStatement?.transactionAmount | number:'1.2-2'}}</ion-col>
+            <ion-col *ngIf="cashStatement.transactionType === 'DEBIT' " text-right class="text-red">{{currency}}{{cashStatement?.transactionAmount | number:'1.2-2'}}</ion-col>
+            <ion-col *ngIf="cashStatement.transactionType === 'OPENING_BALANCE' " text-right class="text-blue">{{currency}}{{cashStatement?.transactionAmount | number:'1.2-2'}}</ion-col>
         </ion-row>
     </ion-grid>
     <!-- EOF cash transaction history -->
+
 </div>

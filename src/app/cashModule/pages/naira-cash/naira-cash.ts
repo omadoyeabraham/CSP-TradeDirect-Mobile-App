@@ -1,18 +1,22 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Store } from "@ngrx/store";
+import { map, catchError } from "rxjs/operators";
+import { Observable } from "rxjs/Observable";
+import * as moment from "moment";
 
 import { IAppState } from "../../../store/models";
 import { ICashAccountInterface } from "../../models/cashAccount.interface";
 import {
   getNairaCashAccounts,
   saveActiveNairaCashAccountToStore,
-  getActiveNairaCashAccount
+  getActiveNairaCashAccount,
+  saveCashAccountCashStatements,
+  getSelectedNairaCashAccountCashStatements,
+  activeNairaCashStatementsGroupedByDate
 } from "../../../store";
 import { CashProvider } from "../../provider/cash/cash";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
-import { map, catchError } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
 import { ICashStatement } from "../../models/cashStatement.interface";
 
 /**
@@ -31,6 +35,11 @@ import { ICashStatement } from "../../models/cashStatement.interface";
 export class NairaCashPage {
   public nairaCashAccounts: Array<ICashAccountInterface> = [];
   public activeNairaCashAccount: ICashAccountInterface;
+  public cashStatements: Array<ICashStatement>;
+  public groupedCashStatements: any;
+  public cashStatementSummary: any;
+  public startDate: string = null;
+  public endDate: string = null;
 
   constructor(
     public navCtrl: NavController,
@@ -46,6 +55,21 @@ export class NairaCashPage {
       this.nairaCashAccounts = cashAccounts;
     });
 
+    // Get the cash statements for the active naira cash account
+    this.store
+      .select(getSelectedNairaCashAccountCashStatements)
+      .subscribe(cashStatements => {
+        this.cashStatements = cashStatements;
+      });
+
+    // Get the cash statements for the active naira cash account grouped by date
+    this.store
+      .select(activeNairaCashStatementsGroupedByDate)
+      .subscribe(groupedCashStatements => {
+        console.log(groupedCashStatements);
+        this.groupedCashStatements = groupedCashStatements;
+      });
+
     // Get the active naira selected cash account from the store
     this.store
       .select(getActiveNairaCashAccount)
@@ -53,8 +77,11 @@ export class NairaCashPage {
         this.activeNairaCashAccount = activeNairaCashAccount;
 
         // Make the api call to get the cash statements for the active cash account
-        const cashAccountID = this.activeNairaCashAccount.name;
-        this.getNairaCashStatements(cashAccountID);
+        this.getAndStoreCashStatements(
+          this.activeNairaCashAccount,
+          this.startDate,
+          this.endDate
+        );
       });
   }
 
@@ -72,24 +99,24 @@ export class NairaCashPage {
   }
 
   /**
-   * Get the naira cash statements for a selected naira cash account
+   * Make the API call to get the cash account statements for a cash account,
+   * and subsequently save the statements to the redux store.
    *
-   * @param {number} cashAccountID
+   * @param {ICashAccountInterface} cashAccount
    * @param {string} [startDate=this.utilityProvider.getDefaultCashStatementStartDate()]
    * @param {string} [endDate=this.utilityProvider.getDefaultCashStatementEndDate()]
-   * @memberof NairaCashPage
+   * @memberof CashProvider
    */
-  getNairaCashStatements(
-    cashAccountID: string,
+  getAndStoreCashStatements(
+    cashAccount: ICashAccountInterface,
     startDate: string = this.utilityProvider.getDefaultCashStatementStartDate(),
     endDate: string = this.utilityProvider.getDefaultCashStatementEndDate()
   ) {
-    if (cashAccountID) {
+    if (cashAccount.name) {
       this.cashProvider
-        .getCashAccountStatements(cashAccountID, startDate, endDate)
+        .getCashAccountStatements(cashAccount.name, startDate, endDate)
         .subscribe(
           response => {
-            console.log(response);
             const responseData = response.body.item;
 
             /**
@@ -100,10 +127,35 @@ export class NairaCashPage {
               responseData.constructor === Array
                 ? responseData
                 : [responseData];
-            console.log(cashStatements);
+
+            // Dispatch the action to update the cash statements for the selected cash account
+            this.store.dispatch(
+              new saveCashAccountCashStatements({
+                cashAccountName: cashAccount.name,
+                statements: cashStatements
+              })
+            );
           },
           err => console.log(err)
         );
     }
+  }
+
+  /**
+   * Callback called when the filterCashAccountStatements event is emitted from the
+   * cash-account-view component
+   *
+   * @param {any} $event
+   * @memberof NairaCashPage
+   */
+  filterCashAccountStatements($event) {
+    this.startDate = $event.startDate;
+    this.endDate = $event.endDate;
+
+    this.getAndStoreCashStatements(
+      this.activeNairaCashAccount,
+      $event.startDate,
+      $event.endDate
+    );
   }
 }

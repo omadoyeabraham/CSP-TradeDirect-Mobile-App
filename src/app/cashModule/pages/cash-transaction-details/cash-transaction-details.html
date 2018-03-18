@@ -10,9 +10,9 @@
   <!-- Jumbotron Header -->
   <ion-row>
     <ion-col text-center>
-      <div class="font-size-12">Debit Transfer</div>
-      <div class="font-size-18">90,000,000</div>
-      <div class="font-size-12">8th March 2018</div>
+      <div class="font-size-12">{{ transaction?.label }}</div>
+      <div class="font-size-18">{{ transaction?.transactionAmount }}</div>
+      <div class="font-size-12">{{ transaction?.transactionDate | date:'medium' }}</div>
     </ion-col>
   </ion-row>
   <!-- EOF Jumbotron Header -->
