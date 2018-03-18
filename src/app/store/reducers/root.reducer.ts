@@ -35,7 +35,8 @@ import {
   ISecurity,
   IPortfolio,
   ITradeOrder,
-  IMarketData
+  IMarketData,
+  IPortfolioHolding
 } from "../../stockbrokingModule/models";
 import { IFixedIncomeInvestment } from "../../fixedIncomeModule/models";
 import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
@@ -46,6 +47,7 @@ import cashReducer, {
   cashAccountsStatementsReducer
 } from "./cash/cash.reducer";
 import { ICashAccountInterface } from "../../cashModule/models/cashAccount.interface";
+import smaReducer, { smaFiReducer } from "./stockbroking/sma.reducer";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -65,6 +67,8 @@ export interface IRootReducer {
   stbTradeOrders: Array<any>;
   stbMarketData: Array<IMarketData>;
   stbTradeOrderCancellation: ITradeOrderCancellationState;
+  smaHoldings: IPortfolioHolding[];
+  smaFI: IFixedIncomeInvestment[];
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
   cashActiveNairaAccount: ICashAccountInterface;
@@ -92,6 +96,8 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbTradeOrders: tradeOrderHistoryReducer,
   stbMarketData: marketDataReducer,
   stbTradeOrderCancellation: tradeOrderCancellationReducer,
+  smaHoldings: smaReducer,
+  smaFI: smaFiReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
   fxInvestments: fxInvestmentsReducer,
   cashActiveNairaAccount: selectedNairaCashAccountReducer,
@@ -127,6 +133,8 @@ export const storageSyncReducer = storageSync({
     "stbPreviewedTradeOrder",
     "stbTradeOrders",
     "stbMarketData",
+    "smaHoldings",
+    "smaFI",
     // "stbTradeOrderCancellation",
     "fixedIncomeInvestments",
     "fxInvestments",

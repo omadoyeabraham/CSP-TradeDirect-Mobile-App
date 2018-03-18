@@ -14,6 +14,7 @@ export * from "./stockbroking/portfolios.reducer";
 export * from "./stockbroking/securities.reducer";
 export * from "./stockbroking/tradeOrder.reducer";
 export * from "./stockbroking/marketdata.reducer";
+export * from "./stockbroking/sma.reducer";
 
 // FIXED INCOME
 export * from "./fixedIncome/fixedIncome.reducer";

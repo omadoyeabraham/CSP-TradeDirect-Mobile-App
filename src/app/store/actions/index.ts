@@ -12,6 +12,7 @@ export * from "./selectedPage/selectedPage.actions";
 export * from "./stockbroking/portfolios.actions";
 export * from "./stockbroking/tradeOrder.actions";
 export * from "./stockbroking/marketdata.actions";
+export * from "./stockbroking/sma.actions";
 
 // FixedIncome
 export * from "./fixedIncome/fixedIncome.actions";
