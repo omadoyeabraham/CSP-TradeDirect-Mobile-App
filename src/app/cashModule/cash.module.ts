@@ -38,10 +38,10 @@ export class CashModule {
    * @returns {ModuleWithProviders}
    * @memberof CashModule
    */
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: CashModule,
-      providers: [CashProvider]
-    };
-  }
+  // static forRoot(): ModuleWithProviders {
+  //   return {
+  //     ngModule: CashModule,
+  //     providers: [CashProvider]
+  //   };
+  // }
 }

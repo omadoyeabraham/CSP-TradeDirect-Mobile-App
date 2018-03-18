@@ -56,49 +56,6 @@ export class CashProvider {
   }
 
   /**
-   * Make the API call to get the cash account statements for a cash account,
-   * and subsequently save the statements to the redux store.
-   *
-   * @param {ICashAccountInterface} cashAccount
-   * @param {string} [startDate=this.utilityProvider.getDefaultCashStatementStartDate()]
-   * @param {string} [endDate=this.utilityProvider.getDefaultCashStatementEndDate()]
-   * @memberof CashProvider
-   */
-  // getAndStoreCashStatements(
-  //   cashAccount: ICashAccountInterface,
-  //   startDate: string = this.utilityProvider.getDefaultCashStatementStartDate(),
-  //   endDate: string = this.utilityProvider.getDefaultCashStatementEndDate()
-  // ) {
-  //   if (cashAccount.name) {
-  //     this.getCashAccountStatements(
-  //       cashAccount.name,
-  //       startDate,
-  //       endDate
-  //     ).subscribe(
-  //       response => {
-  //         const responseData = response.body.item;
-
-  //         /**
-  //          * Either a single object, or an array of objects will be returned.
-  //          * This ensures that we always have an array of objects
-  //          */
-  //         let cashStatements: Array<ICashStatement> =
-  //           responseData.constructor === Array ? responseData : [responseData];
-
-  //         // Dispatch the action to update the cash statements for the selected cash account
-  //         this.store.dispatch(
-  //           new saveCashAccountCashStatements({
-  //             cashAccountName: cashAccount.name,
-  //             statements: cashStatements
-  //           })
-  //         );
-  //       },
-  //       err => console.log(err)
-  //     );
-  //   }
-  // }
-
-  /**
    *
    * Return all uncleared effects in the array of cash statements passed in, based on the date constraints
    *

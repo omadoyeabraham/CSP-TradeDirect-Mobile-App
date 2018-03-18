@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from "@ngrx/effects";
-import { map, catchError, switchMap } from "rxjs/operators";
+import { map, catchError, switchMap, tap } from "rxjs/operators";
 
 import * as AuthActions from "../actions/auth/auth.actions";
 import * as UserActions from "../actions/user/user.actions";
@@ -15,6 +15,11 @@ import * as CashAccountActions from "../actions/cash/cash.actions";
 import { AuthProvider } from "../../sharedModule/services/auth/auth";
 import { TradeOrderProvider } from "../../stockbrokingModule/providers/trade-order/trade-order";
 import { ITradeOrderTerm } from "../../stockbrokingModule/models/tradeOrderTerm.interface";
+import { CashProvider } from "../../cashModule/provider/cash/cash";
+import { ICashStatement } from "../../cashModule/models/cashStatement.interface";
+import { saveCashAccountCashStatements } from "..";
+import { IAppState } from "../models";
+import { Store } from "@ngrx/store";
 
 /**
  * Side effects for auth related actions. The side effects listen for @ngrx/store options and then carry-out various external (outside angular) actions
@@ -25,7 +30,9 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthProvider,
-    private tradeOrderProvider: TradeOrderProvider
+    private tradeOrderProvider: TradeOrderProvider,
+    private cashProvider: CashProvider,
+    private store: Store<IAppState>
   ) {}
 
   /**
@@ -107,4 +114,51 @@ export class AuthEffects {
         );
     })
   );
+
+  /**
+   * Side effects to get cash statements after authentication
+   *
+   * @memberof AuthEffects
+   */
+  @Effect({ dispatch: false })
+  getCashStatements$ = this.actions$
+    .ofType(CashAccountActions.POPULATE_CASH_ACCOUNT_STATEMENTS_ENTITIES)
+    .pipe(
+      map(
+        (action: CashAccountActions.populateCashAccountStatementsEntities) =>
+          action.payload
+      ),
+      map(cashAccounts => {
+        // Get cash statements for all naira accounts
+        cashAccounts.forEach(cashAccount => {
+          this.cashProvider
+            .getCashAccountStatements(cashAccount.name)
+            .subscribe(
+              response => {
+                const responseData = response.body.item;
+
+                /**
+                 * Either a single object, or an array of objects will be returned.
+                 * This ensures that we always have an array of objects
+                 */
+                let cashStatements: Array<ICashStatement> =
+                  responseData.constructor === Array
+                    ? responseData
+                    : [responseData];
+
+                console.log(cashStatements);
+
+                // Dispatch the action to update the cash statements for the selected cash account
+                this.store.dispatch(
+                  new saveCashAccountCashStatements({
+                    cashAccountName: cashAccount.name,
+                    statements: cashStatements
+                  })
+                );
+              },
+              err => console.log(err)
+            );
+        });
+      })
+    );
 }

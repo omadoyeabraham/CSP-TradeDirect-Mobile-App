@@ -8,12 +8,13 @@ import * as moment from "moment";
 import { IAppState } from "../../../store/models";
 import { ICashAccountInterface } from "../../models/cashAccount.interface";
 import {
-  getNairaCashAccounts,
+  nairaCashAccounts,
   saveActiveNairaCashAccountToStore,
   getActiveNairaCashAccount,
   saveCashAccountCashStatements,
-  getSelectedNairaCashAccountCashStatements,
-  activeNairaCashStatementsGroupedByDate
+  getCashAccountStatementsEntities,
+  cashStatementsByAccountName,
+  groupedCashStatements
 } from "../../../store";
 import { CashProvider } from "../../provider/cash/cash";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
@@ -47,30 +48,48 @@ export class NairaCashPage {
     public store: Store<IAppState>,
     public cashProvider: CashProvider,
     public utilityProvider: UtilityProvider
-  ) {}
+  ) {
+    this.startDate = this.utilityProvider.getDefaultCashStatementStartDate();
+    this.endDate = this.utilityProvider.getDefaultCashStatementEndDate();
+  }
 
   ionViewDidLoad() {
-    // Get all the naira cash accounts from the store
-    this.store.select(getNairaCashAccounts).subscribe(cashAccounts => {
+    this.selectCashAccountsFromStore();
+    this.getCashStatementsForAllCashAccounts();
+    this.selectActiveCashAccount();
+    this.getGroupedCashStatements();
+    this.getCashStatements();
+    this.getCashStatementsSummary();
+  }
+
+  /**
+   * Select all naira cash accounts from the store
+   *
+   * @memberof NairaCashPage
+   */
+  selectCashAccountsFromStore() {
+    this.store.select(nairaCashAccounts).subscribe(cashAccounts => {
       this.nairaCashAccounts = cashAccounts;
     });
+  }
 
-    // Get the cash statements for the active naira cash account
-    this.store
-      .select(getSelectedNairaCashAccountCashStatements)
-      .subscribe(cashStatements => {
-        this.cashStatements = cashStatements;
-      });
+  /**
+   * Get the cash statements for all cash accounts and dispatch the actions to keep them in the store
+   *
+   * @memberof NairaCashPage
+   */
+  getCashStatementsForAllCashAccounts() {
+    this.nairaCashAccounts.forEach(cashAccount => {
+      this.getAndStoreCashStatements(cashAccount, this.startDate, this.endDate);
+    });
+  }
 
-    // Get the cash statements for the active naira cash account grouped by date
-    this.store
-      .select(activeNairaCashStatementsGroupedByDate)
-      .subscribe(groupedCashStatements => {
-        console.log(groupedCashStatements);
-        this.groupedCashStatements = groupedCashStatements;
-      });
-
-    // Get the active naira selected cash account from the store
+  /**
+   * Get the active cash account, and also make the call to renew its cash statements data
+   *
+   * @memberof NairaCashPage
+   */
+  selectActiveCashAccount() {
     this.store
       .select(getActiveNairaCashAccount)
       .subscribe(activeNairaCashAccount => {
@@ -86,6 +105,45 @@ export class NairaCashPage {
   }
 
   /**
+   * Get the cash statements (grouped by date) for the active cash account
+   *
+   * @memberof NairaCashPage
+   */
+  getGroupedCashStatements() {
+    this.store
+      .select(groupedCashStatements(this.activeNairaCashAccount.name))
+      .subscribe(groupedCashStatements => {
+        this.groupedCashStatements = groupedCashStatements;
+      });
+  }
+
+  /**
+   * Get the cash Statements for the active account
+   *
+   * @memberof NairaCashPage
+   */
+  getCashStatements() {
+    this.store
+      .select(cashStatementsByAccountName(this.activeNairaCashAccount.name))
+      .subscribe(cashStatements => {
+        this.cashStatements = cashStatements;
+      });
+  }
+
+  /**
+   * Get the summary report for the current cash account reports
+   *
+   * @memberof NairaCashPage
+   */
+  getCashStatementsSummary() {
+    this.cashStatementSummary = this.cashProvider.calculateCashStatementSummary(
+      this.cashStatements,
+      this.startDate,
+      this.endDate
+    );
+  }
+
+  /**
    * Called when the switch cash account component emits the cashAccountChanged event.
    * This method dispatches the appropriate action to the redux store when the selected
    * naira cash account is changed.
@@ -96,6 +154,13 @@ export class NairaCashPage {
   changeSelectedNairaCashAccount(cashAccount: ICashAccountInterface) {
     // Dispatch the action to save the active naira cash account to the store.
     this.store.dispatch(new saveActiveNairaCashAccountToStore(cashAccount));
+
+    // Make the api call to get the cash statements for the new active cash account
+    this.getAndStoreCashStatements(cashAccount, this.startDate, this.endDate);
+
+    this.getCashStatements();
+    this.getCashStatementsSummary();
+    this.getGroupedCashStatements();
   }
 
   /**

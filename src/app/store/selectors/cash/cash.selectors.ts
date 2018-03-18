@@ -10,7 +10,7 @@ export const getCashAccounts = createFeatureSelector("cashAccounts");
 /**
  * Get the naira cash accounts owned by the user
  */
-export const getNairaCashAccounts = createSelector(
+export const nairaCashAccounts = createSelector(
   getCashAccounts,
   (cashAccounts: ICashState) => {
     return cashAccounts.NGN;
@@ -67,30 +67,11 @@ const calculateCashStatementMetaData = (
 };
 
 /**
- * Return the cash statements for the selected naira cash account
- */
-export const getSelectedNairaCashAccountCashStatements = createSelector(
-  getActiveNairaCashAccount,
-  getCashAccountStatementsEntities,
-  (
-    activeNairaCashAccount: ICashAccountInterface,
-    cashAccountStatementsEntities: any
-  ) => {
-    let cashStatements: ICashStatement[] =
-      cashAccountStatementsEntities[activeNairaCashAccount.name];
-
-    cashStatements = calculateCashStatementMetaData(cashStatements);
-
-    return cashStatements;
-  }
-);
-
-/**
  * Group an array of cash statements by date
  *
  * @param cashStatements
  */
-const _groupCashStatementsByDate = (cashStatements: Array<ICashStatement>) => {
+const _groupCashStatementsByDate = (cashStatements: ICashStatement[]) => {
   let groupedCashStatements: Array<any> = [];
   let statementDates: Array<any> = [];
   let count: number = 0;
@@ -124,9 +105,23 @@ const _groupCashStatementsByDate = (cashStatements: Array<ICashStatement>) => {
 };
 
 /**
- * Get the cash statements for the active naira cash account grouped by date
+ * Get the cash statements that belong to an account, by passing in the account name
+ * @param accountName
  */
-export const activeNairaCashStatementsGroupedByDate = createSelector(
-  getSelectedNairaCashAccountCashStatements,
-  _groupCashStatementsByDate
-);
+export const cashStatementsByAccountName = accountName =>
+  createSelector(getCashAccountStatementsEntities, cashStatmentsEntities => {
+    let cashStatements = calculateCashStatementMetaData(
+      cashStatmentsEntities[accountName]
+    );
+    return cashStatements;
+  });
+
+/**
+ * Get the cash statements for a particular account, and group them by date
+ * @param accountName
+ */
+export const groupedCashStatements = accountName =>
+  createSelector(
+    cashStatementsByAccountName(accountName),
+    _groupCashStatementsByDate
+  );
