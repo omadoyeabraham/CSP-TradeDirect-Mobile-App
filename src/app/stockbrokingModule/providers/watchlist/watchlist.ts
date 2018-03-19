@@ -25,7 +25,7 @@ export class WatchlistProvider {
    */
   getWatchlist(userID) {
     return this.http
-      .get(`${GetWatchListURL}\${userID}`)
+      .get(`${GetWatchListURL}\\${userID}`)
       .pipe(catchError(err => Observable.throw(err)));
   }
 

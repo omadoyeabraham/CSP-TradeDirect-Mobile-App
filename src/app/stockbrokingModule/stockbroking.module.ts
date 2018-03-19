@@ -12,7 +12,6 @@ import { TradeOverviewComponent } from "./pages/trade/trade-overview/trade-overv
 import { SecuritiesActionsDispatcher } from "../store/actions/stockbroking/securities.actions";
 import { SelectedPageActionsDispatcher } from "../store";
 import { StbTradeHistoryComponent } from "./pages/history/stb-trade-history/stb-trade-history";
-import { WatchlistProvider } from "./providers/watchlist/watchlist";
 
 /**
  * The StockbrokingModule contains all STB services, components and directives that could be required by various other modules(including ionic page modules) in the application
@@ -53,8 +52,7 @@ export class StockbrokingModule {
       providers: [
         ChartsProvider,
         SecuritiesActionsDispatcher,
-        SelectedPageActionsDispatcher,
-        WatchlistProvider
+        SelectedPageActionsDispatcher
       ]
     };
   }

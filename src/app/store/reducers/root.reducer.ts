@@ -24,7 +24,8 @@ import {
   IStockBrokingPortfolioState,
   IStbActivePortfolioMetaData,
   ITradeOrderCancellationState,
-  ICashState
+  ICashState,
+  IWatchListState
 } from "../models";
 import securitiesReducer, {
   selectedSecurityOnOverviewPageReducer,
@@ -48,6 +49,7 @@ import cashReducer, {
 } from "./cash/cash.reducer";
 import { ICashAccountInterface } from "../../cashModule/models/cashAccount.interface";
 import smaReducer, { smaFiReducer } from "./stockbroking/sma.reducer";
+import watchlistReducer from "./stockbroking/watchlist.reducer";
 
 // Interface describing the shape of our root reducer
 export interface IRootReducer {
@@ -67,6 +69,7 @@ export interface IRootReducer {
   stbTradeOrders: Array<any>;
   stbMarketData: Array<IMarketData>;
   stbTradeOrderCancellation: ITradeOrderCancellationState;
+  watchList: IWatchListState;
   smaHoldings: IPortfolioHolding[];
   smaFI: IFixedIncomeInvestment[];
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
@@ -96,6 +99,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   stbTradeOrders: tradeOrderHistoryReducer,
   stbMarketData: marketDataReducer,
   stbTradeOrderCancellation: tradeOrderCancellationReducer,
+  watchList: watchlistReducer,
   smaHoldings: smaReducer,
   smaFI: smaFiReducer,
   fixedIncomeInvestments: fixedIncomeReducer,
@@ -133,6 +137,7 @@ export const storageSyncReducer = storageSync({
     "stbPreviewedTradeOrder",
     "stbTradeOrders",
     "stbMarketData",
+    "watchlist",
     "smaHoldings",
     "smaFI",
     // "stbTradeOrderCancellation",

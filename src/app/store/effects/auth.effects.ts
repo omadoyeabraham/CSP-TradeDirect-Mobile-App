@@ -151,7 +151,7 @@ export class AuthEffects {
                     ? responseData
                     : [responseData];
 
-                console.log(cashStatements);
+                // console.log(cashStatements);
 
                 // Dispatch the action to update the cash statements for the selected cash account
                 this.store.dispatch(

@@ -41,7 +41,6 @@ export class SmaPage {
     });
 
     this.store.select(smaFixedIncomeInvestments).subscribe(investments => {
-      console.log(investments);
       this.fixedIncomeInvestments = investments;
     });
 
