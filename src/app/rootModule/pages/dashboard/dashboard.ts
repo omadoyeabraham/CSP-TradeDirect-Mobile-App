@@ -26,6 +26,7 @@ export class DashboardPage {
   public fxPage: string = PAGES.FX_INVESTMENTS_CONTAINER_PAGE;
   public nairaCashPage: string = PAGES.NAIRA_CASH_PAGE;
   public dollarCashPage: string = PAGES.DOLLAR_CASH_PAGE;
+  public smaPage: string = PAGES.SMA_PAGE;
 
   public totalStbValue = 0;
   public totalFiValue = 0;

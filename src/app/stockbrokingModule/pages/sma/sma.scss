@@ -1,0 +1,44 @@
+page-sma {
+  ion-segment {
+    border: 2px solid #1a2155 !important;
+    border-radius: 5px !important;
+
+    .segment-activated {
+      background: #1a2155 !important;
+      color: #ffffff !important;
+    }
+    .segment-button {
+      max-height: 35px !important;
+      line-height: 35px !important;
+    }
+
+    .segment-md .segment-button {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .holdings-list {
+    ion-grid {
+      ion-row {
+        ion-col {
+          padding-top: 1px !important;
+          padding-bottom: 3px !important;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    ion-grid:nth-child(even) {
+      background: #eeeeee;
+    }
+    ion-item {
+      padding-left: 0px;
+      .item-inner {
+        padding-right: 0px !important;
+      }
+    }
+  }
+}

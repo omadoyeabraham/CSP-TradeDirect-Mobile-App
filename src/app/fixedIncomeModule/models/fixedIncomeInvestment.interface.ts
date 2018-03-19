@@ -35,4 +35,7 @@ export interface IFixedIncomeInvestment {
   status: IFixedIncomeInvestmentStatus;
   tenure: number;
   valueAtTermination?: number;
+  currentValue?: any;
+  valueAtMaturity?: any;
+  durationTillDate?: any;
 }

@@ -31,7 +31,7 @@
       Fixed Income
       <span item-end>&#8358;{{ totalFiValue | number:'1.2-2' }}</span>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToPage(smaPage)">
       <ion-icon name="briefcase" item-start class=""></ion-icon>
       SMA
       <span item-end>&#8358;0.00</span>

@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Seperately Managed Account</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <!-- Equities & FixedIncome -->
+  <div padding class="pt0 pl2 pr2">
+    <ion-segment [(ngModel)]="investmentType" class="csp--segment mt10">
+      <ion-segment-button value="equities">
+        Equities
+      </ion-segment-button>
+      <ion-segment-button value="fixedIncome">
+        Fixed Income
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="investmentType">
+
+    <!-- Equities -->
+    <div *ngSwitchCase="'equities'">
+      <ion-list class="mt10 holdings-list">
+
+        <!-- Display if there are no sma equity holdings in the account -->
+        <ion-item *ngIf="holdings?.length <= 0">
+          <ion-grid>
+            <ion-row class="mt40">
+              <ion-col text-center>No equity holdings in this portfolio</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <!-- Display if equity holdings exist -->
+        <ion-item *ngIf="holdings?.length > 0">
+          <ion-grid *ngFor="let holding of holdings">
+            <ion-row>
+              <ion-col>
+                <strong>{{ holding?.securityName }}</strong>
+              </ion-col>
+              <ion-col class="font-size-12 align-right">
+                Gain/Loss:
+                <csmobile-format-number-with-color [data]="holding?.percentGain" [showCurrency]="true"></csmobile-format-number-with-color>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="font-size-12">WAC: &#8358;{{ holding?.costBasis | number:'1.2-2' }}</ion-col>
+              <ion-col class="font-size-12 align-right">
+                Qty: {{ holding?.quantityHeld | number:'1.0-0' }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="font-size-12">
+                Cur Price: &#8358; {{ holding?.marketPrice }}
+
+              </ion-col>
+              <ion-col class="font-size-12 align-right">
+                Val: &#8358;{{ holding?.valuation | number:'1.2-2' }}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+      </ion-list>
+    </div>
+
+    <!-- Fixed Income -->
+    <!-- Bond Holdings -->
+    <div *ngSwitchCase="'fixedIncome'">
+      <ion-list class="mt10 holdings-list holdings-bonds">
+
+        <csmobile-fixed-income-investments-display *ngIf="fixedIncomeInvestments?.length > 0" [type]="'Running'" [investments]="fixedIncomeInvestments"
+          [totalFixedIncomeValue]="totalFixedIncomeValue" [kind]="kind" [currency]="'₦'"></csmobile-fixed-income-investments-display>
+
+        <!-- No Fixed Income Investments -->
+        <ion-item *ngIf="fixedIncomeInvestments?.length <= 0">
+          <ion-grid>
+            <ion-row class="mt40">
+              <ion-col text-center class="font-size-16">
+                No fixed income investments in this portfolio
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+
+</ion-content>

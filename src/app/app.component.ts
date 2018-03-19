@@ -33,6 +33,11 @@ export class MyApp {
       icon: "cash"
     },
     {
+      title: "SMA",
+      pageName: PAGES.SMA_PAGE,
+      icon: "cash"
+    },
+    {
       title: "Cash Account - Naira",
       pageName: PAGES.NAIRA_CASH_PAGE,
       icon: "cash"
