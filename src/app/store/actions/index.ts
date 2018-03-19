@@ -13,6 +13,7 @@ export * from "./stockbroking/portfolios.actions";
 export * from "./stockbroking/tradeOrder.actions";
 export * from "./stockbroking/marketdata.actions";
 export * from "./stockbroking/sma.actions";
+export * from "./stockbroking/watchlist.actions";
 
 // FixedIncome
 export * from "./fixedIncome/fixedIncome.actions";
