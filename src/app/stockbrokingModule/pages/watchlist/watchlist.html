@@ -17,15 +17,26 @@
     </button>
   </ion-fab>
 
+  <!-- No Watchlist-->
+  <ion-item *ngIf="watchList?.length <= 0">
+    <ion-grid>
+      <ion-row class="mt40">
+        <ion-col text-center class="font-size-16">
+          No items currently in your watchlist.
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
   <!-- List of WatchList Items -->
-  <ion-grid class="watchlist--grid">
-    <ion-row *ngFor="let i of [1,2,3,4,5,6]" align-items-center>
+  <ion-grid *ngIf="watchList?.length > 0" class="watchlist--grid">
+    <ion-row *ngFor="let watchListItem of watchList" align-items-center>
       <ion-col col-9>
         <ion-row class="flex-column">
           <div class="font-size-18 mb5">
-            <b>ZENITH</b>
+            <b>{{ watchListItem?.name }}</b>
           </div>
-          <div class="font-size-12 mb5">Condition: Greater than or equals to £345,890.88</div>
+          <div class="font-size-12 mb5">Condition: {{ watchListItem?.condition_name }} &#8358;{{ watchListItem?.notify_price | number:'1.2-2'}}</div>
           <div>Cur Price: ₦129.65 (
             <span class="text-green">23.90</span>%)
           </div>
@@ -33,7 +44,7 @@
       </ion-col>
       <ion-col col-3 text-right>
         <ion-icon name="create" class="text-blue font-size-25 mr20"></ion-icon>
-        <ion-icon name="close" class="text-red font-size-25 mr10"></ion-icon>
+        <ion-icon name="close" class="text-red font-size-25 mr10" (click)="confirmWatchListItemDelete(watchListItem?.id, watchListItem?.user_id, watchListItem?.name)"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>

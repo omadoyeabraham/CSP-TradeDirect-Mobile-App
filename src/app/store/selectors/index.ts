@@ -12,6 +12,7 @@ export * from "./stockbroking/securities.selectors";
 export * from "./stockbroking/tradeOrder.selectors";
 export * from "./stockbroking/marketData.selectors";
 export * from "./stockbroking/sma.selectors";
+export * from "./stockbroking/watchlist.selectors";
 
 export * from "./fixedIncome/fixedIncome.selectors";
 

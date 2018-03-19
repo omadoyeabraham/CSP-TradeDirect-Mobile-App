@@ -137,7 +137,7 @@ export const storageSyncReducer = storageSync({
     "stbPreviewedTradeOrder",
     "stbTradeOrders",
     "stbMarketData",
-    "watchlist",
+    "watchList",
     "smaHoldings",
     "smaFI",
     // "stbTradeOrderCancellation",

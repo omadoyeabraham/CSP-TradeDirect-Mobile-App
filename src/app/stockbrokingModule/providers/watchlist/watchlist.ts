@@ -4,7 +4,10 @@ import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 
-import { GetWatchListURL } from "../../../sharedModule/apiUrls.constants";
+import {
+  GetWatchListURL,
+  DeleteWatchListURL
+} from "../../../sharedModule/apiUrls.constants";
 
 /**
  * Provider for services related to watchlists
@@ -33,7 +36,22 @@ export class WatchlistProvider {
 
   editWatchlistItem() {}
 
-  deleteWatchlistItem() {}
+  /**
+   * Delete a watchlist
+   *
+   * @param {any} watchlistId
+   * @param {any} customerId
+   * @returns
+   * @memberof WatchlistProvider
+   */
+  deleteWatchlistItem(watchlistId, customerId) {
+    return this.http
+      .post(DeleteWatchListURL, {
+        watchlistId: watchlistId,
+        customerId: customerId
+      })
+      .pipe(catchError(err => Observable.throw(err)));
+  }
 
   toggleWatchlistItem() {}
 }

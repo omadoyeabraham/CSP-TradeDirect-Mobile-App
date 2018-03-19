@@ -2,7 +2,7 @@ import { IWatchListState } from "../../models";
 import * as watchListActions from "../../actions/stockbroking/watchlist.actions";
 
 export default function watchlistReducer(
-  state: IWatchListState,
+  state: IWatchListState = { watchlist: [], loaded: false, loading: false },
   action: watchListActions.WatchlistActionTypes
 ): IWatchListState {
   switch (action.type) {
