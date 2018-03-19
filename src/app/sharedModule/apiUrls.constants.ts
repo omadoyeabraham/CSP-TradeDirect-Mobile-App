@@ -19,6 +19,13 @@ export const cancelTradeOrderURL = baseURL + "cancelTradeOrder";
 export const getTradeOrdersURL = baseURL + "findCustomerOrders";
 export const getMarketDataURL = baseURL + "getSecurity";
 
+// WATCHLIST ENDPOINTS
+export const GetWatchListURL = baseURL + "getWatchList";
+export const CreateWatchListURL = baseURL + "createWatchList";
+export const UpdateWatchListURL = baseURL + "updateWatchList";
+export const DeleteWatchListURL = baseURL + "deleteWatchList";
+export const ToggleWatchListURL = baseURL + "toggleWatchList";
+
 // CASH ENDPOINTS
 export const getCashAccountStatementsURL =
   baseURL + "findFiAcctLedgerEntriesByAccountNumber";

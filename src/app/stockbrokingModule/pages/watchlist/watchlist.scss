@@ -1,0 +1,11 @@
+page-watchlist {
+  .flex-column {
+    flex-direction: column;
+  }
+
+  ion-grid.watchlist--grid {
+    ion-row:nth-child(even) {
+      background: rgb(238, 238, 238);
+    }
+  }
+}

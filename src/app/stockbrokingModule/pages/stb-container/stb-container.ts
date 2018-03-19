@@ -24,7 +24,7 @@ export class StbContainerPage {
   StbPortfolioHoldingsContainerPage: any;
   StbTradeContainerPage: any;
   StbTradeHistoryContainerPage: any;
-  StbWatchlistContainerPage: any;
+  WatchlistPage: any;
 
   public hideSwitchPortfolio: boolean = false;
   public tabTitle: string = "Stockbroking";
@@ -43,7 +43,7 @@ export class StbContainerPage {
       PAGES.STB_PORTFOLIO_HOLDINGS_CONTAINER_PAGE;
     this.StbTradeContainerPage = PAGES.STB_TRADE_CONTAINER_PAGE;
     this.StbTradeHistoryContainerPage = PAGES.STB_TRADE_HISTORY_CONTAINER_PAGE;
-    this.StbWatchlistContainerPage = PAGES.STB_WATCHLIST_CONTAINER_PAGE;
+    this.WatchlistPage = PAGES.WATCHLIST_PAGE;
   }
 
   ionViewDidLoad() {
@@ -53,7 +53,6 @@ export class StbContainerPage {
       } else {
         this.showHeader = true;
       }
-
     });
   }
 

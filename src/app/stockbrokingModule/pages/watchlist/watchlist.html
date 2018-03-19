@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Watchlist</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-fab bottom right>
+    <button ion-fab mini>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <!-- List of WatchList Items -->
+  <ion-grid class="watchlist--grid">
+    <ion-row *ngFor="let i of [1,2,3,4,5,6,7,8,9,1]" align-items-center>
+      <ion-col col-9>
+        <ion-row class="flex-column">
+          <div class="font-size-18 mb5">
+            <b>ZENITH</b>
+          </div>
+          <div class="font-size-12 mb5">Condition: Greater than or equals to £345,890.88</div>
+          <div>Cur Price: ₦129.65 (
+            <span class="text-green">23.90</span>%)
+          </div>
+        </ion-row>
+      </ion-col>
+      <ion-col col-3 text-right>
+        <ion-icon name="create" class="text-blue font-size-25 mr20"></ion-icon>
+        <ion-icon name="close" class="text-red font-size-25 mr10"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
