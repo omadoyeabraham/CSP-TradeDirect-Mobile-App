@@ -6,7 +6,8 @@ import { Observable } from "rxjs/Observable";
 
 import {
   GetWatchListURL,
-  DeleteWatchListURL
+  DeleteWatchListURL,
+  CreateWatchListURL
 } from "../../../sharedModule/apiUrls.constants";
 
 /**
@@ -32,7 +33,18 @@ export class WatchlistProvider {
       .pipe(catchError(err => Observable.throw(err)));
   }
 
-  createWatchlistItem() {}
+  /**
+   * Add a new item to the watchlist
+   *
+   * @param {any} newWatchListItem
+   * @returns
+   * @memberof WatchlistProvider
+   */
+  createWatchlistItem(newWatchListItem) {
+    return this.http
+      .post(CreateWatchListURL, { ...newWatchListItem })
+      .pipe(catchError(err => Observable.throw(err)));
+  }
 
   editWatchlistItem() {}
 

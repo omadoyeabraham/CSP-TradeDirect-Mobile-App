@@ -1,0 +1,54 @@
+page-add-watch-list {
+  p.error-message-text {
+    font-size: 1em;
+    color: #ea6153;
+    padding-left: 13px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+
+  ion-label {
+    font-weight: bold !important;
+  }
+
+  ion-label,
+  .select-text {
+    margin-left: 10px;
+  }
+
+  ion-input,
+  ion-select,
+  ion-textarea {
+    *background-color: #f2f2f2;
+    padding: 2px 10px;
+  }
+
+  page-add-watch-list ion-input,
+  page-add-watch-list ion-select,
+  page-add-watch-list ion-textarea {
+    padding: 2px !important;
+  }
+
+  /**
+  * Styles overriding ionic form inputs, to make our form more compact
+  */
+  .item-label-stacked .text-input-md,
+  .item-label-floating .text-input-md {
+    margin-top: 0px !important;
+  }
+  form,
+  input,
+  optgroup,
+  select {
+    font-size: 12px;
+  }
+  .item-md {
+    font-size: 14px;
+  }
+
+  .item-label-stacked .select-md,
+  .item-label-floating .select-md {
+    *padding-top: 0px;
+    *padding-bottom: 0px;
+  }
+}

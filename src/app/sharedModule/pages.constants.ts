@@ -21,6 +21,7 @@ export const STB_EXECUTE_MANDATE_PAGE = "ExecuteMandatePage";
 export const STB_TRADE_HISTORY_PAGE = "StbTradeHistoryContainerPage";
 export const SMA_PAGE = "SmaPage";
 export const WATCHLIST_PAGE = "WatchlistPage";
+export const ADD_WATCHLIST_PAGE = "AddWatchListPage";
 
 // FIXED INCOME
 export const FIXED_INCOME_CONTAINER_PAGE = "FixedIncomeContainerPage";

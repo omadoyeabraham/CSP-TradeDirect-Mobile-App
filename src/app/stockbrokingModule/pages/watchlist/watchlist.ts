@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   LoadingController,
-  AlertController
+  AlertController,
+  PopoverController
 } from "ionic-angular";
 import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
@@ -19,6 +20,7 @@ import { catchError, map } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
 import { WatchlistProvider } from "../../providers/watchlist/watchlist";
+import * as PAGES from "../../../sharedModule/pages.constants";
 
 /**
  * Watchlist Page
@@ -45,7 +47,8 @@ export class WatchlistPage {
     private loadingCtrl: LoadingController,
     private utilityProvider: UtilityProvider,
     private alertCtrl: AlertController,
-    private watchListProvider: WatchlistProvider
+    private watchListProvider: WatchlistProvider,
+    public popoverCtrl: PopoverController
   ) {}
 
   ionViewDidLoad() {
@@ -163,5 +166,9 @@ export class WatchlistPage {
         return Observable.throw(err);
       }
     );
+  }
+
+  openAddWatchListItemPage() {
+    this.navCtrl.push(PAGES.ADD_WATCHLIST_PAGE);
   }
 }
