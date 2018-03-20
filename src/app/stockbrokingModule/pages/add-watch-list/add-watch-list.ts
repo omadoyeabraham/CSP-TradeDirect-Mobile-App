@@ -106,7 +106,6 @@ export class AddWatchListPage {
   getMarketData() {
     // Select the securities with market data from the store
     this.store.select(getMarketData).subscribe(marketData => {
-      console.log(marketData);
       this.marketSecurities = marketData;
     });
   }
@@ -178,10 +177,24 @@ export class AddWatchListPage {
           this.navCtrl.push(PAGES.WATCHLIST_PAGE);
         },
         err => {
+          // this.utilityProvider.presentToast(
+          //   `Currently unable to add new watchlist item`,
+          //   "toastError"
+          // );
+
+          /**
+           * Temporarily use this hack to display success popup, even when the restserver returns a 500
+           * (caused by affectedNumRows in the DB update query returning 0).
+           * // TODO Look into and resolve restserver issue (if any)
+           */
+
           this.utilityProvider.presentToast(
-            `Currently unable to add new watchlist item`,
-            "toastError"
+            `${this.security.value} was successfully added to your watchlist`,
+            "toastSuccess"
           );
+
+          // Refresh the watchlist data, to reflect the newly added item
+          this.store.dispatch(new loadWatchList(userID));
 
           if (this.addWatchListItemLoader) {
             this.addWatchListItemLoader.dismiss();

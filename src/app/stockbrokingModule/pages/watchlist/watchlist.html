@@ -37,13 +37,30 @@
             <b>{{ watchListItem?.name }}</b>
           </div>
           <div class="font-size-12 mb5">Condition: {{ watchListItem?.condition_name }} &#8358;{{ watchListItem?.notify_price | number:'1.2-2'}}</div>
-          <div>Cur Price: ₦129.65 (
-            <span class="text-green">23.90</span>%)
+          <div>
+            <span class="mr5">Cur Price: ₦{{ watchListItem?.current_price }} </span>
+            <span class="mr5">|</span>
+            <ion-icon *ngIf="watchListItem?.price_change_percent > 0" name="arrow-round-up" class="text-green"></ion-icon>
+            <ion-icon *ngIf="watchListItem?.price_change_percent < 0" name="arrow-round-down" class="text-red"></ion-icon>
+            <ion-icon *ngIf="watchListItem?.price_change_percent === 0" name="remove" class="text-blue text-bold"></ion-icon>
+
+            <span *ngIf="watchListItem?.price_change_percent > 0" class="text-green">
+              <span *ngIf="showCurrency" class="pt5 pb5">&#8358;</span>{{ watchListItem?.price_change_percent | number:'1.2-2' }}
+            </span>
+
+            <span *ngIf="watchListItem?.price_change_percent < 0" class="text-red">
+              <span *ngIf="showCurrency" class="pt5 pb5">&#8358;</span>({{ watchListItem?.price_change_percent | number:'1.2-2' }})
+            </span>
+
+            <span *ngIf="watchListItem?.price_change_percent === 0" class="text-blue">
+              <span *ngIf="showCurrency" class="pt5 pb5s">&#8358;</span>{{ watchListItem?.price_change_percent | number:'1.2-2' }}
+            </span>
+
           </div>
         </ion-row>
       </ion-col>
       <ion-col col-3 text-right>
-        <ion-icon name="create" class="text-blue font-size-25 mr20"></ion-icon>
+        <ion-icon name="create" class="text-blue font-size-25 mr20" (click)="editWatchListItem(watchListItem)"></ion-icon>
         <ion-icon name="close" class="text-red font-size-25 mr10" (click)="confirmWatchListItemDelete(watchListItem?.id, watchListItem?.user_id, watchListItem?.name)"></ion-icon>
       </ion-col>
     </ion-row>

@@ -9,4 +9,6 @@ export interface IWatchlistItem {
   status: string;
   user_id: string;
   watchlist_name: string;
+  current_price?: any;
+  price_change_percent?: any;
 }

@@ -1,0 +1,15 @@
+page-edit-watch-list {
+  p.error-message-text {
+    font-size: 1em;
+    color: #ea6153;
+    padding-left: 13px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+
+  csmobile-format-number-with-color {
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+  }
+}

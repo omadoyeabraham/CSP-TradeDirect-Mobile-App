@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit WatchList</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <ion-card *ngIf="securityMarketData">
+    <ion-card-header class="font-size-14" text-center>
+      <b>{{ securityMarketData?.name }} Market Highlights</b>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row class="font-size-12">
+        <ion-col text-left>Current Price</ion-col>
+        <ion-col text-right>&#8358;{{ securityMarketData?.currentPrice | number:'1.2-2' }}</ion-col>
+      </ion-row>
+      <ion-row class="font-size-12">
+        <ion-col text-left>Price Change</ion-col>
+        <!-- <ion-col text-right>&#8358;{{ securityMarketData?.priceChange | number:'1.2-2' }}</ion-col> -->
+        <csmobile-format-number-with-color [data]="securityMarketData?.priceChange" [showCurrency]="true"></csmobile-format-number-with-color>
+      </ion-row>
+      <ion-row class="font-size-12">
+        <ion-col text-left>Price Change (%)</ion-col>
+        <!-- <ion-col text-right>{{ securityMarketData?.priceChangePercent | number:'1.2-2' }}</ion-col> -->
+        <csmobile-format-number-with-color [data]="securityMarketData?.priceChangePercent" [showCurrency]="false"></csmobile-format-number-with-color>
+      </ion-row>
+      <ion-row class="font-size-12">
+        <ion-col text-left>Open Price</ion-col>
+        <ion-col text-right>&#8358;{{ securityMarketData?.openingPrice | number:'1.2-2' }}</ion-col>
+      </ion-row>
+      <ion-row class="font-size-12">
+        <ion-col text-left>Close Price</ion-col>
+        <ion-col text-right>&#8358;{{ securityMarketData?.closingPrice | number:'1.2-2' }}</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Form to add an item to the user's watchlist -->
+  <form novalidate [formGroup]="editWatchListForm" class="mb40" (submit)="editWatchListItem()">
+    <ion-list>
+
+      <!-- Security Name -->
+      <ion-item>
+        <ion-label color="primary" floating>Symbol</ion-label>
+        <ion-input type="text" placeholder="" formControlName="security"></ion-input>
+      </ion-item>
+      <!-- EOF Security Name -->
+
+      <!-- Condition -->
+      <ion-item>
+        <ion-label color="primary" floating>Condition</ion-label>
+        <ion-select formControlName="condition" [class.invalid]="!condition.valid && (condition.dirty || submitAttempt)">
+          <ion-option *ngFor="let condition of conditions" [value]="condition.value">{{condition.text}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p class="error-message-text" *ngIf="!condition.valid && (condition.dirty || submitAttempt)">Please select a condition.</p>
+      <!-- EOF Condition -->
+
+      <!-- Price -->
+      <ion-item>
+        <ion-label color="primary" floating>Price</ion-label>
+        <ion-input type="number" placeholder="" formControlName="price"></ion-input>
+      </ion-item>
+      <p class="error-message-text" *ngIf="!price.valid && (price.dirty || submitAttempt)">Please enter a valid price.</p>
+      <!-- EOF Price -->
+
+      <!-- Notification -->
+      <ion-item>
+        <ion-label color="primary"> Notification</ion-label>
+        <ion-toggle formControlName="notification"></ion-toggle>
+      </ion-item>
+      <!-- EOF Notification -->
+
+      <button ion-button full class="ml20 mr20 mt20">EDIT WATCHLIST</button>
+
+    </ion-list>
+  </form>
+
+</ion-content>

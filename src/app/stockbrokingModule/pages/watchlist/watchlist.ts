@@ -13,7 +13,8 @@ import {
   loadWatchList,
   getUserState,
   watchListLoading,
-  userWatchList
+  userWatchList,
+  getMarketData
 } from "../../../store";
 import { IWatchlistItem } from "../../../store/models/watchListItem.interface";
 import { catchError, map } from "rxjs/operators";
@@ -39,6 +40,7 @@ export class WatchlistPage {
   private watchListLoader: any;
   private deleteWatchListLoader: any;
   public watchList: IWatchlistItem[];
+  public marketSecurities: any;
 
   constructor(
     public navCtrl: NavController,
@@ -47,8 +49,7 @@ export class WatchlistPage {
     private loadingCtrl: LoadingController,
     private utilityProvider: UtilityProvider,
     private alertCtrl: AlertController,
-    private watchListProvider: WatchlistProvider,
-    public popoverCtrl: PopoverController
+    private watchListProvider: WatchlistProvider
   ) {}
 
   ionViewDidLoad() {
@@ -58,6 +59,8 @@ export class WatchlistPage {
 
     // Dispatch the action to load the user's watchlist
     this.store.dispatch(new loadWatchList(this.userID));
+
+    this.getMarketData();
 
     this.store.select(watchListLoading).subscribe(loading => {
       if (loading) {
@@ -73,8 +76,30 @@ export class WatchlistPage {
     this.store
       .select(userWatchList)
       .subscribe((watchList: IWatchlistItem[]) => {
+        watchList = watchList.map(item => {
+          const item_security = this.marketSecurities.filter(security => {
+            return security.name === item.name;
+          });
+
+          item.current_price = item_security[0].currentPrice;
+          item.price_change_percent = item_security[0].priceChangePercent;
+          return item;
+        });
+
         this.watchList = watchList;
       });
+  }
+
+  /**
+   * Get the market data
+   *
+   * @memberof AddWatchListPage
+   */
+  getMarketData() {
+    // Select the securities with market data from the store
+    this.store.select(getMarketData).subscribe(marketData => {
+      this.marketSecurities = marketData;
+    });
   }
 
   /**
@@ -170,5 +195,9 @@ export class WatchlistPage {
 
   openAddWatchListItemPage() {
     this.navCtrl.push(PAGES.ADD_WATCHLIST_PAGE);
+  }
+
+  editWatchListItem(watchlist) {
+    this.navCtrl.push(PAGES.EDIT_WATCHLIST_PAGE, { watchlist });
   }
 }

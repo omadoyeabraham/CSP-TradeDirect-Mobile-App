@@ -22,6 +22,7 @@ export const STB_TRADE_HISTORY_PAGE = "StbTradeHistoryContainerPage";
 export const SMA_PAGE = "SmaPage";
 export const WATCHLIST_PAGE = "WatchlistPage";
 export const ADD_WATCHLIST_PAGE = "AddWatchListPage";
+export const EDIT_WATCHLIST_PAGE = "EditWatchListPage";
 
 // FIXED INCOME
 export const FIXED_INCOME_CONTAINER_PAGE = "FixedIncomeContainerPage";

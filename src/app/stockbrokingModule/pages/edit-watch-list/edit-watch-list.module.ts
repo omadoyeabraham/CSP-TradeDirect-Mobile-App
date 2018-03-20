@@ -1,15 +1,15 @@
 import { NgModule } from "@angular/core";
 import { IonicPageModule } from "ionic-angular";
-import { WatchlistPage } from "./watchlist";
+import { EditWatchListPage } from "./edit-watch-list";
 import { SharedModule } from "../../../sharedModule/shared.module";
 import { StockbrokingModule } from "../../stockbroking.module";
 
 @NgModule({
-  declarations: [WatchlistPage],
+  declarations: [EditWatchListPage],
   imports: [
-    IonicPageModule.forChild(WatchlistPage),
+    IonicPageModule.forChild(EditWatchListPage),
     SharedModule.forRoot(),
     StockbrokingModule.forRoot()
   ]
 })
-export class WatchlistPageModule {}
+export class EditWatchListPageModule {}
