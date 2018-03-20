@@ -9,35 +9,36 @@
 
 <ion-content no-padding>
 
-  {{ securityMarketData | json }}
-  <!-- <ion-card>
-    <ion-card-header>
-      {{ securityMarketData?.name }} Market Highlights
+  <ion-card *ngIf="securityMarketData">
+    <ion-card-header class="font-size-14" text-center>
+      <b>{{ securityMarketData?.name }} Market Highlights</b>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-row>
+      <ion-row class="font-size-12">
         <ion-col text-left>Current Price</ion-col>
-        <ion-col text-right></ion-col>
+        <ion-col text-right>&#8358;{{ securityMarketData?.currentPrice | number:'1.2-2' }}</ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="font-size-12">
         <ion-col text-left>Price Change</ion-col>
-        <ion-col text-right></ion-col>
+        <!-- <ion-col text-right>&#8358;{{ securityMarketData?.priceChange | number:'1.2-2' }}</ion-col> -->
+        <csmobile-format-number-with-color [data]="securityMarketData?.priceChange" [showCurrency]="true"></csmobile-format-number-with-color>
       </ion-row>
-      <ion-row>
+      <ion-row class="font-size-12">
         <ion-col text-left>Price Change (%)</ion-col>
-        <ion-col text-right></ion-col>
+        <!-- <ion-col text-right>{{ securityMarketData?.priceChangePercent | number:'1.2-2' }}</ion-col> -->
+        <csmobile-format-number-with-color [data]="securityMarketData?.priceChangePercent" [showCurrency]="false"></csmobile-format-number-with-color>
       </ion-row>
-      <ion-row>
+      <ion-row class="font-size-12">
         <ion-col text-left>Open Price</ion-col>
-        <ion-col text-right></ion-col>
+        <ion-col text-right>&#8358;{{ securityMarketData?.openingPrice | number:'1.2-2' }}</ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="font-size-12">
         <ion-col text-left>Close Price</ion-col>
-        <ion-col text-right></ion-col>
+        <ion-col text-right>&#8358;{{ securityMarketData?.closingPrice | number:'1.2-2' }}</ion-col>
       </ion-row>
     </ion-card-content>
-  </ion-card> -->
+  </ion-card>
 
   <!-- Form to add an item to the user's watchlist -->
   <form novalidate [formGroup]="addWatchListForm" class="mb40" (submit)="addItemToWatchList()">
