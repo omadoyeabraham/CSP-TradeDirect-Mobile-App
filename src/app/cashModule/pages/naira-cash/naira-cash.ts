@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from "ionic-angular";
 import { Store } from "@ngrx/store";
 import { map, catchError } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
@@ -41,13 +46,15 @@ export class NairaCashPage {
   public cashStatementSummary: any;
   public startDate: string = null;
   public endDate: string = null;
+  public filterCashStatementsLoader: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<IAppState>,
     public cashProvider: CashProvider,
-    public utilityProvider: UtilityProvider
+    public utilityProvider: UtilityProvider,
+    public loadingCtrl: LoadingController
   ) {
     this.startDate = this.utilityProvider.getDefaultCashStatementStartDate();
     this.endDate = this.utilityProvider.getDefaultCashStatementEndDate();
@@ -123,6 +130,9 @@ export class NairaCashPage {
    * @memberof NairaCashPage
    */
   getCashStatements() {
+    if (!this.activeNairaCashAccount) {
+      return;
+    }
     this.store
       .select(cashStatementsByAccountName(this.activeNairaCashAccount.name))
       .subscribe(cashStatements => {
@@ -178,6 +188,9 @@ export class NairaCashPage {
     endDate: string = this.utilityProvider.getDefaultCashStatementEndDate()
   ) {
     if (cashAccount.name) {
+      // Show loader while asynchronous data operation occurs
+      // this.presentFilterCashStatementsLoader();
+
       this.cashProvider
         .getCashAccountStatements(cashAccount.name, startDate, endDate)
         .subscribe(
@@ -200,8 +213,36 @@ export class NairaCashPage {
                 statements: cashStatements
               })
             );
+
+            // Get the cash statements after filtering by date range
+            this.getCashStatements();
+
+            // Refresh the grouped cash statements to be displayed by the cash-account-view component
+            this.getGroupedCashStatements();
+
+            // Recalculate the summary of the loaded cash statements to be displayed
+            this.getCashStatementsSummary();
+
+            // Hide loader
+            // if (this.filterCashStatementsLoader) {
+            //   this.filterCashStatementsLoader.dismiss();
+            //   this.filterCashStatementsLoader = null;
+            // }
           },
-          err => console.log(err)
+          err => {
+            // Hide loader
+            // if (this.filterCashStatementsLoader) {
+            //   this.filterCashStatementsLoader.dismiss();
+            //   this.filterCashStatementsLoader = null;
+            // }
+
+            // Show error toast
+            this.utilityProvider.presentToast(
+              "Unable to get cash statements. Please try again",
+              "toastError"
+            );
+            console.log(err);
+          }
         );
     }
   }
@@ -222,5 +263,18 @@ export class NairaCashPage {
       $event.startDate,
       $event.endDate
     );
+  }
+
+  /**
+   * Create the filter cash statements to be presented when the user is searching for cash statements
+   *
+   * @memberof NairaCashPage
+   */
+  presentFilterCashStatementsLoader(): void {
+    this.filterCashStatementsLoader = this.loadingCtrl.create({
+      content: "Getting Cash Account Statements..."
+    });
+
+    this.filterCashStatementsLoader.present();
   }
 }

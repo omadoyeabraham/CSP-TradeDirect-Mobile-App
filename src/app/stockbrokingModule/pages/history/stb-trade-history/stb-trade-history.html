@@ -28,7 +28,7 @@
 
         <ion-col col-5>
           <div>
-            <span class="d--inline--block w35p">Quantity</span>
+            <span class="d--inline--block w35p font-size-13">Quantity</span>
             <span class="d--inline--block w60p text-red" *ngIf="tradeOrder.orderType === 'SELL'">
               <b>{{tradeOrder.quantityRequested | number:'1.0-0'}}</b>
             </span>
@@ -37,19 +37,19 @@
             </span>
           </div>
           <div>
-            <span class="d--inline--block w35p">Pending</span>
+            <span class="d--inline--block w35p font-size-13">Pending</span>
             <span class="d--inline--block w60p text-red">
               <b>{{tradeOrder.quantityPending | number:'1.0-0'}}</b>
             </span>
           </div>
           <div>
-            <span class="d--inline--block w35p">Executed</span>
+            <span class="d--inline--block w35p font-size-13">Executed</span>
             <span class="d--inline--block w60p text-green">
               <b>{{tradeOrder.quantityFilled | number:'1.0-0'}}</b>
             </span>
           </div>
           <div>
-            <span class="d--inline--block w35p">Price</span>
+            <span class="d--inline--block w35pfont-size-13 ">Price</span>
             <span class="d--inline--block w60p" *ngIf="tradeOrder.priceType==='LIMIT'">
               <b>&#8358;{{tradeOrder.limitPrice}}</b>
             </span>
@@ -99,7 +99,7 @@
 
         <ion-col col-6>
           <div>
-            <span class="d--inline--block w35p">Quantity:</span>
+            <span class="d--inline--block w35p font-size-13">Quantity:</span>
             <span class="d--inline--block w60p text-red" *ngIf="tradeOrder.orderType === 'SELL'">
               <b>{{tradeOrder.quantityRequested | number:'1.0-0'}}</b>
             </span>
@@ -108,21 +108,21 @@
             </span>
           </div>
           <div>
-            <span class="d--inline--block w35p">Pending:</span>
+            <span class="d--inline--block w35p font-size-13">Pending:</span>
             <span class="d--inline--block w60p bold--text text-red">
               <b>{{tradeOrder.quantityPending | number:'1.0-0'}}</b>
             </span>
           </div>
           <div>
-            <span class="d--inline--block w35p">Executed:</span>
+            <span class="d--inline--block w35p font-size-13">Executed:</span>
             <span class="d--inline--block w60p bold--text text-green">
               <b>{{tradeOrder.quantityFilled | number:'1.0-0'}}</b>
             </span>
           </div>
           <div>
-            <span class="d--inline--block w35p">Price:</span>
+            <span class="d--inline--block w35p font-size-13">Price:</span>
             <span class="d--inline--block w60p bold--text" *ngIf="tradeOrder.priceType==='LIMIT'">
-              <b>&#8358;{{tradeOrder.limitPrice}}</b>
+              <b>&#8358;{{tradeOrder.limitPrice| number:'1.2-2' }}</b>
             </span>
             <span class="d--inline--block w60p bold--text" *ngIf="tradeOrder.priceType==='MARKET'">
               <b>---</b>

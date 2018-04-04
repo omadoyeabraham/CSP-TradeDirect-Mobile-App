@@ -26,8 +26,11 @@
     <ion-grid *ngFor="let dateGroup of groupedCashStatements" class="cashDateGroup">
         <div class="transaction--date--div"> {{ dateGroup[0]?.date }}</div>
         <ion-row *ngFor="let cashStatement of dateGroup" class="cashTransactionRow" (click)="goToTransactionDetailsPage(cashStatement)">
-            <ion-col text-left>
-                <b>{{cashStatement?.label}}</b>
+            <ion-col text-left class="font-size-11">
+                <b *ngIf="cashStatement?.transactionType === 'OPENING_BALANCE'; else showDefaultTransactionType">OPENING BALANCE</b>
+                <ng-template #showDefaultTransactionType>
+                    <b>{{cashStatement?.transactionType}}</b>
+                </ng-template>
             </ion-col>
             <ion-col *ngIf="cashStatement.transactionType === 'CREDIT' " text-right class="text-green">{{currency}}{{cashStatement?.transactionAmount | number:'1.2-2'}}</ion-col>
             <ion-col *ngIf="cashStatement.transactionType === 'DEBIT' " text-right class="text-red">{{currency}}{{cashStatement?.transactionAmount | number:'1.2-2'}}</ion-col>

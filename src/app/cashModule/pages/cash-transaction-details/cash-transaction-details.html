@@ -5,19 +5,71 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content no-padding id="page--content">
 
   <!-- Jumbotron Header -->
-  <ion-row>
+  <ion-row class="mb30">
     <ion-col text-center>
-      <div class="font-size-12">{{ transaction?.label }}</div>
-      <div class="font-size-18">{{ transaction?.transactionAmount }}</div>
+      <div class="font-size-12">
+        <span *ngIf="transaction?.transactionType === 'OPENING_BALANCE'; else showDefaultTransactionType">OPENING BALANCE</span>
+        <ng-template #showDefaultTransactionType>
+          <span>{{transaction?.transactionType}} TRANSACTION</span>
+        </ng-template>
+      </div>
+      <div class="font-size-18">
+        <b>
+          <span *ngIf="transaction?.currency === 'NGN'">&#8358;{{ transaction?.transactionAmount | number:'1.2-2' }}</span>
+          <span *ngIf="transaction?.currency === 'USD'">&#36;{{ transaction?.transactionAmount | number:'1.2-2' }}</span>
+        </b>
+      </div>
       <div class="font-size-12">{{ transaction?.transactionDate | date:'medium' }}</div>
     </ion-col>
   </ion-row>
   <!-- EOF Jumbotron Header -->
 
   <!-- Transaction details -->
-  {{ transaction | json }}
+  <!-- {{ transaction | json }} -->
   <!-- EOF Transaction details -->
+
+  <!-- Transaction Label -->
+  <ion-row class="mb20">
+    <ion-col text-left class="p0">
+      <div class="font-size-12 pl5">
+        TRANSACTION LABEL
+      </div>
+      <div class="detail--box">
+        <ion-icon name="book" color="primary" class="mr10"></ion-icon>
+        {{ transaction?.description }}
+      </div>
+    </ion-col>
+  </ion-row>
+  <!-- EOF Transaction Label -->
+
+  <!-- Transaction Date -->
+  <ion-row class="mb20">
+    <ion-col text-left class="p0">
+      <div class="font-size-12 pl5">
+        TRANSACTION DATE
+      </div>
+      <div class="detail--box">
+        <ion-icon name="paper-plane" color="primary" class="mr10"></ion-icon>
+        {{ transaction?.transactionDate | date:'medium'}}
+      </div>
+    </ion-col>
+  </ion-row>
+  <!-- EOF Transaction Date -->
+
+  <!-- Value Date -->
+  <ion-row>
+    <ion-col text-left class="p0">
+      <div class="font-size-12 pl5">
+        VALUE DATE
+      </div>
+      <div class="detail--box">
+        <ion-icon name="card" color="primary" class="mr10"></ion-icon>
+        {{ transaction?.valueDate | date:'medium'}}
+      </div>
+    </ion-col>
+  </ion-row>
+  <!-- EOF Value Date -->
 </ion-content>

@@ -18,6 +18,7 @@
     "e2e-update": "webdriver-manager update --standalone false --gecko false"
   },
   "dependencies": {
+    "@angular/cli": "^1.7.3",
     "@angular/common": "5.0.3",
     "@angular/compiler": "5.0.3",
     "@angular/compiler-cli": "5.0.3",

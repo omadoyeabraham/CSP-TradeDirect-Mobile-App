@@ -12,7 +12,7 @@ import { WatchlistProvider } from "../../../stockbrokingModule/providers/watchli
 import { getUserState } from "../..";
 
 /**
- * Side effects which are triggered whenever securities related actions are dispatched
+ * Side effects which are triggered whenever watchlist related actions are dispatched
  */
 
 @Injectable()
@@ -26,7 +26,6 @@ export class WatchlistEffects {
   @Effect()
   getWatchList$ = this.actions$.ofType(watchlistActions.LOAD_WATCHLIST).pipe(
     switchMap((action: watchlistActions.loadWatchList) => {
-      console.log(action);
       return this.watchlistProvider
         .getWatchlist(action.payload)
         .pipe(
