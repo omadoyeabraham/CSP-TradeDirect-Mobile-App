@@ -6,7 +6,9 @@ import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
 import {
   getTotalStockbrokingValue,
-  getTotalValueOfFixedIncomeInvestments
+  getTotalValueOfFixedIncomeInvestments,
+  totalNairaCashValue,
+  totalDollarCashValue
 } from "../../../store";
 
 /**
@@ -30,8 +32,10 @@ export class DashboardPage {
 
   public totalStbValue = 0;
   public totalFiValue = 0;
+  public totalNairaCashValue = 0;
   public totalNairaValue = 0;
   public totalFxFiValue = 0;
+  public totalFxCashValue = 0;
   public totalFxValue = 0;
 
   constructor(
@@ -42,21 +46,43 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     // Get the total value of stockbroking investments
-    this.store
-      .select(getTotalStockbrokingValue)
-      .subscribe(totalStbValue => (this.totalStbValue = totalStbValue));
+    this.store.select(getTotalStockbrokingValue).subscribe(totalStbValue => {
+      this.totalStbValue = totalStbValue;
+      this.updateTotalNairaValue();
+    });
+
     // Get the total value of naira fixed income investments
     this.store
       .select(getTotalValueOfFixedIncomeInvestments)
-      .subscribe(totalFiValue => (this.totalFiValue = totalFiValue));
-    // Total value of naira investments
-    this.totalNairaValue = this.totalFiValue + this.totalStbValue;
+      .subscribe(totalFiValue => {
+        this.totalFiValue = totalFiValue;
+        this.updateTotalNairaValue();
+      });
 
-    // Get the total value of fx investments
+    // Get the total value of naira cash accounts
+    this.store.select(totalNairaCashValue).subscribe(totalNairaCashValue => {
+      this.totalNairaCashValue = totalNairaCashValue;
+      this.updateTotalNairaValue();
+    });
+
+    // Total value of naira investments
+    this.updateTotalNairaValue();
+
+    // Get the total value of fx fi investments
     this.store
       .select(getTotalValueOfFixedIncomeInvestments)
-      .subscribe(totalFxValue => (this.totalFxFiValue = totalFxValue));
-    this.totalFxValue = this.totalFxFiValue;
+      .subscribe(totalFxValue => {
+        this.totalFxFiValue = totalFxValue;
+        this.updateTotalDollarValue();
+      });
+
+    // Get the total value of fx cash
+    this.store.select(totalDollarCashValue).subscribe(totalDollarCashValue => {
+      this.totalFxCashValue = totalDollarCashValue;
+      this.updateTotalDollarValue();
+    });
+
+    this.updateTotalDollarValue();
   }
 
   /**
@@ -66,5 +92,24 @@ export class DashboardPage {
    */
   goToPage(pageName: string) {
     this.navCtrl.push(pageName);
+  }
+
+  /**
+   * Called to update the total naira value after stb, fi, or cash values are updated
+   * .
+   * @memberof DashboardPage
+   */
+  updateTotalNairaValue() {
+    this.totalNairaValue =
+      this.totalFiValue + this.totalStbValue + this.totalNairaCashValue;
+  }
+
+  /**
+   * Called to update the total dollar value after stb, fi, or cash values are updated
+   * .
+   * @memberof DashboardPage
+   */
+  updateTotalDollarValue() {
+    this.totalFxValue = this.totalFxFiValue + this.totalFxCashValue;
   }
 }

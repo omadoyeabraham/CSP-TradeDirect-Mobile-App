@@ -39,7 +39,7 @@
     <ion-item (click)="goToPage(nairaCashPage)">
       <ion-icon name="cash" item-start class=""></ion-icon>
       Cash Account
-      <span item-end>&#8358;10,000,000</span>
+      <span item-end>&#8358;{{totalNairaCashValue | number:'1.2-2'}}</span>
     </ion-item>
     <ion-item class="total">
       <strong>TOTAL</strong>
@@ -58,7 +58,7 @@
     <ion-item (click)="goToPage(dollarCashPage)">
       <ion-icon name="cash" item-start class=""></ion-icon>
       Cash Accounts
-      <span item-end>&#8358;10,000,000</span>
+      <span item-end>&#8358;{{totalFxCashValue | number:'1.2-2'}}</span>
     </ion-item>
     <ion-item class="total">
       <strong>TOTAL</strong>

@@ -18,12 +18,50 @@ export const nairaCashAccounts = createSelector(
 );
 
 /**
+ * Get the total cash value for all naira cash accounts
+ */
+export const totalNairaCashValue = createSelector(
+  nairaCashAccounts,
+  (cashAccounts: ICashAccountInterface[]) => {
+    if (!cashAccounts) {
+      return 0;
+    }
+
+    let totalNairaCashBalance = 0;
+    cashAccounts.forEach(nairaCashAccount => {
+      totalNairaCashBalance += parseFloat(nairaCashAccount.unClearedBalance);
+    });
+
+    return totalNairaCashBalance;
+  }
+);
+
+/**
  * Get the usd cash accounts owned by the user
  */
 export const getDollarCashAccounts = createSelector(
   getCashAccounts,
   (cashAccounts: ICashState) => {
     return cashAccounts.USD;
+  }
+);
+
+/**
+ * Get the total cash value for all dollar cash accounts
+ */
+export const totalDollarCashValue = createSelector(
+  nairaCashAccounts,
+  (cashAccounts: ICashAccountInterface[]) => {
+    if (!cashAccounts) {
+      return 0;
+    }
+    
+    let totalDollarCashBalance = 0;
+    cashAccounts.forEach(dollarCashAccount => {
+      totalDollarCashBalance += parseFloat(dollarCashAccount.unClearedBalance);
+    });
+
+    return totalDollarCashBalance;
   }
 );
 
