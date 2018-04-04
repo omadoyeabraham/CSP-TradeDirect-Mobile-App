@@ -20,7 +20,7 @@ export class MyApp {
     {
       title: "Stockbroking",
       pageName: PAGES.STB_CONTAINER_PAGE,
-      icon: "folder-open"
+      icon: "stats"
     },
     {
       title: "Fixed Income",
@@ -30,12 +30,12 @@ export class MyApp {
     {
       title: "FX Investments",
       pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
-      icon: "cash"
+      icon: "folder-open"
     },
     {
-      title: "SMA",
+      title: "Separately Managed Account",
       pageName: PAGES.SMA_PAGE,
-      icon: "cash"
+      icon: "person"
     },
     {
       title: "Cash Account - Naira",

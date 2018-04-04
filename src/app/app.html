@@ -1,20 +1,23 @@
 <ion-menu [content]="mycontent" persistent="true" side="left" persistent="true">
   <ion-content class="bg-black">
-    <ion-list no-lines>
-      <ion-item-divider class="bg-black no-border"></ion-item-divider>
-      <button ion-item menuClose class="bg-black" *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-        {{ p.title }}
-      </button>
-    </ion-list>
+    <div id="sidebar--wrapper">
+      <ion-list no-lines>
+        <ion-item-divider class="bg-black no-border"></ion-item-divider>
+        <button ion-item menuClose class="bg-black" *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{ p.title }}
+        </button>
+      </ion-list>
 
-    <!-- Logout -->
-    <ion-list no-lines>
-      <button ion-item menuClose class="bg-black" (click)="logout()">
-        <ion-icon item-start [name]="cancel"></ion-icon>
-        Logout
-      </button>
-    </ion-list>
+      <!-- Logout -->
+      <ion-list no-lines class="mb0">
+        <button ion-item menuClose class="btn--logout" (click)="logout()">
+          <ion-icon item-start [name]="cancel"></ion-icon>
+          <ion-icon name="log-out" class="mr5"></ion-icon>
+          Logout
+        </button>
+      </ion-list>
+    </div>
   </ion-content>
 </ion-menu>
 

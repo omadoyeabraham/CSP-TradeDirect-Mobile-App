@@ -22,17 +22,17 @@
   <ion-item-group>
     <ion-item-divider color="light" class="font-size-18 bg-light-blue">Naira Investments</ion-item-divider>
     <ion-item class="ml0" (click)="goToPage(stbPage)">
-      <ion-icon name="folder-open" item-start class=""></ion-icon>
+      <ion-icon name="stats" item-start class=""></ion-icon>
       <span class="ml0">Stockbroking</span>
       <span item-end>&#8358;{{totalStbValue | number:'1.2-2'}}</span>
     </ion-item>
     <ion-item (click)="goToPage(fixedIncomePage)">
-      <ion-icon name="pricetags" item-start class=""></ion-icon>
+      <ion-icon name="briefcase" item-start class=""></ion-icon>
       Fixed Income
       <span item-end>&#8358;{{ totalFiValue | number:'1.2-2' }}</span>
     </ion-item>
     <ion-item (click)="goToPage(smaPage)">
-      <ion-icon name="briefcase" item-start class=""></ion-icon>
+      <ion-icon name="folder-open" item-start class=""></ion-icon>
       SMA
       <span item-end>&#8358;0.00</span>
     </ion-item>

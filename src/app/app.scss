@@ -32,3 +32,16 @@
 .scroll-content {
   overflow-y: auto !important;
 }
+
+// Styling for sidebar
+#sidebar--wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .btn--logout {
+    background: red;
+    color: #ffffff;
+  }
+}
