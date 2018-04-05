@@ -1,6 +1,8 @@
 export enum IFixedIncomeInvestmentStatus {
   RUNNING = "RUNNING",
-  TERMINATED = "TERMINATED"
+  TERMINATED = "TERMINATED",
+  ROLLEDOVER = "ROLLEDOVER",
+  PENDING = "PENDING"
 }
 
 /**
@@ -10,7 +12,7 @@ export enum IFixedIncomeInvestmentStatus {
  * @interface IFixedIncomeInvestment
  */
 export interface IFixedIncomeInvestment {
-  accruedInterest: string;
+  accruedInterest: any;
   accruedNetInterest: string;
   autoRollover: boolean;
   currency: string;
@@ -38,4 +40,9 @@ export interface IFixedIncomeInvestment {
   currentValue?: any;
   valueAtMaturity?: any;
   durationTillDate?: any;
+  cspInvestmentType?: any;
+  faceValueAmount?: any;
+  terminationDate?: any;
+  terminateDate?: any;
+  actualInvestmentDuration?: any;
 }

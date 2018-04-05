@@ -8,7 +8,8 @@ import {
   getTotalStockbrokingValue,
   getTotalValueOfFixedIncomeInvestments,
   totalNairaCashValue,
-  totalDollarCashValue
+  totalDollarCashValue,
+  getTotalValueOfFxInvestments
 } from "../../../store";
 
 /**
@@ -69,12 +70,10 @@ export class DashboardPage {
     this.updateTotalNairaValue();
 
     // Get the total value of fx fi investments
-    this.store
-      .select(getTotalValueOfFixedIncomeInvestments)
-      .subscribe(totalFxValue => {
-        this.totalFxFiValue = totalFxValue;
-        this.updateTotalDollarValue();
-      });
+    this.store.select(getTotalValueOfFxInvestments).subscribe(totalFxValue => {
+      this.totalFxFiValue = totalFxValue;
+      this.updateTotalDollarValue();
+    });
 
     // Get the total value of fx cash
     this.store.select(totalDollarCashValue).subscribe(totalDollarCashValue => {

@@ -53,16 +53,16 @@
     <ion-item (click)="goToPage(fxPage)">
       <ion-icon name="card" item-start class=""></ion-icon>
       FX Investments
-      <span item-end>&#8358;{{ totalFxFiValue | number:'1.2-2' }}</span>
+      <span item-end>&#36;{{ totalFxFiValue | number:'1.2-2' }}</span>
     </ion-item>
     <ion-item (click)="goToPage(dollarCashPage)">
       <ion-icon name="cash" item-start class=""></ion-icon>
       Cash Accounts
-      <span item-end>&#8358;{{totalFxCashValue | number:'1.2-2'}}</span>
+      <span item-end>&#36;{{totalFxCashValue | number:'1.2-2'}}</span>
     </ion-item>
     <ion-item class="total">
       <strong>TOTAL</strong>
-      <span class="bold" item-end>&#8358;{{ totalFxValue | number:'1.2-2' }}</span>
+      <span class="bold" item-end>&#36;{{ totalFxValue | number:'1.2-2' }}</span>
     </ion-item>
     <ion-item></ion-item>
   </ion-item-group>

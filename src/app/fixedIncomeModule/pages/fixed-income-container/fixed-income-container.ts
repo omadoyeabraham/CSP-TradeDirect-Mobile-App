@@ -44,10 +44,10 @@ export class FixedIncomeContainerPage {
     // Subscribe and get terminated investments from store
     this.store
       .select(getTerminatedFixedIncomeInvestments)
-      .subscribe(
-        terminatedInvestments =>
-          (this.terminatedInvestments = terminatedInvestments)
-      );
+      .subscribe(terminatedInvestments => {
+        this.terminatedInvestments = terminatedInvestments;
+        console.log(terminatedInvestments);
+      });
 
     // Subscribe and get total FI Value from store
     this.store

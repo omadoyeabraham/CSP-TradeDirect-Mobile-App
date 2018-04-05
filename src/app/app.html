@@ -2,8 +2,16 @@
   <ion-content class="bg-black">
     <div id="sidebar--wrapper">
       <ion-list no-lines>
-        <ion-item-divider class="bg-black no-border"></ion-item-divider>
-        <button ion-item menuClose class="bg-black" *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-item-divider class="bg-black">NAIRA INVESTMENTS</ion-item-divider>
+        <button ion-item menuClose class="bg-black font-size-14" *ngFor="let p of nairaPages" (click)="openPage(p)">
+          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{ p.title }}
+        </button>
+      </ion-list>
+
+      <ion-list no-lines>
+        <ion-item-divider class="bg-black">FX INVESTMENTS</ion-item-divider>
+        <button ion-item menuClose class="bg-black font-size-14" *ngFor="let p of fxPages" (click)="openPage(p)">
           <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
           {{ p.title }}
         </button>

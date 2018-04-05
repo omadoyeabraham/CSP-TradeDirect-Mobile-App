@@ -5,7 +5,8 @@ import { Store } from "@ngrx/store";
 import {
   smaHoldings,
   smaFixedIncomeInvestments,
-  smaFiTotalValue
+  smaFiTotalValue,
+  runningSmaFI
 } from "../../../store";
 import { IPortfolioHolding } from "../../models";
 import { IFixedIncomeInvestment } from "../../../fixedIncomeModule/models";
@@ -40,7 +41,7 @@ export class SmaPage {
       this.holdings = holdings;
     });
 
-    this.store.select(smaFixedIncomeInvestments).subscribe(investments => {
+    this.store.select(runningSmaFI).subscribe(investments => {
       this.fixedIncomeInvestments = investments;
     });
 

@@ -39,7 +39,7 @@ export const totalNairaCashValue = createSelector(
 /**
  * Get the usd cash accounts owned by the user
  */
-export const getDollarCashAccounts = createSelector(
+export const dollarCashAccounts = createSelector(
   getCashAccounts,
   (cashAccounts: ICashState) => {
     return cashAccounts.USD;
@@ -50,12 +50,12 @@ export const getDollarCashAccounts = createSelector(
  * Get the total cash value for all dollar cash accounts
  */
 export const totalDollarCashValue = createSelector(
-  nairaCashAccounts,
+  dollarCashAccounts,
   (cashAccounts: ICashAccountInterface[]) => {
     if (!cashAccounts) {
       return 0;
     }
-    
+
     let totalDollarCashBalance = 0;
     cashAccounts.forEach(dollarCashAccount => {
       totalDollarCashBalance += parseFloat(dollarCashAccount.unClearedBalance);
@@ -71,6 +71,13 @@ export const totalDollarCashValue = createSelector(
 export const getActiveNairaCashAccount = createFeatureSelector<
   ICashAccountInterface
 >("cashActiveNairaAccount");
+
+/**
+ * Get the currently active dollar cash account
+ */
+export const getActiveDollarCashAccount = createFeatureSelector<
+  ICashAccountInterface
+>("cashActiveDollarAccount");
 
 /**
  * Get the "cashAccountStatementsEntities" slice of state

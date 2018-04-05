@@ -26,7 +26,7 @@ export class SwitchCashAccountComponent implements OnInit, OnChanges {
   // Expose the slides in the slider to the class for tracking and appropriate update
   @ViewChild(Slides) slides: Slides;
   @Input("cashAccounts") cashAccounts: Array<ICashAccountInterface>;
-  @Input("currency") currency: string;
+  @Input("currency") currency: string = "₦";
   @Output() cashAccountSelected = new EventEmitter<ICashAccountInterface>();
 
   public numberOfCashAccounts: number = 1;

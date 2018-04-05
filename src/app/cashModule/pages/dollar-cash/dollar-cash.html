@@ -1,18 +1,45 @@
-<!--
-  Generated template for the DollarCashPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>DollarCash</ion-title>
+    <ion-title>Dollar Cash Accounts</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
+
+  <!-- Component used to switch cash accounts -->
+  <csmobile-switch-cash-account [cashAccounts]="dollarCashAccounts" [currency]="'$'" (cashAccountSelected)="changeSelectedDollarCashAccount($event)">
+  </csmobile-switch-cash-account>
+
+  <!-- Component used to display the active cash account's summary -->
+  <!-- <csmobile-cash-account-summary [cashStatementSummary]="cashStatementSummary"></csmobile-cash-account-summary> -->
+
+  <div no-padding>
+    <ion-item-group class="cash-account-summary-wrapper ml10 mr10">
+      <ion-item class="ml0 pl0 pr0">
+        <span class="ml0 mt0 mb0 pr0">Total Credit</span>
+        <span class="m0 pr0" item-end>&#36;{{ cashStatementSummary?.totalCreditAmount | number:'1.2-2'}}</span>
+      </ion-item>
+      <ion-item class="pl0 pr0">
+        <span class="mt0 mb0 pr0">Total Debit</span>
+        <span class="m0 pr0" item-end>&#36;{{ cashStatementSummary?.totalDebitAmount | number:'1.2-2'}}</span>
+      </ion-item>
+      <ion-item class="pl0 pr0">
+        <span class="mt0 mb0 pr0">Uncleared Effects</span>
+        <span class="m0 pr0" item-end>&#36;{{ cashStatementSummary?.unclearedEffects | number:'1.2-2'}}</span>
+      </ion-item>
+      <ion-item class="pl0 pr0">
+        <span class="mt0 mb0 pr0">Cash Available</span>
+        <span class="m0 pr0" item-end>&#36;{{ cashStatementSummary?.cashAvailable | number:'1.2-2'}}</span>
+      </ion-item>
+    </ion-item-group>
+  </div>
+
+  <!-- Component used to display the active cash account's overview -->
+  <csmobile-cash-account-view [cashStatements]="cashStatements" [groupedCashStatements]="groupedCashStatements" (filterCashAccountStatements)="filterCashAccountStatements($event)"
+    [currency]="'$'">
+  </csmobile-cash-account-view>
 
 </ion-content>

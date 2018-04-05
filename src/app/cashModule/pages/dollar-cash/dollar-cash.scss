@@ -1,3 +1,30 @@
 page-dollar-cash {
+  .cash-account-summary-wrapper {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    padding-top: 5px;
 
+    .item-md.item-block .item-inner {
+      padding-right: 0px;
+    }
+
+    ion-item {
+      min-height: 22px !important;
+      height: 22px !important;
+      font-size: 13px;
+      .item-inner {
+        border: none !important;
+      }
+
+      span {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
+
+    .item-block {
+      *max-height: 2rem !important;
+      *min-height: 2rem !important;
+    }
+  }
 }

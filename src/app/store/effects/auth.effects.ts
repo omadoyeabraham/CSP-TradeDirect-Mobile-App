@@ -48,6 +48,23 @@ export class AuthEffects {
     switchMap(credentials => {
       return this.authService.login(credentials).pipe(
         map(userData => {
+          // Check to set sma holdings if user has no SMA
+          if (!userData.STB.MANAGED[0]) {
+            userData.STB.MANAGED.push({});
+            userData.STB.MANAGED[0].portfolioHoldings = [];
+          }
+
+          // Set the investment type for regular fixed income investments
+          userData.FI.NGN = userData.FI.NGN.map(investment => {
+            investment.cspInvestmentType = "FixedIncome";
+            return investment;
+          });
+
+          // Set the investment type for TBill fixed income investments
+          userData.FI.TBills = userData.FI.TBills.map(investment => {
+            investment.cspInvestmentType = "TreasuryBill";
+            return investment;
+          });
           return userData;
         }),
         switchMap(userData => [

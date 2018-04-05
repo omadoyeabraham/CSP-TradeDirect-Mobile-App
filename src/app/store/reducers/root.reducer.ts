@@ -45,6 +45,7 @@ import marketDataReducer from "./stockbroking/marketdata.reducer";
 import { LOGOUT } from "..";
 import cashReducer, {
   selectedNairaCashAccountReducer,
+  selectedDollarCashAccountReducer,
   cashAccountsStatementsReducer
 } from "./cash/cash.reducer";
 import { ICashAccountInterface } from "../../cashModule/models/cashAccount.interface";
@@ -75,6 +76,7 @@ export interface IRootReducer {
   fixedIncomeInvestments: Array<IFixedIncomeInvestment>;
   fxInvestments: Array<IFixedIncomeInvestment>;
   cashActiveNairaAccount: ICashAccountInterface;
+  cashActiveDollarAccount: ICashAccountInterface;
   cashAccountStatementsEntities: any;
 }
 
@@ -105,6 +107,7 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   fixedIncomeInvestments: fixedIncomeReducer,
   fxInvestments: fxInvestmentsReducer,
   cashActiveNairaAccount: selectedNairaCashAccountReducer,
+  cashActiveDollarAccount: selectedDollarCashAccountReducer,
   cashAccountStatementsEntities: cashAccountsStatementsReducer
 };
 
@@ -144,6 +147,7 @@ export const storageSyncReducer = storageSync({
     "fixedIncomeInvestments",
     "fxInvestments",
     "cashActiveNairaAccount",
+    "cashActiveDollarAccount",
     "cashAccountStatementsEntities"
   ],
   hydratedStateKey: "hydrated", // Add this key to the state

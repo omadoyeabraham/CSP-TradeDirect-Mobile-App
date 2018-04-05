@@ -15,7 +15,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string = PAGES.HOME_PAGE;
-  pages: Array<{ title: string; pageName: any; icon: string }> = [
+  nairaPages: Array<{ title: string; pageName: any; icon: string }> = [
     { title: "Dashboard", pageName: PAGES.DASHBOARD_PAGE, icon: "home" },
     {
       title: "Stockbroking",
@@ -28,11 +28,6 @@ export class MyApp {
       icon: "briefcase"
     },
     {
-      title: "FX Investments",
-      pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
-      icon: "folder-open"
-    },
-    {
       title: "Separately Managed Account",
       pageName: PAGES.SMA_PAGE,
       icon: "person"
@@ -41,6 +36,14 @@ export class MyApp {
       title: "Cash Account - Naira",
       pageName: PAGES.NAIRA_CASH_PAGE,
       icon: "cash"
+    }
+  ];
+
+  fxPages: Array<{ title: string; pageName: any; icon: string }> = [
+    {
+      title: "FX Investments",
+      pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
+      icon: "folder-open"
     },
     {
       title: "Cash Account - Dollar",
