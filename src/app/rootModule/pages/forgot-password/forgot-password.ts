@@ -3,6 +3,7 @@ import { IonicPage, NavController, LoadingController } from "ionic-angular";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AccountActionsProvider } from "../../../sharedModule/services/account-actions/account-actions";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
+import * as PAGES from "../../../sharedModule/pages.constants";
 
 /**
  *
@@ -36,7 +37,7 @@ export class ForgotPasswordPage {
   ionViewDidLoad() {}
 
   closeForgotPasswordPage() {
-    this.navCtrl.pop();
+    this.navCtrl.push(PAGES.HOME_PAGE);
   }
 
   /**

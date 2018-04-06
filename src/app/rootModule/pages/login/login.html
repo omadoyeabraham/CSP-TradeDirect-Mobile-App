@@ -17,31 +17,24 @@
   </ion-card>
   <form novalidate [formGroup]="loginForm" (submit)="login()" class="mb40">
     <ion-list>
-      <!-- Username validation rules -->
-      <ion-item *ngIf="username.invalid && (username.touched || username.dirty)">
-        <p ion-text color="danger">*UserName is required</p>
-      </ion-item>
-      <!-- End of username validation rules -->
+
       <ion-item>
         <ion-label floating>Username</ion-label>
         <ion-input type="text" formControlName="username"></ion-input>
       </ion-item>
+      <p class="error-message-text" color="danger" *ngIf="username.invalid && (username.touched || username.dirty)">*UserName is required</p>
 
-      <!-- password validation rules -->
-      <ion-item *ngIf="password.invalid && (password.touched || password.dirty)">
-        <p ion-text color="danger">*Password is required</p>
-      </ion-item>
-      <!-- End of password validation rules -->
       <ion-item>
         <ion-label floating>Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
+      <p class="error-message-text" color="danger" *ngIf="password.invalid && (password.touched || password.dirty)">*Password is required</p>
     </ion-list>
 
     <ion-grid>
       <ion-row text-center>
         <ion-col>
-          <button ion-button type="submit" class="mt20 w60p">Login</button>
+          <button ion-button type="submit" [disabled]="!loginForm.valid" class="mt20 w60p">Login</button>
         </ion-col>
       </ion-row>
     </ion-grid>

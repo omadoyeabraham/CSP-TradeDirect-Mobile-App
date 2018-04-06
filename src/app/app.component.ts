@@ -54,11 +54,11 @@ export class MyApp {
   ];
 
   accountActionPages: Array<{ title: string; pageName: any; icon: string }> = [
-    {
-      title: "Fund My Account",
-      pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
-      icon: "add-circle"
-    },
+    // {
+    //   title: "Fund My Account",
+    //   pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
+    //   icon: "add-circle"
+    // },
     {
       title: "Change Password",
       pageName: PAGES.CHANGE_PASSWORD_PAGE,

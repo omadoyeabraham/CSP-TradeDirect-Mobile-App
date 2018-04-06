@@ -134,7 +134,7 @@ export class LoginPage {
    * Close the Login Modal page
    */
   closeLoginPage(): void {
-    this.navCtrl.pop();
+    this.navCtrl.push(PAGES.HOME_PAGE);
   }
 
   /**
