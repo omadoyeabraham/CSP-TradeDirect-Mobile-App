@@ -65,8 +65,8 @@ export class MyApp {
       icon: "unlock"
     },
     {
-      title: "Contact Manager",
-      pageName: PAGES.DOLLAR_CASH_PAGE,
+      title: "Contact Account Manager",
+      pageName: PAGES.CONTACT_MANAGER_PAGE,
       icon: "contacts"
     }
   ];

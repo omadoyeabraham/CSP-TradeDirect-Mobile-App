@@ -9,6 +9,7 @@ import { TradeOrderProvider } from "../stockbrokingModule/providers/trade-order/
 import { MarketDataProvider } from "../stockbrokingModule/providers/market-data/market-data";
 import { CashProvider } from "../cashModule/provider/cash/cash";
 import { WatchlistProvider } from "../stockbrokingModule/providers/watchlist/watchlist";
+import { AccountActionsProvider } from "./services/account-actions/account-actions";
 
 /**
  * The SharedModule contains all services, components and directives that could be required by various other modules in the application
@@ -39,7 +40,8 @@ export class SharedModule {
         TradeOrderProvider,
         MarketDataProvider,
         CashProvider,
-        WatchlistProvider
+        WatchlistProvider,
+        AccountActionsProvider
       ]
     };
   }

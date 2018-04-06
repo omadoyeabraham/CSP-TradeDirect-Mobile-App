@@ -204,7 +204,6 @@ export const fxInvestments = createSelector(
       return investment;
     });
 
-    console.log(fixedIncomeInvestments);
     return fixedIncomeInvestments;
   }
 );

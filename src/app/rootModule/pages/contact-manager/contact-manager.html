@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Contact Account Manager</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <form novalidate [formGroup]="contactManagerForm" (submit)="contactManager()" class="mb40">
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Manager Name</ion-label>
+        <ion-input type="text" formControlName="managerName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Manager Email</ion-label>
+        <ion-input type="text" formControlName="managerEmail"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Subject</ion-label>
+        <ion-input type="text" formControlName="subject"></ion-input>
+      </ion-item>
+      <p ion-text color="danger" class="error-message-text" *ngIf="subject.invalid && (subject.touched || subject.dirty)">*Subject is required</p>
+
+      <ion-item>
+        <ion-label floating>Message</ion-label>
+        <ion-textarea type="text" formControlName="message"></ion-textarea>
+      </ion-item>
+      <p ion-text color="danger" class="error-message-text" *ngIf="message.invalid && (message.touched || message.dirty)">*Message is required</p>
+    </ion-list>
+
+    <ion-grid>
+      <ion-row text-center>
+        <ion-col>
+          <button ion-button [disabled]="!contactManagerForm.valid" type="submit" class="mt20 w60p">Send Feedback/Enquiry</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </form>
+</ion-content>

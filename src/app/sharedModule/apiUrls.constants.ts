@@ -33,3 +33,4 @@ export const getCashAccountStatementsURL =
 // ACCOUNT ENDPOINTS
 export const changePasswordURL = baseURL + "changePassword";
 export const resetPasswordURL = baseURL + "resetPassword";
+export const contactManagerURL = baseURL + "contactManager";
