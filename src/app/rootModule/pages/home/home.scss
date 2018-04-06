@@ -1,11 +1,18 @@
 page-home {
   .home-page-background {
+    #homepage--wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+
     background: rgba(26, 33, 85, 1);
     img {
       width: 50%;
       height: auto;
       margin: 20px auto;
       margin-top: 20%;
+      max-width: 300px;
     }
 
     ion-card {

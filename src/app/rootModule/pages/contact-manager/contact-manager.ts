@@ -34,7 +34,7 @@ export class ContactManagerPage {
       disabled: true
     });
     this.managerEmail = new FormControl({
-      value: "abraham.omadoye@cardinalstone.com",
+      value: "crd@cardinalstone.com",
       disabled: true
     });
     this.subject = new FormControl("", Validators.required);

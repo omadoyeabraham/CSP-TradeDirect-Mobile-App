@@ -1,18 +1,25 @@
 <ion-content class="home-page-background">
-  <ion-card no-padding>
-    <img src="../assets/imgs/home/logo.png" />
-    <div class="card-title">Trade Direct</div>
-  </ion-card>
+  <div id="homepage--wrapper" class="h100p">
+    <ion-card no-padding>
+      <img src="../assets/imgs/home/logo.png" />
+      <div class="card-title">Trade Direct</div>
+    </ion-card>
 
-  <ion-grid text-center class="h60p">
-    <ion-row class="w60p margin-center h100p" align-items-end>
-      <ion-col text-right>
-        <button ion-button class="btn-transparent w100p" (click)="openLoginModal()">Sign In</button>
-      </ion-col>
-      <ion-col text-left>
-        <button ion-button class="btn-white w100p">Sign UP</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid text-center class="h60pp">
+      <ion-row class="w60pp margin-center h100pp" align-items-end>
+        <ion-col text-right>
+          <button ion-button class="btn-transparent w100p" (click)="openLoginModal()">Sign In</button>
+        </ion-col>
+        <ion-col text-left>
+          <button ion-button class="btn-white w100p">Sign UP</button>
+        </ion-col>
+      </ion-row>
 
+      <ion-row class="mt10">
+        <ion-col class="text-white" (click)="openForgotPasswordModal()">
+          <span>Forgot Password?</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

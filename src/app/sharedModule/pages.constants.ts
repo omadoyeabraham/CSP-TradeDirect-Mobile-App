@@ -36,3 +36,4 @@ export const CASH_TRANSACTION_DETAILS = "CashTransactionDetailsPage";
 // ACCOUNT ACTIONS
 export const CHANGE_PASSWORD_PAGE = "ChangePasswordPage";
 export const CONTACT_MANAGER_PAGE = "ContactManagerPage";
+export const FORGOT_PASSWORD_PAGE = "ForgotPasswordPage";

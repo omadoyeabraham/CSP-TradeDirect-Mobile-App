@@ -17,4 +17,8 @@ export class HomePage {
   openLoginModal() {
     this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
+
+  openForgotPasswordModal() {
+    this.navCtrl.push(PAGES.FORGOT_PASSWORD_PAGE);
+  }
 }
