@@ -81,8 +81,11 @@ export class WatchlistPage {
             return security.name === item.name;
           });
 
-          item.current_price = item_security[0].currentPrice;
-          item.price_change_percent = item_security[0].priceChangePercent;
+          if (item_security.length) {
+            item.current_price = item_security[0].currentPrice;
+            item.price_change_percent = item_security[0].priceChangePercent;
+          }
+
           return item;
         });
 

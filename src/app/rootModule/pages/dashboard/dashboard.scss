@@ -1,6 +1,12 @@
 page-dashboard {
+  #dashboard--wrapper {
+    background: url("../../../../assets/imgs/app_background.jpg");
+  }
+
   ion-item {
     font-size: 14px !important;
+    background: url("../../../../assets/imgs/app_background.jpg") !important;
+
     &:hover {
       cursor: pointer;
       background: #eeeeee;

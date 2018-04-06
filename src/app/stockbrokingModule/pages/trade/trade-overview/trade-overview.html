@@ -11,7 +11,7 @@
 
 <ion-content no-padding>
 
-  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput()">
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput()" class="mt55">
   </ion-searchbar>
 
   <ion-grid *ngFor="let security of filteredSecurities">

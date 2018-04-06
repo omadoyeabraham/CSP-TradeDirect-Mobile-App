@@ -577,6 +577,10 @@ export class PlaceMandatePage {
     if (priceType === "LIMIT") {
       message = `
         <div>
+          <span class="d--inline--block w50p"><b>Symbol</b></span>
+          <span> ${instrument} </span>
+        </div>
+        <div>
           <span class="d--inline--block w50p"><b>Price</b></span>
           <span> ₦${limitPrice} </span>
         </div>
@@ -640,28 +644,43 @@ export class PlaceMandatePage {
       data => {
         loader.dismiss();
 
-        // Clear the previewed trade order from the store
-        this.tradeOrderActionsDispatcher.clearPreviewedTradeOrder();
+        if (typeof data.body === "number") {
+          // Mandate placement was successfull, and the tradeorder ID was returned
 
-        // Refresh the user's trade order history
-        this.tradeOrderActionsDispatcher.getTradeOrderHistory();
+          // Clear the previewed trade order from the store
+          this.tradeOrderActionsDispatcher.clearPreviewedTradeOrder();
 
-        /**
-         * Move to the tradeHistory tab (3rd tab).
-         * nav.push() was not used, because it pushes the trade history page unto the trade tab,
-         * instead of moving to the tradeHistory tab
-         */
-        this.navCtrl.parent.select(3);
+          // Refresh the user's trade order history
+          this.tradeOrderActionsDispatcher.getTradeOrderHistory();
 
-        this.utilityProvider.presentToast(
-          "Mandate placement successful",
-          "toastSuccess",
-          4000
-        );
+          /**
+           * Move to the tradeHistory tab (3rd tab).
+           * nav.push() was not used, because it pushes the trade history page unto the trade tab,
+           * instead of moving to the tradeHistory tab
+           */
+          this.navCtrl.parent.select(3);
+
+          this.utilityProvider.presentToast(
+            "Mandate placement successful",
+            "toastSuccess",
+            4000
+          );
+        } else {
+          /**
+           * Mandate Placement was unsuccessful, and an error string was returned.
+           * This ideally should not have a status code of 200, but leave it to Zanibal to
+           * do ridiculous stuff :)
+           */
+        }
       },
 
       err => {
         console.log(err), loader.dismiss();
+        this.utilityProvider.presentToast(
+          "Mandate placement timed out. Please try again later",
+          "toastError",
+          4000
+        );
       }
     );
   }

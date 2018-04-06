@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from "ionic-angular";
 import { Store } from "@ngrx/store";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
@@ -19,12 +24,14 @@ import { getUserState, AuthActionDispatcher } from "../../../store";
 })
 export class WelcomePage {
   public user$: Store<IUserState>;
+  public loader: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public authActionDispatcher: AuthActionDispatcher,
-    public store: Store<IAppState>
+    public store: Store<IAppState>,
+    public loadingCtrl: LoadingController
   ) {}
 
   ionViewDidLoad() {
@@ -37,7 +44,25 @@ export class WelcomePage {
    * @memberof WelcomePage
    */
   continueToDashboard() {
-    this.navCtrl.setRoot(PAGES.DASHBOARD_PAGE);
+    this.presentLoader();
+    setTimeout(() => {
+      this.dismissLoader();
+      this.navCtrl.setRoot(PAGES.DASHBOARD_PAGE);
+    }, 5000);
+  }
+
+  presentLoader() {
+    this.loader = this.loadingCtrl.create({
+      content: "Loading Data..."
+    });
+
+    this.loader.present();
+  }
+
+  dismissLoader() {
+    if (this.loader) {
+      this.loader.dismiss();
+    }
   }
 
   /**
