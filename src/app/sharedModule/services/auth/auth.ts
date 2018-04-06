@@ -8,10 +8,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { catchError, map } from "rxjs/operators";
 import "rxjs/add/observable/throw";
-// import "rxjs/add/observable/of";
-// import "rxjs/add/operator/catch";
 
-import { loginURL } from "../../apiUrls.constants";
+import { loginURL, resetPasswordURL } from "../../apiUrls.constants";
 
 /**
  * Injectable angular service which handles authentication related functionality
@@ -43,6 +41,43 @@ export class AuthProvider {
 
     return this.http
       .post(loginURL, body.toString(), { headers, observe: "response" })
+      .pipe(
+        map((response: HttpResponse<Object>) => {
+          return response.body;
+        }),
+        catchError((error: any) => Observable.throw(error))
+      );
+  }
+
+  /**
+   * Change the user's password
+   *
+   * @param {{
+   *     customerId: string;
+   *     oldPassword: string;
+   *     newPassword: string;
+   *   }} data
+   * @returns {Observable<any>}
+   * @memberof AuthProvider
+   */
+  public changePassword(data: {
+    customerId: string;
+    oldPassword: string;
+    newPassword: string;
+  }): Observable<any> {
+    const body = new HttpParams()
+      .set("customerId", data.customerId)
+      .set("oldPassword", data.oldPassword)
+      .set("newPassword", data.newPassword);
+    const headers = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+
+    return this.http
+      .post(resetPasswordURL, body.toString(), {
+        headers,
+        observe: "response"
+      })
       .pipe(
         map((response: HttpResponse<Object>) => {
           return response.body;

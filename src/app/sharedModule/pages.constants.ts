@@ -32,3 +32,6 @@ export const FX_INVESTMENTS_CONTAINER_PAGE = "FxInvestmentsContainerPage";
 export const NAIRA_CASH_PAGE = "NairaCashPage";
 export const DOLLAR_CASH_PAGE = "DollarCashPage";
 export const CASH_TRANSACTION_DETAILS = "CashTransactionDetailsPage";
+
+// ACCOUNT ACTIONS
+export const CHANGE_PASSWORD_PAGE = "ChangePasswordPage";

@@ -15,6 +15,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string = PAGES.HOME_PAGE;
+
   nairaPages: Array<{ title: string; pageName: any; icon: string }> = [
     { title: "Dashboard", pageName: PAGES.DASHBOARD_PAGE, icon: "home" },
     {
@@ -49,6 +50,24 @@ export class MyApp {
       title: "Cash Account - Dollar",
       pageName: PAGES.DOLLAR_CASH_PAGE,
       icon: "cash"
+    }
+  ];
+
+  accountActionPages: Array<{ title: string; pageName: any; icon: string }> = [
+    {
+      title: "Fund My Account",
+      pageName: PAGES.FX_INVESTMENTS_CONTAINER_PAGE,
+      icon: "add-circle"
+    },
+    {
+      title: "Change Password",
+      pageName: PAGES.CHANGE_PASSWORD_PAGE,
+      icon: "unlock"
+    },
+    {
+      title: "Contact Manager",
+      pageName: PAGES.DOLLAR_CASH_PAGE,
+      icon: "contacts"
     }
   ];
 

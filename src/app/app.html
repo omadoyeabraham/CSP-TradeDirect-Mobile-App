@@ -17,6 +17,14 @@
         </button>
       </ion-list>
 
+      <ion-list no-lines>
+        <ion-item-divider class="bg-black">ACCOUNT ACTIONS</ion-item-divider>
+        <button ion-item menuClose class="bg-black font-size-14" *ngFor="let p of accountActionPages" (click)="openPage(p)">
+          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{ p.title }}
+        </button>
+      </ion-list>
+
       <!-- Logout -->
       <ion-list no-lines class="mb0">
         <button ion-item menuClose class="btn--logout" (click)="logout()">

@@ -29,3 +29,7 @@ export const ToggleWatchListURL = baseURL + "toggleWatchList";
 // CASH ENDPOINTS
 export const getCashAccountStatementsURL =
   baseURL + "findFiAcctLedgerEntriesByAccountNumber";
+
+// ACCOUNT ENDPOINTS
+export const changePasswordURL = baseURL + "changePassword";
+export const resetPasswordURL = baseURL + "resetPassword";
