@@ -9,8 +9,10 @@ import {
   getTotalValueOfFixedIncomeInvestments,
   totalNairaCashValue,
   totalDollarCashValue,
-  getTotalValueOfFxInvestments
+  getTotalValueOfFxInvestments,
+  getStbPortfolios
 } from "../../../store";
+import { IPortfolio } from "../../../stockbrokingModule/models";
 
 /**
  *
@@ -39,6 +41,8 @@ export class DashboardPage {
   public totalFxCashValue = 0;
   public totalFxValue = 0;
 
+  public userHasStb: boolean = true;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,6 +50,14 @@ export class DashboardPage {
   ) {}
 
   ionViewDidLoad() {
+    this.store.select(getStbPortfolios).subscribe(portfolios => {
+      if (portfolios.length === 0) {
+        this.userHasStb = false;
+      } else {
+        this.userHasStb = true;
+      }
+    });
+
     // Get the total value of stockbroking investments
     this.store.select(getTotalStockbrokingValue).subscribe(totalStbValue => {
       this.totalStbValue = totalStbValue;

@@ -7,6 +7,7 @@ import * as PAGES from "./sharedModule/pages.constants";
 import * as authActions from "../../src/app/store/actions/auth/auth.actions";
 import { IAppState } from "./store/models";
 import { Store } from "@ngrx/store";
+import { getStbPortfolios } from "./store";
 
 @Component({
   templateUrl: "app.html"
@@ -71,6 +72,8 @@ export class MyApp {
     }
   ];
 
+  public userHasStb: boolean = true;
+
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
@@ -78,6 +81,14 @@ export class MyApp {
     public store: Store<IAppState>
   ) {
     this.initializeApp();
+
+    this.store.select(getStbPortfolios).subscribe(portfolios => {
+      if (portfolios.length === 0) {
+        this.userHasStb = false;
+      } else {
+        this.userHasStb = true;
+      }
+    });
   }
 
   initializeApp() {
@@ -98,6 +109,11 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+
+    // Do not navigate to the stockbroking page for users without STB accounts
+    if (page.pageName === PAGES.STB_CONTAINER_PAGE && !this.userHasStb) {
+      return;
+    }
     this.nav.setRoot(page.pageName);
   }
 

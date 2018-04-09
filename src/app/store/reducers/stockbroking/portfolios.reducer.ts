@@ -88,7 +88,11 @@ export function stbActivePortfolioMetaDataReducer(
   switch (action.type) {
     case StbPortfolioActions.SET_ACTIVE_PORTFOLIO_META_DATA: {
       const portfolio = action.payload;
-      const totalValue = parseFloat(portfolio.currentValuation.amount);
+      let totalValue = 0;
+
+      if (portfolio) {
+        totalValue = parseFloat(portfolio.currentValuation.amount);
+      }
 
       return {
         totalValue
