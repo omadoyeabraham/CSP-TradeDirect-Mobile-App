@@ -48,6 +48,16 @@ export class AuthEffects {
     switchMap(credentials => {
       return this.authService.login(credentials).pipe(
         map(userData => {
+          // if (!userData.STB.EXCHANGE) {
+          //   userData.STB.EXCHANGE = [{}];
+          //   userData.STB.EXCHANGE[0].portfolios = [];
+          // }
+
+          // if (!userData.STB.MANAGED) {
+          //   userData.STB.MANAGED = [{}];
+          //   userData.STB.MANAGED[0].portfolioHoldings = [];
+          // }
+
           // Check to set sma holdings if user has no SMA
           if (!userData.STB.MANAGED[0]) {
             userData.STB.MANAGED.push({});

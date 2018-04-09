@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cardinalstone.csmobile" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cardinalstone.csmobile" version="3.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>csmobile_beta</name>
     <description>
-        An application that enables clients trade directly on the Nigerian Stock Exchange as well as monitor their other investments within the CardinalStone entity.</description>
+        An application that enables clients trade directly on the Nigerian Stock Exchange as well as monitor their other investments within the CardinalStone entity.
+</description>
     <author email="it_unit@cardinalstone.com" href="https://csmobile.cardinalstone.com/">
      CardinalStone
     </author>
