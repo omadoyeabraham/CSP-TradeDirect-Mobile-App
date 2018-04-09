@@ -7,9 +7,9 @@ csmobile-page-security-overview {
     right: 1%;
   }
   .nameDiv {
-    border: 2px solid #eee;
-    box-shadow: 2px 2px #eee;
-    border-left: 7px solid #333;
+    *border: 2px solid #eee;
+    *box-shadow: 2px 2px #eee;
+    *border-left: 7px solid #333;
     height: 100%;
   }
 

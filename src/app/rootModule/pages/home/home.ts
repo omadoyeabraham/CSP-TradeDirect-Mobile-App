@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController } from "ionic-angular";
+import { normalizeURL } from "ionic-angular";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
 
@@ -9,7 +10,16 @@ import * as PAGES from "../../../sharedModule/pages.constants";
   templateUrl: "home.html"
 })
 export class HomePage {
-  constructor(public navCtrl: NavController) {}
+  public logoUrl = "";
+  private _logoUrl = "/assets/imgs/home/logo.png";
+  constructor(public navCtrl: NavController) {
+    this.logoUrl = normalizeURL(this._logoUrl);
+  }
+
+  // normalize(url: string): string {
+  //   const normalizedUrl = normalizeURL(url);
+  //   return normalizedUrl;
+  // }
 
   /**
    * Open the login modal page
