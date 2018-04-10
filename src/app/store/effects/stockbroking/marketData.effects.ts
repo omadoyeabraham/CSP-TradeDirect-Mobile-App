@@ -3,7 +3,7 @@ import { Effect, Actions } from "@ngrx/effects";
 
 import "rxjs/add/observable/of";
 
-import { map, switchMap, catchError } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
 import * as marketDataActions from "../../actions/stockbroking/marketdata.actions";
 import { MarketDataProvider } from "../../../stockbrokingModule/providers/market-data/market-data";
 

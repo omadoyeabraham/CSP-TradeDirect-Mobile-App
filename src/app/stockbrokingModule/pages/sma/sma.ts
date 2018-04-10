@@ -2,12 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
-import {
-  smaHoldings,
-  smaFixedIncomeInvestments,
-  smaFiTotalValue,
-  runningSmaFI
-} from "../../../store";
+import { smaHoldings, smaFiTotalValue, runningSmaFI } from "../../../store";
 import { IPortfolioHolding } from "../../models";
 import { IFixedIncomeInvestment } from "../../../fixedIncomeModule/models";
 

@@ -6,9 +6,6 @@ import {
   LoadingController
 } from "ionic-angular";
 import { Store } from "@ngrx/store";
-import { map, catchError } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
-import * as moment from "moment";
 
 import { IAppState } from "../../../store/models";
 import { ICashAccountInterface } from "../../models/cashAccount.interface";
@@ -17,7 +14,6 @@ import {
   saveActiveDollarCashAccountToStore,
   getActiveDollarCashAccount,
   saveCashAccountCashStatements,
-  getCashAccountStatementsEntities,
   cashStatementsByAccountName,
   groupedCashStatements
 } from "../../../store";
@@ -76,7 +72,7 @@ export class DollarCashPage {
    */
   selectCashAccountsFromStore() {
     this.store.select(dollarCashAccounts).subscribe(cashAccounts => {
-      console.log(cashAccounts)
+      console.log(cashAccounts);
       this.dollarCashAccounts = cashAccounts;
     });
   }

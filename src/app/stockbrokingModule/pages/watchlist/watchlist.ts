@@ -4,8 +4,7 @@ import {
   NavController,
   NavParams,
   LoadingController,
-  AlertController,
-  PopoverController
+  AlertController
 } from "ionic-angular";
 import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
@@ -17,7 +16,6 @@ import {
   getMarketData
 } from "../../../store";
 import { IWatchlistItem } from "../../../store/models/watchListItem.interface";
-import { catchError, map } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
 import { WatchlistProvider } from "../../providers/watchlist/watchlist";

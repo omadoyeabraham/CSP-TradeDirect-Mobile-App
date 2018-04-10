@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter, Input } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { CASH_TRANSACTION_DETAILS } from "../../../sharedModule/pages.constants";
-import { ICashAccountInterface } from "../../models/cashAccount.interface";
 import { ICashStatement } from "../../models/cashStatement.interface";
 
 /**

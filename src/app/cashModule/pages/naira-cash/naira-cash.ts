@@ -6,9 +6,6 @@ import {
   LoadingController
 } from "ionic-angular";
 import { Store } from "@ngrx/store";
-import { map, catchError } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
-import * as moment from "moment";
 
 import { IAppState } from "../../../store/models";
 import { ICashAccountInterface } from "../../models/cashAccount.interface";
@@ -17,7 +14,6 @@ import {
   saveActiveNairaCashAccountToStore,
   getActiveNairaCashAccount,
   saveCashAccountCashStatements,
-  getCashAccountStatementsEntities,
   cashStatementsByAccountName,
   groupedCashStatements
 } from "../../../store";

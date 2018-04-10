@@ -6,10 +6,7 @@ import "rxjs/add/observable/of";
 import * as watchlistActions from "../../actions/stockbroking/watchlist.actions";
 import { map, switchMap, catchError } from "rxjs/operators";
 
-import { IAppState } from "../../models";
-import { Store } from "@ngrx/store";
 import { WatchlistProvider } from "../../../stockbrokingModule/providers/watchlist/watchlist";
-import { getUserState } from "../..";
 
 /**
  * Side effects which are triggered whenever watchlist related actions are dispatched
@@ -19,8 +16,7 @@ import { getUserState } from "../..";
 export class WatchlistEffects {
   constructor(
     private actions$: Actions,
-    private watchlistProvider: WatchlistProvider,
-    private store: Store<IAppState>
+    private watchlistProvider: WatchlistProvider
   ) {}
 
   @Effect()

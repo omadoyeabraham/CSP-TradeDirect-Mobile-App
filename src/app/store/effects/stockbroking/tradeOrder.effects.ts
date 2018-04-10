@@ -5,7 +5,6 @@ import "rxjs/add/observable/of";
 
 import * as tradeOrderActions from "../../actions/stockbroking/tradeOrder.actions";
 import { map, switchMap, catchError } from "rxjs/operators";
-import { SecuritiesProvider } from "../../../sharedModule/services/securities/securities";
 import { TradeOrderProvider } from "../../../stockbrokingModule/providers/trade-order/trade-order";
 import { IAppState } from "../../models";
 import { Store } from "@ngrx/store";

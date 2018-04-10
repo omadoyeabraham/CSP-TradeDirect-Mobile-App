@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
-import * as PAGES from "../../../../sharedModule/pages.constants";
+// import * as PAGES from "../../../../sharedModule/pages.constants";
 import {
   getStbSecurityNames,
   getSortedTradeOrderTerms,
@@ -27,10 +27,8 @@ import {
 import { MandateQuantityValidator } from "../../../validators/MandateFormValidators";
 import { ITradeOrderTerm } from "../../../models/tradeOrderTerm.interface";
 import { TradeOrderProvider } from "../../../providers/trade-order/trade-order";
-import { catchError, map } from "rxjs/operators";
 import { ITradeOrder, IPortfolio, ISecurity } from "../../../models";
 import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
-import { Observable } from "rxjs/Observable";
 import { DomSanitizer } from "@angular/platform-browser";
 import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
 
@@ -87,7 +85,7 @@ export class PlaceMandatePage {
   ) {
     // Get the navParams if any
     const paramSecurityName = this.navParams.get("securityName");
-    const paramOrderType = this.navParams.get("orderType");
+    // const paramOrderType = this.navParams.get("orderType");
 
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
     // this.orderType = new FormControl("", Validators.required);
@@ -367,7 +365,7 @@ export class PlaceMandatePage {
    * @memberof PlaceMandatePage
    */
   handleMandatePreviewResponse(data: any): any {
-    let totalAmount: number;
+    // let totalAmount: number;
     let errorStatus: string;
 
     /**
@@ -558,13 +556,13 @@ export class PlaceMandatePage {
   displayMandateConfirmationPopup(tradeOrderWithMetaData) {
     const {
       orderType,
-      priceOption,
+      // priceOption,
       priceType,
       limitPrice,
-      tradeOrderTotal,
+      // tradeOrderTotal,
       totalFees,
       formattedTradeOrderTotal,
-      totalAmount,
+      // totalAmount,
       instrument,
       quantityRequested,
       consideration

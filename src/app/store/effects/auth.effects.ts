@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from "@ngrx/effects";
-import { map, catchError, switchMap, tap } from "rxjs/operators";
+import { map, catchError, switchMap } from "rxjs/operators";
 
 import * as AuthActions from "../actions/auth/auth.actions";
 import * as UserActions from "../actions/user/user.actions";

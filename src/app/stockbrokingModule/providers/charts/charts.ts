@@ -87,7 +87,6 @@ export class ChartsProvider {
     // Calculate the data point interval on the Y axis
     const maximumValue = Math.max(...values);
     const minimumValue = Math.min(...values);
-    const diffRange = maximumValue - minimumValue;
 
     /**
      * Divide by 500 = (5*100) because we want (5+1) data points

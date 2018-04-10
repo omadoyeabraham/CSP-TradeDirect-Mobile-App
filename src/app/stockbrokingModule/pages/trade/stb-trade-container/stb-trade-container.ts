@@ -4,7 +4,6 @@ import { Store } from "@ngrx/store";
 
 import { IAppState } from "../../../../store/models";
 import {
-  getStbSecurities,
   SelectedPageActionsDispatcher,
   getMarketData
 } from "../../../../store";

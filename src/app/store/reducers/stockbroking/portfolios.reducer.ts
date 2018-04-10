@@ -1,5 +1,4 @@
 import {
-  initialStockbrokingPortfolioState,
   initialStockbrokingActivePortfolioState,
   intialStbActivePortflioMetaData
 } from "../../models/initialState";

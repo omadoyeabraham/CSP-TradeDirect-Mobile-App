@@ -7,7 +7,6 @@ import {
   LoadingController
 } from "ionic-angular";
 import { ITradeOrder } from "../../../models";
-import * as PAGES from "../../../../sharedModule/pages.constants";
 import { IAppState } from "../../../../store/models";
 import { Store } from "@ngrx/store";
 import {

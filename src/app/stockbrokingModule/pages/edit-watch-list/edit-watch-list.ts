@@ -34,7 +34,6 @@ export class EditWatchListPage {
   public watchListItem: IWatchlistItem;
 
   public userID: any;
-  private editWatchListLoader: any;
   public conditions: any;
   public marketSecurities: any;
   public securityMarketData: any;

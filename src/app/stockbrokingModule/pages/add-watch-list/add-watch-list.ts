@@ -14,7 +14,6 @@ import {
   loadWatchList,
   getMarketData
 } from "../../../store";
-import { ISecurity } from "../../models";
 import { WatchlistProvider } from "../../providers/watchlist/watchlist";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
 import * as PAGES from "../../../sharedModule/pages.constants";

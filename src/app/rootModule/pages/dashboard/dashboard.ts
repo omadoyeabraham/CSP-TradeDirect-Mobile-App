@@ -12,7 +12,6 @@ import {
   getTotalValueOfFxInvestments,
   getStbPortfolios
 } from "../../../store";
-import { IPortfolio } from "../../../stockbrokingModule/models";
 
 /**
  *
