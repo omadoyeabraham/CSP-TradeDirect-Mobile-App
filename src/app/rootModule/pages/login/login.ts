@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild, ElementRef } from "@angular/core";
 import {
   IonicPage,
   NavController,
@@ -41,6 +41,9 @@ export class LoginPage {
   public failedAuthAttempt$: Observable<number>;
   private loginLoader: any;
 
+  @ViewChild("loginButton", { read: ElementRef })
+  loginButton: ElementRef;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -62,6 +65,14 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    /**
+     * This snippet exists as a hack because for some wierd reason, angular's (click) does not work when a production apk or ios
+     * app is built. It works fine for debug android apks and on the browser, so i dont currently know whats happening.
+     */
+    this.loginButton.nativeElement.addEventListener("click", () => {
+      this.login();
+    });
+
     // Get the isAuthenticating state from the store
     this.isAuthenticating$ = this.store.select(userIsAuthenticating);
     this.isAuthenticated$ = this.store.select(userIsAuthenticated);

@@ -36,6 +36,7 @@
     "@ngrx/store": "^5.0.0",
     "@ngrx/store-devtools": "^5.0.1",
     "cordova-android": "^7.0.0",
+    "cordova-ios": "4.5.4",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-ionic-webview": "^1.1.19",
     "cordova-plugin-splashscreen": "^4.0.3",
@@ -86,7 +87,8 @@
       "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
