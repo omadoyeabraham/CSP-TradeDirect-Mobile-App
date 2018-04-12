@@ -23,7 +23,7 @@
 
       <!--Current Price and 24h vol -->
       <ion-col class="currPriceCol font-size-12" text-right>
-        <div class="ml30">
+        <div class="ml10">
           <span>
             <ion-icon *ngIf="security.priceChange > 0" name="arrow-round-up" class="text-green"></ion-icon>
             <ion-icon *ngIf="security.priceChange < 0" name="arrow-round-down" class="text-red"></ion-icon>
@@ -31,7 +31,7 @@
           </span>
           &#8358; {{security.currentPrice}}
         </div>
-        <div class="ml30">
+        <div class="ml10">
           <span>vol:</span>
           <span>{{ security.quantityTraded | number:'1.0-0' }}</span>
         </div>
