@@ -42,88 +42,89 @@ export class AuthEffects {
    * @memberof AuthEffects
    */
   //TODO: Perform checks and return defaults before dispatching actions
-  @Effect()
-  loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
-    map((action: AuthActions.LoginUser) => action.payload),
-    switchMap(credentials => {
-      return this.authService.login(credentials).pipe(
-        map(userData => {
-          // if (!userData.STB.EXCHANGE) {
-          //   userData.STB.EXCHANGE = [{}];
-          //   userData.STB.EXCHANGE[0].portfolios = [];
-          // }
+  // @Effect()
+  // loginUser$ = this.actions$.ofType(AuthActions.LOGIN_USER).pipe(
+  //   map((action: AuthActions.LoginUser) => action.payload),
+  //   switchMap(credentials => {
+  //     return this.authService.login(credentials).pipe(
+  //       map(userData => {
+  //         // if (!userData.STB.EXCHANGE) {
+  //         //   userData.STB.EXCHANGE = [{}];
+  //         //   userData.STB.EXCHANGE[0].portfolios = [];
+  //         // }
 
-          // if (!userData.STB.MANAGED) {
-          //   userData.STB.MANAGED = [{}];
-          //   userData.STB.MANAGED[0].portfolioHoldings = [];
-          // }
+  //         // if (!userData.STB.MANAGED) {
+  //         //   userData.STB.MANAGED = [{}];
+  //         //   userData.STB.MANAGED[0].portfolioHoldings = [];
+  //         // }
 
-          // Check to set sma holdings if user has no SMA
-          if (!userData.STB.MANAGED[0]) {
-            userData.STB.MANAGED.push({});
-            userData.STB.MANAGED[0].portfolioHoldings = [];
-          }
+  //         // Check to set sma holdings if user has no SMA
+  //         if (!userData.STB.MANAGED[0]) {
+  //           userData.STB.MANAGED.push({});
+  //           userData.STB.MANAGED[0].portfolioHoldings = [];
+  //         }
 
-          // Set the investment type for regular fixed income investments
-          userData.FI.NGN = userData.FI.NGN.map(investment => {
-            investment.cspInvestmentType = "FixedIncome";
-            return investment;
-          });
+  //         // Set the investment type for regular fixed income investments
+  //         userData.FI.NGN = userData.FI.NGN.map(investment => {
+  //           investment.cspInvestmentType = "FixedIncome";
+  //           return investment;
+  //         });
 
-          // Set the investment type for TBill fixed income investments
-          userData.FI.TBills = userData.FI.TBills.map(investment => {
-            investment.cspInvestmentType = "TreasuryBill";
-            return investment;
-          });
-          return userData;
-        }),
-        switchMap(userData => [
-          new AuthActions.ResetAuthState(),
-          new AuthActions.LoginUserSuccess(userData),
-          new UserActions.AddUserDataToStore(userData.customer),
-          new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
-            userData.STB.EXCHANGE
-          ),
-          new StockbrokingPortfolioActions.SetActivePortfolioInStore(
-            userData.STB.EXCHANGE[0]
-          ),
-          new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
-            userData.STB.EXCHANGE[0]
-          ),
-          new SecurityActions.getSecurities(),
-          new FixedIncomeActions.saveFixedIncomeData(
-            userData.FI.NGN.concat(userData.FI.TBills)
-          ),
-          new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
-          new TradeOrderActions.GetTradeOrderHistory(),
-          new MarketDataActions.GetMarketData(),
-          new CashAccountActions.saveCashAcccountsToStore(userData.CA),
-          new CashAccountActions.saveActiveNairaCashAccountToStore(
-            userData.CA.NGN[0]
-          ),
-          new CashAccountActions.saveActiveDollarCashAccountToStore(
-            userData.CA.USD[0]
-          ),
-          new CashAccountActions.populateCashAccountStatementsEntities(
-            userData.CA.NGN
-          ),
-          new CashAccountActions.populateCashAccountStatementsEntities(
-            userData.CA.USD
-          ),
-          new SmaActions.saveSmaHoldings(
-            userData.STB.MANAGED[0].portfolioHoldings
-          ),
-          new SmaActions.saveSmaFI(userData.FI.NGNSMA)
-        ]),
-        catchError(error => [
-          new AuthActions.LoginUserFailed(),
-          new ErrorActions.AuthenticationFailed(
-            "Incorrect username or password"
-          )
-        ])
-      );
-    })
-  );
+  //         // Set the investment type for TBill fixed income investments
+  //         userData.FI.TBills = userData.FI.TBills.map(investment => {
+  //           investment.cspInvestmentType = "TreasuryBill";
+  //           return investment;
+  //         });
+  //         return userData;
+  //       }),
+  //       switchMap(userData => [
+  //         new AuthActions.ResetAuthState(),
+  //         new AuthActions.LoginUserSuccess(userData),
+  //         new UserActions.AddUserDataToStore(userData.customer),
+  //         new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
+  //           userData.STB.EXCHANGE
+  //         ),
+  //         new StockbrokingPortfolioActions.SetActivePortfolioInStore(
+  //           userData.STB.EXCHANGE[0]
+  //         ),
+  //         new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
+  //           userData.STB.EXCHANGE[0]
+  //         ),
+  //         new SecurityActions.getSecurities(),
+  //         new FixedIncomeActions.saveFixedIncomeData(
+  //           userData.FI.NGN.concat(userData.FI.TBills)
+  //         ),
+  //         new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD),
+  //         new TradeOrderActions.GetTradeOrderHistory(),
+  //         new MarketDataActions.GetMarketData(),
+  //         new CashAccountActions.saveCashAcccountsToStore(userData.CA),
+  //         new CashAccountActions.saveActiveNairaCashAccountToStore(
+  //           userData.CA.NGN[0]
+  //         ),
+  //         new CashAccountActions.saveActiveDollarCashAccountToStore(
+  //           userData.CA.USD[0]
+  //         ),
+  //         new CashAccountActions.populateCashAccountStatementsEntities(
+  //           userData.CA.NGN
+  //         ),
+  //         new CashAccountActions.populateCashAccountStatementsEntities(
+  //           userData.CA.USD
+  //         ),
+  //         new SmaActions.saveSmaHoldings(
+  //           userData.STB.MANAGED[0].portfolioHoldings
+  //         ),
+  //         new SmaActions.saveSmaFI(userData.FI.NGNSMA)
+  //       ]),
+  //       catchError(error => [
+  //         new AuthActions.LoginUserFailed(),
+  //         new ErrorActions.AuthenticationFailed(
+  //           "Incorrect username or password"
+  //         ),
+  //         new AuthActions.ResetAuthState()
+  //       ])
+  //     );
+  //   })
+  // );
 
   /**
    * Side effect which gets other required data upon successful login.

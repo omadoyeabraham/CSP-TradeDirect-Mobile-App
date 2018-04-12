@@ -28,13 +28,26 @@ import { StockbrokingModule } from "./stockbrokingModule/stockbroking.module";
 import { FixedIncomeModule } from "./fixedIncomeModule/fixedIncome.module";
 import { CashModule } from "./cashModule/cash.module";
 
-import { rootReducer, metaReducers } from "./store/reducers";
+import {
+  rootReducer,
+  metaReducers,
+  getInitialState,
+  ReducerToken,
+  getReducers,
+  ReducerProvider
+} from "./store/reducers";
 import { allEffects } from "./store/effects";
 import { TokenInterceptor } from "./sharedModule/services/auth/token.interceptor";
 
 @NgModule({
   declarations: [MyApp],
   imports: [
+    // StoreModule.forRoot(rootReducer, {
+    //   metaReducers: metaReducers,
+    //   initialState: getInitialState
+    // }),
+    StoreModule.forRoot(ReducerToken, { metaReducers: metaReducers }),
+    EffectsModule.forRoot(allEffects),
     SharedModule.forRoot(),
     CspStoreModule.forRoot(),
     StockbrokingModule.forRoot(),
@@ -44,13 +57,12 @@ import { TokenInterceptor } from "./sharedModule/services/auth/token.interceptor
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot(rootReducer, { metaReducers }),
-    EffectsModule.forRoot(allEffects),
     StoreDevtoolsModule.instrument({})
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [
+    ReducerProvider,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

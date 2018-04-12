@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/skip";
+import "rxjs/add/operator/debounceTime";
 
 import {
   AuthActionDispatcher,
@@ -20,6 +21,7 @@ import {
 import { IAppState } from "../../../store/models";
 import * as PAGES from "../../../sharedModule/pages.constants";
 import { UtilityProvider } from "../../../sharedModule/services/utility/utility";
+import { AuthProvider } from "../../../sharedModule/services/auth/auth";
 
 /**
  * Login page for the mobile application
@@ -51,6 +53,7 @@ export class LoginPage {
     private toastCtrl: ToastController,
     public authActionDispatcher: AuthActionDispatcher,
     public utilityProvider: UtilityProvider,
+    public authProvider: AuthProvider,
     private store: Store<IAppState>
   ) {
     // Create form controls as local page variables. This helps shorten the syntax for error checking in the template
@@ -69,43 +72,40 @@ export class LoginPage {
      * This snippet exists as a hack because for some wierd reason, angular's (click) does not work when a production apk or ios
      * app is built. It works fine for debug android apks and on the browser, so i dont currently know whats happening.
      */
-    this.loginButton.nativeElement.addEventListener("click", () => {
-      this.login();
-    });
-
+    // this.loginButton.nativeElement.addEventListener("click", () => {
+    //   this.login();
+    // });
     // Get the isAuthenticating state from the store
-    this.isAuthenticating$ = this.store.select(userIsAuthenticating);
-    this.isAuthenticated$ = this.store.select(userIsAuthenticated);
+    // this.isAuthenticating$ = this.store.select(userIsAuthenticating);
+    // this.isAuthenticated$ = this.store.select(userIsAuthenticated);
     // Skip the first one, so we dont show an error on 0 failed auth attempts (the default state)
-    this.failedAuthAttempt$ = this.store
-      .select(numberOfFailedAuthAttempts)
-      .skip(1);
-
+    // this.failedAuthAttempt$ = this.store.select(numberOfFailedAuthAttempts);
+    // .debounceTime(1000);
     // Subscribe to the isAuthenticating state and display the login loader based on its status
-    this.isAuthenticating$.subscribe(status => {
-      if (status) {
-        this.presentLoginLoader();
-      } else {
-        // Only attempt to dismiss the loader if it is already visible
-        if (this.loginLoader) {
-          this.loginLoader.dismiss();
-        }
-      }
-    });
-
+    // this.isAuthenticating$.subscribe(status => {
+    //   console.log(status);
+    //   if (status) {
+    //     this.presentLoginLoader();
+    //   } else {
+    //     // Only attempt to dismiss the loader if it is already visible
+    //     if (this.loginLoader) {
+    //       this.loginLoader.dismiss();
+    //     }
+    //   }
+    // });
     // Subscribe to the isAuthenticated state and navigate based on its state
-    this.isAuthenticated$.subscribe(status => {
-      if (status) {
-        this.goToWelcomePage();
-      }
-    });
-
+    // this.isAuthenticated$.subscribe(status => {
+    //   if (status) {
+    //     this.goToWelcomePage();
+    //   }
+    // });
     // Subscribe to the failedAuthAttempts auth state, and show a toast everytime there is a failed login
-    this.failedAuthAttempt$.subscribe(failedAttempt => {
-      if (failedAttempt > 0) {
-        this.utilityProvider.presentToast("Invalid credentials", "toastError");
-      }
-    });
+    // this.failedAuthAttempt$.subscribe(failedAttempt => {
+    //   console.log(failedAttempt);
+    //   if (failedAttempt > 0) {
+    //     this.utilityProvider.presentToast("Invalid credentials", "toastError");
+    //   }
+    // });
   }
 
   /**
@@ -137,7 +137,25 @@ export class LoginPage {
         password: this.password.value
       };
 
-      this.authActionDispatcher.loginUser(credentials);
+      this.presentLoginLoader();
+
+      this.authProvider.login(credentials).subscribe(
+        response => {
+          this.dismissLoginLoader();
+          this.authActionDispatcher.saveUserDataToStore(response);
+          this.goToWelcomePage();
+        },
+        err => {
+          console.log(err);
+          this.dismissLoginLoader();
+          this.utilityProvider.presentToast(
+            "Invalid credentials",
+            "toastError"
+          );
+        }
+      );
+
+      // this.authActionDispatcher.loginUser(credentials);
     }
   }
 
@@ -172,5 +190,12 @@ export class LoginPage {
     });
 
     toast.present();
+  }
+
+  dismissLoginLoader() {
+    // Only attempt to dismiss the loader if it is already visible
+    if (this.loginLoader) {
+      this.loginLoader.dismiss();
+    }
   }
 }

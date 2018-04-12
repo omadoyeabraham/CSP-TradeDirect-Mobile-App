@@ -45,6 +45,11 @@ export class WelcomePage {
    */
   continueToDashboard() {
     this.presentLoader();
+
+    /**
+     * The setTimeout is just a hack to ensure that background async calls have a bit of time
+     * to finish up and load up the redux store before the user is granted access to the application
+     */
     setTimeout(() => {
       this.dismissLoader();
       this.navCtrl.setRoot(PAGES.DASHBOARD_PAGE);
@@ -71,7 +76,7 @@ export class WelcomePage {
    * @memberof WelcomePage
    */
   backToLoginPage() {
-    this.authActionDispatcher.loginUserFailed();
+    this.authActionDispatcher.resetAuthState();
     this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
 }

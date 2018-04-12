@@ -12,7 +12,8 @@ export default function authReducer(
     case authActions.LOGIN_USER:
       return {
         ...state,
-        isAuthenticating: true
+        isAuthenticating: true,
+        failedAuthAttempts: 0
       };
     case authActions.LOGIN_USER_SUCCESS:
       return {
@@ -34,9 +35,9 @@ export default function authReducer(
     case authActions.RESET_AUTH_STATE:
       return {
         ...state,
-        isAuthenticating: false,
-        authenticated: false,
-        failedAuthAttempts: 0
+        // isAuthenticating: false,
+        authenticated: false
+        // failedAuthAttempts: 0
       };
     default:
       return state;

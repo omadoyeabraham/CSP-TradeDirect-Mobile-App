@@ -3,6 +3,17 @@ import { Injectable } from "@angular/core";
 
 import { IAppState } from "../../models";
 
+import * as AuthActions from "../../actions/auth/auth.actions";
+import * as UserActions from "../../actions/user/user.actions";
+import * as ErrorActions from "../../actions/errors/error.actions";
+import * as StockbrokingPortfolioActions from "../../actions/stockbroking/portfolios.actions";
+import * as SecurityActions from "../../actions/stockbroking/securities.actions";
+import * as FixedIncomeActions from "../../actions/fixedIncome/fixedIncome.actions";
+import * as TradeOrderActions from "../../actions/stockbroking/tradeOrder.actions";
+import * as MarketDataActions from "../../actions/stockbroking/marketdata.actions";
+import * as CashAccountActions from "../../actions/cash/cash.actions";
+import * as SmaActions from "../../actions/stockbroking/sma.actions";
+
 /**
  * Action type constants for all auth specific actions
  */
@@ -93,5 +104,82 @@ export class AuthActionDispatcher {
 
   logout() {
     this.store.dispatch(new Logout());
+  }
+
+  saveUserDataToStore(userData) {
+    // Check to set sma holdings if user has no SMA
+    if (!userData.STB.MANAGED[0]) {
+      userData.STB.MANAGED.push({});
+      userData.STB.MANAGED[0].portfolioHoldings = [];
+    }
+
+    // Set the investment type for regular fixed income investments
+    userData.FI.NGN = userData.FI.NGN.map(investment => {
+      investment.cspInvestmentType = "FixedIncome";
+      return investment;
+    });
+
+    // Set the investment type for TBill fixed income investments
+    userData.FI.TBills = userData.FI.TBills.map(investment => {
+      investment.cspInvestmentType = "TreasuryBill";
+      return investment;
+    });
+
+    this.store.dispatch(new AuthActions.LoginUserSuccess(userData));
+    this.store.dispatch(new UserActions.AddUserDataToStore(userData.customer));
+    this.store.dispatch(
+      new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
+        userData.STB.EXCHANGE
+      )
+    );
+    this.store.dispatch(
+      new StockbrokingPortfolioActions.SetActivePortfolioInStore(
+        userData.STB.EXCHANGE[0]
+      )
+    );
+    this.store.dispatch(
+      new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
+        userData.STB.EXCHANGE[0]
+      )
+    );
+    this.store.dispatch(new SecurityActions.getSecurities());
+    this.store.dispatch(
+      new FixedIncomeActions.saveFixedIncomeData(
+        userData.FI.NGN.concat(userData.FI.TBills)
+      )
+    );
+    this.store.dispatch(
+      new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD)
+    );
+    this.store.dispatch(new TradeOrderActions.GetTradeOrderHistory());
+
+    this.store.dispatch(new MarketDataActions.GetMarketData());
+    this.store.dispatch(
+      new CashAccountActions.saveCashAcccountsToStore(userData.CA)
+    );
+    this.store.dispatch(
+      new CashAccountActions.saveActiveNairaCashAccountToStore(
+        userData.CA.NGN[0]
+      )
+    );
+    this.store.dispatch(
+      new CashAccountActions.saveActiveDollarCashAccountToStore(
+        userData.CA.USD[0]
+      )
+    );
+    this.store.dispatch(
+      new CashAccountActions.populateCashAccountStatementsEntities(
+        userData.CA.NGN
+      )
+    );
+    this.store.dispatch(
+      new CashAccountActions.populateCashAccountStatementsEntities(
+        userData.CA.USD
+      )
+    );
+    this.store.dispatch(
+      new SmaActions.saveSmaHoldings(userData.STB.MANAGED[0].portfolioHoldings)
+    );
+    this.store.dispatch(new SmaActions.saveSmaFI(userData.FI.NGNSMA));
   }
 }

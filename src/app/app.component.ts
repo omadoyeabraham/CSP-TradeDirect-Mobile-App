@@ -82,13 +82,13 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    // this.store.select(getStbPortfolios).subscribe(portfolios => {
-    //   if (portfolios.length === 0) {
-    //     this.userHasStb = false;
-    //   } else {
-    //     this.userHasStb = true;
-    //   }
-    // });
+    this.store.select(getStbPortfolios).subscribe(portfolios => {
+      if (portfolios.length === 0) {
+        this.userHasStb = false;
+      } else {
+        this.userHasStb = true;
+      }
+    });
   }
 
   initializeApp() {
@@ -96,7 +96,6 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      console.log("Reached the code to close the splash bar");
       this.splashScreen.hide();
     });
   }

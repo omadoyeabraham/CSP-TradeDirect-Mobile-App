@@ -1,4 +1,11 @@
-import { ActionReducerMap, ActionReducer, MetaReducer } from "@ngrx/store";
+import {
+  ActionReducerMap,
+  ActionReducer,
+  MetaReducer,
+  combineReducers,
+  compose
+} from "@ngrx/store";
+import { InjectionToken } from "@angular/core";
 import { storageSync } from "ngrx-store-ionic-storage";
 
 import authReducer from "./auth/auth.reducers";
@@ -80,10 +87,43 @@ export interface IRootReducer {
   cashAccountStatementsEntities: any;
 }
 
+export const initialState = {
+  auth: {},
+  user: {},
+  error: {},
+  cashAccounts: {},
+  selectedPage: {},
+  stbPortfolios: {},
+  stbActivePortfolio: {},
+  stbActivePortfolioMetaData: {},
+  stbSecurities: {},
+  stbSelectedSecurityOnOverviewPage: {},
+  stbSelectedSecurityMarketData: {},
+  stbTradeOrderTerms: {},
+  stbPreviewedTradeOrder: {},
+  stbTradeOrders: {},
+  stbMarketData: {},
+  stbTradeOrderCancellation: {},
+  watchList: {},
+  smaHoldings: {},
+  smaFI: {},
+  fixedIncomeInvestments: {},
+  fxInvestments: {},
+  cashActiveNairaAccount: {},
+  cashActiveDollarAccount: {},
+  cashAccountStatementsEntities: {}
+};
+
+export function getInitialState() {
+  return { ...initialState };
+}
+
 /**
  * Combine all reducers into a root reducer which defines the application store
  *
  */
+
+// export const rootReducer: ActionReducerMap<IRootReducer> = {
 export const rootReducer: ActionReducerMap<IRootReducer> = {
   auth: authReducer,
   user: userReducer,
@@ -111,6 +151,22 @@ export const rootReducer: ActionReducerMap<IRootReducer> = {
   cashAccountStatementsEntities: cashAccountsStatementsReducer
 };
 
+// export const rootReducer = combineReducers(_rootReducer);
+// export const rootReducer = _rootReducer;
+
+export function getReducers() {
+  return rootReducer;
+}
+
+export const ReducerToken = new InjectionToken("Registered Reducers");
+export const ReducerProvider = [
+  { provide: ReducerToken, useFactory: getReducers }
+];
+
+// export function rootReducer(state, action) {
+//   return _rootReducer(state, action);
+// }
+
 /**
  * Function to be called when a syncing error occurs between the store and local storage.
  *
@@ -124,7 +180,6 @@ export const onSyncError = err => {
 };
 
 // Configuration for ngrx-store-ionic-storage
-//TODO: remove auth from the keys
 export const storageSyncReducer = storageSync({
   keys: [
     "user",
