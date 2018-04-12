@@ -70,7 +70,12 @@ export function tradeOrderHistoryReducer(
 ): Array<any> {
   switch (action.type) {
     case SAVE_TRADE_ORDER_HISTORY_IN_STORE:
-      return action.payload;
+      // Ensure that the trade orders is always an array of orders
+      const tradeOrders =
+        action.payload.constructor === Array
+          ? action.payload
+          : [action.payload];
+      return tradeOrders;
     default:
       return state;
   }

@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges
+} from "@angular/core";
 
 /**
  * Generated class for the FormatNumberWithColorComponent component.
@@ -12,7 +18,7 @@ import { Component, Input, OnInit } from "@angular/core";
   selector: "csmobile-format-number-with-color",
   templateUrl: "format-number-with-color.html"
 })
-export class FormatNumberWithColorComponent implements OnInit {
+export class FormatNumberWithColorComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() showCurrency: boolean;
 
@@ -22,6 +28,15 @@ export class FormatNumberWithColorComponent implements OnInit {
 
   ngOnInit() {
     this.data = parseFloat(this.data);
+    this.absoluteValue = Math.abs(this.data);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.setValues(changes.data.currentValue);
+  }
+
+  setValues(value) {
+    this.data = parseFloat(value);
     this.absoluteValue = Math.abs(this.data);
   }
 }

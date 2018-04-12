@@ -42,6 +42,9 @@ export class LoginPage {
   public isAuthenticated$: Observable<boolean>;
   public failedAuthAttempt$: Observable<number>;
   private loginLoader: any;
+  public pwdInputType: string = "password";
+  public pwdInputIcon: string = "eye";
+  public showPassword: boolean = false;
 
   @ViewChild("loginButton", { read: ElementRef })
   loginButton: ElementRef;
@@ -146,12 +149,18 @@ export class LoginPage {
           this.goToWelcomePage();
         },
         err => {
-          console.log(err);
+          if (err.status === 401) {
+            this.utilityProvider.presentToast(
+              "Invalid credentials",
+              "toastError"
+            );
+          } else {
+            this.utilityProvider.presentToast(
+              "Network connection error. Please try again",
+              "toastError"
+            );
+          }
           this.dismissLoginLoader();
-          this.utilityProvider.presentToast(
-            "Invalid credentials",
-            "toastError"
-          );
         }
       );
 
@@ -196,6 +205,17 @@ export class LoginPage {
     // Only attempt to dismiss the loader if it is already visible
     if (this.loginLoader) {
       this.loginLoader.dismiss();
+    }
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+    if (this.showPassword) {
+      this.pwdInputType = "text";
+      this.pwdInputIcon = "eye-off";
+    } else {
+      this.pwdInputType = "password";
+      this.pwdInputIcon = "eye";
     }
   }
 }

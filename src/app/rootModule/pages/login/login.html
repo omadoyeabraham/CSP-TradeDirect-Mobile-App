@@ -11,35 +11,42 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card class="no-box-shadow" no-padding>
-    <img src="assets/imgs/logo.png" />
-  </ion-card>
-  <form novalidate [formGroup]="loginForm" (submit)="login()" class="mb40">
-    <ion-list>
+<ion-content no-padding>
+  <div id="login--page--wrapper" class="h100p p15">
+    <ion-card class="no-box-shadow" no-padding>
+      <img src="assets/imgs/logo.png" />
+    </ion-card>
+    <form novalidate [formGroup]="loginForm" class="mb40">
+      <ion-list>
 
-      <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input type="text" formControlName="username"></ion-input>
-      </ion-item>
-      <p class="error-message-text" color="danger" *ngIf="username.invalid && (username.touched || username.dirty)">*UserName is required</p>
+        <ion-item>
+          <ion-label floating>Username</ion-label>
+          <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+        <p class="error-message-text" color="danger" *ngIf="username.invalid && (username.touched || username.dirty)">*UserName is required</p>
 
-      <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
-      </ion-item>
-      <p class="error-message-text" color="danger" *ngIf="password.invalid && (password.touched || password.dirty)">*Password is required</p>
-    </ion-list>
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="{{pwdInputType}}" formControlName="password"></ion-input>
+          <button ion-button clear item-end (click)='toggleShowPassword()' style="height:32px; align-self: flex-end">
+            <ion-icon [name]="pwdInputIcon" [isActive]="showPassword" style="font-size:32px;"></ion-icon>
+          </button>
+        </ion-item>
+        <p class="error-message-text" color="danger" *ngIf="password.invalid && (password.touched || password.dirty)">*Password is required</p>
+      </ion-list>
 
-    <ion-grid>
-      <ion-row text-center>
-        <ion-col>
-          <button ion-button type="submit" class="mt20 w60p">Login</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+      <ion-grid>
+        <ion-row text-center>
+          <ion-col>
+            <button ion-button (click)="login()" [disabled]="!loginForm.valid" class="mt20 w60p">Login</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-  </form>
+    </form>
+  </div>
+
+
 
   <!-- <div class="w100p" text-center>
     <button #loginButton ion-button [disabled]="!loginForm.valid" class="mt20 w60p">Login</button>

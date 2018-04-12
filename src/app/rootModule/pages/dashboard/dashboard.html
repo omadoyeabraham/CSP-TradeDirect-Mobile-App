@@ -21,7 +21,7 @@
   <div id="dashboard--wrapper" class="h100p">
     <!-- Naira Investments -->
     <ion-item-group>
-      <ion-item-divider color="light" class="font-size-18 bg-light-blue">Naira Investments</ion-item-divider>
+      <ion-item-divider color="light" class="font-size-18 bg-csp-gradient">Naira Investments</ion-item-divider>
       <ion-item *ngIf="userHasStb" class="ml0" (click)="goToPage(stbPage)">
         <ion-icon name="stats" item-start class=""></ion-icon>
         <span class="ml0">Stockbroking</span>
@@ -55,7 +55,7 @@
     </ion-item-group>
 
     <ion-item-group class="mt5">
-      <ion-item-divider color="light" class="font-size-18 bg-light-blue">FX Investments</ion-item-divider>
+      <ion-item-divider color="light" class="font-size-18 bg-csp-gradient">FX Investments</ion-item-divider>
       <ion-item (click)="goToPage(fxPage)">
         <ion-icon name="card" item-start class=""></ion-icon>
         FX Investments

@@ -1,10 +1,13 @@
 page-login {
+  #login--page--wrapper {
+    background-color: #fff !important;
+  }
   ion-card {
     position: relative;
     text-align: center;
     border-radius: 0;
     box-shadow: unset !important;
-    background-color: transparent;
+    background-color: #fff !important;
   }
   img {
     width: 20%;
