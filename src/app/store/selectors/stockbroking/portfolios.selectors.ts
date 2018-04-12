@@ -52,6 +52,29 @@ export const getTotalStockbrokingValue = createSelector(
   }
 );
 
+export const getTotalSmaEquityValue = createSelector(
+  getStbPortfolios,
+  (state: Array<IPortfolio>) => {
+    let stbTotalValue = 0;
+
+    state.forEach(portfolio => {
+      // Only sum up SMA portfolios
+      if (
+        !(
+          portfolio.portfolioClass != "EXCHANGE" ||
+          portfolio.label.indexOf("(SMA)") != -1
+        )
+      ) {
+        return;
+      } else {
+        stbTotalValue += parseFloat(portfolio.currentValuation.amount);
+      }
+    });
+
+    return stbTotalValue;
+  }
+);
+
 // Get the number of stb portfolios owned by the user
 export const getNumberOfStbPortfolios = createSelector(
   getStbPortfoliosEntities,

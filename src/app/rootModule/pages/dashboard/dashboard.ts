@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
+import * as Highcharts from "highcharts";
 import { IAppState } from "../../../store/models";
 import { Store } from "@ngrx/store";
 import {
@@ -10,8 +11,11 @@ import {
   totalNairaCashValue,
   totalDollarCashValue,
   getTotalValueOfFxInvestments,
-  getStbPortfolios
+  getStbPortfolios,
+  getTotalSmaEquityValue,
+  smaFiTotalValue
 } from "../../../store";
+import { ChartsProvider } from "../../../stockbrokingModule/providers/charts/charts";
 
 /**
  *
@@ -34,18 +38,23 @@ export class DashboardPage {
 
   public totalStbValue = 0;
   public totalFiValue = 0;
+  public totalSmaValue = 0;
+  public totalSmaEquityValue = 0;
+  public totalSmaFiValue = 0;
   public totalNairaCashValue = 0;
   public totalNairaValue = 0;
   public totalFxFiValue = 0;
   public totalFxCashValue = 0;
   public totalFxValue = 0;
+  public chartData: any = {};
 
   public userHasStb: boolean = true;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public store: Store<IAppState>
+    public store: Store<IAppState>,
+    public chartsProvider: ChartsProvider
   ) {}
 
   ionViewDidLoad() {
@@ -71,6 +80,18 @@ export class DashboardPage {
         this.updateTotalNairaValue();
       });
 
+    // Get the total value of sma equity investments
+    this.store.select(getTotalSmaEquityValue).subscribe(totalSmaEquityValue => {
+      this.totalSmaEquityValue = totalSmaEquityValue;
+      this.updateTotalSmaValue();
+    });
+
+    // Get the total value for sma fixedincome investments
+    this.store.select(smaFiTotalValue).subscribe(smaFiTotal => {
+      this.totalSmaFiValue = smaFiTotal;
+      this.updateTotalSmaValue();
+    });
+
     // Get the total value of naira cash accounts
     this.store.select(totalNairaCashValue).subscribe(totalNairaCashValue => {
       this.totalNairaCashValue = totalNairaCashValue;
@@ -93,6 +114,15 @@ export class DashboardPage {
     });
 
     this.updateTotalDollarValue();
+    this.updateTotalSmaValue();
+  }
+
+  ngAfterViewInit() {
+    // Delay so that the component has time to get the data onload before it tries to render the graph
+    setTimeout(() => {
+      this.updateChartData();
+      Highcharts.chart("accountOverview", this.chartData);
+    }, 1000);
   }
 
   /**
@@ -121,5 +151,52 @@ export class DashboardPage {
    */
   updateTotalDollarValue() {
     this.totalFxValue = this.totalFxFiValue + this.totalFxCashValue;
+  }
+
+  /**
+   * Called to update the total sma value, after sma equity and fixed income values are updated
+   * .
+   * @memberof DashboardPage
+   */
+  updateTotalSmaValue() {
+    this.totalSmaValue = this.totalSmaEquityValue + this.totalSmaFiValue;
+  }
+
+  updateChartData() {
+    // Stockbroking data
+    let chartData = [];
+
+    chartData.push({
+      name: "Stockbroking",
+      y: this.totalStbValue,
+      percentageOfPortfolio: 0,
+      percentageGain: 0
+    });
+
+    // Fixed Income data
+    chartData.push({
+      name: "Fixed Income",
+      y: this.totalFiValue,
+      percentageOfPortfolio: 0,
+      percentageGain: 0
+    });
+
+    // SMA Data
+    chartData.push({
+      name: "SMA",
+      y: this.totalSmaValue,
+      percentageOfPortfolio: 0,
+      percentageGain: 0
+    });
+
+    // Cash Data
+    chartData.push({
+      name: "Cash",
+      y: this.totalNairaCashValue,
+      percentageOfPortfolio: 0,
+      percentageGain: 0
+    });
+
+    this.chartData = this.chartsProvider.getCspDefinedPieChart(chartData);
   }
 }

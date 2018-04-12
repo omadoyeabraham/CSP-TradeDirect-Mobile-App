@@ -16,23 +16,27 @@ export const smaFixedIncomeInvestments = createSelector(
   _smaFixedIncomeInvestments,
   (investments: IFixedIncomeInvestment[]) => {
     // Loop through running fixed income investments and perform the necessary calculations
-    investments = investments.map(investment => {
-      let currentValue =
-        parseFloat(investment.accruedNetInterest) +
-        parseFloat(investment.faceValue);
-      let valueAtMaturity =
-        parseFloat(investment.faceValue) +
-        parseFloat(investment.expectedInterest);
+    if (investments) {
+      investments = investments.map(investment => {
+        let currentValue =
+          parseFloat(investment.accruedNetInterest) +
+          parseFloat(investment.faceValue);
+        let valueAtMaturity =
+          parseFloat(investment.faceValue) +
+          parseFloat(investment.expectedInterest);
 
-      let startDate = moment(investment.startDate, "YYYY-MM-DD");
-      let durationTillDate = moment().diff(startDate, "days");
+        let startDate = moment(investment.startDate, "YYYY-MM-DD");
+        let durationTillDate = moment().diff(startDate, "days");
 
-      investment.currentValue = currentValue;
-      investment.valueAtMaturity = valueAtMaturity;
-      investment.durationTillDate = durationTillDate;
+        investment.currentValue = currentValue;
+        investment.valueAtMaturity = valueAtMaturity;
+        investment.durationTillDate = durationTillDate;
 
-      return investment;
-    });
+        return investment;
+      });
+    } else {
+      investments = [];
+    }
 
     return investments;
   }

@@ -65,6 +65,59 @@ export class ChartsProvider {
     return chartObject;
   }
 
+  getCspDefinedPieChart(chartData: Array<any> = []) {
+    const pieChartData = {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: "pie"
+      },
+      credits: {
+        enabled: false
+      },
+      legend: {
+        align: "right",
+        verticalAlign: "middle",
+        layout: "vertical",
+        itemStyle: {
+          fontWeight: "normal"
+        }
+      },
+      title: {
+        text: ""
+      },
+      tooltip: {
+        pointFormat: "<b>{point.percentage:.1f}%</b>"
+      },
+      plotOptions: {
+        pie: {
+          size: "100%",
+          allowPointSelect: true,
+          cursor: "pointer",
+          dataLabels: {
+            enabled: false,
+            formatter: function() {
+              return Math.round(this.percentage * 100) / 100 + " %";
+            },
+            distance: -40,
+            rotation: 10
+          },
+          showInLegend: true
+        }
+      },
+      series: [
+        {
+          name: "ASSET ALLOCATION",
+          colorByPoint: true,
+          data: chartData
+        }
+      ]
+    };
+
+    return pieChartData;
+  }
+
   /**
    *  Return the configuration, styling and data necessary to draw a CSP specific price movement chart
    *

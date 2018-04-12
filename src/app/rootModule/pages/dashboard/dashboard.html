@@ -40,7 +40,7 @@
       <ion-item (click)="goToPage(smaPage)">
         <ion-icon name="folder-open" item-start class=""></ion-icon>
         SMA
-        <span item-end>&#8358;0.00</span>
+        <span item-end>&#8358;{{ totalSmaValue | number:'1.2-2' }}</span>
       </ion-item>
       <ion-item (click)="goToPage(nairaCashPage)">
         <ion-icon name="cash" item-start class=""></ion-icon>
@@ -71,6 +71,12 @@
         <span class="bold" item-end>&#36;{{ totalFxValue | number:'1.2-2' }}</span>
       </ion-item>
       <ion-item></ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider color="light" class="font-size-18 bg-csp-gradient">Asset Allocation</ion-item-divider>
+      <div id="accountOverview" style="height: 200px">
+      </div>
     </ion-item-group>
   </div>
 
