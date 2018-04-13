@@ -20,6 +20,8 @@
           <div class="font-size-13 text-red" *ngIf="tradeOrder.orderType === 'SELL'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
           <div class="font-size-13 text-green" *ngIf="tradeOrder.orderType === 'BUY'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
           <div>{{tradeOrder.priceType | titlecase }}</div>
+          <div>{{tradeOrder.orderTermLabel | titlecase }}</div>
+
           <div>
             <b>{{tradeOrder.orderStatus | titlecase }}</b>
           </div>
@@ -91,6 +93,7 @@
           <div class="font-size-13 text-red" *ngIf="tradeOrder.orderType === 'SELL'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
           <div class="font-size-13 text-green" *ngIf="tradeOrder.orderType === 'BUY'">{{tradeOrder.orderType }} {{tradeOrder.instrument }}</div>
           <div>{{tradeOrder.priceType | titlecase }}</div>
+          <div>{{tradeOrder.orderTermLabel | titlecase }}</div>
           <div>
             <b>{{tradeOrder.orderStatus | titlecase }}</b>
           </div>
