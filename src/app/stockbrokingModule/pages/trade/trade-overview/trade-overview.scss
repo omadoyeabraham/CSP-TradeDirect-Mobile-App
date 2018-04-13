@@ -5,7 +5,7 @@ csmobile-trade-overview {
   .fixed-content,
   .scroll-content {
     margin-bottom: 0 !important;
-    margin-top: 0 !important;
+    *margin-top: 0 !important;
   }
 
   .img-responsive {
