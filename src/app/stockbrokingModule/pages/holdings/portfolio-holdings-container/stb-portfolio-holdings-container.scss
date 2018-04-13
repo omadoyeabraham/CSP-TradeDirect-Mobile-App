@@ -1,5 +1,10 @@
 page-stb-portfolio-holdings-container {
   #stbHoldingsPageWrapper {
     *margin-top: 75px !important;
+
+    // IOS specific styling, used to remove the padding beneath the header on ios devices
+    .scroll-content {
+      padding-top: 0px !important;
+    }
   }
 }

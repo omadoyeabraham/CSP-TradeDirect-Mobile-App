@@ -1,5 +1,10 @@
 page-stb-trade-history-container {
   .stbTradeHistoryPageWrapper {
     *margin-top: 8px !important;
+
+    .scroll-content {
+      // IOS specific styling, used to remove the padding beneath the header on ios devices
+      padding-top: 0px !important;
+    }
   }
 }
