@@ -53,8 +53,7 @@ export class SecuritiesEffects {
               new securityActions.saveSelectedSecurityOnOverviewPageMarketDataToStore(
                 securityMarketData
               )
-            ]),
-            catchError(error => [console.log(error)])
+            ])
           );
       })
     );

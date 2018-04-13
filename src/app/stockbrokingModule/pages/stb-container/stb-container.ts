@@ -2,9 +2,17 @@ import { Component, ViewChild } from "@angular/core";
 import { IonicPage, NavController, NavParams, Tabs } from "ionic-angular";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
-import { IAppState } from "../../../store/models";
+import { IAppState, IUserState } from "../../../store/models";
 import { Store } from "@ngrx/store";
-import { getSelectedPage } from "../../../store";
+import {
+  getSelectedPage,
+  getUserState,
+  AuthActionDispatcher
+} from "../../../store";
+import { setInterval } from "timers";
+import { AuthProvider } from "../../../sharedModule/services/auth/auth";
+
+let updateUserData;
 
 /**
  * Container Page for all STB related pages in the application
@@ -29,13 +37,18 @@ export class StbContainerPage {
   public hideSwitchPortfolio: boolean = false;
   public tabTitle: string = "Stockbroking";
   public showHeader: boolean = true;
+  public refreshUserData: any;
+  public user: IUserState;
+  static userDataUpdateInterval: number = 30000;
 
   @ViewChild("stbTabs") stbTabs: Tabs;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public store: Store<IAppState>
+    public store: Store<IAppState>,
+    public authProvider: AuthProvider,
+    public authActionDispatcher: AuthActionDispatcher
   ) {
     // The various components are lazy-loaded by ionic using strings. This improves the app's intial load performance.
     this.StbSummaryContainerPage = PAGES.STB_SUMMARY_CONTAINER_PAGE;
@@ -46,6 +59,25 @@ export class StbContainerPage {
     this.WatchlistPage = PAGES.WATCHLIST_PAGE;
   }
 
+  ionViewWillEnter() {
+    this.getUserState();
+
+    /**
+     * Setup the interval (30 seconds) that intermittently updates the user's data.
+     * This includes stb, FI, sma and cash data. The authActionDispatcher (called after
+     * )
+     */
+    updateUserData = setInterval(() => {
+      this.updateUserData();
+    }, StbContainerPage.userDataUpdateInterval);
+  }
+
+  ionViewWillLeave() {
+    if (updateUserData) {
+      clearInterval(updateUserData);
+    }
+  }
+
   ionViewDidLoad() {
     this.store.select(getSelectedPage).subscribe((selectedPage: any) => {
       if (!selectedPage.showHeader) {
@@ -54,6 +86,26 @@ export class StbContainerPage {
         this.showHeader = true;
       }
     });
+
+    this.getUserState();
+  }
+
+  /**
+   * Make the api call to get a customer's data and pass on control to the action dispatcher
+   * class which dispatches the necessary actions to store the new data in the store.
+   *
+   * @memberof StbContainerPage
+   */
+  updateUserData() {
+    console.log("Update code called");
+    this.authProvider.getUserData(this.user.id).subscribe(
+      response => {
+        this.authActionDispatcher.updateUserDataInStore(response);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   /**
@@ -64,6 +116,12 @@ export class StbContainerPage {
   onTabChange() {
     this.hideSwitchPortfolioComponent();
     this.setTabTitle();
+  }
+
+  getUserState() {
+    this.store
+      .select(getUserState)
+      .subscribe(userState => (this.user = userState));
   }
 
   /**

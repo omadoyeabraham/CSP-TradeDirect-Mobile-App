@@ -9,7 +9,11 @@ import { Observable } from "rxjs/Observable";
 import { catchError, map } from "rxjs/operators";
 import "rxjs/add/observable/throw";
 
-import { loginURL, resetPasswordURL } from "../../apiUrls.constants";
+import {
+  loginURL,
+  resetPasswordURL,
+  GetUserDataURL
+} from "../../apiUrls.constants";
 
 /**
  * Injectable angular service which handles authentication related functionality
@@ -75,6 +79,32 @@ export class AuthProvider {
 
     return this.http
       .post(resetPasswordURL, body.toString(), {
+        headers,
+        observe: "response"
+      })
+      .pipe(
+        map((response: HttpResponse<Object>) => {
+          return response.body;
+        }),
+        catchError((error: any) => Observable.throw(error))
+      );
+  }
+
+  /**
+   * Get the customer's data by passing in their ID
+   *
+   * @param {{ customerId: number }} data
+   * @returns {Observable<any>}
+   * @memberof AuthProvider
+   */
+  public getUserData(customerId: any): Observable<any> {
+    const body = new HttpParams().set("customerId", customerId);
+    const headers = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded"
+    });
+
+    return this.http
+      .post(GetUserDataURL, body.toString(), {
         headers,
         observe: "response"
       })

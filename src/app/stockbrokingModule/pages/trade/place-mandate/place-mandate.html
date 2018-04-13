@@ -81,7 +81,7 @@
             <ion-input type="number" placeholder="" formControlName="quantity" [class.invalid]="!quantity.valid && (quantity.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <p class="error-message-text" *ngIf="!quantity.valid && (quantity.dirty || submitAttempt)">Please enter a valid quantity.</p>
-          <p class="error-message-text" *ngIf="!validQuantity && (quantity.dirty || submitAttempt)">Please enter a valid quantity 2.</p>
+          <!-- <p class="error-message-text" *ngIf="!validQuantity && (quantity.dirty || submitAttempt)">Please enter a valid quantity.</p> -->
         </ion-col>
       </ion-row>
       <!-- EOF Market Orders -->

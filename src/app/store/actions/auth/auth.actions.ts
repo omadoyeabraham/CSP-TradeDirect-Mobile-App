@@ -106,6 +106,12 @@ export class AuthActionDispatcher {
     this.store.dispatch(new Logout());
   }
 
+  /**
+   * Save the users data to the store and perform the necessary actions upon successful authentication
+   *
+   * @param {any} userData
+   * @memberof AuthActionDispatcher
+   */
   saveUserDataToStore(userData) {
     // Check to set sma holdings if user has no SMA
     if (!userData.STB.MANAGED[0]) {
@@ -154,6 +160,75 @@ export class AuthActionDispatcher {
     this.store.dispatch(new TradeOrderActions.GetTradeOrderHistory());
 
     this.store.dispatch(new MarketDataActions.GetMarketData());
+    this.store.dispatch(
+      new CashAccountActions.saveCashAcccountsToStore(userData.CA)
+    );
+    this.store.dispatch(
+      new CashAccountActions.saveActiveNairaCashAccountToStore(
+        userData.CA.NGN[0]
+      )
+    );
+    this.store.dispatch(
+      new CashAccountActions.saveActiveDollarCashAccountToStore(
+        userData.CA.USD[0]
+      )
+    );
+    this.store.dispatch(
+      new CashAccountActions.populateCashAccountStatementsEntities(
+        userData.CA.NGN
+      )
+    );
+    this.store.dispatch(
+      new CashAccountActions.populateCashAccountStatementsEntities(
+        userData.CA.USD
+      )
+    );
+    this.store.dispatch(
+      new SmaActions.saveSmaHoldings(userData.STB.MANAGED[0].portfolioHoldings)
+    );
+    this.store.dispatch(new SmaActions.saveSmaFI(userData.FI.NGNSMA));
+  }
+
+  /**
+   * Update the user's info in the store
+   *
+   * @param {any} userData
+   * @memberof AuthActionDispatcher
+   */
+  updateUserDataInStore(userData) {
+    // Check to set sma holdings if user has no SMA
+    if (!userData.STB.MANAGED[0]) {
+      userData.STB.MANAGED.push({});
+      userData.STB.MANAGED[0].portfolioHoldings = [];
+    }
+
+    // Set the investment type for regular fixed income investments
+    userData.FI.NGN = userData.FI.NGN.map(investment => {
+      investment.cspInvestmentType = "FixedIncome";
+      return investment;
+    });
+
+    // Set the investment type for TBill fixed income investments
+    userData.FI.TBills = userData.FI.TBills.map(investment => {
+      investment.cspInvestmentType = "TreasuryBill";
+      return investment;
+    });
+
+    this.store.dispatch(new MarketDataActions.GetMarketData());
+    this.store.dispatch(new SecurityActions.getSecurities());
+    this.store.dispatch(
+      new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
+        userData.STB.EXCHANGE
+      )
+    );
+    this.store.dispatch(
+      new FixedIncomeActions.saveFixedIncomeData(
+        userData.FI.NGN.concat(userData.FI.TBills)
+      )
+    );
+    this.store.dispatch(
+      new FixedIncomeActions.saveFxInvestmentsData(userData.FI.USD)
+    );
     this.store.dispatch(
       new CashAccountActions.saveCashAcccountsToStore(userData.CA)
     );
