@@ -60,6 +60,10 @@
         <ion-col class="pl15 text-bold font-size-11">Expected Maturity Date</ion-col>
         <ion-col text-right class="text-bold font-size-11">{{investment?.expectedMaturity | date:'mediumDate'}}</ion-col>
       </ion-row>
+      <ion-row *ngIf="investment?.status === 'RUNNING'">
+        <ion-col class="pl15 text-bold font-size-11">Expected Value At Maturity</ion-col>
+        <ion-col text-right class="text-bold font-size-11">{{currency}}{{investment?.valueAtMaturity| number:'1.2-2'}}</ion-col>
+      </ion-row>
       <ion-row>
         <ion-col class="pl15 text-bold font-size-11">Investment Duration</ion-col>
         <ion-col text-right class="text-bold font-size-11">{{investment?.tenure}} days</ion-col>

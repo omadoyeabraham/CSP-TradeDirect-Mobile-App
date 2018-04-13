@@ -10,6 +10,7 @@ export const loginURL = baseURL + "findCustomerByName";
 // USER ENDPOINTS
 export const FindUserByUsernameURL = baseURL + "findCustomerByUsername";
 export const SendPasswordResetLinkURL = baseURL + "sendPasswordResetLink";
+export const GetUserDataURL = baseURL + "findCustomerById";
 
 // STOCKBROKING ENDPOINTS
 export const getSecuritiesURL = baseURL + "getSecurityNames";

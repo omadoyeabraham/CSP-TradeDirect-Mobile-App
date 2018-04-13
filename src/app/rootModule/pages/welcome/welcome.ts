@@ -8,6 +8,7 @@ import {
 import { Store } from "@ngrx/store";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
+import * as authActions from "../../../store/actions/auth/auth.actions";
 import { IAppState, IUserState } from "../../../store/models";
 import { getUserState, AuthActionDispatcher } from "../../../store";
 
@@ -77,6 +78,7 @@ export class WelcomePage {
    */
   backToLoginPage() {
     this.authActionDispatcher.resetAuthState();
+    this.store.dispatch(new authActions.Logout());
     this.navCtrl.push(PAGES.LOGIN_PAGE);
   }
 }

@@ -600,7 +600,7 @@ export class PlaceMandatePage {
 
     // Set the message for MARKET orders
     if (priceType === "MARKET") {
-      message = `You are about to ${orderType.toLowerCase()} ${quantityRequested} units(s) of ${instrument} @ market price`;
+      message = `You are about to ${orderType.toLowerCase()} ${quantityRequested} unit(s) of ${instrument} @ market price`;
     }
 
     // Set the title
@@ -651,6 +651,8 @@ export class PlaceMandatePage {
           // Refresh the user's trade order history
           this.tradeOrderActionsDispatcher.getTradeOrderHistory();
 
+          this.clearMandateForm();
+
           /**
            * Move to the tradeHistory tab (3rd tab).
            * nav.push() was not used, because it pushes the trade history page unto the trade tab,
@@ -681,5 +683,35 @@ export class PlaceMandatePage {
         );
       }
     );
+  }
+
+  /**
+   * Clear the mandate form
+   *
+   * @memberof PlaceMandatePage
+   */
+  clearMandateForm() {
+    // this.mandateForm.reset();
+    // this.priceOption = new FormControl("LIMIT", Validators.required);
+
+    const paramSecurityName = this.navParams.get("securityName");
+    this.security = new FormControl(paramSecurityName, Validators.required);
+    this.priceOption = new FormControl("LIMIT", Validators.required);
+    this.limitPrice = new FormControl();
+    this.quantity = new FormControl(
+      "",
+      Validators.compose([
+        Validators.required,
+        MandateQuantityValidator.isValid
+      ])
+    );
+    this.orderTerm = new FormControl("", Validators.required);
+    this.mandateForm = new FormGroup({
+      security: this.security,
+      priceOption: this.priceOption,
+      limitPrice: this.limitPrice,
+      quantity: this.quantity,
+      orderTerm: this.orderTerm
+    });
   }
 }
