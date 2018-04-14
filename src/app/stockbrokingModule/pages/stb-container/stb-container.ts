@@ -39,7 +39,7 @@ export class StbContainerPage {
   public showHeader: boolean = true;
   public refreshUserData: any;
   public user: IUserState;
-  static userDataUpdateInterval: number = 5000;
+  static userDataUpdateInterval: number = 15000;
 
   @ViewChild("stbTabs") stbTabs: Tabs;
 
