@@ -155,12 +155,13 @@ export const getActivePortfolioTradeOrders = createSelector(
 
     // Loop over the trade orders and determine the csp order status for each.
     activePortfolioTradeOrders = activePortfolioTradeOrders.map(tradeOrder => {
-      return {
-        ...tradeOrder,
-        cspOrderStatus: _getTradeOrderCspStatus(tradeOrder),
-        canBeCancelled: _determineIfTradeOrderCanBeCancelled(tradeOrder),
-        isBooked: _determineIfTradeOrderIsBooked(tradeOrder)
-      };
+      tradeOrder.isBooked = _determineIfTradeOrderIsBooked(tradeOrder);
+      tradeOrder.cspOrderStatus = _getTradeOrderCspStatus(tradeOrder);
+      tradeOrder.canBeCancelled = _determineIfTradeOrderCanBeCancelled(
+        tradeOrder
+      );
+
+      return tradeOrder;
     });
 
     return activePortfolioTradeOrders;

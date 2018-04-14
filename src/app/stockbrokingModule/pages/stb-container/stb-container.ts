@@ -39,7 +39,7 @@ export class StbContainerPage {
   public showHeader: boolean = true;
   public refreshUserData: any;
   public user: IUserState;
-  static userDataUpdateInterval: number = 30000;
+  static userDataUpdateInterval: number = 5000;
 
   @ViewChild("stbTabs") stbTabs: Tabs;
 
@@ -67,14 +67,15 @@ export class StbContainerPage {
      * This includes stb, FI, sma and cash data. The authActionDispatcher (called after
      * )
      */
-    updateUserData = setInterval(() => {
+    this.refreshUserData = setInterval(() => {
       this.updateUserData();
     }, StbContainerPage.userDataUpdateInterval);
   }
 
   ionViewWillLeave() {
-    if (updateUserData) {
-      clearInterval(updateUserData);
+    if (this.refreshUserData) {
+      clearInterval(this.refreshUserData._id);
+      this.refreshUserData = null;
     }
   }
 
@@ -97,7 +98,6 @@ export class StbContainerPage {
    * @memberof StbContainerPage
    */
   updateUserData() {
-    console.log("Update code called");
     this.authProvider.getUserData(this.user.id).subscribe(
       response => {
         this.authActionDispatcher.updateUserDataInStore(response);
