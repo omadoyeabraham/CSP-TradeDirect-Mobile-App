@@ -28,7 +28,7 @@ export class StbTradeHistoryContainerPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<IAppState>
-  ) { }
+  ) {}
 
   ionViewDidLoad() {
     // Subscribe to trade orders from the store
@@ -39,9 +39,8 @@ export class StbTradeHistoryContainerPage {
     // Subscribe to outstanding trade orders from the store
     this.store
       .select(getActivePortfolioOutstandingTradeOrders)
-      .subscribe(
-        outstandingTradeOrders =>
-          (this.outstandingTradeOrders = outstandingTradeOrders)
-      );
+      .subscribe(outstandingTradeOrders => {
+        this.outstandingTradeOrders = outstandingTradeOrders;
+      });
   }
 }
