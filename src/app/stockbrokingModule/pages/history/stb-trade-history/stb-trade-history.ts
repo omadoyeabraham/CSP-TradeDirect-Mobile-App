@@ -10,6 +10,7 @@ import {
 } from "../../../../store/models";
 import { Store } from "@ngrx/store";
 import { UtilityProvider } from "../../../../sharedModule/services/utility/utility";
+import { TradeOrderProvider } from "../../../providers/trade-order/trade-order";
 
 /**
  * Component for display trade order history
@@ -30,53 +31,53 @@ export class StbTradeHistoryComponent implements OnInit {
 
   constructor(
     private tradeOrderActionsDispatcher: TradeOrderActionsDispatcher,
+    private tradeOrderProvider: TradeOrderProvider,
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
     private utilityProvider: UtilityProvider,
     private store: Store<IAppState>
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.store
-      .select(getTradeOrderCancellationState)
-      .subscribe((cancellationState: ITradeOrderCancellationState) => {
-        // Show the spinner when cancelling the trade order
-        if (cancellationState.isCancelling) {
-          this.isCancellingTradeOrder = this.loadingCtrl.create({
-            content: "Cancelling trade order..."
-          });
-
-          this.isCancellingTradeOrder.present();
-        } else if (
-          !cancellationState.cancellationFailed &&
-          cancellationState.cancelledSuccessfully
-        ) {
-          // The order was cancelled successfully
-          if (this.isCancellingTradeOrder) {
-            // Dismiss the loader;
-            this.isCancellingTradeOrder.dismiss();
-          }
-          // Show the success message
-          this.utilityProvider.presentToast(
-            "Trade order cancelled successfully",
-            "toastSuccess"
-          );
-        } else if (
-          cancellationState.cancellationFailed &&
-          !cancellationState.cancelledSuccessfully
-        ) {
-          // The order cancellation failed
-          if (this.isCancellingTradeOrder) {
-            // Dismiss the loader;
-            this.isCancellingTradeOrder.dismiss();
-          }
-          // Show the success message
-          this.utilityProvider.presentToast(
-            "Trade order cancellation failed",
-            "toastError"
-          );
-        }
-      });
+    // this.store
+    //   .select(getTradeOrderCancellationState)
+    //   .subscribe((cancellationState: ITradeOrderCancellationState) => {
+    //     // Show the spinner when cancelling the trade order
+    //     if (cancellationState.isCancelling) {
+    //       this.isCancellingTradeOrder = this.loadingCtrl.create({
+    //         content: "Cancelling trade order..."
+    //       });
+    //       this.isCancellingTradeOrder.present();
+    //     } else if (
+    //       !cancellationState.cancellationFailed &&
+    //       cancellationState.cancelledSuccessfully
+    //     ) {
+    //       // The order was cancelled successfully
+    //       if (this.isCancellingTradeOrder) {
+    //         // Dismiss the loader;
+    //         this.isCancellingTradeOrder.dismiss();
+    //       }
+    //       // Show the success message
+    //       this.utilityProvider.presentToast(
+    //         "Trade order cancelled successfully",
+    //         "toastSuccess"
+    //       );
+    //     } else if (
+    //       cancellationState.cancellationFailed &&
+    //       !cancellationState.cancelledSuccessfully
+    //     ) {
+    //       // The order cancellation failed
+    //       if (this.isCancellingTradeOrder) {
+    //         // Dismiss the loader;
+    //         this.isCancellingTradeOrder.dismiss();
+    //       }
+    //       // Show the success message
+    //       this.utilityProvider.presentToast(
+    //         "Trade order cancellation failed",
+    //         "toastError"
+    //       );
+    //     }
+    //   });
   }
 
   /**
@@ -89,7 +90,34 @@ export class StbTradeHistoryComponent implements OnInit {
    * @memberof StbTradeHistoryComponent
    */
   cancelTradeOrder(tradeOrderID: number) {
-    this.tradeOrderActionsDispatcher.cancelTradeOrder(tradeOrderID);
+    // this.tradeOrderActionsDispatcher.cancelTradeOrder(tradeOrderID);
+
+    this.isCancellingTradeOrder = this.loadingCtrl.create({
+      content: "Cancelling trade order..."
+    });
+    this.isCancellingTradeOrder.present();
+
+    this.tradeOrderProvider.cancelTradeOrder(tradeOrderID).subscribe(
+      response => {
+        this.dismissCancelTradeOrderLoader();
+        // Show the success message
+        this.utilityProvider.presentToast(
+          "Trade order cancelled successfully",
+          "toastSuccess"
+        );
+
+        // Refresh the trade history
+        this.tradeOrderActionsDispatcher.getTradeOrderHistory();
+      },
+      err => {
+        this.dismissCancelTradeOrderLoader();
+        // Show the success message
+        this.utilityProvider.presentToast(
+          "Trade order cancellation failed",
+          "toastError"
+        );
+      }
+    );
   }
 
   /**
@@ -117,5 +145,12 @@ export class StbTradeHistoryComponent implements OnInit {
     });
 
     confirm.present();
+  }
+
+  dismissCancelTradeOrderLoader() {
+    if (this.isCancellingTradeOrder) {
+      // Dismiss the loader;
+      this.isCancellingTradeOrder.dismiss();
+    }
   }
 }

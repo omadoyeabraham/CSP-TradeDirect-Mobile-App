@@ -11,6 +11,10 @@
 
 
 <ion-content no-padding class="stbTradeHistoryPageWrapper">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Updating trade history...">
+    </ion-refresher-content>
+  </ion-refresher>
   <csmobile-switch-portfolio [showCashAvailableForTrading]="false" [showTotalValue]="true" [hidden]="hideSwitchPortfolio">
   </csmobile-switch-portfolio>
   <csmobile-stb-trade-history [tradeOrders]="tradeOrders" [outstandingTradeOrders]="outstandingTradeOrders"></csmobile-stb-trade-history>
