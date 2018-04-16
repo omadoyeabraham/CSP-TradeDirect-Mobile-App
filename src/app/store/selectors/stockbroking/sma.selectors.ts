@@ -80,9 +80,13 @@ export const smaFiTotalValue = createSelector(
 export const smaEquityTotalValue = createSelector(
   smaHoldings,
   (holdings: IPortfolioHolding[]) => {
-    const totalValue = holdings.reduce((acc, holding) => {
-      return acc + parseFloat(holding.marketValue);
-    }, 0);
+    let totalValue = 0;
+
+    if (holdings) {
+      totalValue = holdings.reduce((acc, holding) => {
+        return acc + parseFloat(holding.marketValue);
+      }, 0);
+    }
 
     return totalValue;
   }
