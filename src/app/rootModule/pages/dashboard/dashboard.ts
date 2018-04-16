@@ -13,7 +13,8 @@ import {
   getTotalValueOfFxInvestments,
   getStbPortfolios,
   getTotalSmaEquityValue,
-  smaFiTotalValue
+  smaFiTotalValue,
+  smaEquityTotalValue
 } from "../../../store";
 import { ChartsProvider } from "../../../stockbrokingModule/providers/charts/charts";
 
@@ -81,7 +82,7 @@ export class DashboardPage {
       });
 
     // Get the total value of sma equity investments
-    this.store.select(getTotalSmaEquityValue).subscribe(totalSmaEquityValue => {
+    this.store.select(smaEquityTotalValue).subscribe(totalSmaEquityValue => {
       this.totalSmaEquityValue = totalSmaEquityValue;
       this.updateTotalSmaValue();
     });
@@ -141,7 +142,10 @@ export class DashboardPage {
    */
   updateTotalNairaValue() {
     this.totalNairaValue =
-      this.totalFiValue + this.totalStbValue + this.totalNairaCashValue;
+      this.totalFiValue +
+      this.totalStbValue +
+      this.totalNairaCashValue +
+      this.totalSmaValue;
   }
 
   /**

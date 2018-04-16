@@ -63,7 +63,7 @@ export class StbContainerPage {
     this.getUserState();
 
     /**
-     * Setup the interval (30 seconds) that intermittently updates the user's data.
+     * Setup the interval (15 seconds) that intermittently updates the user's data.
      * This includes stb, FI, sma and cash data. The authActionDispatcher (called after
      * )
      */
@@ -98,6 +98,7 @@ export class StbContainerPage {
    * @memberof StbContainerPage
    */
   updateUserData() {
+    // Update the user data
     this.authProvider.getUserData(this.user.id).subscribe(
       response => {
         this.authActionDispatcher.updateUserDataInStore(response);

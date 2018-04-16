@@ -73,3 +73,17 @@ export const smaFiTotalValue = createSelector(
     return totalValue;
   }
 );
+
+/**
+ * Get the total value of the sma equity investments
+ */
+export const smaEquityTotalValue = createSelector(
+  smaHoldings,
+  (holdings: IPortfolioHolding[]) => {
+    const totalValue = holdings.reduce((acc, holding) => {
+      return acc + parseFloat(holding.marketValue);
+    }, 0);
+
+    return totalValue;
+  }
+);
