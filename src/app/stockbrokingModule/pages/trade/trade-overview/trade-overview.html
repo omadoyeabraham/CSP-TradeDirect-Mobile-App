@@ -5,19 +5,19 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons right>
+    <!-- <ion-buttons right>
       <ion-toolbar color="primary">
         <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput()"></ion-searchbar>
       </ion-toolbar>
-    </ion-buttons>
-    <!-- <ion-title>Trade Overview</ion-title> -->
+    </ion-buttons> -->
+    <ion-title>Trade Overview</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
 
-  <!-- <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearchInput()" class="mt55">
-  </ion-searchbar> -->
+  <ion-searchbar ion-fixed [(ngModel)]="searchTerm" (ionInput)="onSearchInput()" class="mtt55">
+  </ion-searchbar>
 
   <ion-grid *ngFor="let security of filteredSecurities">
     <ion-row (click)="goToSecurityOverview(security.name)">
