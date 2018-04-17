@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 import * as PAGES from "../../../sharedModule/pages.constants";
 import * as Highcharts from "highcharts";
-import { IAppState } from "../../../store/models";
+import { IAppState, IUserState } from "../../../store/models";
 import { Store } from "@ngrx/store";
 import {
   getTotalStockbrokingValue,
@@ -14,9 +14,14 @@ import {
   getStbPortfolios,
   getTotalSmaEquityValue,
   smaFiTotalValue,
-  smaEquityTotalValue
+  smaEquityTotalValue,
+  getUserState,
+  getActivePortfolio,
+  AuthActionDispatcher
 } from "../../../store";
 import { ChartsProvider } from "../../../stockbrokingModule/providers/charts/charts";
+import { IPortfolio } from "../../../stockbrokingModule/models";
+import { AuthProvider } from "../../../sharedModule/services/auth/auth";
 
 /**
  *
@@ -50,15 +55,19 @@ export class DashboardPage {
   public chartData: any = {};
 
   public userHasStb: boolean = true;
+  public user: IUserState;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<IAppState>,
-    public chartsProvider: ChartsProvider
+    public chartsProvider: ChartsProvider,
+    public authProvider: AuthProvider,
+    public authActionDispatcher: AuthActionDispatcher
   ) {}
 
   ionViewDidLoad() {
+    this.getUserState();
     this.store.select(getStbPortfolios).subscribe(portfolios => {
       if (portfolios.length === 0) {
         this.userHasStb = false;
@@ -69,7 +78,6 @@ export class DashboardPage {
 
     // Get the total value of stockbroking investments
     this.store.select(getTotalStockbrokingValue).subscribe(totalStbValue => {
-      console.log(totalStbValue);
       this.totalStbValue = totalStbValue;
       this.updateTotalNairaValue();
     });
@@ -203,5 +211,41 @@ export class DashboardPage {
     });
 
     this.chartData = this.chartsProvider.getCspDefinedPieChart(chartData);
+  }
+
+  getUserState() {
+    this.store
+      .select(getUserState)
+      .subscribe(userState => (this.user = userState));
+  }
+
+  /**
+   * Refresh the user's stockbroking data
+   *
+   * @param {any} refresher
+   * @memberof StbTradeHistoryContainerPage
+   */
+  doRefresh(refresher) {
+    // Update the user data
+    this.authProvider.getUserData(this.user.id).subscribe(
+      response => {
+        let activePortfolioID: number;
+        this.store
+          .select(getActivePortfolio)
+          .subscribe((portfolio: IPortfolio) => {
+            activePortfolioID = portfolio.id;
+          });
+
+        this.authActionDispatcher.updateUserDataInStore(
+          response,
+          activePortfolioID
+        );
+        refresher.complete();
+      },
+      err => {
+        console.log(err);
+        refresher.cancel();
+      }
+    );
   }
 }
