@@ -17,6 +17,10 @@
 
 
 <ion-content no-padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Updating Data...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <div id="dashboard--wrapper" class="h100p">
     <!-- Naira Investments -->
