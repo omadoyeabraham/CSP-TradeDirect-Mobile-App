@@ -104,7 +104,6 @@ export class StbContainerPage {
     this.authProvider.getUserData(this.user.id).subscribe(
       response => {
         let activePortfolioID: number;
-
         this.store
           .select(getActivePortfolio)
           .subscribe((portfolio: IPortfolio) => {

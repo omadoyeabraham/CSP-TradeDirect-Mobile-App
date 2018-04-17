@@ -69,6 +69,7 @@ export class DashboardPage {
 
     // Get the total value of stockbroking investments
     this.store.select(getTotalStockbrokingValue).subscribe(totalStbValue => {
+      console.log(totalStbValue);
       this.totalStbValue = totalStbValue;
       this.updateTotalNairaValue();
     });

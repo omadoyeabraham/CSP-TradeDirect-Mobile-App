@@ -125,8 +125,9 @@ export class MyApp {
    * @memberof MyApp
    */
   logout() {
-    this.store.dispatch(new authActions.Logout());
-
+    try {
+      this.store.dispatch(new authActions.Logout());
+    } catch (e) {}
     // Navigate back to the homepage, after logging out
     setTimeout(() => {
       this.nav.setRoot(PAGES.HOME_PAGE);
