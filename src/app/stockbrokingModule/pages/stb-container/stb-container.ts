@@ -7,10 +7,12 @@ import { Store } from "@ngrx/store";
 import {
   getSelectedPage,
   getUserState,
-  AuthActionDispatcher
+  AuthActionDispatcher,
+  getActivePortfolio
 } from "../../../store";
 import { setInterval } from "timers";
 import { AuthProvider } from "../../../sharedModule/services/auth/auth";
+import { IPortfolio } from "../../models";
 
 let updateUserData;
 
@@ -101,7 +103,18 @@ export class StbContainerPage {
     // Update the user data
     this.authProvider.getUserData(this.user.id).subscribe(
       response => {
-        this.authActionDispatcher.updateUserDataInStore(response);
+        let activePortfolioID: number;
+
+        this.store
+          .select(getActivePortfolio)
+          .subscribe((portfolio: IPortfolio) => {
+            activePortfolioID = portfolio.id;
+          });
+
+        this.authActionDispatcher.updateUserDataInStore(
+          response,
+          activePortfolioID
+        );
       },
       err => {
         console.log(err);

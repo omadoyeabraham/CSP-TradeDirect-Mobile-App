@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
+<<<<<<< HEAD
 <widget id="com.cardinalstone.csmobile" version="3.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+=======
+<widget id="com.cardinalstone.csmtradedirect" version="3.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+>>>>>>> c69c3d8... resolved issue with active portfolio not showing periodically updated values on the summary page
     <name>csmobile</name>
     <description>
         An application that enables clients trade directly on the Nigerian Stock Exchange as well as monitor their other investments within the CardinalStone entity.
@@ -95,6 +99,7 @@
     <allow-navigation href="http://192.168.43.113:8101" />
     <allow-navigation href="http://192.168.15.77:8101" />
     <allow-navigation href="http://192.168.15.77:8100" />
+    <allow-navigation href="http://192.168.15.242:8100" />
     <engine name="android" spec="^7.0.0" />
     <engine name="ios" spec="4.5.4" />
 </widget>
