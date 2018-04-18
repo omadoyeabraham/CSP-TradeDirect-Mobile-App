@@ -44,7 +44,7 @@ export class SecurityOverviewPage {
   public shouldSell: boolean = false;
   public marketSecurities: Array<ISecurity>;
   public refreshSecurityMarketData: any;
-  public static updateSecurityMarketDataInterval: number = 5000;
+  static updateSecurityMarketDataInterval: number = 5000;
 
   constructor(
     public navCtrl: NavController,
@@ -60,14 +60,14 @@ export class SecurityOverviewPage {
     this.navCtrl.pop();
   }
 
-  ionViewWillLoad() {
+  ionViewWillEnter() {
     this.getSelectedSecurity();
 
     /**
      * Setup the interval (5 seconds) that intermittently updates the market data for the selected security
      * )
      */
-    setInterval(() => {
+    this.refreshSecurityMarketData = setInterval(() => {
       this.updateSelectedSecurityMarketData();
     }, SecurityOverviewPage.updateSecurityMarketDataInterval);
   }
@@ -78,7 +78,7 @@ export class SecurityOverviewPage {
      * before leaving this page
      */
     if (this.refreshSecurityMarketData) {
-      clearInterval(this.refreshSecurityMarketData._id);
+      clearInterval(this.refreshSecurityMarketData);
       this.refreshSecurityMarketData = null;
     }
   }
@@ -109,7 +109,10 @@ export class SecurityOverviewPage {
             graphData
           );
           setTimeout(() => {
-            Highcharts.chart("priceMovementGraph", this.securityGraphData);
+            const chartDiv = document.querySelector("#priceMovementGraph");
+            if (chartDiv) {
+              Highcharts.chart("priceMovementGraph", this.securityGraphData);
+            }
           }, 1000);
 
           // Get only 10 trades to be displayed
@@ -172,6 +175,7 @@ export class SecurityOverviewPage {
    * @memberof SecurityOverviewPage
    */
   updateSelectedSecurityMarketData() {
+    console.log("Called");
     this.securitiesProvider
       .getSelectedSecurityMarketData(this.security.name)
       .subscribe(
