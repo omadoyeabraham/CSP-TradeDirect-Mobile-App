@@ -18,6 +18,7 @@ import { ISecurity } from "../../../models";
 import { ChartsProvider } from "../../../providers/charts/charts";
 import * as pages from "../../../../sharedModule/pages.constants";
 import { SecuritiesActionsDispatcher } from "../../../../store/actions/stockbroking/securities.actions";
+import { SecuritiesProvider } from "../../../../sharedModule/services/securities/securities";
 
 /**
  * The page which shows the overview for the security selected on the trade overview page
@@ -42,6 +43,8 @@ export class SecurityOverviewPage {
   public uniquePortfolioHoldings: Array<string>;
   public shouldSell: boolean = false;
   public marketSecurities: Array<ISecurity>;
+  public refreshSecurityMarketData: any;
+  public static updateSecurityMarketDataInterval: number = 5000;
 
   constructor(
     public navCtrl: NavController,
@@ -49,11 +52,35 @@ export class SecurityOverviewPage {
     public store: Store<IAppState>,
     public chartsProvider: ChartsProvider,
     public selectedPageActionDispatcher: SelectedPageActionsDispatcher,
-    public securitiesActionsDispatcher: SecuritiesActionsDispatcher
+    public securitiesActionsDispatcher: SecuritiesActionsDispatcher,
+    public securitiesProvider: SecuritiesProvider
   ) {}
 
   goBack() {
     this.navCtrl.pop();
+  }
+
+  ionViewWillLoad() {
+    this.getSelectedSecurity();
+
+    /**
+     * Setup the interval (5 seconds) that intermittently updates the market data for the selected security
+     * )
+     */
+    setInterval(() => {
+      this.updateSelectedSecurityMarketData();
+    }, SecurityOverviewPage.updateSecurityMarketDataInterval);
+  }
+
+  ionViewWillLeave() {
+    /**
+     * Clear the setInterval call used to periodically update the selected securities market data
+     * before leaving this page
+     */
+    if (this.refreshSecurityMarketData) {
+      clearInterval(this.refreshSecurityMarketData._id);
+      this.refreshSecurityMarketData = null;
+    }
   }
 
   ionViewDidLoad() {
@@ -61,9 +88,7 @@ export class SecurityOverviewPage {
       showHeader: false
     });
 
-    this.store
-      .select(getSelectedSecurityOnOverviewPage)
-      .subscribe(security => (this.security = security));
+    this.getSelectedSecurity();
 
     // Subscribe to store and get marketdata for the selected security
     this.store
@@ -128,6 +153,45 @@ export class SecurityOverviewPage {
           this.shouldSell = false;
         }
       });
+  }
+
+  /**
+   * Get the security selected, and currently being overviewed
+   *
+   * @memberof SecurityOverviewPage
+   */
+  getSelectedSecurity() {
+    this.store
+      .select(getSelectedSecurityOnOverviewPage)
+      .subscribe(security => (this.security = security));
+  }
+
+  /**
+   * Get updated data for the security selected on this page
+   *
+   * @memberof SecurityOverviewPage
+   */
+  updateSelectedSecurityMarketData() {
+    this.securitiesProvider
+      .getSelectedSecurityMarketData(this.security.name)
+      .subscribe(
+        response => {
+          this.securitiesActionsDispatcher.saveSelectedSecurityOnOverviewPageMarketDataToStore(
+            response
+          );
+        },
+        err => {
+          console.log(err);
+        }
+      );
+
+    // .pipe(
+    //   switchMap(securityMarketData => [
+    //     new securityActions.saveSelectedSecurityOnOverviewPageMarketDataToStore(
+    //       securityMarketData
+    //     )
+    //   ])
+    // );
   }
 
   /**
