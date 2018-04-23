@@ -13,6 +13,7 @@ import * as TradeOrderActions from "../../actions/stockbroking/tradeOrder.action
 import * as MarketDataActions from "../../actions/stockbroking/marketdata.actions";
 import * as CashAccountActions from "../../actions/cash/cash.actions";
 import * as SmaActions from "../../actions/stockbroking/sma.actions";
+import { IPortfolio } from "../../../stockbrokingModule/models";
 
 /**
  * Action type constants for all auth specific actions
@@ -193,9 +194,10 @@ export class AuthActionDispatcher {
    * Update the user's info in the store
    *
    * @param {any} userData
+   * @param {number} activePortfolioID
    * @memberof AuthActionDispatcher
    */
-  updateUserDataInStore(userData) {
+  updateUserDataInStore(userData, activePortfolioID) {
     // Check to set sma holdings if user has no SMA
     if (!userData.STB.MANAGED[0]) {
       userData.STB.MANAGED.push({});
@@ -214,11 +216,28 @@ export class AuthActionDispatcher {
       return investment;
     });
 
+    // Get the active portfolio data (filtered from all portfolios), so the store can be updated
+    const activePortfolio = userData.STB.EXCHANGE.filter(
+      (portfolio: IPortfolio) => {
+        return portfolio.id === activePortfolioID;
+      }
+    )[0];
+
     this.store.dispatch(new MarketDataActions.GetMarketData());
     this.store.dispatch(new SecurityActions.getSecurities());
     this.store.dispatch(
       new StockbrokingPortfolioActions.SaveStbPortfoliosToStore(
         userData.STB.EXCHANGE
+      )
+    );
+    this.store.dispatch(
+      new StockbrokingPortfolioActions.SetActivePortfolioInStore(
+        activePortfolio
+      )
+    );
+    this.store.dispatch(
+      new StockbrokingPortfolioActions.SetActivePortfolioMetaData(
+        activePortfolio
       )
     );
     this.store.dispatch(

@@ -26,8 +26,8 @@
                 <strong>{{ stockHolding?.securityName }}</strong>
               </ion-col>
               <ion-col class="font-size-12 align-right">
-                Gain/Loss:
-                <csmobile-format-number-with-color [data]="stockHolding?.percentGain" [showCurrency]="true"></csmobile-format-number-with-color>
+                Gain/Loss(%):
+                <csmobile-format-number-with-color [data]="stockHolding?.percentGain" [showCurrency]="false"></csmobile-format-number-with-color>
               </ion-col>
             </ion-row>
             <ion-row>
