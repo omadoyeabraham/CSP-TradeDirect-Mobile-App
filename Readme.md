@@ -8,9 +8,9 @@
         + side effects dispatch actions based on response from http services
     + reducers handle actions dispatched from side effects -->
 
-    # CSP TradeDirect Mobile App
+# CSP TradeDirect Mobile App
 
-    This is a hybrid mobile application developed for a top investment bank in Nigeria to enable investors trade stocks on the Nigerian Stock Exchange and manage their investment portfolios. Investors are able to carry out the following actions using the investment application:
+This is a hybrid mobile application developed for a top investment bank in Nigeria to enable investors trade stocks on the Nigerian Stock Exchange and manage their investment portfolios. Investors are able to carry out the following actions using the investment application:
 
 - Trade Stocks on the Nigerian Stock Exchange
 - View stock and bond portfolio holdings
